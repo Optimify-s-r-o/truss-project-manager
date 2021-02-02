@@ -98,6 +98,8 @@ const  createWindow =()=> {
 app.on('ready', function()  {
   log.info('App ready ...');
   createWindow();
+  autoUpdater.checkForUpdates();
+  log.info('Update function end');
 });
 
 /**
@@ -121,10 +123,7 @@ app.on("activate", () => {
 /**
  * Auto updater
  */
-app.on('ready', function()  {
-  log.info('checkForUpdates');
-  autoUpdater.checkForUpdates();
-});
+
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Checking for update...');
 })

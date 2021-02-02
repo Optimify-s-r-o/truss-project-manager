@@ -1,6 +1,6 @@
 {
   "name": "truss-project-manager",
-  "version": "v0.0.9",
+  "version": "v0.0.10",
   "productName": "Truss Project Manager",
   "description": "Truss Project Manager",
   "main": "public/electron.js",
@@ -38,6 +38,7 @@
     "connected-react-router": "^6.8.0",
     "date-fns": "^2.16.1",
     "electron-debug": "^3.2.0",
+    "electron-devtools-installer": "^3.1.1",
     "electron-is-dev": "^1.2.0",
     "electron-localshortcut": "^3.2.1",
     "electron-log": "^4.3.1",
@@ -98,7 +99,7 @@
     "eject": "react-scripts eject",
     "dev": "concurrently -k \"npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "package": "set GH_TOKEN=3defc33d6805371118fb3a92399e275551b1e0c6 && npm run build:dev && electron-builder build --win -p always"
+    "package": "npm run build:dev && set GH_TOKEN=6375652e6b6860fe567bef8b0221ae20d16a2f58 &&  electron-builder build --win -p always"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -193,7 +194,6 @@
     "concurrently": "^5.3.0",
     "electron": "^11.2.1",
     "electron-builder": "^22.10.4",
-    "electron-devtools-installer": "^3.1.1",
     "redux-logger": "^3.0.6",
     "wait-on": "^5.2.1"
   },
