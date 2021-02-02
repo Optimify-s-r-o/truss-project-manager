@@ -1,6 +1,6 @@
 {
   "name": "truss-project-manager",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "productName": "Truss Project Manager",
   "description": "Truss Project Manager",
   "main": "public/electron.js",
@@ -99,7 +99,9 @@
     "eject": "react-scripts eject",
     "dev": "concurrently -k \"npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "package": "npm run build:dev && set GH_TOKEN=6375652e6b6860fe567bef8b0221ae20d16a2f58 &&  electron-builder build --win -p always"
+    "package": "npm run build:dev && set GH_TOKEN=6375652e6b6860fe567bef8b0221ae20d16a2f58 &&  electron-builder build --win -p always",
+    "postinstall": "electron-builder install-app-deps",
+		"release": "electron-builder --windows --publish always"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -146,7 +148,8 @@
       {
         "provider": "github",
          "owner": "Optimify-s-r-o",
-         "repo": "truss-project-manager"
+         "repo": "truss-project-manager",
+         "releaseType": "release"
       }
     ],
     "win": {
