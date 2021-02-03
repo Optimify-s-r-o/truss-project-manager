@@ -74,15 +74,16 @@ const  createWindow =()=> {
   } 
 
   const store = new Store();
-  if (fs.existsSync(Truss3DExe)) {
+  const truss3DExe ='C:\\Program Files (x86)\\Fine\\TRUSS4\\v1\\Truss3D_4_CS.exe'
+  if (fs.existsSync(truss3DExe)) {
     if (!store.get('truss3DExePath')) {
-      store.set('truss3DExePath',  'C:\\Program Files (x86)\\Fine\\TRUSS4\\v1\\Truss3D_4_CS.exe');
+      store.set('truss3DExePath', truss3DExe);
     }
   }
-
-  if (fs.existsSync(Truss2DExe)) {
+  const truss2DExe ='C:\\Program Files (x86)\\Fine\\TRUSS4\\v1\\Truss2D_4_CS.exe';
+  if (fs.existsSync(truss2DExe)) {
     if (!store.get('truss2DExePath')) {
-      store.set('truss2DExePath', 'C:\\Program Files (x86)\\Fine\\TRUSS4\\v1\\Truss2D_4_CS.exe');
+      store.set('truss2DExePath', truss2DExe);
     }
   }
 
@@ -98,7 +99,8 @@ const  createWindow =()=> {
 app.on('ready', function()  {
   log.info('App ready ...');
   createWindow();
-  autoUpdater.checkForUpdates();
+  log.info('Update function start');
+  autoUpdater.checkForUpdatesAndNotify();
   log.info('Update function end');
 });
 
