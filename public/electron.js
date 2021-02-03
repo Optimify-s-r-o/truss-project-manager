@@ -1,11 +1,12 @@
 const path = require("path");
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const isDev = require("electron-is-dev");
 const execFile = require('child_process').execFile;
 const Store = require('electron-store');
 const fs = require('fs');
 const { autoUpdater } = require("electron-updater")
 const log = require('electron-log');
+
 /**
  * Start local api
  */
@@ -90,6 +91,11 @@ const  createWindow =()=> {
   win.webContents.on('new-window', function (e, url) {
     e.preventDefault();
   });
+
+  ipcMain.on('version', () => {
+    win.webContents.send('get-version', '1.1.1');
+  });
+
   log.info('Window created ...');
 }
 
@@ -129,9 +135,26 @@ app.on("activate", () => {
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Checking for update...');
 })
-autoUpdater.on('update-available', (info) => {
+
+autoUpdater.on('update-available', () => {
   sendStatusToWindow('Update available.');
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'Found Updates',
+    message: 'Found updates, do you want update now?',
+    buttons: ['Sure', 'No']
+  }, (buttonIndex) => {
+    if (buttonIndex === 0) {
+      autoUpdater.downloadUpdate()
+    }
+    else {
+      updater.enabled = true
+      updater = null
+    }
+  })
 })
+
+
 autoUpdater.on('update-not-available', (info) => {
   sendStatusToWindow('Update not available.');
 })
@@ -146,9 +169,15 @@ autoUpdater.on('download-progress', (progressObj) => {
 })
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Update downloaded');
+  dialog.showMessageBox({
+    title: 'Install Updates',
+    message: 'Updates downloaded, application will be quit for update...'
+  }, () => {
+    setImmediate(() => autoUpdater.quitAndInstall())
+  })
 });
 
 const sendStatusToWindow =(text) =>{
   log.info(text);
-  //win.webContents.send('message', text);
+  win?.webContents?.send('ping', text)
 }

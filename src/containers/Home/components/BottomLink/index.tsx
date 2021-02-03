@@ -84,6 +84,11 @@ const Index = (_props: WithTranslation) => {
 		setMessage(`${t(translationPath(lang.common.termsText))}`);
 	};
 
+	const getVersion = () => {
+		const { app } = require("electron");
+		return app.getVersion();
+	};
+
 	return (
 		<Container>
 			<Inline>
@@ -103,7 +108,7 @@ const Index = (_props: WithTranslation) => {
 					setOpen={setOpen}
 				/>
 			</Inline>
-			<Version>BETA: v0.0.27</Version>
+			<Version>v{getVersion()}</Version>
 		</Container>
 	);
 };

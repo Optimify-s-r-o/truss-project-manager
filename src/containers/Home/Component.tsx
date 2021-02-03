@@ -68,9 +68,12 @@ const Index = (
 	React.useEffect(() => {
 		const electron = window.require("electron");
 		const fs = electron.remote.require("fs");
-		electron.ipcRenderer.on("message", (event, text) => {
+		console.log("1");
+		electron.ipcRenderer.on("ping", (event, text) => {
 			console.log(text);
+			console.log("3");
 		});
+		console.log("2");
 	}, []);
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

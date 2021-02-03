@@ -1,6 +1,6 @@
 {
   "name": "truss-project-manager",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "productName": "Truss Project Manager",
   "description": "Truss Project Manager",
   "main": "public/electron.js",
@@ -27,7 +27,7 @@
     "@types/react-redux": "^7.1.16",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
-    "@types/react-select": "^4.0.14",
+    "@types/react-select": "^4.0.12",
     "@types/react-test-renderer": "^17.0.0",
     "@types/react-toast-notifications": "^2.4.0",
     "@types/redux-logger": "^3.0.8",
