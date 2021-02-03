@@ -20,13 +20,13 @@ jobs:
 
       - name: Deploy staging
         if: github.ref == 'refs/heads/develop'
-        run: npm run release:dev
+        run: npm run release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Deploy production
         if: github.ref == 'refs/heads/master'
-        run: npm run release:prod
+        run: npm run release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 

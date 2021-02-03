@@ -1,7 +1,5 @@
 
- ![](https://github.com/Optimify-s-r-o/truss-project-manager/workflows/Continuous%20Integration/badge.svg)
-
- ![](https://github.com/Optimify-s-r-o/truss-project-manager/workflows/Continuous%20Deployment/badge.svg)
+ ![](https://github.com/Optimify-s-r-o/truss-project-manager/workflows/Continuous%20Integration/badge.svg) ![](https://github.com/Optimify-s-r-o/truss-project-manager/workflows/Continuous%20Deployment/badge.svg)
 
 [![Truss Logo](https://truss-mysql-installer.s3.eu-central-1.amazonaws.com/logo256.png)](https://fine.cz)
   # TRUSS Project Manager
