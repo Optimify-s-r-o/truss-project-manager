@@ -41,7 +41,6 @@ log.info('App starting...');
  * Create window
  */
 let win;
-let progressBar;
 const  createWindow =()=> {
   runApiServer();
   win = new BrowserWindow({
@@ -134,21 +133,8 @@ autoUpdater.on('update-available', () => {
     buttons: ['Yes', 'No']
   }, (buttonIndex) => {
     if (buttonIndex === 0) {
-      progressBar = new ProgressBar({
-        text: 'Updating application...',
-        detail: 'Wait...'
-      });
       autoUpdater.downloadUpdate();
-      progressBar
-      .on('completed', function() {
-        console.info(`completed...`);
-        progressBar.detail = 'Update completed. Restarting application.';
-      })
-      .on('aborted', function() {
-        console.info(`Aborted...`);
-      });
     }
-   
     else {
       updater.enabled = true
       updater = null
