@@ -96,7 +96,7 @@ const  createWindow =()=> {
     win.webContents.send('get-version', '1.1.1');
   });
 
-  mainWindow.once('ready-to-show', () => {
+  win.once('ready-to-show', () => {
     autoUpdater.checkForUpdates();
   });
 }
@@ -131,7 +131,7 @@ autoUpdater.on('update-available', () => {
     type: 'info',
     title: 'Found Updates',
     message: 'Found updates, do you want update now?',
-    buttons: ['Sure', 'No']
+    buttons: ['Yes', 'No']
   }, (buttonIndex) => {
     if (buttonIndex === 0) {
       autoUpdater.downloadUpdate()
@@ -160,12 +160,7 @@ autoUpdater.on('download-progress', (progressObj) => {
 
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Update downloaded');
-  dialog.showMessageBox({
-    title: 'Install Updates',
-    message: 'Updates downloaded, application will be quit for update...'
-  }, () => {
-    setImmediate(() => autoUpdater.quitAndInstall())
-  })
+  autoUpdater.quitAndInstall();
 });
 
 const sendStatusToWindow =(text) =>{

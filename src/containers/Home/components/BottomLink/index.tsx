@@ -13,6 +13,16 @@ const Index = (_props: WithTranslation) => {
 	const [open, setOpen] = React.useState(false);
 	const [title, setTitle] = React.useState("");
 	const [message, setMessage] = React.useState("");
+	const [version, setVersion] = React.useState("0.0.0");
+	React.useEffect(() => {
+		const electron = window.require("electron");
+		electron.ipcRenderer.send("app_version");
+		const fs = electron.remote.require("fs");
+		electron.ipcRenderer.on("app_version", (event, text) => {
+			console.log(text);
+			setVersion(text);
+		});
+	}, []);
 
 	const eula = `
     <h2>End-User License Agreement (EULA) of <span class="app_name">Truss Project Manager</span></h2>
@@ -109,7 +119,7 @@ const Index = (_props: WithTranslation) => {
 					setOpen={setOpen}
 				/>
 			</Inline>
-			<Version>v{getVersion()}</Version>
+			<Version>v{version}</Version>
 		</Container>
 	);
 };
