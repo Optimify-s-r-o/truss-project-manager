@@ -1,6 +1,6 @@
 {
   "name": "truss-project-manager",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "productName": "Truss Project Manager",
   "description": "Truss Project Manager",
   "main": "public/electron.js",
@@ -101,7 +101,7 @@
     "electron": "wait-on tcp:3000 && electron .",
     "package": "npm run build:dev && electron-builder build --win -p always",
     "postinstall": "electron-builder install-app-deps",
-		"release": "build"
+		"release": "build --win -p always"
   },
   "eslintConfig": {
     "extends": "react-app",
