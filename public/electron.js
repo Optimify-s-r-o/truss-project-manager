@@ -179,5 +179,5 @@ autoUpdater.on('update-downloaded', (info) => {
 
 const sendStatusToWindow =(text) =>{
   log.info(text);
-  win?.webContents?.send('ping', text)
+  // win?.webContents?.send('ping', text);
 }
