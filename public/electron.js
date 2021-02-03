@@ -96,41 +96,30 @@ const  createWindow =()=> {
     win.webContents.send('get-version', '1.1.1');
   });
 
-  log.info('Window created ...');
+  mainWindow.once('ready-to-show', () => {
+    autoUpdater.checkForUpdates();
+  });
 }
 
-/**
- * App is ready
- */
 app.on('ready', function()  {
-  log.info('App ready ...');
   createWindow();
-  log.info('Update function start');
-  autoUpdater.checkForUpdates();
-  log.info('Update function end');
 });
 
-/**
- * Window closed
- */
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-/**
- * Activate window
- */
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
 
-/**
- * Auto updater
- */
+ipcMain.on('app_version', (event) => {
+  event.sender.send('app_version', { version: app.getVersion() });
+});
 
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Checking for update...');
@@ -154,19 +143,21 @@ autoUpdater.on('update-available', () => {
   })
 })
 
-
 autoUpdater.on('update-not-available', (info) => {
   sendStatusToWindow('Update not available.');
 })
+
 autoUpdater.on('error', (err) => {
   sendStatusToWindow('Error in auto-updater. ' + err);
 })
+
 autoUpdater.on('download-progress', (progressObj) => {
   let log_message = "Download speed: " + progressObj.bytesPerSecond;
   log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
   log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
   sendStatusToWindow(log_message);
 })
+
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Update downloaded');
   dialog.showMessageBox({
@@ -179,5 +170,4 @@ autoUpdater.on('update-downloaded', (info) => {
 
 const sendStatusToWindow =(text) =>{
   log.info(text);
-  // win?.webContents?.send('ping', text);
 }

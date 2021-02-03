@@ -87,7 +87,7 @@ const Index = (_props: WithTranslation) => {
 	const getVersion = () => {
 		// const { app } = require("electron");
 		// return app.getVersion();
-		return "0.0.29";
+		return "0.0.30";
 	};
 
 	return (
