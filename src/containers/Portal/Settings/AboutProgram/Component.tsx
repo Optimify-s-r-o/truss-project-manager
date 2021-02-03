@@ -45,6 +45,17 @@ export const Component = ({}: StateProps & DispatchProps) => {
 		shell.openExternal("mailto:hotline@finesoftware.eu");
 	};
 
+	const [version, setVersion] = React.useState("0.0.0");
+
+	React.useEffect(() => {
+		const electron = window.require("electron");
+		electron.ipcRenderer.send("app_version");
+		const fs = electron.remote.require("fs");
+		electron.ipcRenderer.on("app_version", (event, text) => {
+			setVersion(text?.version);
+		});
+	}, []);
+
 	return (
 		<MainTree>
 			<PageHeader>
@@ -75,7 +86,7 @@ export const Component = ({}: StateProps & DispatchProps) => {
 											translationPath(lang.settings.programVersion).path
 										)}
 										unit={UnitType.EMPTY}
-										data={<div>BETA: v0.0.3</div>}
+										data={<div>v{version}</div>}
 									/>
 									<Data
 										title={"Hotline"}

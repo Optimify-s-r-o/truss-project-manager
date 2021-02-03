@@ -41,6 +41,7 @@
     "electron-is-dev": "^1.2.0",
     "electron-localshortcut": "^3.2.1",
     "electron-log": "^4.3.1",
+    "electron-progressbar": "^2.0.0",
     "electron-store": "^6.0.1",
     "electron-updater": "^4.3.5",
     "env-cmd": "^10.1.0",
@@ -145,9 +146,9 @@
     "publish": [
       {
         "provider": "github",
-         "owner": "Optimify-s-r-o",
-         "repo": "truss-project-manager",
-         "releaseType": "draft"
+        "owner": "Optimify-s-r-o",
+        "repo": "truss-project-manager",
+        "releaseType": "draft"
       }
     ],
     "win": {
@@ -161,7 +162,9 @@
           ]
         }
       ],
-      "publish": ["github"],
+      "publish": [
+        "github"
+      ],
       "icon": "./public/icon.ico"
     },
     "nsis": {

@@ -41,7 +41,6 @@ export const AddressInput = ({ formik, name }: IAddressInput) => {
 
 	const handleOk = () => {
 		setIsModalVisible(false);
-		console.log(location);
 		formik.setFieldValue(name, location);
 	};
 

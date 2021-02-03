@@ -20,7 +20,6 @@ const Index = (_props: WithTranslation) => {
 		electron.ipcRenderer.send("app_version");
 		const fs = electron.remote.require("fs");
 		electron.ipcRenderer.on("app_version", (event, text) => {
-			console.log(text);
 			setVersion(text?.version);
 		});
 	}, []);
