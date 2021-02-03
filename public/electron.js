@@ -41,6 +41,7 @@ log.info('App starting...');
  * Create window
  */
 let win;
+let progressBar;
 const  createWindow =()=> {
   runApiServer();
   win = new BrowserWindow({
@@ -134,7 +135,20 @@ autoUpdater.on('update-available', () => {
   }, (buttonIndex) => {
     if (buttonIndex === 0) {
       autoUpdater.downloadUpdate();
+      progressBar = new ProgressBar({
+        text: 'Updating application...',
+        detail: 'Wait...'
+      });
+      progressBar
+      .on('completed', function() {
+        console.info(`completed...`);
+        progressBar.detail = 'Update completed. Restarting application.';
+      })
+      .on('aborted', function() {
+        console.info(`Aborted...`);
+      });
     }
+   
     else {
       updater.enabled = true
       updater = null
@@ -148,6 +162,7 @@ autoUpdater.on('update-not-available', (info) => {
 
 autoUpdater.on('error', (err) => {
   sendStatusToWindow('Error in auto-updater. ' + err);
+  progressBar.setCompleted();
 })
 
 autoUpdater.on('download-progress', (progressObj) => {
@@ -159,6 +174,7 @@ autoUpdater.on('download-progress', (progressObj) => {
 
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Update downloaded');
+  progressBar.setCompleted();
   autoUpdater.quitAndInstall();
 });
 
