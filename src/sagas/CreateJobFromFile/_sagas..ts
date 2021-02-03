@@ -1,6 +1,5 @@
 import lang from '../../translation/lang';
 import { ApiURL } from '../../constants/api';
-import { AuthReducer } from './../../containers/Home/_reducers';
 import {
 	call,
 	put,
@@ -8,7 +7,6 @@ import {
 	takeLatest
 	} from 'redux-saga/effects';
 import { createJobFromTrussFile } from './_actions';
-import { ENV } from '../../constants/env';
 import { fetchSaga } from '../_sagas';
 import { getType } from 'typesafe-actions';
 import { notificationAction } from '../../components/Toast/_actions';
@@ -32,7 +30,9 @@ function* createJobFromTrussFileSaga(
 			return;
 		}
 		const local = yield select((state: any) => state.AuthReducer.local);
-		const api = local ? ENV.LOCAL : ENV.CLOUD;
+		const api = local
+			? process.env.REACT_APP_API_URL_LOCAL
+			: process.env.REACT_APP_BACKEND_API;
 		const token = yield select((state: any) => state.AuthReducer.token);
 
 		let jobId: string = null;

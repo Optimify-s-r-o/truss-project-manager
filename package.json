@@ -1,6 +1,6 @@
 {
   "name": "truss-project-manager",
-  "version": "0.0.32",
+  "version": "0.0.33",
   "productName": "Truss Project Manager",
   "description": "Truss Project Manager",
   "main": "public/electron.js",
@@ -90,17 +90,16 @@
     "yup": "^0.32.8"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "env-cmd -f .env.prod react-scripts start",
+    "build": "env-cmd -f .env.prod react-scripts build",
     "build:dev": "env-cmd -f .env.dev react-scripts build",
     "build:prod": "env-cmd -f .env.prod react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently -k \"npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "package": "npm run build:dev && electron-builder build --win -p always",
-    "postinstall": "electron-builder install-app-deps",
-		"release": "npm run build:dev && electron-builder build --win -p always"
+    "release": "npm run build:prod && electron-builder build --win -p always",
+    "release:dev": "npm run build:dev && electron-builder build --win -p always"
   },
   "eslintConfig": {
     "extends": "react-app",

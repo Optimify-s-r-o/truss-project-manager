@@ -14,13 +14,14 @@ const Index = (_props: WithTranslation) => {
 	const [title, setTitle] = React.useState("");
 	const [message, setMessage] = React.useState("");
 	const [version, setVersion] = React.useState("0.0.0");
+
 	React.useEffect(() => {
 		const electron = window.require("electron");
 		electron.ipcRenderer.send("app_version");
 		const fs = electron.remote.require("fs");
 		electron.ipcRenderer.on("app_version", (event, text) => {
 			console.log(text);
-			setVersion(text);
+			setVersion(text?.version);
 		});
 	}, []);
 

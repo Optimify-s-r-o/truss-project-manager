@@ -20,4 +20,5 @@ export type LoginStateType = FetchStateType &
 		role: string;
 		validUntil: string;
 		users: UserData[];
+		loadingUsers: boolean;
 	}>;

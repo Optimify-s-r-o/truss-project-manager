@@ -13,6 +13,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 
 const mapStateToProps = (state: RootStateType): StateProps => ({
 	pending: state.AuthReducer.pending,
+	loadingUsers: state.AuthReducer.loadingUsers,
 	users: state.AuthReducer.users,
 	local: state.AuthReducer.local,
 });

@@ -6,7 +6,6 @@ import {
 	takeLatest
 	} from 'redux-saga/effects';
 import { createTruss, editTruss, OpenTrussOption } from './_actions';
-import { ENV } from '../../constants/env';
 import { Error, fetchSaga } from '../_sagas';
 import { getType } from 'typesafe-actions';
 import { lang, t } from '../../translation/i18n';
@@ -39,7 +38,9 @@ function* createTrussSaga(
 		}
 
 		const local = yield select((state: any) => state.AuthReducer.local);
-		const api = local ? ENV.LOCAL : ENV.CLOUD;
+		const api = local
+			? process.env.REACT_APP_API_URL_LOCAL
+			: process.env.REACT_APP_BACKEND_API;
 		const token = yield select((state: any) => state.AuthReducer.token);
 
 		let inputPath: any = null;
@@ -141,10 +142,9 @@ function* editTrussSaga(
 		}
 
 		const local = yield select((state: any) => state.AuthReducer.local);
-		const api = local ? ENV.LOCAL : ENV.CLOUD;
-		console.log(api);
-		console.log(yield select((state: any) => state.AuthReducer.local));
-		console.log(yield select((state: any) => state.AuthReducer.cloud));
+		const api = local
+			? process.env.REACT_APP_API_URL_LOCAL
+			: process.env.REACT_APP_BACKEND_API;
 		const token = yield select((state: any) => state.AuthReducer.token);
 		let inputPath: any = null;
 		let jobId: string = action.payload.jobId;

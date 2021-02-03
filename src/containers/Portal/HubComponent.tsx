@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { ENV } from '../../constants/env';
 import { Hub, HubApi } from '../../constants/hub';
 import { TreeType } from '../../types/_types';
 import {
@@ -40,10 +39,15 @@ export const HubComponent = ({
 	setHubJob,
 	setHubTruss,
 }: HubComponent) => {
+	const getUrl = () => {
+		return local
+			? process.env.REACT_APP_API_URL_LOCAL
+			: process.env.REACT_APP_BACKEND_API;
+	};
 	const createTreeHubConnection = async () => {
 		if (token) {
 			const connect = new HubConnectionBuilder()
-				.withUrl(`${local ? ENV.LOCAL : ENV.CLOUD}${HubApi.Tree}`, {
+				.withUrl(`${getUrl()}${HubApi.Tree}`, {
 					accessTokenFactory: () => token,
 				})
 				.withHubProtocol(new signalRMsgPack.MessagePackHubProtocol())
@@ -66,7 +70,7 @@ export const HubComponent = ({
 	const createProjectHubConnection = async () => {
 		if (token) {
 			const connect = new HubConnectionBuilder()
-				.withUrl(`${local ? ENV.LOCAL : ENV.CLOUD}${HubApi.Project}`, {
+				.withUrl(`${getUrl()}${HubApi.Project}`, {
 					accessTokenFactory: () => token,
 				})
 				.withHubProtocol(new signalRMsgPack.MessagePackHubProtocol())
@@ -86,7 +90,7 @@ export const HubComponent = ({
 	const createJobHubConnection = async () => {
 		if (token) {
 			const connect = new HubConnectionBuilder()
-				.withUrl(`${local ? ENV.LOCAL : ENV.CLOUD}${HubApi.Job}`, {
+				.withUrl(`${getUrl()}${HubApi.Job}`, {
 					accessTokenFactory: () => token,
 				})
 				.withHubProtocol(new signalRMsgPack.MessagePackHubProtocol())
@@ -106,7 +110,7 @@ export const HubComponent = ({
 	const createTrussHubConnection = async () => {
 		if (token) {
 			const connect = new HubConnectionBuilder()
-				.withUrl(`${local ? ENV.LOCAL : ENV.CLOUD}${HubApi.Truss}`, {
+				.withUrl(`${getUrl()}${HubApi.Truss}`, {
 					accessTokenFactory: () => token,
 				})
 				.withHubProtocol(new signalRMsgPack.MessagePackHubProtocol())

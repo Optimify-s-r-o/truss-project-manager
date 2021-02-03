@@ -4,7 +4,6 @@ import Cloud from './Cloud/Container';
 import Local from './Local/Container';
 import LostPassword from './LostPassword/Container';
 import Menu from '@material-ui/core/Menu';
-import { ENV } from '../../constants/env';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GlobalNotification } from '../../components/Toast/_types';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -115,7 +114,7 @@ const Index = (
 	}, [props.toast]);
 
 	let pathname = props.location.pathname;
-
+	console.log(process.env);
 	return (
 		<>
 			<CarouselContainer>
@@ -138,7 +137,7 @@ const Index = (
 										</span>
 									</NavLink>
 								</div>
-								{ENV.WEB === "false" && (
+								{process.env.REACT_APP_WEB === "false" && (
 									<div onClick={changeUrl(Server.LOCAL)}>
 										<NavLink
 											to={Routes.LOCAL}

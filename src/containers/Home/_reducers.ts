@@ -15,6 +15,7 @@ const initialState: LoginStateType = {
 	role: "",
 	validUntil: "",
 	users: null,
+	loadingUsers: false,
 };
 
 export const AuthReducer = (
@@ -74,12 +75,12 @@ export const AuthReducer = (
 			return {
 				...state,
 				error: null,
-				pending: true,
+				loadingUsers: true,
 			};
 		case getType(localUsers.success):
 			return {
 				...state,
-				pending: false,
+				loadingUsers: false,
 				users: action.payload,
 			};
 		case getType(setLocal):
@@ -91,7 +92,7 @@ export const AuthReducer = (
 			return {
 				...state,
 				error: action.payload.ErrorMessage,
-				pending: true,
+				loadingUsers: false,
 			};
 		case getType(loginLocal.request):
 			return {

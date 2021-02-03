@@ -1,7 +1,5 @@
 import { ApiURL } from '../constants/api';
-import { AuthReducer } from './../containers/Home/_reducers';
 import { call, put, select } from 'redux-saga/effects';
-import { ENV } from '../constants/env';
 import { getLanguage, lang, t } from '../translation/i18n';
 import { notificationAction } from '../components/Toast/_actions';
 import { push } from 'connected-react-router';
@@ -166,7 +164,9 @@ export function* fetchSaga(
 			privateToken,
 		});
 
-		const server = local ? ENV.LOCAL : ENV.CLOUD;
+		const server = local
+			? process.env.REACT_APP_API_URL_LOCAL
+			: process.env.REACT_APP_BACKEND_API;
 
 		const appUrl = yield call(
 			makeUrl,

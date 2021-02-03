@@ -19,12 +19,13 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../translation/i18n";
-const Store = window.require("electron-store");
+
 interface OwnProps {
 	push: any;
 }
 
 export interface StateProps {
+	loadingUsers: boolean;
 	pending: boolean;
 	local: boolean;
 	users: UserData[];
@@ -35,14 +36,18 @@ export interface DispatchProps {
 	localUsers: (data: void) => void;
 }
 
-const Component = (
-	props: OwnProps &
-		StateProps &
-		DispatchProps &
-		WithTranslation &
-		RouteComponentProps
-) => {
-	const { local, localUsers, localLogin, pending, users } = props;
+const Component = ({
+	local,
+	localUsers,
+	localLogin,
+	pending,
+	users,
+	loadingUsers,
+}: OwnProps &
+	StateProps &
+	DispatchProps &
+	WithTranslation &
+	RouteComponentProps) => {
 	const [credentials, setCredentials] = React.useState([]);
 	const [store, setStore] = React.useState(null);
 	const initialValues: Credentials = {
@@ -57,6 +62,7 @@ const Component = (
 	}, [local]);
 
 	React.useEffect(() => {
+		const Store = window.require("electron-store");
 		setStore(new Store());
 	}, []);
 
@@ -139,7 +145,7 @@ const Component = (
 			<Container>
 				<Headline> {t(translationPath(lang.common.loginLocal))}</Headline>
 				<Loading
-					pending={pending}
+					pending={loadingUsers}
 					text={t(translationPath(lang.common.loading))}
 				>
 					<Form onSubmit={formik.handleSubmit}>
@@ -150,8 +156,8 @@ const Component = (
 							titleWidth={40}
 							type={Input.SELECT}
 							options={
-								props.users
-									? props.users.map((value: UserData) => {
+								users
+									? users.map((value: UserData) => {
 											return { value: value.Username, label: value.Username };
 									  })
 									: []
