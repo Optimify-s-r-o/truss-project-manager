@@ -24,7 +24,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-       - name: Deploy production
+      - name: Deploy production
         if: github.ref == 'refs/heads/master'
         run: npm run release:prod
         env:
