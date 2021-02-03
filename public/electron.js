@@ -100,7 +100,7 @@ app.on('ready', function()  {
   log.info('App ready ...');
   createWindow();
   log.info('Update function start');
-  autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.checkForUpdates();
   log.info('Update function end');
 });
 
