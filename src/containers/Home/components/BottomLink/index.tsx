@@ -103,7 +103,7 @@ const Index = (_props: WithTranslation) => {
 					setOpen={setOpen}
 				/>
 			</Inline>
-			<Version>BETA: v0.0.24</Version>
+			<Version>BETA: v0.0.25</Version>
 		</Container>
 	);
 };
