@@ -101,7 +101,7 @@
     "electron": "wait-on tcp:3000 && electron .",
     "package": "npm run build:dev && electron-builder build --win -p always",
     "postinstall": "electron-builder install-app-deps",
-		"release": "electron-builder --win -p always"
+		"release": "npm run build:dev && electron-builder build --win -p always"
   },
   "eslintConfig": {
     "extends": "react-app",
