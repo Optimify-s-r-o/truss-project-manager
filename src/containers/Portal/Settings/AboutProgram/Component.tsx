@@ -86,9 +86,7 @@ export const Component = ({}: StateProps & DispatchProps) => {
 		setUpdate(true);
 		const electron = window.require("electron");
 		const fs = electron.remote.require("fs");
-		electron.ipcRenderer.on("update-app", (event, text) => {
-			console.log(text);
-		});
+		electron.ipcRenderer.send("update-app");
 	};
 
 	return (
