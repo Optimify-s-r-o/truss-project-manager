@@ -146,7 +146,6 @@ autoUpdater.on('download-progress', (progressObj) => {
 })
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Update downloaded');
-  autoUpdater.quitAndInstall();  
 });
 
 const sendStatusToWindow =(text) =>{
