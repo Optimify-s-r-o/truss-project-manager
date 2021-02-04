@@ -28,6 +28,7 @@ const runApiServer = () => {
 
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
+autoUpdater.autoDownload=false;
 log.info('App starting...');
 let win;
 
