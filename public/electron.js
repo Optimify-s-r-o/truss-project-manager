@@ -94,6 +94,7 @@ const  createWindow =()=> {
     result
       .then((checkResult) => {
         const { updateInfo } = checkResult;
+        logInfo(updateInfo)
         sender.send( "CHECK_FOR_UPDATE_SUCCESS", updateInfo);
       })
       .catch((error) => {
@@ -108,7 +109,8 @@ const  createWindow =()=> {
     const { sender } = event;
   
     result
-      .then(() => {
+      .then((response) => {
+        logInfo(logInfo(response))
         sender.send("DOWNLOAD_UPDATE_SUCCESS");
       })
       .catch((error) => {
