@@ -63,6 +63,7 @@ export const Component = ({}: StateProps & DispatchProps) => {
 		ipcRenderer.on(CHECK_FOR_UPDATE_SUCCESS, (event, updateInfo) => {
 			const version = updateInfo && updateInfo.version;
 			console.log(version);
+			console.log(currentAppVersion);
 			if (version && version !== currentAppVersion) {
 				ipcRenderer.send(DOWNLOAD_UPDATE_PENDING);
 				setVersionToDownload(version);
