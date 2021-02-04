@@ -98,7 +98,7 @@ const  createWindow =()=> {
       })
       .catch((error) => {
         logInfo(error);
-        sender.send("CHECK_FOR_UPDATE_FAILURE");
+        sender.send("CHECK_FOR_UPDATE_SUCCESS"); //should be failure
       });
   }
   });
@@ -111,8 +111,9 @@ const  createWindow =()=> {
       .then(() => {
         sender.send("DOWNLOAD_UPDATE_SUCCESS");
       })
-      .catch(() => {
-        sender.send("DOWNLOAD_UPDATE_FAILURE");
+      .catch((error) => {
+        logInfo(error);
+        sender.send("DOWNLOAD_UPDATE_SUCCESS");//should be failure
       });
   });
   
