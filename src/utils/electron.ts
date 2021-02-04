@@ -1,9 +1,9 @@
 import {
-  App,
-  BrowserWindow,
-  IpcMain,
-  IpcRenderer
-  } from 'electron';
+	App,
+	BrowserWindow,
+	IpcMain,
+	IpcRenderer
+	} from 'electron';
 
 function isElectron() {
 	return typeof window.require === "function";
@@ -33,7 +33,11 @@ function getIpcMain(): IpcMain {
 
 function getIpcRenderer(): IpcRenderer {
 	let ipcRenderer;
-	if (isElectron()) ipcRenderer = window.require("electron").ipcRenderer;
+	if (isElectron()) {
+		const electron = window.require("electron");
+		const fs = electron.remote.require("fs");
+		ipcRenderer = electron.ipcRenderer;
+	}
 
 	return ipcRenderer;
 }

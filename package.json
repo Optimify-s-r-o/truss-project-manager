@@ -1,6 +1,6 @@
 {
   "name": "truss-project-manager",
-  "version": "0.0.44",
+  "version": "0.0.46",
   "productName": "Truss Project Manager",
   "description": "Truss Project Manager",
   "main": "public/electron.js",
@@ -41,7 +41,6 @@
     "electron-is-dev": "^1.2.0",
     "electron-localshortcut": "^3.2.1",
     "electron-log": "^4.3.1",
-    "electron-progressbar": "^2.0.0",
     "electron-store": "^6.0.1",
     "electron-updater": "^4.3.5",
     "env-cmd": "^10.1.0",

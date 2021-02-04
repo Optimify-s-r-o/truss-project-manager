@@ -7,9 +7,6 @@ const fs = require('fs');
 const { autoUpdater } = require("electron-updater")
 const log = require('electron-log');
 
-/**
- * Start local api
- */
 const runApiServer = () => {
   if (!isDev) {
     var executablePath =
@@ -29,19 +26,12 @@ const runApiServer = () => {
   }
 }
 
-/**
- * Logging constructor
- */
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
 log.info('App starting...');
-
-
-/**
- * Create window
- */
 let win;
-let progressBar;
+
+
 const  createWindow =()=> {
   runApiServer();
   win = new BrowserWindow({
@@ -92,47 +82,55 @@ const  createWindow =()=> {
     e.preventDefault();
   });
 
-  ipcMain.on('update-app', () => {
-    sendStatusToWindow('update-app');
-    autoUpdater.checkForUpdates();
+  ipcMain.on('CHECK_FOR_UPDATE_PENDING', (event) => {
+    const { sender } = event;
+    logInfo('CHECK_FOR_UPDATE_PENDING');
+
+  if (process.env.NODE_ENV === 'development') {
+    sender.send('CHECK_FOR_UPDATE_SUCCESS');
+  } else {
+    const result = autoUpdater.checkForUpdates();
+    log.info(result);
+    result
+      .then((checkResult) => {
+        const { updateInfo } = checkResult;
+        sender.send( "CHECK_FOR_UPDATE_SUCCESS", updateInfo);
+      })
+      .catch((error) => {
+        logInfo(error);
+        sender.send("CHECK_FOR_UPDATE_FAILURE");
+      });
+  }
   });
 
-  ipcMain.on('app_version', (event) => {
-    event.sender.send('app_version', { version: app.getVersion() });
+  ipcMain.on("DOWNLOAD_UPDATE_PENDING", event => {
+    const result = autoUpdater.downloadUpdate();
+    const { sender } = event;
+  
+    result
+      .then(() => {
+        sender.send("DOWNLOAD_UPDATE_SUCCESS");
+      })
+      .catch(() => {
+        sender.send("DOWNLOAD_UPDATE_FAILURE");
+      });
   });
   
-  autoUpdater.on('checking-for-update', () => {
-    sendStatusToWindow('Checking for update...');
-  })
-  
-  autoUpdater.on('update-available', () => {
-    sendStatusToWindow('Update available.');
-    win.webContents.send('update-available', '1.1.1');
-    autoUpdater.downloadUpdate();
-  })
-  
-  autoUpdater.on('update-not-available', (info) => {
-    sendStatusToWindow('Update not available.');
-  })
-  
-  autoUpdater.on('error', (err) => {
-    sendStatusToWindow('Error in auto-updater. ' + err);
-    progressBar.setCompleted();
-  })
-  
-  autoUpdater.on('download-progress', (progressObj) => {
-    let log_message = "Download speed: " + progressObj.bytesPerSecond;
-    log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
-    log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-    sendStatusToWindow(log_message);
-  })
-  
-  autoUpdater.on('update-downloaded', (info) => {
-    sendStatusToWindow('Update downloaded');
-    progressBar.setCompleted();
-    autoUpdater.quitAndInstall();
+  ipcMain.on('QUIT_AND_INSTALL_UPDATE', () => {
+    autoUpdater.quitAndInstall(
+      true, // isSilent
+      true // isForceRunAfter, restart app after update is installed
+    );
+  });
+
+  ipcMain.on('APP_VERSION', (event) => {
+    event.sender.send('APP_VERSION', { version: app.getVersion() });
   });
 }
+
+app.on('ready', ()=>  {
+  createWindow();
+});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
@@ -146,10 +144,40 @@ app.on("activate", () => {
   }
 });
 
-const sendStatusToWindow =(text) =>{
+const logInfo =(text) =>{
   log.info(text);
 }
 
-app.on('ready', function()  {
-  createWindow();
-});
+
+//   autoUpdater.on('checking-for-update', () => {
+//     logInfo('Checking for update...');
+//   })
+  
+//   autoUpdater.on('update-available', () => {
+//     logInfo('Update available.');
+//     win.webContents.send('update-available', '1.1.1');
+//     autoUpdater.downloadUpdate();
+//   })
+  
+//   autoUpdater.on('update-not-available', (info) => {
+//     logInfo('Update not available.');
+//   })
+  
+//   autoUpdater.on('error', (err) => {
+//     logInfo('Error in auto-updater. ' + err);
+//     progressBar.setCompleted();
+//   })
+  
+//   autoUpdater.on('download-progress', (progressObj) => {
+//     let log_message = "Download speed: " + progressObj.bytesPerSecond;
+//     log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+//     log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+//     logInfo(log_message);
+//   })
+  
+//   autoUpdater.on('update-downloaded', (info) => {
+//     logInfo('Update downloaded');
+//     progressBar.setCompleted();
+//     autoUpdater.quitAndInstall();
+//   });
+// }
