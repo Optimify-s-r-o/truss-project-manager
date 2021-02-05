@@ -292,7 +292,7 @@ const dictionary: Lang = {
 		checkboxSectionWeight: "Hmotnost",
 		checkboxSectionConstruction: "Stavba",
 		activeFilter: "Filtry jsou aktivní",
-		activeSelection: "Některé prvky jsou skryté:",
+		activeSelection: "Skryté prvky:",
 		cancelFilter: "Zrušit filtry",
 		cancelSelection: "Zrušit výběry",
 		ArchivedAndRealized: "Realizován",

@@ -18,7 +18,6 @@ import {
 	faFolder,
 	faHomeLgAlt,
 	faMountains,
-	faUser,
 } from "@fortawesome/pro-duotone-svg-icons";
 import {
 	faEyeSlash,
@@ -90,54 +89,42 @@ export const ActiveActions = ({
 						) : (
 							<span>{t(translationPath(lang.common.activeFilter).path)}</span>
 						)}
-						{data?.IsSkipped && (
-							<span>
-								{t(translationPath(lang.common.activeSelection).path)}
-								<Row>
-									<Icon>
-										<FontAwesomeIcon
-											icon={faFolder as IconProp}
-											style={{ color: "#d08f1a" }}
-										/>
-									</Icon>
-									<span>:</span>
-									<Skipped>{data?.ProjectsSkipped}</Skipped>
-								</Row>
-								<Row>
-									<Icon>
-										<FontAwesomeIcon
-											icon={faHomeLgAlt as IconProp}
-											style={{ color: "red" }}
-										/>
-									</Icon>
-									<span>:</span>
-
-									<Skipped>{data?.JobsSkipped}</Skipped>
-								</Row>
-								<Row>
-									<Icon>
-										<FontAwesomeIcon
-											icon={faMountains as IconProp}
-											style={{ color: "#c1c132" }}
-										/>
-									</Icon>
-									<span>:</span>
-
-									<Skipped>{data?.TrussesSkipped}</Skipped>
-								</Row>
-								<Row>
-									<Icon>
-										<FontAwesomeIcon
-											icon={faUser as IconProp}
-											style={{ color: "brown" }}
-										/>
-									</Icon>
-									<span>:</span>
-
-									<Skipped>{data?.CustomersSkipped}</Skipped>
-								</Row>
-							</span>
-						)}
+						<ContentRow>
+							{data?.IsSkipped && (
+								<ContentRow>
+									<SkippedSpan>
+										{t(translationPath(lang.common.activeSelection).path)}
+									</SkippedSpan>
+									<Row>
+										<Icon>
+											<FontAwesomeIcon
+												icon={faFolder as IconProp}
+												style={{ color: "#d08f1a" }}
+											/>
+										</Icon>
+										<Skipped>({data?.ProjectsSkipped})</Skipped>
+									</Row>
+									<Row>
+										<Icon>
+											<FontAwesomeIcon
+												icon={faHomeLgAlt as IconProp}
+												style={{ color: "red" }}
+											/>
+										</Icon>
+										<Skipped>({data?.JobsSkipped})</Skipped>
+									</Row>
+									<Row>
+										<Icon>
+											<FontAwesomeIcon
+												icon={faMountains as IconProp}
+												style={{ color: "#c1c132" }}
+											/>
+										</Icon>
+										<Skipped>({data?.TrussesSkipped})</Skipped>
+									</Row>
+								</ContentRow>
+							)}
+						</ContentRow>
 					</Column>
 					{data?.IsFilterActive && (
 						<Tooltip
@@ -177,6 +164,9 @@ export const ActiveActions = ({
 const Skipped = styled.span`
 	margin-left: 4px;
 `;
+const SkippedSpan = styled.span`
+	margin-right: 3px;
+`;
 
 const Row = styled(ContentRow)`
 	margin: 5px 3px;
@@ -187,8 +177,8 @@ const Icon = styled.span`
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
-	width: 25px;
-	padding-right: 4px;
+	width: 20px;
+	padding-right: 1px;
 
 	svg {
 		cursor: auto;

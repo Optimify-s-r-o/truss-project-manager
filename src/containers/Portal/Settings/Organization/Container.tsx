@@ -14,6 +14,7 @@ const mapStateToProps = (state: RootStateType): StateProps => ({
 	local: state.AuthReducer.local,
 	cloud: state.AuthReducer.cloud,
 	organization: state.OrganizationReducer.organization,
+	pending: state.OrganizationReducer.pending,
 	role: state.AuthReducer.role,
 });
 

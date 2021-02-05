@@ -1,4 +1,5 @@
 import * as React from 'react';
+import FormikRow from '../../../../components/Optimify/Form/FormikRow';
 import styled from 'styled-components';
 import { Alert } from 'antd';
 import { Box } from '../../../../components/Box';
@@ -10,12 +11,11 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Input } from '../../../../constants/enum';
 import { lang, WithTranslation } from '../../../../translation/i18n';
 import { Organization, OrganizationProxy } from './_types';
-import { SelectField } from '../../../../components/Form/SelectField';
-import { TextField } from '../../../../components/Form/TextField';
 import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import {
+	Form,
 	GridItem,
 	GridRow,
 	PageHeader,
@@ -49,6 +49,7 @@ export interface StateProps {
 	local: boolean;
 	organization: Organization;
 	role: string;
+	pending: boolean;
 }
 
 export interface DispatchProps {
@@ -63,6 +64,7 @@ export const Component = ({
 	getOrganization,
 	settingsEntity,
 	role,
+	pending,
 }: WithTranslation & StateProps & DispatchProps) => {
 	const admin = role == UserRole.OrganizationAdmin ? true : false;
 	const { t } = useTranslation();
@@ -92,129 +94,147 @@ export const Component = ({
 	});
 	return (
 		<MainTree>
-			<PageHeader>
-				<PageTitle>
-					<TitleSection>
-						<FontAwesomeIcon icon={faCog as IconProp} />
-						<TitleName>
-							{" "}
-							{t(translationPath(lang.common.settings).path)}
-						</TitleName>
-					</TitleSection>
-				</PageTitle>
-			</PageHeader>
-			<MainTreeContent>
-				<TreeScreen>
-					<TreeContent>
-						<GridRow columns={1}>
-							<GridItem fill>
-								<Box title={t(translationPath(lang.organization.title).path)}>
-									<>
-										{!admin && (
-											<Alert
-												message={t(translationPath(lang.common.notAdmin).path)}
-												type="warning"
-												showIcon
-												closable
+			<Form onSubmit={formik.handleSubmit}>
+				<PageHeader>
+					<PageTitle>
+						<TitleSection>
+							<FontAwesomeIcon icon={faCog as IconProp} />
+							<TitleName>
+								{" "}
+								{t(translationPath(lang.common.settings).path)}
+							</TitleName>
+						</TitleSection>
+					</PageTitle>
+				</PageHeader>
+				<MainTreeContent>
+					<TreeScreen>
+						<TreeContent>
+							<GridRow columns={1}>
+								<GridItem fill>
+									<Box title={t(translationPath(lang.organization.title).path)}>
+										<>
+											{!admin && (
+												<Alert
+													message={t(
+														translationPath(lang.common.notAdmin).path
+													)}
+													type="warning"
+													showIcon
+													closable
+												/>
+											)}
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(OrganizationProxy.Crn).path}
+												title={t(translationPath(lang.common.crn).path)}
+												type={Input.TEXT}
+												disabled={!admin}
 											/>
-										)}
-										<TextField<Organization>
-											formik={formik}
-											entity={organization}
-											name={lastPathMember(OrganizationProxy.Crn).path}
-											type={Input.TEXT}
-											label={t(translationPath(lang.common.crn).path)}
-											disabled={!admin}
-										/>
-										<TextField<Organization>
-											formik={formik}
-											entity={organization}
-											name={lastPathMember(OrganizationProxy.VatRegNo).path}
-											type={Input.TEXT}
-											label={t(translationPath(lang.common.vatRegNo).path)}
-											disabled={!admin}
-										/>
-										<TextField<Organization>
-											formik={formik}
-											entity={organization}
-											name={lastPathMember(OrganizationProxy.Name).path}
-											type={Input.TEXT}
-											label={t(translationPath(lang.common.name).path)}
-											disabled={!admin}
-										/>
-										<TextField<Organization>
-											formik={formik}
-											entity={organization}
-											name={lastPathMember(OrganizationProxy.CityName).path}
-											type={Input.TEXT}
-											label={t(translationPath(lang.common.cityName).path)}
-											disabled={!admin}
-										/>
-										<TextField<Organization>
-											formik={formik}
-											entity={organization}
-											name={lastPathMember(OrganizationProxy.StreetName).path}
-											type={Input.TEXT}
-											label={t(translationPath(lang.common.street).path)}
-											disabled={!admin}
-										/>
-										<TextField<Organization>
-											formik={formik}
-											entity={organization}
-											name={lastPathMember(OrganizationProxy.PlaceNumber).path}
-											type={Input.TEXT}
-											label={t(translationPath(lang.common.placeNumber).path)}
-											disabled={!admin}
-										/>
-										<TextField<Organization>
-											formik={formik}
-											entity={organization}
-											name={lastPathMember(OrganizationProxy.Zip).path}
-											type={Input.TEXT}
-											label={t(translationPath(lang.common.postcode).path)}
-											disabled={!admin}
-										/>
-										<TextField<Organization>
-											formik={formik}
-											entity={organization}
-											name={lastPathMember(OrganizationProxy.RegionName).path}
-											type={Input.TEXT}
-											label={t(translationPath(lang.common.region).path)}
-											disabled={!admin}
-										/>
-										<SelectField<Organization>
-											formik={formik}
-											entity={organization}
-											name={lastPathMember(OrganizationProxy.CountryId).path}
-											label={t(translationPath(lang.common.country).path)}
-											type={Input.SEARCHABLE_SELECT}
-											options={
-												get(settingsEntity, getPath(SettingsProxy.Countries)) &&
-												get(
-													settingsEntity,
-													getPath(SettingsProxy.Countries)
-												).map((value: Countries) => {
-													return {
-														value: value.Id,
-														label: value.EnglishName,
-													};
-												})
-											}
-											settings={settingsEntity}
-											disabled={!admin}
-										/>
-									</>
-								</Box>
-							</GridItem>
-						</GridRow>
-					</TreeContent>
-				</TreeScreen>
-			</MainTreeContent>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(OrganizationProxy.VatRegNo).path}
+												title={t(translationPath(lang.common.vatRegNo).path)}
+												type={Input.TEXT}
+												disabled={!admin}
+											/>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(OrganizationProxy.Name).path}
+												title={t(translationPath(lang.common.name).path)}
+												type={Input.TEXT}
+												disabled={!admin}
+											/>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(OrganizationProxy.CityName).path}
+												title={t(translationPath(lang.common.cityName).path)}
+												type={Input.TEXT}
+												disabled={!admin}
+											/>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(OrganizationProxy.StreetName).path}
+												title={t(translationPath(lang.common.street).path)}
+												type={Input.TEXT}
+												disabled={!admin}
+											/>
+											<FormikRow
+												formik={formik}
+												name={
+													lastPathMember(OrganizationProxy.PlaceNumber).path
+												}
+												title={t(translationPath(lang.common.placeNumber).path)}
+												type={Input.TEXT}
+												disabled={!admin}
+											/>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(OrganizationProxy.Zip).path}
+												title={t(translationPath(lang.common.postcode).path)}
+												type={Input.TEXT}
+												disabled={!admin}
+											/>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(OrganizationProxy.RegionName).path}
+												title={t(translationPath(lang.common.region).path)}
+												type={Input.TEXT}
+												disabled={!admin}
+											/>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(OrganizationProxy.CountryId).path}
+												title={t(translationPath(lang.common.country).path)}
+												type={Input.SELECT}
+												options={
+													get(
+														settingsEntity,
+														getPath(SettingsProxy.Countries)
+													) &&
+													get(
+														settingsEntity,
+														getPath(SettingsProxy.Countries)
+													).map((value: Countries) => {
+														return {
+															value: value.Id,
+															label: value.EnglishName,
+														};
+													})
+												}
+												disabled={!admin}
+											/>
+											<br />
+											<ButtonsRow>
+												<Button level={2} type="submit" loading={pending}>
+													{t(translationPath(lang.common.save).path)}
+												</Button>
+											</ButtonsRow>
+										</>
+									</Box>
+								</GridItem>
+							</GridRow>
+						</TreeContent>
+					</TreeScreen>
+				</MainTreeContent>
+			</Form>
 		</MainTree>
 	);
 };
 
 export default Component;
+
+export const ButtonsRow = styled.div`
+	flex: 0 0 auto;
+	align-self: flex-end;
+
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex-direction: row;
+
+	width: 100%;
+	margin-top: 0.3em;
+`;
 
 export const Setting = styled(Button)`
 	color: ${(props) => props.theme.colors.background.content};

@@ -95,11 +95,12 @@ const  createWindow =()=> {
     result
       .then((checkResult) => {
         const { updateInfo } = checkResult;
-        logInfo(updateInfo)
-        sender.send( "CHECK_FOR_UPDATE_SUCCESS", updateInfo);
+        logInfo('CHECK_FOR_UPDATE_SUCCESS:'+updateInfo)
+        sender.send("CHECK_FOR_UPDATE_SUCCESS", updateInfo);
       })
       .catch((error) => {
         logInfo(error);
+        logInfo('CHECK_FOR_UPDATE_FAILURE:'+error)
         sender.send("CHECK_FOR_UPDATE_SUCCESS"); //should be failure
       });
   }
@@ -111,11 +112,11 @@ const  createWindow =()=> {
   
     result
       .then((response) => {
-        logInfo(logInfo(response))
+        logInfo("DOWNLOAD_UPDATE_SUCCESS:"+logInfo(response));
         sender.send("DOWNLOAD_UPDATE_SUCCESS");
       })
       .catch((error) => {
-        logInfo(error);
+        logInfo("DOWNLOAD_UPDATE_FAILURE:"+logInfo(response));
         sender.send("DOWNLOAD_UPDATE_SUCCESS");//should be failure
       });
   });
