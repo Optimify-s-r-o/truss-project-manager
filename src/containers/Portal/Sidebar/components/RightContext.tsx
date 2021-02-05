@@ -174,6 +174,7 @@ export const RightContext = ({
 							translationPath(lang.contextMenu.removeFromSelection).path
 						)}
 						selectedKeys={selectedKeys}
+						setIsVisible={setIsVisible}
 					/>
 					<Divider />
 					<SPopConfirm
@@ -255,6 +256,7 @@ export const RightContext = ({
 							translationPath(lang.contextMenu.removeFromSelection).path
 						)}
 						selectedKeys={selectedKeys}
+						setIsVisible={setIsVisible}
 					/>
 					<Divider />
 					<SPopConfirm
@@ -264,7 +266,6 @@ export const RightContext = ({
 						})}
 						onConfirm={removeJobCall(nodeId)}
 						onCancel={() => setIsVisible(false)}
-						// onVisibleChange={handleClickOutside}
 						okText={t(translationPath(lang.common.yes).path)}
 						cancelText={t(translationPath(lang.common.no).path)}
 						placement="left"
@@ -297,6 +298,7 @@ export const RightContext = ({
 							translationPath(lang.contextMenu.removeFromSelection).path
 						)}
 						selectedKeys={selectedKeys}
+						setIsVisible={setIsVisible}
 					/>
 				</>
 			)}
@@ -311,6 +313,7 @@ export const ActiveSelection = ({
 	add,
 	remove,
 	selectedKeys,
+	setIsVisible,
 }) => {
 	const handleAdd = () => {
 		if (selectedKeys.includes(id)) {
@@ -318,6 +321,7 @@ export const ActiveSelection = ({
 			return;
 		}
 		addToSelection(id);
+		setIsVisible(false);
 	};
 
 	const handleRemove = () => {
@@ -326,6 +330,7 @@ export const ActiveSelection = ({
 			return;
 		}
 		removeFromSelection(id);
+		setIsVisible(false);
 	};
 	return (
 		<>
