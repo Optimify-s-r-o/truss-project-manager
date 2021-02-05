@@ -95,7 +95,8 @@ const  createWindow =()=> {
     result
       .then((checkResult) => {
         const { updateInfo } = checkResult;
-        logInfo('CHECK_FOR_UPDATE_SUCCESS:'+updateInfo)
+        logInfo('CHECK_FOR_UPDATE_SUCCESS:')
+        logInfo(updateInfo)
         sender.send("CHECK_FOR_UPDATE_SUCCESS", updateInfo);
       })
       .catch((error) => {
@@ -107,6 +108,7 @@ const  createWindow =()=> {
   });
 
   ipcMain.on("DOWNLOAD_UPDATE_PENDING", event => {
+    logInfo("DOWNLOAD_STARTED");
     const result = autoUpdater.downloadUpdate();
     const { sender } = event;
   

@@ -52,14 +52,17 @@ export const Component = ({}: StateProps & DispatchProps) => {
 
 	React.useEffect(() => {
 		const ipcRenderer = getIpcRenderer();
-
-		ipcRenderer.send(CHECK_FOR_UPDATE_PENDING);
 		ipcRenderer.send(APP_VERSION);
 
 		ipcRenderer.on(APP_VERSION, (event, text) => {
 			console.log(text);
 			setVersion(text?.version);
 		});
+	}, []);
+
+	React.useEffect(() => {
+		const ipcRenderer = getIpcRenderer();
+		ipcRenderer.send(CHECK_FOR_UPDATE_PENDING);
 
 		ipcRenderer.on(CHECK_FOR_UPDATE_SUCCESS, (event, updateInfo) => {
 			console.log(updateInfo);
@@ -86,7 +89,7 @@ export const Component = ({}: StateProps & DispatchProps) => {
 		ipcRenderer.on(DOWNLOAD_UPDATE_FAILURE, () => {
 			setUpdatingState(State.FAILURE);
 		});
-	}, []);
+	}, [currentAppVersion]);
 
 	const updateApp = () => {
 		setUpdatingState(State.UPDATING);

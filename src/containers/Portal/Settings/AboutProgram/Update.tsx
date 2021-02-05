@@ -38,7 +38,9 @@ export const Update = ({
 							<Message>Checking for updates...</Message>
 						) : updatingState === State.NEW_VERSION_TO_DOWNLOAD ? (
 							<>
-								<Version>New version found: {versionToDownload}</Version>
+								<VersionInfo>
+									New version found: {versionToDownload}
+								</VersionInfo>
 								<Downloading>Downloading the update...</Downloading>
 							</>
 						) : updatingState === State.DOWNLOADED ? (
@@ -86,7 +88,8 @@ const Downloading = styled.span`
 	color: ${(props) => props.theme.colors.secondaryText.default};
 	margin: 0.3em 0 1.3em 0;
 `;
-const Version = styled.span`
+
+const VersionInfo = styled.span`
 	color: ${(props) => props.theme.colors.secondaryText.default};
 	margin-top: 1.3em 0 0.3em 0;
 `;

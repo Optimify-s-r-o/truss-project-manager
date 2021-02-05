@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Dialog from '../../../../components/Dialog';
 import styled from 'styled-components';
+import { APP_VERSION } from 'src/constants/ipcConstants';
 import { translationPath } from '../../../../utils/getPath';
 import {
 	lang,
@@ -17,9 +18,9 @@ const Index = (_props: WithTranslation) => {
 
 	React.useEffect(() => {
 		const electron = window.require("electron");
-		electron.ipcRenderer.send("app_version");
+		electron.ipcRenderer.send(APP_VERSION);
 		const fs = electron.remote.require("fs");
-		electron.ipcRenderer.on("app_version", (event, text) => {
+		electron.ipcRenderer.on(APP_VERSION, (event, text) => {
 			setVersion(text?.version);
 		});
 	}, []);
