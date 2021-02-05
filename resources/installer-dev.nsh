@@ -71,6 +71,12 @@ Section
   ${If} ${RunningX64}
       DetailPrint "64-bit Windows"
       CreateDirectory "$PROGRAMFILES64\Truss Project Manager REST API"
+      MessageBox MB_OK ${BUILD_RESOURCES_DIR}
+      MessageBox MB_OK ${PRODUCT_NAME}
+      MessageBox MB_OK ${VERSION}
+      MessageBox MB_OK ${INSTPATH}
+      MessageBox MB_OK ${PRODUCT_VERSION}
+
       NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x64/publish/ApmBackend/appsettings.json" "$PROGRAMFILES64\Truss Project Manager REST API\appsettings.json"
       NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x64/publish/ApmBackend/nlog.config" "$PROGRAMFILES64\Truss Project Manager REST API\nlog.config"
       NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x64/publish/ApmBackend/web.config" "$PROGRAMFILES64\Truss Project Manager REST API\web.config"
