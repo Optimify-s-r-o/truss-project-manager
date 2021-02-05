@@ -1,6 +1,15 @@
-import styled from 'styled-components';
-import { Column } from '../../constants/globalStyles';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Column } from "../../constants/globalStyles";
+
+export const TableTitle = styled.div`
+	font-size: 1.2rem;
+	font-weight: 600;
+	margin: 20px 0px 10px;
+	> svg {
+		font-size: 0.8em;
+	}
+`;
 
 export const WindowWrapper = styled.div`
 	display: flex;

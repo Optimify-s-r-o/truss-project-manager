@@ -70,24 +70,18 @@ Section
   ${If} ${RunningX64}
       DetailPrint "64-bit Windows"
       CreateDirectory "$PROGRAMFILES64\Truss Project Manager REST API"
-      MessageBox MB_OK $VERSION
-      MessageBox MB_OK $PORTABLE_EXECUTABLE_APP_FILENAME
-      MessageBox MB_OK $PRODUCT_NAME
-      MessageBox MB_OK ${VERSION}
-      MessageBox MB_OK ${$PRODUCT_NAME}
-      MessageBox MB_OK ${APP_NAME}
-      MessageBox MB_OK $PROGRAMFILES64
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x64/publish/ApmBackend/appsettings.json" "$PROGRAMFILES64\Truss Project Manager REST API\appsettings.json"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x64/publish/ApmBackend/nlog.config" "$PROGRAMFILES64\Truss Project Manager REST API\nlog.config"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x64/publish/ApmBackend/web.config" "$PROGRAMFILES64\Truss Project Manager REST API\web.config"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x64/publish/ApmBackend/ApmBackend.exe" "$PROGRAMFILES64\Truss Project Manager REST API\ApmBackend.exe"
+      MessageBox MB_OK "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x64/publish/ApmBackend/appsettings.json"
+      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x64/publish/ApmBackend/appsettings.json" "$PROGRAMFILES64\Truss Project Manager REST API\appsettings.json"
+      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x64/publish/ApmBackend/nlog.config" "$PROGRAMFILES64\Truss Project Manager REST API\nlog.config"
+      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x64/publish/ApmBackend/web.config" "$PROGRAMFILES64\Truss Project Manager REST API\web.config"
+      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x64/publish/ApmBackend/ApmBackend.exe" "$PROGRAMFILES64\Truss Project Manager REST API\ApmBackend.exe"
   ${Else}
       DetailPrint "32-bit Windows"
       CreateDirectory "$PROGRAMFILES\Truss Project Manager REST API"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x32/publish/ApmBackend/appsettings.json" "$PROGRAMFILES\Truss Project Manager REST API\appsettings.json"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x32/publish/ApmBackend/nlog.config" "$PROGRAMFILES\Truss Project Manager REST API\nlog.config"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x32/publish/ApmBackend/web.config" "$PROGRAMFILES\Truss Project Manager REST API\web.config"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x32/publish/ApmBackend/ApmBackend.exe" "$PROGRAMFILES\Truss Project Manager REST API\ApmBackend.exe"
+      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x32/publish/ApmBackend/appsettings.json" "$PROGRAMFILES\Truss Project Manager REST API\appsettings.json"
+      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x32/publish/ApmBackend/nlog.config" "$PROGRAMFILES\Truss Project Manager REST API\nlog.config"
+      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x32/publish/ApmBackend/web.config" "$PROGRAMFILES\Truss Project Manager REST API\web.config"
+      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x32/publish/ApmBackend/ApmBackend.exe" "$PROGRAMFILES\Truss Project Manager REST API\ApmBackend.exe"
   ${EndIf}   
 SectionEnd
 

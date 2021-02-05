@@ -1,16 +1,16 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faMountains } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { get } from "lodash";
-import * as React from "react";
-import { useParams } from "react-router";
-import Data from "../../../../components/Data/Data";
-import { UnitType } from "../../../../components/Data/Unit";
-import Export from "../../../../components/Export";
-import Loading from "../../../../components/Optimify/Loading";
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faMountains } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { get } from 'lodash';
+import * as React from 'react';
+import { useParams } from 'react-router';
+import Data from '../../../../components/Data/Data';
+import { UnitType } from '../../../../components/Data/Unit';
+import Export from '../../../../components/Export';
+import Loading from '../../../../components/Optimify/Loading';
 import {
 	ScrollableTable,
-	TABLE_STYLE_CONDENSED,
+	TABLE_STYLE_CONDENSED
 } from "../../../../components/Optimify/Table";
 import {
 	CardEndTableWrapper,
@@ -24,18 +24,25 @@ import {
 	PageTitle,
 	Title,
 	TitleName,
-	TitleSection,
+	TitleSection
 } from "../../../../constants/globalStyles";
 import {
 	lang,
 	t,
 	WithTranslation,
-	withTranslation,
+	withTranslation
 } from "../../../../translation/i18n";
-import { Page } from "../../../../types/_types";
-import { fixed } from "../../../../utils/formating";
-import { getPath, translationPath } from "../../../../utils/getPath";
-import { Member, Plank, Plate, Truss, TrussProxy } from "../Truss/_types";
+import { Page } from '../../../../types/_types';
+import { fixed } from '../../../../utils/formating';
+import { getPath, translationPath } from '../../../../utils/getPath';
+import { TableTitle } from '../../_styles';
+import {
+	Member,
+	Plank,
+	Plate,
+	Truss,
+	TrussProxy
+} from '../Truss/_types';
 
 export interface StateProps {
 	routerState: any;
@@ -346,7 +353,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 					<GridItem>
 						<ContentCard fullSize>
 							<ContentSpaceBetween>
-								<Title>{t(translationPath(lang.common.members))}</Title>
+								<TableTitle>{t(translationPath(lang.common.members))}</Title>
 								<Export
 									name={
 										props.truss?.Names?.map((value) => value).join(",") +
@@ -398,7 +405,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 					<GridItem>
 						<ContentCard fullSize>
 							<ContentSpaceBetween>
-								<Title>{t(translationPath(lang.common.nailPlates))}</Title>
+								<TableTitle>{t(translationPath(lang.common.nailPlates))}</TableTitle>
 								<Export
 									name={
 										props.truss?.Names?.map((value) => value).join(",") +
@@ -450,7 +457,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 					<GridItem>
 						<ContentCard fullSize>
 							<ContentSpaceBetween>
-								<Title>{t(translationPath(lang.common.planks))}</Title>
+								<TableTitle>{t(translationPath(lang.common.planks))}</TableTitle>
 								<Export
 									name={
 										props.truss?.Names?.map((value) => value).join(",") +
