@@ -1,26 +1,20 @@
-import * as React from 'react';
-import Data from '../../../../components/Data/Data';
-import Export from '../../../../components/Export';
-import Loading from '../../../../components/Optimify/Loading';
-import { ApiURL } from '../../../../constants/api';
-import { faHomeLgAlt } from '@fortawesome/pro-light-svg-icons';
-import { fixed } from '../../../../utils/formating';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../utils/getPath';
-import { getSelectedJobs } from './_actions';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { JobsSelectedRequest } from '../Job/_types';
-import { Method } from '../../../../constants/enum';
-import { RouteComponentProps, useParams } from 'react-router-dom';
-import { UnitType } from '../../../../components/Data/Unit';
-import { useEffect } from 'react';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faHomeLgAlt } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { get } from "lodash";
+import * as React from "react";
+import { useEffect } from "react";
+import { RouteComponentProps, useParams } from "react-router-dom";
+import Data from "../../../../components/Data/Data";
+import { UnitType } from "../../../../components/Data/Unit";
+import Export from "../../../../components/Export";
+import Loading from "../../../../components/Optimify/Loading";
 import {
-	PageHeader,
-	PageTitle,
-	TitleName,
-	TitleSection,
-} from "../../../../constants/globalStyles";
+	ScrollableTable,
+	TABLE_STYLE_CONDENSED,
+} from "../../../../components/Optimify/Table";
+import { ApiURL } from "../../../../constants/api";
+import { Method } from "../../../../constants/enum";
 import {
 	CardEndTableWrapper,
 	ContentCard,
@@ -29,14 +23,12 @@ import {
 	GridRow,
 	Header2,
 	Main,
+	PageHeader,
+	PageTitle,
 	Title,
+	TitleName,
+	TitleSection,
 } from "../../../../constants/globalStyles";
-import {
-	JobRootObject,
-	JobsProxy,
-	NailPlate,
-	Planks,
-} from "../../../../types/_types";
 import {
 	lang,
 	t,
@@ -44,9 +36,15 @@ import {
 	withTranslation,
 } from "../../../../translation/i18n";
 import {
-	ScrollableTable,
-	TABLE_STYLE_CONDENSED,
-} from "../../../../components/Optimify/Table";
+	JobRootObject,
+	JobsProxy,
+	NailPlate,
+	Planks,
+} from "../../../../types/_types";
+import { fixed } from "../../../../utils/formating";
+import { getPath, translationPath } from "../../../../utils/getPath";
+import { JobsSelectedRequest } from "../Job/_types";
+import { getSelectedJobs } from "./_actions";
 
 export interface StateProps {
 	routerState: any;
@@ -82,7 +80,7 @@ const Index = (
 				<PageHeader>
 					<PageTitle>
 						<TitleSection>
-							<FontAwesomeIcon icon={faHomeLgAlt as IconProp} />
+							<FontAwesomeIcon icon={faHomeLgAlt as IconProp} color={"#fff"} />
 							<TitleName>
 								{get(props.jobs, getPath(JobsProxy.Name))?.map(
 									(value: string, key: number) =>

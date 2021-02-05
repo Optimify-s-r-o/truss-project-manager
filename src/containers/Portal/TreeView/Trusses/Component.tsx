@@ -1,24 +1,17 @@
-import * as React from 'react';
-import Data from '../../../../components/Data/Data';
-import Export from '../../../../components/Export';
-import Loading from '../../../../components/Optimify/Loading';
-import { ApiURL } from '../../../../constants/api';
-import { faMountains } from '@fortawesome/pro-light-svg-icons';
-import { fixed } from '../../../../utils/formating';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../utils/getPath';
-import { getTruss } from '../Truss/_actions';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Method } from '../../../../constants/enum';
-import { UnitType } from '../../../../components/Data/Unit';
-import { useParams } from 'react-router';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faMountains } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { get } from "lodash";
+import * as React from "react";
+import { useParams } from "react-router";
+import Data from "../../../../components/Data/Data";
+import { UnitType } from "../../../../components/Data/Unit";
+import Export from "../../../../components/Export";
+import Loading from "../../../../components/Optimify/Loading";
 import {
-	PageHeader,
-	PageTitle,
-	TitleName,
-	TitleSection,
-} from "../../../../constants/globalStyles";
+	ScrollableTable,
+	TABLE_STYLE_CONDENSED,
+} from "../../../../components/Optimify/Table";
 import {
 	CardEndTableWrapper,
 	ContentCard,
@@ -27,7 +20,11 @@ import {
 	GridRow,
 	Header2,
 	Main,
+	PageHeader,
+	PageTitle,
 	Title,
+	TitleName,
+	TitleSection,
 } from "../../../../constants/globalStyles";
 import {
 	lang,
@@ -35,18 +32,10 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../../translation/i18n";
-import {
-	Member,
-	Plank,
-	Plate,
-	Truss,
-	TrussProxy,
-	TrussRequest,
-} from "../Truss/_types";
-import {
-	ScrollableTable,
-	TABLE_STYLE_CONDENSED,
-} from "../../../../components/Optimify/Table";
+import { Page } from "../../../../types/_types";
+import { fixed } from "../../../../utils/formating";
+import { getPath, translationPath } from "../../../../utils/getPath";
+import { Member, Plank, Plate, Truss, TrussProxy } from "../Truss/_types";
 
 export interface StateProps {
 	routerState: any;
@@ -55,7 +44,7 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-	getTrussesRequest: (data: TrussRequest) => void;
+	getTrussesRequest: (data: Page) => void;
 }
 
 const Component = (props: WithTranslation & StateProps & DispatchProps) => {
@@ -63,12 +52,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 	const { id } = useParams<{ id: string }>();
 	React.useEffect(() => {
 		if (id) {
-			getTrussesRequest({
-				action: getTruss,
-				url: ApiURL.TRUSS,
-				method: Method.GET,
-				param: { trusses: id },
-			});
+			getTrussesRequest({ trusses: id });
 		}
 	}, [id]);
 
@@ -82,7 +66,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 				<PageHeader>
 					<PageTitle>
 						<TitleSection>
-							<FontAwesomeIcon icon={faMountains as IconProp} />
+							<FontAwesomeIcon icon={faMountains as IconProp} color={"#fff"} />
 							<TitleName>
 								{get(props.truss, getPath(TrussProxy.Names))?.map(
 									(value: string, key: number) =>

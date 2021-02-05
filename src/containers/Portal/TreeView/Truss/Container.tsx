@@ -1,13 +1,12 @@
-import Component, { StateProps } from './Component';
-import { compose, Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { getTruss, setTruss, trussImage } from './_actions';
-import { priceListsGetAction } from '../../PriceLists/_actions';
-import { Truss, TrussRequest } from './_types';
-import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { compose, Dispatch } from "redux";
+import { priceListsGetAction } from "../../PriceLists/_actions";
+import Component, { StateProps } from "./Component";
+import { setTruss, trussImage } from "./_actions";
+import { Truss } from "./_types";
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-	getTrussRequest: (data: TrussRequest) => dispatch(getTruss.request(data)),
 	getTrussImage: (data: string) => dispatch(trussImage.request(data)),
 	setTruss: (data: Truss) => dispatch(setTruss(data)),
 	priceListsGetAction: (data: void) =>

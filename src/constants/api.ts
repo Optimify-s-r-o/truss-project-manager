@@ -60,7 +60,7 @@ export enum ApiURL {
 	JOBS_SELECTION = "/api/selections/jobs",
 	PROJECT_SELECTION = "/api/selections/project",
 	PROJECTS_SELECTION = "/api/selections/projects",
-	TRUSS = "/api/selections/trusses",
+	TRUSSES_SELECTION = "/api/selections/trusses",
 	QUICK_SEARCH = "/api/selections/quicksearch",
 	//Settings
 	SETTINGS_FILTER = "/api/settings/filters",

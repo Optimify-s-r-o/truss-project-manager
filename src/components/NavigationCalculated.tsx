@@ -1,17 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { faPlusCircle } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconDefinition } from '@fortawesome/pro-solid-svg-icons';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { lang, t } from '../translation/i18n';
-import { QuotationList } from 'src/containers/Portal/Quotations/_types';
-import { Select } from 'antd';
-import { translationPath } from '../utils/getPath';
-import {
-	ListQuotation,
-	Quotations,
-} from "../containers/Portal/Quotations/_types";
+import { IconDefinition } from "@fortawesome/pro-solid-svg-icons";
+import { Select } from "antd";
+import React from "react";
+import { QuotationList } from "src/containers/Portal/Quotations/_types";
+import styled from "styled-components";
+import { ListQuotation } from "../containers/Portal/Quotations/_types";
 const { Option } = Select;
 interface NavigationProps {
 	title?: string;
@@ -48,7 +40,11 @@ const Navigation = ({
 				filterOption={(input, option) =>
 					option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
 				}
-				style={{ width: "300px", marginLeft: 10, marginTop: 10 }}
+				style={{
+					width: "300px",
+					marginLeft: 10,
+					marginTop: 10,
+				}}
 				placeholder={title}
 				onChange={handleQuotationTypeChange}
 				value={selected}
@@ -67,6 +63,7 @@ export default Navigation;
 
 const Title = styled.div`
 	padding: 8px 4px 16px 16px;
+	color: ${(props) => props.theme.colors.primaryText.default};
 `;
 
 const NavigationItem = styled.div<{ active: boolean; isAction?: boolean }>`
@@ -145,4 +142,14 @@ const NavigationWrapper = styled.div<{
 	}
 `;
 
-const SSelect = styled(Select)``;
+const SSelect = styled(Select)`
+	.ant-select-selector {
+		background-color: ${(props) =>
+			props.theme.colors.background.menu} !important;
+		color: ${(props) => props.theme.colors.secondaryText.default} !important;
+	}
+
+	.anticon svg {
+		background-color: ${(props) => props.theme.colors.background.menu};
+	}
+`;

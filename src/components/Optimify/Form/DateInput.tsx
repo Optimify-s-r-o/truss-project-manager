@@ -1,11 +1,11 @@
-import * as React from 'react';
-import locale from 'antd/es/date-picker/locale/cs_CZ';
-import moment from 'moment';
-import styled from 'styled-components';
-import { DatePicker } from 'antd';
-import { lang } from '../../../translation/i18n';
-import { translationPath } from '../../../utils/getPath';
-import { useTranslation } from 'react-i18next';
+import { DatePicker } from "antd";
+import locale from "antd/es/date-picker/locale/cs_CZ";
+import moment from "moment";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import styled from "styled-components";
+import { lang } from "../../../translation/i18n";
+import { translationPath } from "../../../utils/getPath";
 interface DateInputProps {
 	value: Date;
 	onChange: (
@@ -113,6 +113,10 @@ const Wrapper = styled.div`
 
 	.react-datepicker__day--outside-month {
 		color: rgba(0, 0, 0, 0.25);
+	}
+
+	.ant-picker-input > input {
+		color: ${(props) => props.theme.colors.primaryText.default} !important;
 	}
 `;
 

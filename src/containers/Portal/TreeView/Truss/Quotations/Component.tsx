@@ -1,32 +1,31 @@
-import _ from 'lodash';
-import lang from '../../../../../translation/lang';
-import Loading from '../../../../../components/Optimify/Loading';
-import Navigation from '../../../../../components/NavigationCalculated';
-import React, { useEffect, useState } from 'react';
-import { Empty } from 'antd';
-import { faServer, faSync } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
-import { PriceList } from '../../../PriceLists/_types';
-import { QuotationCalculate } from '../../Project/_types';
-import { QuotationColumn } from '../../../../../constants/globalStyles';
-import { QuotationList } from '../../../Quotations/_types';
-import { SelectionQuotation } from '../../../../../components/Quotations';
-import { translationPath } from '../../../../../utils/getPath';
-import { Truss, TrussRequest } from '../_types';
-import { useTranslation } from 'react-i18next';
+import { faServer, faSync } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Empty } from "antd";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import Navigation from "../../../../../components/NavigationCalculated";
+import Loading from "../../../../../components/Optimify/Loading";
 import {
 	ActionButton,
 	ActionSection,
+	SelectionQuotation,
 } from "../../../../../components/Quotations";
+import { QuotationColumn } from "../../../../../constants/globalStyles";
+import lang from "../../../../../translation/lang";
+import { translationPath } from "../../../../../utils/getPath";
+import { PriceList } from "../../../PriceLists/_types";
 import {
+	QuotationList,
 	QuotationParam,
 	QuotationRequest,
-	QuotationSelection,
 	Quotations,
-	SectionVariableRequest,
+	QuotationSelection,
 	QuotationType,
+	SectionVariableRequest,
 } from "../../../Quotations/_types";
+import { MainTreeContent, TreeContent, TreeScreen } from "../../../_styles";
+import { QuotationCalculate } from "../../Project/_types";
+import { Truss, TrussRequest } from "../_types";
 
 export interface StateProps {
 	quotations: Quotations;
@@ -62,7 +61,6 @@ export default ({
 	quotationSelectionSectionDeleteAction,
 	truss,
 	quotationDownloadQuotationAction,
-	getTruss,
 	quotationListGetAction,
 	quotationList,
 	priceLists,

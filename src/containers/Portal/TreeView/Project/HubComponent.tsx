@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { Hub } from '../../../../constants/hub';
-import { Project } from '../../../../types/_types';
+import React, { useEffect } from "react";
+import { Hub } from "../../../../constants/hub";
+import { Project } from "../../../../types/_types";
 
 const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
 
@@ -25,7 +25,6 @@ export const HubComponent = ({
 		const createHubConnection = async () => {
 			if (id) {
 				try {
-					console.log(projectHub);
 					if (projectHub?.state === "Connected") {
 						projectHub?.on(Hub.ReceivedProject, (message) => {
 							setLoading(false);

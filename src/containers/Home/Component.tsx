@@ -1,28 +1,23 @@
-import * as React from 'react';
-import Carousel from './components/Carousel';
-import Cloud from './Cloud/Container';
-import Local from './Local/Container';
-import LostPassword from './LostPassword/Container';
-import Menu from '@material-ui/core/Menu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GlobalNotification } from '../../components/Toast/_types';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Route, Switch } from 'react-router-dom';
-import { RouteComponentProps } from 'react-router';
-import { Routes } from '../../constants/routes';
-import { translationPath } from '../../utils/getPath';
-import { useToasts } from 'react-toast-notifications';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
 	faCloud,
 	faComputerSpeaker,
 	faGlobeAfrica,
 } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Menu from "@material-ui/core/Menu";
+import * as React from "react";
+import { RouteComponentProps } from "react-router";
+import { Route, Switch } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
+import { GlobalNotification } from "../../components/Toast/_types";
 import {
 	NavBar,
 	NavButton,
 	NavItems,
 	NavLink,
 } from "../../constants/globalStyles";
+import { Routes } from "../../constants/routes";
 import {
 	getLanguage,
 	lang,
@@ -30,6 +25,11 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../translation/i18n";
+import { translationPath } from "../../utils/getPath";
+import Cloud from "./Cloud/Container";
+import Carousel from "./components/Carousel";
+import Local from "./Local/Container";
+import LostPassword from "./LostPassword/Container";
 import {
 	CarouselContainer,
 	Container,
@@ -63,14 +63,6 @@ const Index = (
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const [language, setLanguage] = React.useState(getLanguage());
 	const { addToast } = useToasts();
-
-	React.useEffect(() => {
-		const electron = window.require("electron");
-		const fs = electron.remote.require("fs");
-		electron.ipcRenderer.on("ping", (event, text) => {
-			console.log(text);
-		});
-	}, []);
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -111,7 +103,7 @@ const Index = (
 	}, [props.toast]);
 
 	let pathname = props.location.pathname;
-	console.log(process.env);
+
 	return (
 		<>
 			<CarouselContainer>

@@ -1,30 +1,14 @@
-import EditJob from '../Project/General/components/EditJob';
-import General from './General/Container';
-import Loading from '../../../../components/Optimify/Loading';
-import Material from './Material/Container';
-import Navigation from '../../../../components/NavigationLink';
-import Quotations from './Quotations/Container';
-import React, { useState } from 'react';
-import Trusses from './Trusses/Container';
-import Viewer from './Viewer/Container';
-import { Delete, Lock } from '../../../../components/Button';
-import { faCube } from '@fortawesome/pro-duotone-svg-icons';
-import { faHomeLgAlt, faMountains } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../utils/getPath';
-import { HubComponent } from './HubComponent';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { JobType, TreeType } from '../../../../types/_types';
-import { MainTree } from '../../_styles';
-import { OpenTruss } from '../../../../sagas/Truss/_actions';
-import { Phase } from '../../../../components/Phase';
-import { Routes } from '../../../../constants/routes';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faCube } from "@fortawesome/pro-duotone-svg-icons";
+import { faHomeLgAlt, faMountains } from "@fortawesome/pro-light-svg-icons";
 import {
 	faInfo,
 	faInventory,
 	faMoneyBillWave,
 } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { get } from "lodash";
+import React, { useState } from "react";
 import {
 	Route,
 	RouteComponentProps,
@@ -32,6 +16,10 @@ import {
 	useLocation,
 	useParams,
 } from "react-router-dom";
+import { Delete, Lock } from "../../../../components/Button";
+import Navigation from "../../../../components/NavigationLink";
+import Loading from "../../../../components/Optimify/Loading";
+import { Phase } from "../../../../components/Phase";
 import {
 	PageHeader,
 	PageTitle,
@@ -39,16 +27,28 @@ import {
 	TitleName,
 	TitleSection,
 } from "../../../../constants/globalStyles";
+import { Routes } from "../../../../constants/routes";
 import {
 	deleteJobRoute,
 	unlockJobAction,
 } from "../../../../sagas/Fetch/actions";
+import { OpenTruss } from "../../../../sagas/Truss/_actions";
 import {
 	lang,
 	t,
 	WithTranslation,
 	withTranslation,
 } from "../../../../translation/i18n";
+import { JobType, TreeType } from "../../../../types/_types";
+import { getPath, translationPath } from "../../../../utils/getPath";
+import { MainTree } from "../../_styles";
+import EditJob from "../Project/General/components/EditJob";
+import General from "./General/Container";
+import { HubComponent } from "./HubComponent";
+import Material from "./Material/Container";
+import Quotations from "./Quotations/Container";
+import Trusses from "./Trusses/Container";
+import Viewer from "./Viewer/Container";
 import {
 	DeleteJob,
 	JobProxy,
@@ -122,7 +122,10 @@ const Index = ({
 					<PageHeader>
 						<PageTitle>
 							<TitleSection>
-								<FontAwesomeIcon icon={faHomeLgAlt as IconProp} />
+								<FontAwesomeIcon
+									icon={faHomeLgAlt as IconProp}
+									color={"#fff"}
+								/>
 								<TitleName>{jobs?.JobName}</TitleName>
 								{jobs?.Phases && <Phase phase={jobs?.Phases} />}
 							</TitleSection>

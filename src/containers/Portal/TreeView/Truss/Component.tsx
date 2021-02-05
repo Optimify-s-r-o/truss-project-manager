@@ -1,38 +1,42 @@
-import Loading from '../../../../components/Optimify/Loading';
-import Material from './Material/Container';
-import Navigation from '../../../../components/NavigationLink';
-import Quotations from './Quotations/Container';
-import React, { useState } from 'react';
-import Summary from './General/Container';
-import { faInfo, faInventory, faMoneyBillWave } from '@fortawesome/pro-solid-svg-icons';
-import { faMountains } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { HubComponent } from './HubComponent';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faMountains } from "@fortawesome/pro-light-svg-icons";
 import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation
-	} from '../../../../translation/i18n';
-import { MainTree } from '../../_styles';
-import {
-	PageHeader,
-	PageTitle,
-	TitleName,
-	TitleSection
-	} from '../../../../constants/globalStyles';
-import { Phase } from '../../../../components/Phase';
+	faInfo,
+	faInventory,
+	faMoneyBillWave,
+} from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
 import {
 	Route,
 	RouteComponentProps,
 	Switch,
 	useLocation,
-	useParams
-	} from 'react-router-dom';
-import { Routes } from '../../../../constants/routes';
-import { translationPath } from '../../../../utils/getPath';
-import { Truss, TrussRequest } from './_types';
+	useParams,
+} from "react-router-dom";
+import Navigation from "../../../../components/NavigationLink";
+import Loading from "../../../../components/Optimify/Loading";
+import { Phase } from "../../../../components/Phase";
+import {
+	PageHeader,
+	PageTitle,
+	TitleName,
+	TitleSection,
+} from "../../../../constants/globalStyles";
+import { Routes } from "../../../../constants/routes";
+import {
+	lang,
+	t,
+	WithTranslation,
+	withTranslation,
+} from "../../../../translation/i18n";
+import { translationPath } from "../../../../utils/getPath";
+import { MainTree } from "../../_styles";
+import Summary from "./General/Container";
+import { HubComponent } from "./HubComponent";
+import Material from "./Material/Container";
+import Quotations from "./Quotations/Container";
+import { Truss } from "./_types";
 export interface StateProps {
 	routerState: any;
 	truss: Truss;
@@ -42,7 +46,6 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-	getTrussRequest: (data: TrussRequest) => void;
 	getTrussImage: (data: string) => void;
 	setTruss: (data: Truss) => void;
 	priceListsGetAction: (data: void) => void;
@@ -85,7 +88,10 @@ const Component = ({
 					<PageHeader>
 						<PageTitle>
 							<TitleSection>
-								<FontAwesomeIcon icon={faMountains as IconProp} />
+								<FontAwesomeIcon
+									icon={faMountains as IconProp}
+									color={"#fff"}
+								/>
 								<TitleName>{truss?.General?.Name}</TitleName>
 								{truss?.Phases && <Phase phase={truss?.Phases} />}
 							</TitleSection>

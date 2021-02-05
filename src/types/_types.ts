@@ -1,12 +1,12 @@
-import { ApiURL } from '../constants/api';
-import { createProxy } from '../utils/getPath';
-import { Method } from '../constants/enum';
-import { Quotations } from '../containers/Portal/Quotations/_types';
-import { Routes } from '../constants/routes';
+import { ApiURL } from "../constants/api";
+import { Method } from "../constants/enum";
+import { Routes } from "../constants/routes";
+import { Quotations } from "../containers/Portal/Quotations/_types";
 import {
 	ProjectFile,
 	ProjectLog,
 } from "../containers/Portal/TreeView/Project/_types";
+import { createProxy } from "../utils/getPath";
 
 export type FetchStateType = Readonly<{
 	error: string;
@@ -545,6 +545,8 @@ export interface Page {
 	Sort?: string | null;
 	Filtered?: boolean;
 	All?: boolean;
+
+	trusses?: any;
 }
 
 export interface Pagination {

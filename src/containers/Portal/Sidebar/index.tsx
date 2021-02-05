@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { ActiveActions } from './components/ActiveActions';
-import { Bar } from './_styles';
-import { createTree } from './_services';
-import { DeleteJob, Unlock } from '../TreeView/Job/_types';
-import { DeleteProject } from '../Project/_types';
-import { Events } from './components/Events';
-import { Fetch, Page, TreeType } from '../../../types/_types';
-import { Hub } from '../../../constants/hub';
-import { HubConnection } from '@microsoft/signalr';
-import { isElectron } from '../../../utils/electron';
-import { OpenTruss } from '../../../sagas/Truss/_actions';
-import { RightContext } from './components/RightContext';
-import { SSpin } from '../../../constants/globalStyles';
-import { Tree } from './components/Tree';
-import { useTranslation } from 'react-i18next';
+import { HubConnection } from "@microsoft/signalr";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { SSpin } from "../../../constants/globalStyles";
+import { Hub } from "../../../constants/hub";
+import { OpenTruss } from "../../../sagas/Truss/_actions";
+import { Fetch, Page, TreeType } from "../../../types/_types";
+import { isElectron } from "../../../utils/electron";
+import { DeleteProject } from "../Project/_types";
+import { DeleteJob, Unlock } from "../TreeView/Job/_types";
+import { ActiveActions } from "./components/ActiveActions";
+import { Events } from "./components/Events";
+import { RightContext } from "./components/RightContext";
+import { Tree } from "./components/Tree";
+import { createTree } from "./_services";
+import { Bar, ContextMenu } from "./_styles";
 const Store = window.require("electron-store");
 
 interface Sidebar {
@@ -230,31 +230,35 @@ export const Sidebar = ({
 				onPageRequired={onPageRequired}
 				setSelectedPageSize={setSelectedPageSize}
 			/>
-			<RightContext
-				isVisible={isVisible}
-				x={x}
-				y={y}
-				ref={ref}
-				nodeType={nodeType}
-				setSelectedKeys={setSelectedKeys}
-				unlockJob={unlockJob}
-				projectName={projectName}
-				jobName={jobName}
-				setIsVisible={setIsVisible}
-				nodeId={nodeId}
-				trussType={trussType}
-				truss3DExe={truss3DExe}
-				truss2DExe={truss2DExe}
-				removeJob={removeJob}
-				createTruss={createTruss}
-				editTruss={editTruss}
-				removeProject={removeProject}
-				jobLocked={jobLocked}
-				jobLockedByMe={jobLockedByMe}
-				addToSelection={addToSelection}
-				removeFromSelection={removeFromSelection}
-				selectedKeys={selectedKeys}
-			/>
+			{isVisible && nodeType != "Customer" && (
+				<ContextMenu show={isVisible} x={x} y={y} ref={ref}>
+					<RightContext
+						isVisible={isVisible}
+						x={x}
+						y={y}
+						ref={ref}
+						nodeType={nodeType}
+						setSelectedKeys={setSelectedKeys}
+						unlockJob={unlockJob}
+						projectName={projectName}
+						jobName={jobName}
+						setIsVisible={setIsVisible}
+						nodeId={nodeId}
+						trussType={trussType}
+						truss3DExe={truss3DExe}
+						truss2DExe={truss2DExe}
+						removeJob={removeJob}
+						createTruss={createTruss}
+						editTruss={editTruss}
+						removeProject={removeProject}
+						jobLocked={jobLocked}
+						jobLockedByMe={jobLockedByMe}
+						addToSelection={addToSelection}
+						removeFromSelection={removeFromSelection}
+						selectedKeys={selectedKeys}
+					/>
+				</ContextMenu>
+			)}
 		</Bar>
 	);
 };

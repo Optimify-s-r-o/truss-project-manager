@@ -1,9 +1,9 @@
-import FilterList from '@material-ui/icons/FilterList';
-import Paper from '@material-ui/core/Paper';
-import styled, { keyframes } from 'styled-components';
-import { Alert, Spin } from 'antd';
-import { device } from './theme';
-import { Link } from 'react-router-dom';
+import Paper from "@material-ui/core/Paper";
+import FilterList from "@material-ui/icons/FilterList";
+import { Alert, Spin } from "antd";
+import { Link } from "react-router-dom";
+import styled, { keyframes } from "styled-components";
+import { device } from "./theme";
 
 export const SAlert = styled(Alert)`
 	svg {
@@ -804,6 +804,7 @@ export const TitleSection = styled.span`
 
 export const TitleName = styled.div`
 	margin: 0 2px 0 8px;
+	color: #fff;
 `;
 
 export const MaterialTitleSection = styled(ContentSpaceBetween)`

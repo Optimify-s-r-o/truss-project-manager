@@ -1,17 +1,18 @@
-import * as React from 'react';
-import Export from '../../../../components/Export';
-import Loading from '../../../../components/Optimify/Loading';
-import { ApiURL } from '../../../../constants/api';
-import { faHomeLgAlt } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../utils/getPath';
-import { getSelectedProjects } from './_actions';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Method } from '../../../../constants/enum';
-import { RouteComponentProps, useParams } from 'react-router-dom';
-import { SelectedProjectsRequest } from './_types';
-import { useEffect } from 'react';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faHomeLgAlt } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { get } from "lodash";
+import * as React from "react";
+import { useEffect } from "react";
+import { RouteComponentProps, useParams } from "react-router-dom";
+import Export from "../../../../components/Export";
+import Loading from "../../../../components/Optimify/Loading";
+import {
+	ScrollableTable,
+	TABLE_STYLE_CONDENSED,
+} from "../../../../components/Optimify/Table";
+import { ApiURL } from "../../../../constants/api";
+import { Method } from "../../../../constants/enum";
 import {
 	CardEndTableWrapper,
 	ContentCard,
@@ -26,21 +27,20 @@ import {
 	TitleSection,
 } from "../../../../constants/globalStyles";
 import {
-	JobRootObject,
-	JobsProxy,
-	NailPlate,
-	Planks,
-} from "../../../../types/_types";
-import {
 	lang,
 	t,
 	WithTranslation,
 	withTranslation,
 } from "../../../../translation/i18n";
 import {
-	ScrollableTable,
-	TABLE_STYLE_CONDENSED,
-} from "../../../../components/Optimify/Table";
+	JobRootObject,
+	JobsProxy,
+	NailPlate,
+	Planks,
+} from "../../../../types/_types";
+import { getPath, translationPath } from "../../../../utils/getPath";
+import { getSelectedProjects } from "./_actions";
+import { SelectedProjectsRequest } from "./_types";
 
 export interface StateProps {
 	routerState: any;
@@ -78,7 +78,7 @@ const Index = (
 				<PageHeader>
 					<PageTitle>
 						<TitleSection>
-							<FontAwesomeIcon icon={faHomeLgAlt as IconProp} />
+							<FontAwesomeIcon icon={faHomeLgAlt as IconProp} color={"#fff"} />
 							<TitleName>
 								{get(props.jobs, getPath(JobsProxy.Name))?.map(
 									(value: string, key: number) =>

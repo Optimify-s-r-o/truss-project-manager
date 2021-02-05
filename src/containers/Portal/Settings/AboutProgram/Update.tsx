@@ -50,8 +50,8 @@ export const Update = ({
 							<>
 								<Info>Updating...</Info>
 								<Description>
-									This can may take a while. When a the new update is download
-									the app will automatically.
+									This may take a while. When a new update is download the app
+									will automatically restart.
 								</Description>
 							</>
 						) : updatingState === State.IS_UPDATED ? (

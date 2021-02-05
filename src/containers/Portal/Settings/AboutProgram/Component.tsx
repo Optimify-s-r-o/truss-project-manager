@@ -1,13 +1,8 @@
-import * as React from 'react';
-import { AboutProgram } from './AboutProgram';
-import { faCog } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getIpcRenderer } from 'src/utils/electron';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { lang } from '../../../../translation/i18n';
-import { translationPath } from '../../../../utils/getPath';
-import { Update } from './Update';
-import { useTranslation } from 'react-i18next';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faCog } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
 import {
 	APP_VERSION,
 	CHECK_FOR_UPDATE_FAILURE,
@@ -17,18 +12,23 @@ import {
 	DOWNLOAD_UPDATE_PENDING,
 	DOWNLOAD_UPDATE_SUCCESS,
 } from "src/constants/ipcConstants";
+import { getIpcRenderer } from "src/utils/electron";
 import {
 	PageHeader,
 	PageTitle,
 	TitleName,
 	TitleSection,
 } from "../../../../constants/globalStyles";
+import { lang } from "../../../../translation/i18n";
+import { translationPath } from "../../../../utils/getPath";
 import {
 	MainTree,
 	MainTreeContent,
 	TreeContent,
 	TreeScreen,
 } from "../../_styles";
+import { AboutProgram } from "./AboutProgram";
+import { Update } from "./Update";
 
 export enum State {
 	PENDING,
@@ -54,7 +54,6 @@ export const Component = ({}: StateProps & DispatchProps) => {
 		ipcRenderer.send(APP_VERSION);
 
 		ipcRenderer.on(APP_VERSION, (event, text) => {
-			console.log(text);
 			setVersion(text?.version);
 		});
 	}, []);
@@ -64,10 +63,7 @@ export const Component = ({}: StateProps & DispatchProps) => {
 		ipcRenderer.send(CHECK_FOR_UPDATE_PENDING);
 
 		ipcRenderer.on(CHECK_FOR_UPDATE_SUCCESS, (event, updateInfo) => {
-			console.log(updateInfo);
 			const version = updateInfo && updateInfo.version;
-			console.log(version);
-			console.log(currentAppVersion);
 			if (currentAppVersion && version && version !== currentAppVersion) {
 				setVersionToDownload(version);
 				setUpdatingState(State.NEW_VERSION_TO_DOWNLOAD);

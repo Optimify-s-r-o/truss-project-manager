@@ -1,23 +1,23 @@
-import { ApiURL } from '../../../../constants/api';
-import { calculateTruss, getTruss, trussImage } from './_actions';
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { getType } from 'typesafe-actions';
-import { lang, t } from '../../../../translation/i18n';
-import { Method } from '../../../../constants/enum';
-import { Quotations } from '../../Quotations/_types';
-import { quotationSelectionGetAction } from '../../Quotations/_actions';
-import { Status } from '../../../../components/Toast/_types';
-import { translationPath } from '../../../../utils/getPath';
+import { call, put, takeLatest } from "redux-saga/effects";
+import { getType } from "typesafe-actions";
 import {
 	clearNotificationAction,
 	notificationAction,
 } from "../../../../components/Toast/_actions";
+import { Status } from "../../../../components/Toast/_types";
+import { ApiURL } from "../../../../constants/api";
+import { Method } from "../../../../constants/enum";
 import {
 	Error,
 	fetchSaga,
 	FetchSagaReponseType,
 	WildCards,
 } from "../../../../sagas/_sagas";
+import { lang, t } from "../../../../translation/i18n";
+import { translationPath } from "../../../../utils/getPath";
+import { quotationSelectionGetAction } from "../../Quotations/_actions";
+import { Quotations } from "../../Quotations/_types";
+import { calculateTruss, getTruss, trussImage } from "./_actions";
 
 function* TrussImageSaga(
 	action: ReturnType<typeof trussImage.request>
@@ -126,7 +126,7 @@ function* getTrussesActionSaga(
 		// @ts-ignore
 		const { errorResponseData, response, success, statusText } = yield call(
 			fetchSaga,
-			ApiURL.TRUSSES,
+			ApiURL.TRUSSES_SELECTION,
 			Method.GET,
 			{
 				urlWildCards: action.payload as WildCards,

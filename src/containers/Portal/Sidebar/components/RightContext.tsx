@@ -1,22 +1,3 @@
-import Icon from '../../../../components/Icon';
-import React from 'react';
-import {
-	ContextMenu,
-	Divider,
-	Item,
-	SPopConfirm
-	} from '../_styles';
-import { DeleteJob, Unlock } from '../../TreeView/Job/_types';
-import { DeleteProject } from '../../Project/_types';
-import { IconWrap, Title } from '../../_styles';
-import { lang } from '../../../../translation/i18n';
-import { OpenTruss } from '../../../../sagas/Truss/_actions';
-import { Routes } from '../../../../constants/routes';
-import { translationPath } from '../../../../utils/getPath';
-import { TreeType, TrussExe } from '../../../../types/_types';
-import { unlockJobAction } from 'src/sagas/Fetch/actions';
-import { useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import {
 	faEdit,
 	faFolderOpen,
@@ -26,10 +7,24 @@ import {
 	faVoteNay,
 	faVoteYea,
 } from "@fortawesome/pro-duotone-svg-icons";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
+import { unlockJobAction } from "src/sagas/Fetch/actions";
+import Icon from "../../../../components/Icon";
+import { Routes } from "../../../../constants/routes";
 import {
 	deleteJobRoute,
 	deleteProjectRoute,
 } from "../../../../sagas/Fetch/actions";
+import { OpenTruss } from "../../../../sagas/Truss/_actions";
+import { lang } from "../../../../translation/i18n";
+import { TreeType, TrussExe } from "../../../../types/_types";
+import { translationPath } from "../../../../utils/getPath";
+import { DeleteProject } from "../../Project/_types";
+import { DeleteJob, Unlock } from "../../TreeView/Job/_types";
+import { IconWrap, Title } from "../../_styles";
+import { Divider, Item, SPopConfirm } from "../_styles";
 interface IRightContext {
 	isVisible: boolean;
 	x: number;
@@ -142,19 +137,17 @@ export const RightContext = ({
 
 	return (
 		<>
-			{isVisible && nodeType != "Customer" && (
-				<ContextMenu show={isVisible} x={x} y={y} ref={ref}>
-					{nodeType == "Project" && (
-						<>
-							<Item onClick={openCall(nodeId, Routes.TREE_LINK_PROJECT)}>
-								<IconWrap>
-									<Icon icon={faFolderOpen} />
-								</IconWrap>
-								<Title>
-									{t(translationPath(lang.contextMenu.openProject).path)}
-								</Title>
-							</Item>
-							{/* <Item
+			{nodeType == "Project" && (
+				<>
+					<Item onClick={openCall(nodeId, Routes.TREE_LINK_PROJECT)}>
+						<IconWrap>
+							<Icon icon={faFolderOpen} />
+						</IconWrap>
+						<Title>
+							{t(translationPath(lang.contextMenu.openProject).path)}
+						</Title>
+					</Item>
+					{/* <Item
 								onClick={newProjectJob(nodeId, TrussExe.TRUSS_2D, projectName)}
 							>
 								<IconWrap>
@@ -164,34 +157,70 @@ export const RightContext = ({
 									{t(translationPath(lang.contextMenu.newTruss2DJob).path)}
 								</Title>
 							</Item> */}
-
-							<Item
-								onClick={newProjectJob(nodeId, TrussExe.TRUSS_3D, projectName)}
-							>
+					<Item onClick={newProjectJob(nodeId, TrussExe.TRUSS_3D, projectName)}>
+						<IconWrap>
+							<Icon icon={faPlusSquare} />
+						</IconWrap>
+						<Title>
+							{t(translationPath(lang.contextMenu.newTruss3DJob).path)}
+						</Title>
+					</Item>
+					<ActiveSelection
+						id={nodeId}
+						removeFromSelection={removeFromSelection}
+						addToSelection={addToSelection}
+						add={t(translationPath(lang.contextMenu.addToSelection).path)}
+						remove={t(
+							translationPath(lang.contextMenu.removeFromSelection).path
+						)}
+						selectedKeys={selectedKeys}
+					/>
+					<Divider />
+					<SPopConfirm
+						id={"popConfirmId"}
+						title={t(translationPath(lang.remove.project).path, {
+							name: projectName,
+						})}
+						onConfirm={removeProjectCall(nodeId)}
+						onCancel={() => setIsVisible(false)}
+						okText={t(translationPath(lang.common.yes).path)}
+						cancelText={t(translationPath(lang.common.no).path)}
+						placement="left"
+					>
+						<Item>
+							<IconWrap>
+								<Icon icon={faTrashAlt} />
+							</IconWrap>
+							<Title>
+								{t(translationPath(lang.contextMenu.deleteProject).path)}
+							</Title>
+						</Item>
+					</SPopConfirm>
+				</>
+			)}
+			{nodeType == "Job" && (
+				<>
+					<Item onClick={openCall(nodeId, Routes.TREE_LINK_JOB)}>
+						<IconWrap>
+							<Icon icon={faFolderOpen} />
+						</IconWrap>
+						<Title>{t(translationPath(lang.contextMenu.openJob).path)}</Title>
+					</Item>
+					{jobLocked &&
+						(jobLockedByMe ? (
+							<Item onClick={unlock}>
 								<IconWrap>
-									<Icon icon={faPlusSquare} />
+									<Icon icon={faLockOpenAlt} />
 								</IconWrap>
 								<Title>
-									{t(translationPath(lang.contextMenu.newTruss3DJob).path)}
+									{t(translationPath(lang.contextMenu.unlockJob).path)}
 								</Title>
 							</Item>
-							<ActiveSelection
-								id={nodeId}
-								removeFromSelection={removeFromSelection}
-								addToSelection={addToSelection}
-								add={t(translationPath(lang.contextMenu.addToSelection).path)}
-								remove={t(
-									translationPath(lang.contextMenu.removeFromSelection).path
-								)}
-								selectedKeys={selectedKeys}
-							/>
-							<Divider />
+						) : (
 							<SPopConfirm
 								id={"popConfirmId"}
-								title={t(translationPath(lang.remove.project).path, {
-									name: projectName,
-								})}
-								onConfirm={removeProjectCall(nodeId)}
+								title={t(translationPath(lang.common.unlock).path)}
+								onConfirm={unlock}
 								onCancel={() => setIsVisible(false)}
 								okText={t(translationPath(lang.common.yes).path)}
 								cancelText={t(translationPath(lang.common.no).path)}
@@ -199,122 +228,77 @@ export const RightContext = ({
 							>
 								<Item>
 									<IconWrap>
-										<Icon icon={faTrashAlt} />
+										<Icon icon={faLockOpenAlt} />
 									</IconWrap>
 									<Title>
-										{t(translationPath(lang.contextMenu.deleteProject).path)}
+										{t(translationPath(lang.contextMenu.unlockJob).path)}
 									</Title>
 								</Item>
 							</SPopConfirm>
-						</>
-					)}
-					{nodeType == "Job" && (
-						<>
-							<Item onClick={openCall(nodeId, Routes.TREE_LINK_JOB)}>
-								<IconWrap>
-									<Icon icon={faFolderOpen} />
-								</IconWrap>
-								<Title>
-									{t(translationPath(lang.contextMenu.openJob).path)}
-								</Title>
-							</Item>
-							{jobLocked &&
-								(jobLockedByMe ? (
-									<Item onClick={unlock}>
-										<IconWrap>
-											<Icon icon={faLockOpenAlt} />
-										</IconWrap>
-										<Title>
-											{t(translationPath(lang.contextMenu.unlockJob).path)}
-										</Title>
-									</Item>
-								) : (
-									<SPopConfirm
-										id={"popConfirmId"}
-										title={t(translationPath(lang.common.unlock).path)}
-										onConfirm={unlock}
-										onCancel={() => setIsVisible(false)}
-										okText={t(translationPath(lang.common.yes).path)}
-										cancelText={t(translationPath(lang.common.no).path)}
-										placement="left"
-									>
-										<Item>
-											<IconWrap>
-												<Icon icon={faLockOpenAlt} />
-											</IconWrap>
-											<Title>
-												{t(translationPath(lang.contextMenu.unlockJob).path)}
-											</Title>
-										</Item>
-									</SPopConfirm>
-								))}
-							<Item
-								onClick={openEditTruss(nodeId, trussType, projectName, jobName)}
-							>
-								<IconWrap>
-									<Icon icon={faEdit} />
-								</IconWrap>
-								<Title>
-									{t(translationPath(lang.contextMenu.openJobInTruss).path)}
-								</Title>
-							</Item>
-							<ActiveSelection
-								id={nodeId}
-								removeFromSelection={removeFromSelection}
-								addToSelection={addToSelection}
-								add={t(translationPath(lang.contextMenu.addToSelection).path)}
-								remove={t(
-									translationPath(lang.contextMenu.removeFromSelection).path
-								)}
-								selectedKeys={selectedKeys}
-							/>
-							<Divider />
-							<SPopConfirm
-								id={"popConfirmId"}
-								title={t(translationPath(lang.remove.job).path, {
-									name: jobName,
-								})}
-								onConfirm={removeJobCall(nodeId)}
-								onCancel={() => setIsVisible(false)}
-								// onVisibleChange={handleClickOutside}
-								okText={t(translationPath(lang.common.yes).path)}
-								cancelText={t(translationPath(lang.common.no).path)}
-								placement="left"
-							>
-								<Item>
-									<IconWrap>
-										<Icon icon={faTrashAlt} />
-									</IconWrap>
-									<Title>
-										{t(translationPath(lang.contextMenu.deleteJob).path)}
-									</Title>
-								</Item>
-							</SPopConfirm>
-						</>
-					)}
-					{nodeType == "Truss" && (
-						<>
-							<Item onClick={openCall(nodeId, Routes.TREE_LINK_TRUSS)}>
-								<IconWrap>
-									<Icon icon={faFolderOpen} />
-								</IconWrap>
-								<Title>
-									{t(translationPath(lang.contextMenu.openTruss).path)}
-								</Title>
-							</Item>
-							<ActiveSelection
-								id={nodeId}
-								removeFromSelection={removeFromSelection}
-								addToSelection={addToSelection}
-								add={t(translationPath(lang.contextMenu.addToSelection).path)}
-								remove={t(
-									translationPath(lang.contextMenu.removeFromSelection).path
-								)}
-								selectedKeys={selectedKeys}
-							/>
-						</>
-					)}
-				</ContextMenu>
+						))}
+					<Item
+						onClick={openEditTruss(nodeId, trussType, projectName, jobName)}
+					>
+						<IconWrap>
+							<Icon icon={faEdit} />
+						</IconWrap>
+						<Title>
+							{t(translationPath(lang.contextMenu.openJobInTruss).path)}
+						</Title>
+					</Item>
+					<ActiveSelection
+						id={nodeId}
+						removeFromSelection={removeFromSelection}
+						addToSelection={addToSelection}
+						add={t(translationPath(lang.contextMenu.addToSelection).path)}
+						remove={t(
+							translationPath(lang.contextMenu.removeFromSelection).path
+						)}
+						selectedKeys={selectedKeys}
+					/>
+					<Divider />
+					<SPopConfirm
+						id={"popConfirmId"}
+						title={t(translationPath(lang.remove.job).path, {
+							name: jobName,
+						})}
+						onConfirm={removeJobCall(nodeId)}
+						onCancel={() => setIsVisible(false)}
+						// onVisibleChange={handleClickOutside}
+						okText={t(translationPath(lang.common.yes).path)}
+						cancelText={t(translationPath(lang.common.no).path)}
+						placement="left"
+					>
+						<Item>
+							<IconWrap>
+								<Icon icon={faTrashAlt} />
+							</IconWrap>
+							<Title>
+								{t(translationPath(lang.contextMenu.deleteJob).path)}
+							</Title>
+						</Item>
+					</SPopConfirm>
+				</>
+			)}
+			{nodeType == "Truss" && (
+				<>
+					<Item onClick={openCall(nodeId, Routes.TREE_LINK_TRUSS)}>
+						<IconWrap>
+							<Icon icon={faFolderOpen} />
+						</IconWrap>
+						<Title>{t(translationPath(lang.contextMenu.openTruss).path)}</Title>
+					</Item>
+					<ActiveSelection
+						id={nodeId}
+						removeFromSelection={removeFromSelection}
+						addToSelection={addToSelection}
+						add={t(translationPath(lang.contextMenu.addToSelection).path)}
+						remove={t(
+							translationPath(lang.contextMenu.removeFromSelection).path
+						)}
+						selectedKeys={selectedKeys}
+					/>
+				</>
 			)}
 		</>
 	);
