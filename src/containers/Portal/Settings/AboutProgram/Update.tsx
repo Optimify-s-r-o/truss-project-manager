@@ -80,7 +80,7 @@ export const Update = ({
 									icon={<WindowsOutlined />}
 									onClick={() => updateApp()}
 								>
-									Download & Quit & Install now
+									Download & Install now
 								</SButton>
 							</Space>
 						)}
@@ -119,7 +119,7 @@ const AlertBox = styled(ContentRow)`
 `;
 
 const SButton = styled(Button)`
-	margin: 0.7em 0 0.4em 0;
+	margin: 0.4em 0 0.4em 0;
 	.anticon svg {
 		background: transparent;
 	}
