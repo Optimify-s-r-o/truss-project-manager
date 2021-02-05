@@ -130,10 +130,8 @@ const  createWindow =()=> {
   //   );
   // });
 
-    
   autoUpdater.on('update-downloaded', (info) => {
     logInfo('Update downloaded');
-    progressBar.setCompleted();
     autoUpdater.quitAndInstall();
   });
 
