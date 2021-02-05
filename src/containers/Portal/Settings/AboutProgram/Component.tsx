@@ -16,7 +16,6 @@ import {
 	DOWNLOAD_UPDATE_FAILURE,
 	DOWNLOAD_UPDATE_PENDING,
 	DOWNLOAD_UPDATE_SUCCESS,
-	QUIT_AND_INSTALL_UPDATE,
 } from "src/constants/ipcConstants";
 import {
 	PageHeader,
@@ -70,7 +69,6 @@ export const Component = ({}: StateProps & DispatchProps) => {
 			console.log(version);
 			console.log(currentAppVersion);
 			if (currentAppVersion && version && version !== currentAppVersion) {
-				ipcRenderer.send(DOWNLOAD_UPDATE_PENDING);
 				setVersionToDownload(version);
 				setUpdatingState(State.NEW_VERSION_TO_DOWNLOAD);
 			} else {
@@ -92,9 +90,10 @@ export const Component = ({}: StateProps & DispatchProps) => {
 	}, [currentAppVersion]);
 
 	const updateApp = () => {
-		setUpdatingState(State.UPDATING);
 		const ipcRenderer = getIpcRenderer();
-		ipcRenderer.send(QUIT_AND_INSTALL_UPDATE);
+		ipcRenderer.send(DOWNLOAD_UPDATE_PENDING);
+		setUpdatingState(State.UPDATING);
+		// ipcRenderer.send(QUIT_AND_INSTALL_UPDATE);
 	};
 
 	return (

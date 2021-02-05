@@ -3,9 +3,13 @@ import logo from '../../../../img/icon.png';
 import styled from 'styled-components';
 import { Box } from '../../../../components/Box';
 import { Button, Space, Spin } from 'antd';
-import { LoadingOutlined, WindowsOutlined } from '@ant-design/icons';
 import { State } from './Component';
 import { useTranslation } from 'react-i18next';
+import {
+	CheckCircleOutlined,
+	LoadingOutlined,
+	WindowsOutlined,
+} from "@ant-design/icons";
 import {
 	ContentRow,
 	GridItem,
@@ -48,20 +52,25 @@ export const Update = ({
 						) : updatingState === State.UPDATING ? (
 							<Message>Updating...</Message>
 						) : updatingState === State.IS_UPDATED ? (
-							<Message>Updating...</Message>
+							<Message>
+								Your app is up to date.{" "}
+								<CheckCircleOutlined
+									color={"#52c41a"}
+									style={{ marginLeft: 2 }}
+								/>
+							</Message>
 						) : updatingState === State.FAILURE ? (
 							<Message>Error</Message>
 						) : (
 							""
 						)}
 						{(updatingState === State.PENDING ||
-							updatingState === State.UPDATING ||
-							updatingState === State.NEW_VERSION_TO_DOWNLOAD) && (
+							updatingState === State.UPDATING) && (
 							<Space direction="vertical" size="large">
 								<Spin indicator={antIcon} />
 							</Space>
 						)}
-						{updatingState === State.DOWNLOADED && (
+						{updatingState === State.NEW_VERSION_TO_DOWNLOAD && (
 							<Space direction="vertical" size="large">
 								<SButton
 									size="middle"
@@ -69,7 +78,7 @@ export const Update = ({
 									icon={<WindowsOutlined />}
 									onClick={() => updateApp()}
 								>
-									Quit & Install now
+									Download & Quit & Install now
 								</SButton>
 							</Space>
 						)}
@@ -91,8 +100,9 @@ const Downloading = styled.span`
 
 const VersionInfo = styled.span`
 	color: ${(props) => props.theme.colors.secondaryText.default};
-	margin-top: 1.3em 0 0.3em 0;
+	margin: 1.3em 0 0.3em 0;
 `;
+
 const Message = styled.span`
 	color: ${(props) => props.theme.colors.secondaryText.default};
 	margin: 1.3em 0;

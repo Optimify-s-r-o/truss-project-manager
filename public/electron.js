@@ -113,8 +113,8 @@ const  createWindow =()=> {
     const { sender } = event;
   
     result
-      .then((response) => {
-        logInfo("DOWNLOAD_UPDATE_SUCCESS:"+logInfo(response));
+      .then(() => {
+        logInfo("DOWNLOAD_UPDATE_SUCCESS:");
         sender.send("DOWNLOAD_UPDATE_SUCCESS");
       })
       .catch((error) => {
@@ -123,17 +123,26 @@ const  createWindow =()=> {
       });
   });
   
-  ipcMain.on('QUIT_AND_INSTALL_UPDATE', () => {
-    autoUpdater.quitAndInstall(
-      true, // isSilent
-      true // isForceRunAfter, restart app after update is installed
-    );
+  // ipcMain.on('QUIT_AND_INSTALL_UPDATE', () => {
+  //   autoUpdater.quitAndInstall(
+  //     true, // isSilent
+  //     true // isForceRunAfter, restart app after update is installed
+  //   );
+  // });
+
+    
+  autoUpdater.on('update-downloaded', (info) => {
+    logInfo('Update downloaded');
+    progressBar.setCompleted();
+    autoUpdater.quitAndInstall();
   });
 
   ipcMain.on('APP_VERSION', (event) => {
     logInfo('APP_VERSION'+app.getVersion())
     event.sender.send('APP_VERSION', { version: app.getVersion() });
   });
+
+
 }
 
 app.on('ready', ()=>  {
@@ -182,10 +191,3 @@ const logInfo =(text) =>{
 //     log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
 //     logInfo(log_message);
 //   })
-  
-//   autoUpdater.on('update-downloaded', (info) => {
-//     logInfo('Update downloaded');
-//     progressBar.setCompleted();
-//     autoUpdater.quitAndInstall();
-//   });
-// }
