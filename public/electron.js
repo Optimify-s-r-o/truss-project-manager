@@ -86,7 +86,7 @@ const  createWindow =()=> {
   ipcMain.on('CHECK_FOR_UPDATE_PENDING', (event) => {
     const { sender } = event;
     logInfo('CHECK_FOR_UPDATE_PENDING');
-
+    autoUpdater.autoDownload=false;
   if (process.env.NODE_ENV === 'development') {
     sender.send('CHECK_FOR_UPDATE_SUCCESS');
   } else {
@@ -129,6 +129,7 @@ const  createWindow =()=> {
   });
 
   ipcMain.on('APP_VERSION', (event) => {
+    logInfo('APP_VERSION'+app.getVersion())
     event.sender.send('APP_VERSION', { version: app.getVersion() });
   });
 }

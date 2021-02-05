@@ -46,7 +46,7 @@ export interface DispatchProps {}
 
 export const Component = ({}: StateProps & DispatchProps) => {
 	const { t } = useTranslation();
-	const [currentAppVersion, setVersion] = React.useState("0.0.0");
+	const [currentAppVersion, setVersion] = React.useState(null);
 	const [versionToDownload, setVersionToDownload] = React.useState(null);
 	const [updatingState, setUpdatingState] = React.useState(State.PENDING);
 
@@ -57,14 +57,16 @@ export const Component = ({}: StateProps & DispatchProps) => {
 		ipcRenderer.send(APP_VERSION);
 
 		ipcRenderer.on(APP_VERSION, (event, text) => {
+			console.log(text);
 			setVersion(text?.version);
 		});
 
 		ipcRenderer.on(CHECK_FOR_UPDATE_SUCCESS, (event, updateInfo) => {
+			console.log(updateInfo);
 			const version = updateInfo && updateInfo.version;
 			console.log(version);
 			console.log(currentAppVersion);
-			if (version && version !== currentAppVersion) {
+			if (currentAppVersion && version && version !== currentAppVersion) {
 				ipcRenderer.send(DOWNLOAD_UPDATE_PENDING);
 				setVersionToDownload(version);
 				setUpdatingState(State.NEW_VERSION_TO_DOWNLOAD);
