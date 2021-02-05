@@ -42,21 +42,23 @@ export const Update = ({
 							<Message>Checking for updates...</Message>
 						) : updatingState === State.NEW_VERSION_TO_DOWNLOAD ? (
 							<>
-								<VersionInfo>
-									New version found: {versionToDownload}
-								</VersionInfo>
-								<Downloading>Downloading the update...</Downloading>
+								<Info>New version found: {versionToDownload}</Info>
 							</>
 						) : updatingState === State.DOWNLOADED ? (
 							<Message>Update successfully downloaded.</Message>
 						) : updatingState === State.UPDATING ? (
-							<Message>Updating...</Message>
+							<>
+								<Info>Updating...</Info>
+								<Description>
+									This can may take a while. When a the new update is download
+									the app will automatically.
+								</Description>
+							</>
 						) : updatingState === State.IS_UPDATED ? (
 							<Message>
 								Your app is up to date.{" "}
 								<CheckCircleOutlined
-									color={"#52c41a"}
-									style={{ marginLeft: 2 }}
+									style={{ marginLeft: 2, color: "#52c41a" }}
 								/>
 							</Message>
 						) : updatingState === State.FAILURE ? (
@@ -93,12 +95,12 @@ const Logo = styled.img`
 	width: 120px;
 `;
 
-const Downloading = styled.span`
+const Description = styled.span`
 	color: ${(props) => props.theme.colors.secondaryText.default};
 	margin: 0.3em 0 1.3em 0;
 `;
 
-const VersionInfo = styled.span`
+const Info = styled.span`
 	color: ${(props) => props.theme.colors.secondaryText.default};
 	margin: 1.3em 0 0.3em 0;
 `;
