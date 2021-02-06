@@ -11,9 +11,10 @@ Var /GLOBAL pos_name
 
 Var version
 var localBackendPath
-StrCpy $version ${VERSION}
-StrCpy $localBackendPathX32 "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/$version-x32/publish/ApmBackend"
-StrCpy $localBackendPathX64 "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/$version-x64/publish/ApmBackend"
+;StrCpy $version ${VERSION}
+MessageBox MB_OK ${VERSION}
+;StrCpy $localBackendPathX32 "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/$version-x32/publish/ApmBackend"
+;StrCpy $localBackendPathX64 "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/$version-x64/publish/ApmBackend"
 
 Section ;Check if VCRedist is installed
 ClearErrors
