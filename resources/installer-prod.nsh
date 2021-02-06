@@ -1,6 +1,5 @@
 !include nsDialogs.nsh
 !include LogicLib.nsh
-
 !include LogicLib.nsh
 !include x64.nsh
 
@@ -9,6 +8,9 @@ Var /GLOBAL store_code_t
 Var /GLOBAL pos_name_t
 Var /GLOBAL store_code
 Var /GLOBAL pos_name
+Var /GLOBAL version
+Var /GLOBAL localBackendPathX32
+Var /GLOBAL localBackendPathX64
 
 Section ;Check if VCRedist is installed
 ClearErrors
@@ -18,6 +20,10 @@ ${If} ${RunningX64} ;X64
     DetailPrint "VC 2017 Redistributable already installed"
   ${Else}
     NSISdl::download "https://mysql-installer-fine.s3.eu-central-1.amazonaws.com/VC_redist.x64.exe" "$APPDATA\VC_redist.x64.exe"
+    Pop $R0
+      StrCmp $R0 "success" +3
+        MessageBox MB_OK "Download failed: $R0"
+        Quit
     ExecWait '"$APPDATA\VC_redist.x64.exe" /quiet'
   ${EndIf}
 ${Else}
@@ -26,6 +32,10 @@ ${Else}
     DetailPrint "VC 2017 Redistributable already installed"
   ${Else}
     NSISdl::download "https://mysql-installer-fine.s3.eu-central-1.amazonaws.com/VC_redist.x86.exe" "$APPDATA\VC_redist.x86.exe"
+    Pop $R0
+      StrCmp $R0 "success" +3
+        MessageBox MB_OK "Download failed: $R0"
+        Quit
     ExecWait '"$APPDATA\VC_redist.x86.exe" /quiet'
   ${EndIf}
 ${EndIf}  
@@ -40,6 +50,10 @@ ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Services\MYSQL80 "ImagePath"
         DetailPrint "64-bit Windows"
         CreateDirectory $PROGRAMFILES64\MySQL
         NSISdl::download "https://mysql-installer-fine.s3.eu-central-1.amazonaws.com/mysql-8.0.22-winx64.zip" "$APPDATA\mysql-8.0.22-winx64.zip"
+        Pop $R0
+          StrCmp $R0 "success" +3
+            MessageBox MB_OK "Download failed: $R0"
+            Quit        
         ;nsisunz::UnzipToStack  "$APPDATA\mysql-8.0.22-winx64.zip" "$PROGRAMFILES64\MySQL"
         ExecWait "powershell -ExecutionPolicy Bypass -WindowStyle Hidden  Expand-Archive '$APPDATA\mysql-8.0.22-winx64.zip' '$PROGRAMFILES64\MySQL' -Force" $0
         nsExec::ExecToStack '$PROGRAMFILES64\MySQL\mysql-8.0.22-winx64\bin\mysqld --initialize-insecure' 
@@ -53,6 +67,10 @@ ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Services\MYSQL80 "ImagePath"
         DetailPrint "32-bit Windows"
         CreateDirectory $PROGRAMFILES\MySQL
         NSISdl::download "https://mysql-installer-fine.s3.eu-central-1.amazonaws.com/mysql-5.7.31-win32.zip" "$APPDATA\mysql-5.7.31-win32.zip"
+        Pop $R0
+          StrCmp $R0 "success" +3
+            MessageBox MB_OK "Download failed: $R0"
+            Quit
         ExecWait "powershell -ExecutionPolicy Bypass -WindowStyle Hidden  Expand-Archive '$APPDATA\mysql-5.7.31-win32.zip' '$PROGRAMFILES\MySQL' -Force" $0
         nsExec::ExecToStack '$PROGRAMFILES\MySQL\mysql-5.7.31-win32\bin\mysqld --initialize-insecure' 
         nsExec::ExecToStack '$PROGRAMFILES\MySQL\mysql-5.7.31-win32\bin\mysqld --install MySQL80'
@@ -68,20 +86,57 @@ SectionEnd
 
 Section
   ClearErrors
+  MessageBox MB_OK "${VERSION}"
+  MessageBox MB_OK ${VERSION}
+  StrCpy $version "${VERSION}"
+  StrCpy $localBackendPathX32 "https://truss-project-manager-local-api-publish.s3.eu-central-1.amazonaws.com/$version-x32/publish/ApmBackend"
+  StrCpy $localBackendPathX64 "https://truss-project-manager-local-api-publish.s3.eu-central-1.amazonaws.com/$version-x64/publish/ApmBackend"
   ${If} ${RunningX64}
-      DetailPrint "64-bit Windows"
-      CreateDirectory "$PROGRAMFILES64\Truss Project Manager REST API"
-      NSISdl::download "https://truss-project-manager-local-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x64/publish/ApmBackend/appsettings.json" "$PROGRAMFILES64\Truss Project Manager REST API\appsettings.json"
-      NSISdl::download "https://truss-project-manager-local-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x64/publish/ApmBackend/nlog.config" "$PROGRAMFILES64\Truss Project Manager REST API\nlog.config"
-      NSISdl::download "https://truss-project-manager-local-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x64/publish/ApmBackend/web.config" "$PROGRAMFILES64\Truss Project Manager REST API\web.config"
-      NSISdl::download "https://truss-project-manager-local-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x64/publish/ApmBackend/ApmBackend.exe" "$PROGRAMFILES64\Truss Project Manager REST API\ApmBackend.exe"
+    DetailPrint "64-bit Windows"
+    CreateDirectory "$PROGRAMFILES64\Truss Project Manager REST API"
+    NSISdl::download "$localBackendPathX64/appsettings.json" "$PROGRAMFILES64\Truss Project Manager REST API\appsettings.json"
+    Pop $R0
+      StrCmp $R0 "success" +3
+        MessageBox MB_OK "Download failed: $R0"
+        Quit
+    NSISdl::download "$localBackendPathX64/nlog.config" "$PROGRAMFILES64\Truss Project Manager REST API\nlog.config"
+    Pop $R0
+      StrCmp $R0 "success" +3
+        MessageBox MB_OK "Download failed: $R0"
+        Quit
+    NSISdl::download "$localBackendPathX64/web.config" "$PROGRAMFILES64\Truss Project Manager REST API\web.config"
+    Pop $R0
+      StrCmp $R0 "success" +3
+        MessageBox MB_OK "Download failed: $R0"
+        Quit
+    NSISdl::download "$localBackendPathX64/ApmBackend.exe" "$PROGRAMFILES64\Truss Project Manager REST API\ApmBackend.exe"
+    Pop $R0
+      StrCmp $R0 "success" +3
+        MessageBox MB_OK "Download failed: $R0"
+        Quit
   ${Else}
-      DetailPrint "32-bit Windows"
-      CreateDirectory "$PROGRAMFILES\Truss Project Manager REST API"
-      NSISdl::download "https://truss-project-manager-local-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x32/publish/ApmBackend/appsettings.json" "$PROGRAMFILES\Truss Project Manager REST API\appsettings.json"
-      NSISdl::download "https://truss-project-manager-local-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x32/publish/ApmBackend/nlog.config" "$PROGRAMFILES\Truss Project Manager REST API\nlog.config"
-      NSISdl::download "https://truss-project-manager-local-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x32/publish/ApmBackend/web.config" "$PROGRAMFILES\Truss Project Manager REST API\web.config"
-      NSISdl::download "https://truss-project-manager-local-api-publish.s3.eu-central-1.amazonaws.com/fine-netcore-api-tpm-env-local-x32/publish/ApmBackend/ApmBackend.exe" "$PROGRAMFILES\Truss Project Manager REST API\ApmBackend.exe"
+    DetailPrint "32-bit Windows"
+    CreateDirectory "$PROGRAMFILES\Truss Project Manager REST API"
+    NSISdl::download "$localBackendPathX32/appsettings.json" "$PROGRAMFILES\Truss Project Manager REST API\appsettings.json"
+    Pop $R0
+      StrCmp $R0 "success" +3
+        MessageBox MB_OK "Download failed: $R0"
+        Quit
+    NSISdl::download "$localBackendPathX32/nlog.config" "$PROGRAMFILES\Truss Project Manager REST API\nlog.config"
+    Pop $R0
+      StrCmp $R0 "success" +3
+        MessageBox MB_OK "Download failed: $R0"
+        Quit
+    NSISdl::download "$localBackendPathX32/web.config" "$PROGRAMFILES\Truss Project Manager REST API\web.config"
+    Pop $R0
+      StrCmp $R0 "success" +3
+        MessageBox MB_OK "Download failed: $R0"
+        Quit
+    NSISdl::download "$localBackendPathX32/ApmBackend.exe" "$PROGRAMFILES\Truss Project Manager REST API\ApmBackend.exe"
+    Pop $R0
+      StrCmp $R0 "success" +3
+        MessageBox MB_OK "Download failed: $R0"
+        Quit
   ${EndIf}   
 SectionEnd
 
