@@ -9,6 +9,12 @@ Var /GLOBAL pos_name_t
 Var /GLOBAL store_code
 Var /GLOBAL pos_name
 
+Var version
+var localBackendPath
+StrCpy $version ${VERSION}
+StrCpy $localBackendPathX32 "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/$version-x32/publish/ApmBackend"
+StrCpy $localBackendPathX64 "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/$version-x64/publish/ApmBackend"
+
 Section ;Check if VCRedist is installed
 ClearErrors
 ${If} ${RunningX64} ;X64  
@@ -44,10 +50,6 @@ ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Services\MYSQL80 "ImagePath"
         nsExec::ExecToStack '$PROGRAMFILES64\MySQL\mysql-8.0.22-winx64\bin\mysqld --initialize-insecure' 
         nsExec::ExecToStack '$PROGRAMFILES64\MySQL\mysql-8.0.22-winx64\bin\mysqld --install MySQL80'
         nsExec::ExecToStack 'sc start MySQL80'
-        ;Pop $0 ; Exit code / error
-        ;MessageBox MB_OK $0
-        ;Pop $1 ; stdout output
-        ;MessageBox MB_OK $1
     ${Else} ;X32
         DetailPrint "32-bit Windows"
         CreateDirectory $PROGRAMFILES\MySQL
@@ -56,10 +58,6 @@ ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Services\MYSQL80 "ImagePath"
         nsExec::ExecToStack '$PROGRAMFILES\MySQL\mysql-5.7.31-win32\bin\mysqld --initialize-insecure' 
         nsExec::ExecToStack '$PROGRAMFILES\MySQL\mysql-5.7.31-win32\bin\mysqld --install MySQL80'
         nsExec::ExecToStack 'sc start MySQL80'
-        ;Pop $0 ; Exit code / error
-        ;MessageBox MB_OK $0
-        ;Pop $1 ; stdout output
-        ;MessageBox MB_OK $1
     ${EndIf}  
   ${Else}  
   ${EndIf}
@@ -70,18 +68,18 @@ Section
   ${If} ${RunningX64}
       DetailPrint "64-bit Windows"
       CreateDirectory "$PROGRAMFILES64\Truss Project Manager REST API"
-      MessageBox MB_OK "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x64/publish/ApmBackend/appsettings.json"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x64/publish/ApmBackend/appsettings.json" "$PROGRAMFILES64\Truss Project Manager REST API\appsettings.json"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x64/publish/ApmBackend/nlog.config" "$PROGRAMFILES64\Truss Project Manager REST API\nlog.config"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x64/publish/ApmBackend/web.config" "$PROGRAMFILES64\Truss Project Manager REST API\web.config"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x64/publish/ApmBackend/ApmBackend.exe" "$PROGRAMFILES64\Truss Project Manager REST API\ApmBackend.exe"
+      MessageBox MB_OK ${VERSION}
+      NSISdl::download "$localBackendPathX64/appsettings.json" "$PROGRAMFILES64\Truss Project Manager REST API\appsettings.json"
+      NSISdl::download "$localBackendPathX64/nlog.config" "$PROGRAMFILES64\Truss Project Manager REST API\nlog.config"
+      NSISdl::download "$localBackendPathX64/web.config" "$PROGRAMFILES64\Truss Project Manager REST API\web.config"
+      NSISdl::download "$localBackendPathX64/ApmBackend.exe" "$PROGRAMFILES64\Truss Project Manager REST API\ApmBackend.exe"
   ${Else}
       DetailPrint "32-bit Windows"
       CreateDirectory "$PROGRAMFILES\Truss Project Manager REST API"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x32/publish/ApmBackend/appsettings.json" "$PROGRAMFILES\Truss Project Manager REST API\appsettings.json"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x32/publish/ApmBackend/nlog.config" "$PROGRAMFILES\Truss Project Manager REST API\nlog.config"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x32/publish/ApmBackend/web.config" "$PROGRAMFILES\Truss Project Manager REST API\web.config"
-      NSISdl::download "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/"${VERSION}"-x32/publish/ApmBackend/ApmBackend.exe" "$PROGRAMFILES\Truss Project Manager REST API\ApmBackend.exe"
+      NSISdl::download "$localBackendPathX32/appsettings.json" "$PROGRAMFILES\Truss Project Manager REST API\appsettings.json"
+      NSISdl::download "$localBackendPathX32/nlog.config" "$PROGRAMFILES\Truss Project Manager REST API\nlog.config"
+      NSISdl::download "$localBackendPathX32/web.config" "$PROGRAMFILES\Truss Project Manager REST API\web.config"
+      NSISdl::download "$localBackendPathX32/ApmBackend.exe" "$PROGRAMFILES\Truss Project Manager REST API\ApmBackend.exe"
   ${EndIf}   
 SectionEnd
 

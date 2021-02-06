@@ -1,20 +1,20 @@
+import * as React from 'react';
+import logo from '../../../../img/icon.png';
+import styled from 'styled-components';
+import { Box } from '../../../../components/Box';
+import { Button, Space, Spin } from 'antd';
+import { State } from './Component';
+import { useTranslation } from 'react-i18next';
 import {
 	CheckCircleOutlined,
 	LoadingOutlined,
 	WindowsOutlined,
 } from "@ant-design/icons";
-import { Button, Space, Spin } from "antd";
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import styled from "styled-components";
-import { Box } from "../../../../components/Box";
 import {
 	ContentRow,
 	GridItem,
 	GridRow,
 } from "../../../../constants/globalStyles";
-import logo from "../../../../img/icon.png";
-import { State } from "./Component";
 
 export interface Update {
 	currentAppVersion: string;
@@ -50,8 +50,8 @@ export const Update = ({
 							<>
 								<Info>Updating...</Info>
 								<Description>
-									This may take a while. When a new update is downloaded the app
-									will automatically restart.
+									This may take a while. When a new update is downloaded TRUSS
+									Project Manager will automatically restart.
 								</Description>
 							</>
 						) : updatingState === State.IS_UPDATED ? (
