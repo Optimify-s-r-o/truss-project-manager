@@ -8,6 +8,8 @@ Var /GLOBAL store_code_t
 Var /GLOBAL pos_name_t
 Var /GLOBAL store_code
 Var /GLOBAL pos_name
+Var /GLOBAL version
+Var /GLOBAL localBackendPath
 
 Section ;Check if VCRedist is installed
 ClearErrors
@@ -60,8 +62,6 @@ SectionEnd
 Section
   ClearErrors
   MessageBox MB_OK ${VERSION}
-  Var version
-  var localBackendPath
   StrCpy $version ${VERSION}
   StrCpy $localBackendPathX32 "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/$version-x32/publish/ApmBackend"
   StrCpy $localBackendPathX64 "https://truss-project-manager-api-publish.s3.eu-central-1.amazonaws.com/$version-x64/publish/ApmBackend"
