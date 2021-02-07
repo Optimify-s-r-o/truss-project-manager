@@ -36,7 +36,7 @@ const VariablesBar = ({ variables, handleDoubleClick }: any) => {
 		>
 			{/* 
 			TODO LOPATA KAREL:
-			1.) upravit z BE navratove hodnoty variables - nesmi tam byt mezery => Timber Volume preved na timberVolume aby
+			1.) upravit z BE navratove hodnoty variables - nesmi tam byt mezery => Timber_Volume preved na timberVolume aby
 			slo pouzit 	t(translationPath(lang.quotations.variables.timberVolume).path)
 
 			2) preklady pridej pod quotations variables v lang.ts + vsech 3 jazycich
