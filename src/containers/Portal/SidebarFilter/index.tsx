@@ -142,7 +142,7 @@ export const Filter = ({
 				formik.setValues(getInitialValues(activeTree, filter));
 			});
 		}
-	}, [treeHub]);
+	}, [treeHub, activeTree, filter]);
 
 	return (
 		<SidebarNavigation path={path} activeFilter={activeFilter}>
