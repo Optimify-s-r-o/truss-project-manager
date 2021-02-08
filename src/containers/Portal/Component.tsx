@@ -91,7 +91,7 @@ export interface DispatchProps {
 	projectFilterRequest: (data: FilterProjectRequest) => void;
 	getCustomers: (data: Page) => void;
 	getTrusses: (data: Page) => void;
-	getProjects: (data: Fetch) => void;
+	getProjects: (data: Page) => void;
 	getJobs: (data: Page) => void;
 	filterEntities: (data: any) => void;
 	removeFromSelection: (data: string) => void;

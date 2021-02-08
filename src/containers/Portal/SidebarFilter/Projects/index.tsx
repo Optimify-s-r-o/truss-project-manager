@@ -19,7 +19,6 @@ export interface IProject {
 	handleChange: (value: FilterType) => void;
 	invokeTreeHub: (tree: TreeType) => void;
 	projectPending: boolean;
-	getProjects: (data: Fetch) => void;
 	show: boolean;
 	formik: any;
 }
@@ -37,7 +36,6 @@ export const Project = ({
 	handleChange,
 	invokeTreeHub,
 	projectPending,
-	getProjects,
 	show,
 	formik,
 }: IProject) => {
@@ -58,7 +56,6 @@ export const Project = ({
 				handleChange={handleChange}
 				activeFilter={activeFilter}
 				projectPending={projectPending}
-				getProjects={getProjects}
 			/>
 		</Show>
 	);

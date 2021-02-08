@@ -42,7 +42,7 @@ interface ISidePanel {
 	treePending: boolean;
 	getCustomers: (data: Page) => void;
 	getTrusses: (data: Page) => void;
-	getProjects: (data: Fetch) => void;
+	getProjects: (data: Page) => void;
 	getJobs: (data: Page) => void;
 	removeFromSelection: (data: string) => void;
 	addToSelection: (data: string) => void;

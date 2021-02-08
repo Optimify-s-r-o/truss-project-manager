@@ -4,13 +4,12 @@ import { Active, ActiveFilter } from '../_styles';
 import { Column } from 'src/styles/global';
 import { ContentRow } from 'src/constants/globalStyles';
 import { faSlash as faSlashSolid } from '@fortawesome/free-solid-svg-icons';
-import { Fetch, Page, TreeType } from '../../../../types/_types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getProjectsAction } from '../../../../sagas/Fetch/actions';
 import { Hub } from '../../../../constants/hub';
 import { HubConnection } from '@microsoft/signalr';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { lang } from '../../../../translation/i18n';
+import { Page, TreeType } from '../../../../types/_types';
 import { Tooltip } from 'antd';
 import { translationPath } from '../../../../utils/getPath';
 import { useTranslation } from 'react-i18next';
@@ -29,7 +28,7 @@ interface IActiveActions {
 	activeTree: TreeType;
 	getCustomers: (data: Page) => void;
 	getTrusses: (data: Page) => void;
-	getProjects: (data: Fetch) => void;
+	getProjects: (data: Page) => void;
 	getJobs: (data: Page) => void;
 	connect: HubConnection;
 	resetSelectionAction: (data: void) => void;
@@ -54,14 +53,11 @@ export const ActiveActions = ({
 		} else if (activeTree === TreeType.TRUSS) {
 			getTrusses({ Page: 0, PageSize: 25, Sort: "" });
 		} else if (activeTree === TreeType.PROJECT) {
-			getProjects(
-				getProjectsAction({
-					PageSize: 25,
-					Page: 0,
-					Sort: null,
-					Filtered: false,
-				})
-			);
+			getProjects({
+				Page: 0,
+				PageSize: 25,
+				Sort: null,
+			});
 		}
 	};
 	const resetTree = () => {

@@ -3,7 +3,6 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import SidebarNavigation from '../Lists/components/SidebarNavigation';
 import { Customer } from './Customer';
-import { faFolders, faHomeLgAlt, faMountains } from '@fortawesome/pro-light-svg-icons';
 import {
 	Fetch,
 	FilterSettings,
@@ -27,6 +26,11 @@ import { Truss } from './Trusses';
 import { useFormik } from 'formik';
 import { useLocation } from 'react-router';
 import { UserData } from '../Accounts/_types';
+import {
+	faFolders,
+	faHomeLgAlt,
+	faMountains,
+} from "@fortawesome/pro-light-svg-icons";
 
 export enum FilterType {
 	Customer,
@@ -55,7 +59,7 @@ interface IFilter {
 	customerPending: boolean;
 	activeFilter: boolean;
 	selectedKeys: string[];
-	getProjects: (data: Fetch) => void;
+	getProjects: (data: Page) => void;
 	getJobs: (data: Page) => void;
 	pending: boolean;
 }
@@ -125,7 +129,7 @@ export const Filter = ({
 		onSubmit: (values: any) => {
 			if (!_.isEqual(getInitialValues(activeTree, filter), values)) {
 				invokeTreeHub(activeTree);
-				filterEntities({...values, location});
+				filterEntities({ ...values, location });
 			}
 		},
 	});
@@ -184,7 +188,6 @@ export const Filter = ({
 							activeFilter={activeFilterType}
 							invokeTreeHub={invokeTreeHub}
 							projectPending={projectPending}
-							getProjects={getProjects}
 							show={activeFilterType === FilterType.Project}
 						/>
 						<Job

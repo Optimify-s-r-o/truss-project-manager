@@ -8,7 +8,6 @@ import { DeleteJob, Unlock } from './TreeView/Job/_types';
 import { deleteProject } from './Project/_actions';
 import { DeleteProject } from './Project/_types';
 import { Fetch, Page, TreeType } from '../../types/_types';
-import { getTruss } from './TreeView/Truss/_actions';
 import { quickSearch } from './FastNavigation/_actions';
 import { QuickSearchRequest } from './FastNavigation/_types';
 import { setCloud } from '../Home/Cloud/_actions';
@@ -36,6 +35,7 @@ import {
 	getCustomers,
 	getJobs,
 	getProjects,
+	getTrusses,
 } from "./SidebarFilter/_actions";
 import {
 	customerTree,
@@ -98,7 +98,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	getUsers: (data: Fetch) => dispatch(usersAction.request(data)),
 	filterEntities: (data: any) => dispatch(filterEntities.request(data)),
 	getCustomers: (data: Page) => dispatch(getCustomers.request(data)),
-	getTrusses: (data: Page) => dispatch(getTruss.request(data)),
+	getTrusses: (data: Page) => dispatch(getTrusses.request(data)),
 	getProjects: (data: Page) => dispatch(getProjects.request(data)),
 	getJobs: (data: Page) => dispatch(getJobs.request(data)),
 	removeFromSelection: (data: string) =>

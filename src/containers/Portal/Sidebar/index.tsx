@@ -1,19 +1,19 @@
-import { HubConnection } from "@microsoft/signalr";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { SSpin } from "../../../constants/globalStyles";
-import { Hub } from "../../../constants/hub";
-import { OpenTruss } from "../../../sagas/Truss/_actions";
-import { Fetch, Page, TreeType } from "../../../types/_types";
-import { isElectron } from "../../../utils/electron";
-import { DeleteProject } from "../Project/_types";
-import { DeleteJob, Unlock } from "../TreeView/Job/_types";
-import { ActiveActions } from "./components/ActiveActions";
-import { Events } from "./components/Events";
-import { RightContext } from "./components/RightContext";
-import { Tree } from "./components/Tree";
-import { createTree } from "./_services";
-import { Bar, ContextMenu } from "./_styles";
+import React, { useEffect, useState } from 'react';
+import { ActiveActions } from './components/ActiveActions';
+import { Bar, ContextMenu } from './_styles';
+import { createTree } from './_services';
+import { DeleteJob, Unlock } from '../TreeView/Job/_types';
+import { DeleteProject } from '../Project/_types';
+import { Events } from './components/Events';
+import { Fetch, Page, TreeType } from '../../../types/_types';
+import { Hub } from '../../../constants/hub';
+import { HubConnection } from '@microsoft/signalr';
+import { isElectron } from '../../../utils/electron';
+import { OpenTruss } from '../../../sagas/Truss/_actions';
+import { RightContext } from './components/RightContext';
+import { SSpin } from '../../../constants/globalStyles';
+import { Tree } from './components/Tree';
+import { useTranslation } from 'react-i18next';
 const Store = window.require("electron-store");
 
 interface Sidebar {
@@ -41,7 +41,7 @@ interface Sidebar {
 	treePending: boolean;
 	getCustomers: (data: Page) => void;
 	getTrusses: (data: Page) => void;
-	getProjects: (data: Fetch) => void;
+	getProjects: (data: Page) => void;
 	getJobs: (data: Page) => void;
 	removeFromSelection: (data: string) => void;
 	addToSelection: (data: string) => void;

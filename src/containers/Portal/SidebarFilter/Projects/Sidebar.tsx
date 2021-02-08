@@ -2,7 +2,7 @@ import * as React from 'react';
 import DateRange from './DateRange';
 import General from './General';
 import Price from './Price';
-import { Fetch, FilterSettings, TreeType } from '../../../../types/_types';
+import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
 import { Grow } from '../../Lists/components/_styles';
 import { Reset } from '../components/Reset';
@@ -21,7 +21,6 @@ export interface OwnProps {
 	activeFilter: FilterType;
 	handleChange: (value: FilterType) => void;
 	projectPending: boolean;
-	getProjects: (data: Fetch) => void;
 }
 
 const Index = ({
