@@ -204,11 +204,13 @@ export const Component = ({
 												disabled={!admin}
 											/>
 											<br />
-											<ButtonsRow>
-												<Button level={2} type="submit" loading={pending}>
-													{t(translationPath(lang.common.save).path)}
-												</Button>
-											</ButtonsRow>
+											{admin && (
+												<ButtonsRow>
+													<Button level={2} type="submit" loading={pending}>
+														{t(translationPath(lang.common.save).path)}
+													</Button>
+												</ButtonsRow>
+											)}
 										</>
 									</Box>
 								</GridItem>

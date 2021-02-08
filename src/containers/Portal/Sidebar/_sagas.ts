@@ -48,7 +48,7 @@ function* addToSelectionSaga(
 		yield put(
 			notificationAction({
 				code: Status.ERROR,
-				message: t(translationPath(lang.common.errorMessageProject)),
+				message: t(translationPath(lang.common.errorMessage)),
 			})
 		);
 
@@ -89,7 +89,7 @@ function* removeFromSelectionSaga(
 		yield put(
 			notificationAction({
 				code: Status.ERROR,
-				message: t(translationPath(lang.common.errorMessageProject)),
+				message: t(translationPath(lang.common.errorMessage)),
 			})
 		);
 
@@ -127,7 +127,7 @@ function* resetSelectionSaga(
 		yield put(
 			notificationAction({
 				code: Status.ERROR,
-				message: t(translationPath(lang.common.errorMessageProject)),
+				message: t(translationPath(lang.common.errorMessage)),
 			})
 		);
 

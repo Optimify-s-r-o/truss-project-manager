@@ -43,7 +43,7 @@ function* getOrganizationSaga(
 		yield put(
 			notificationAction({
 				code: Status.ERROR,
-				message: t(translationPath(lang.common.errorMessageProject)),
+				message: t(translationPath(lang.common.errorMessage)),
 			})
 		);
 		yield put(clearNotificationAction());
@@ -92,7 +92,7 @@ function* updateOrganizationSaga(
 		yield put(
 			notificationAction({
 				code: Status.ERROR,
-				message: t(translationPath(lang.common.errorMessageProject)),
+				message: t(translationPath(lang.common.errorMessage)),
 			})
 		);
 		yield put(clearNotificationAction());
