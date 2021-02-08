@@ -3,6 +3,7 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import SidebarNavigation from '../Lists/components/SidebarNavigation';
 import { Customer } from './Customer';
+import { faFolders, faHomeLgAlt, faMountains } from '@fortawesome/pro-light-svg-icons';
 import {
 	Fetch,
 	FilterSettings,
@@ -24,12 +25,8 @@ import { Tooltip } from 'antd';
 import { translationPath } from '../../../utils/getPath';
 import { Truss } from './Trusses';
 import { useFormik } from 'formik';
+import { useLocation } from 'react-router';
 import { UserData } from '../Accounts/_types';
-import {
-	faFolders,
-	faHomeLgAlt,
-	faMountains,
-} from "@fortawesome/pro-light-svg-icons";
 
 export enum FilterType {
 	Customer,
@@ -83,6 +80,7 @@ export const Filter = ({
 	getJobs,
 	getProjects,
 }: IFilter) => {
+	const location = useLocation();
 	const [activeFilterType, setActiveFilter] = useState<FilterType>(
 		FilterType.Job
 	);
@@ -127,7 +125,7 @@ export const Filter = ({
 		onSubmit: (values: any) => {
 			if (!_.isEqual(getInitialValues(activeTree, filter), values)) {
 				invokeTreeHub(activeTree);
-				filterEntities(values);
+				filterEntities({...values, location});
 			}
 		},
 	});

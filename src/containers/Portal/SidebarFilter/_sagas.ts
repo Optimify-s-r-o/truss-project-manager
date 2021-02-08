@@ -5,6 +5,7 @@ import { getType } from 'typesafe-actions';
 import { lang, t } from '../../../translation/i18n';
 import { Method } from '../../../constants/enum';
 import { notificationAction } from '../../../components/Toast/_actions';
+import { Routes } from 'src/constants/routes';
 import { Status } from '../../../components/Toast/_types';
 import { translationPath } from '../../../utils/getPath';
 import {
@@ -169,6 +170,39 @@ function* filterEntitiesActionSaga(
 		}
 
 		yield put(filterEntities.success(response));
+		if (action.payload.location === Routes.FILTER_PROJECT) {
+			yield put(
+				getProjects.request({
+					PageSize: 25,
+					Page: 0,
+					Sort: null,
+				})
+			);
+		} else if (action.payload.location === Routes.FILTER_JOB) {
+			yield put(
+				getJobs.request({
+					PageSize: 25,
+					Page: 0,
+					Sort: null,
+				})
+			);
+		} else if (action.payload.location === Routes.FILTER_TRUSS) {
+			yield put(
+				getTrusses.request({
+					PageSize: 25,
+					Page: 0,
+					Sort: null,
+				})
+			);
+		} else if (action.payload.location === Routes.CUSTOMER_ALL) {
+			yield put(
+				getCustomers.request({
+					PageSize: 25,
+					Page: 0,
+					Sort: null,
+				})
+			);
+		}
 	} catch (err) {
 		yield put(
 			notificationAction({

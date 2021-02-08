@@ -63,10 +63,6 @@ export default (
 		case getType(filterEntities.success):
 			return {
 				...state,
-				customers: action.payload.customers,
-				projects: action.payload.projects,
-				jobs: action.payload.jobs,
-				trusses: action.payload.trusses,
 				pending: false,
 			};
 		case getType(getCustomers.failure):
