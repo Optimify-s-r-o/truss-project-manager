@@ -186,7 +186,6 @@ export const AddressInput = ({ formik, name }: IAddressInput) => {
 	) => {
 		const { value, name } = event.target;
 		const newAddress = { ...location, [name]: value };
-		console.log(newAddress);
 		setLocation(newAddress);
 		setCurrentAddress(setAddress(newAddress));
 	};
