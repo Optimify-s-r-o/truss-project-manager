@@ -21,8 +21,8 @@ export const Active = ({ active, formik, activeFilterContent }: IActive) => {
 		<>
 			<>
 				{_.isEqual(activeFilterContent, formik.values)
-					? t(translationPath(lang.filter.selectedFilters).path)
-					: t(translationPath(lang.filter.activeFilters).path)}
+					? t(translationPath(lang.filter.activeFilters).path)
+					: t(translationPath(lang.filter.selectedFilters).path)}
 			</>
 			<Row
 				title={t(translationPath(lang.common.forename).path)}

@@ -62,6 +62,7 @@ export interface StateProps {
 	jobPending: boolean;
 	trussPending: boolean;
 	customerPending: boolean;
+	treeHub: any;
 }
 
 export interface DispatchProps {
@@ -144,6 +145,7 @@ const Index = ({
 	setHubTruss,
 	getCustomers,
 	resetSelectionAction,
+	treeHub,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { addToast } = useToasts();
 	const [treePending, setTreePending] = React.useState(true);
@@ -299,6 +301,7 @@ const Index = ({
 								selectedKeys={selectedKeys}
 								getJobs={getJobs}
 								getProjects={getProjects}
+								treeHub={treeHub}
 							/>
 						</ContentHeight>
 					</FullHeightExceptHeader>

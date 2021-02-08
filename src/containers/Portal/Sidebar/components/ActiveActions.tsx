@@ -48,6 +48,7 @@ export const ActiveActions = ({
 	useEffect(() => {
 		if (connect) {
 			connect.on(Hub.TreeResetFinished, (message) => {
+				console.log("yes");
 				resetLists();
 			});
 		}

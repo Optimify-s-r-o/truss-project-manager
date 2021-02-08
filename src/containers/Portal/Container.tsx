@@ -69,6 +69,7 @@ const mapStateToProps = (state: any) => ({
 	jobPending: state.FilterReducer.pending,
 	projectPending: state.FilterReducer.projectPending,
 	customerPending: state.CustomersReducer.customerPending,
+	treeHub: state.HubReducer.tree,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

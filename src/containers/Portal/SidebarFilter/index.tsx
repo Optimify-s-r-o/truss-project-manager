@@ -62,6 +62,7 @@ interface IFilter {
 	getProjects: (data: Page) => void;
 	getJobs: (data: Page) => void;
 	pending: boolean;
+	treeHub: any;
 }
 
 export const Filter = ({
@@ -83,6 +84,7 @@ export const Filter = ({
 	pending,
 	getJobs,
 	getProjects,
+	treeHub,
 }: IFilter) => {
 	const location = useLocation();
 	const [activeFilterType, setActiveFilter] = useState<FilterType>(
@@ -116,7 +118,7 @@ export const Filter = ({
 
 	const resetTree = () => {
 		try {
-			connect.invoke("ResetTree");
+			connect.invoke(Hub.ResetTree);
 		} catch (err) {
 			console.log(err);
 		}
@@ -133,6 +135,15 @@ export const Filter = ({
 			}
 		},
 	});
+
+	useEffect(() => {
+		if (treeHub) {
+			treeHub.on(Hub.TreeResetFinished, (message) => {
+				formik.setValues(getInitialValues(activeTree, filter));
+			});
+		}
+	}, [treeHub]);
+
 	return (
 		<SidebarNavigation path={path} activeFilter={activeFilter}>
 			<Sidebar>
