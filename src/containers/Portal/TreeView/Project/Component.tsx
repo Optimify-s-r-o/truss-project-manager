@@ -1,13 +1,30 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faFolder } from "@fortawesome/pro-light-svg-icons";
+import General from './General/Container';
+import Loading from '../../../../components/Optimify/Loading';
+import Log from './Log/Container';
+import Navigation from '../../../../components/NavigationLink';
+import NewJob from './General/components/NewJob';
+import Quotations from './Quotations/Container';
+import React, { useState } from 'react';
+import { Delete } from '../../../../components/Button';
+import { DeleteProject } from '../../Project/_types';
+import { deleteProjectRoute } from '../../../../sagas/Fetch/actions';
+import { faFolder } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { get } from 'lodash';
+import { getPath, translationPath } from '../../../../utils/getPath';
+import { HubComponent } from './HubComponent';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { MainTree } from '../../_styles';
+import { OpenTruss } from '../../../../sagas/Truss/_actions';
+import { Phase } from '../../../../components/Phase';
+import { ProjectFile, ProjectFileRequest } from './_types';
+import { Routes } from '../../../../constants/routes';
+import { SelectedProjectsRequest } from '../Projects/_types';
 import {
 	faDatabase,
 	faInfo,
 	faMoneyBillWave,
 } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { get } from "lodash";
-import React, { useState } from "react";
 import {
 	Route,
 	RouteComponentProps,
@@ -15,11 +32,6 @@ import {
 	useLocation,
 	useParams,
 } from "react-router-dom";
-import { Hub } from "src/constants/hub";
-import { Delete } from "../../../../components/Button";
-import Navigation from "../../../../components/NavigationLink";
-import Loading from "../../../../components/Optimify/Loading";
-import { Phase } from "../../../../components/Phase";
 import {
 	PageHeader,
 	PageTitle,
@@ -27,13 +39,6 @@ import {
 	TitleName,
 	TitleSection,
 } from "../../../../constants/globalStyles";
-import { Routes } from "../../../../constants/routes";
-import {
-	deleteProjectRoute,
-	getPortalUsers,
-	getProjectFilesAction,
-} from "../../../../sagas/Fetch/actions";
-import { OpenTruss } from "../../../../sagas/Truss/_actions";
 import {
 	lang,
 	t,
@@ -48,16 +53,6 @@ import {
 	TreeType,
 	TrussExe,
 } from "../../../../types/_types";
-import { getPath, translationPath } from "../../../../utils/getPath";
-import { DeleteProject } from "../../Project/_types";
-import { MainTree } from "../../_styles";
-import { SelectedProjectsRequest } from "../Projects/_types";
-import NewJob from "./General/components/NewJob";
-import General from "./General/Container";
-import { HubComponent } from "./HubComponent";
-import Log from "./Log/Container";
-import Quotations from "./Quotations/Container";
-import { ProjectFile, ProjectFileRequest } from "./_types";
 export interface StateProps {
 	activeTree: TreeType;
 	pending: boolean;
@@ -100,7 +95,7 @@ const Index = ({
 	clearEvidenceAction,
 }: WithTranslation & DispatchProps & StateProps & RouteComponentProps) => {
 	const { id } = useParams<{ id: string; type?: string }>();
-	const [loading, setLoading] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>(false);
 	const location = useLocation();
 
 	React.useEffect(() => {
@@ -120,23 +115,8 @@ const Index = ({
 		removeProject(deleteProjectRoute(id, activeTree));
 	};
 
-	const getProject = (id: string) => {
-		getFiles(getProjectFilesAction(id));
-		getUsers(getPortalUsers());
-	};
-
-	const handleSync = () => {
-		projectHub.invoke(Hub.RequestProject);
-	};
-
 	return (
-		<HubComponent
-			id={id}
-			projectHub={projectHub}
-			getProject={getProject}
-			setProject={setProject}
-			setLoading={setLoading}
-		>
+		<HubComponent id={id} projectHub={projectHub} setLoading={setLoading}>
 			<MainTree>
 				<Loading
 					text={t(translationPath(lang.common.loading))}

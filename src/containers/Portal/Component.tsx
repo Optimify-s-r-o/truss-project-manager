@@ -4,7 +4,7 @@ import Routing from '../../components/Routes';
 import { ApiURL } from '../../constants/api';
 import { CustomersTreeType } from './TreeView/_types';
 import { darkTheme, GlobalStyles, lightTheme } from '../../constants/theme';
-import { DeleteJob, Unlock } from './TreeView/Job/_types';
+import { DeleteJob, JobRootObject, Unlock } from './TreeView/Job/_types';
 import { DeleteProject } from './Project/_types';
 import { Filter } from './SidebarFilter';
 import { FilterProjectRequest } from './SidebarFilter/Projects/_types';
@@ -16,14 +16,21 @@ import { isElectron } from '../../utils/electron';
 import { Method } from '../../constants/enum';
 import { NavigationSetting } from './Navigation/NavigationSetting';
 import { OpenTruss } from '../../sagas/Truss/_actions';
+import { ProjectFileRequest } from './TreeView/Project/_types';
 import { QuickSearchRequest } from './FastNavigation/_types';
 import { RouteComponentProps } from 'react-router';
+import { setProject } from './TreeView/Project/_actions';
 import { settings, settingsFilter } from './_actions';
 import { SidePanel } from './Sidebar/SidePanel';
 import { ThemeProvider } from 'styled-components';
+import { Truss } from './TreeView/Truss/_types';
 import { UserData } from './Accounts/_types';
 import { useToasts } from 'react-toast-notifications';
 import { WithTranslation, withTranslation } from '../../translation/i18n';
+import {
+	getPortalUsers,
+	getProjectFilesAction,
+} from "../../sagas/Fetch/actions";
 import {
 	Data,
 	Fetch,
@@ -98,6 +105,12 @@ export interface DispatchProps {
 	removeFromSelection: (data: string) => void;
 	addToSelection: (data: string) => void;
 	resetSelectionAction: (data: void) => void;
+	getFiles: (data: ProjectFileRequest) => void;
+	getJobImage: (data: string) => void;
+	setJob: (data: JobRootObject) => void;
+	getTrussImage: (data: string) => void;
+	setTruss: (data: Truss) => void;
+	priceListsGetAction: (data: void) => void;
 }
 
 const Index = ({
@@ -146,6 +159,12 @@ const Index = ({
 	getCustomers,
 	resetSelectionAction,
 	treeHub,
+	getFiles,
+	setJob,
+	getJobImage,
+	setTruss,
+	getTrussImage,
+	priceListsGetAction,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { addToast } = useToasts();
 	const [treePending, setTreePending] = React.useState(true);
@@ -204,6 +223,16 @@ const Index = ({
 		};
 	}, []);
 
+	const getProject = (id: string) => {
+		getFiles(getProjectFilesAction(id));
+		getUsers(getPortalUsers());
+	};
+
+	const getTruss = (id: string) => {
+		getTrussImage(id);
+		priceListsGetAction();
+	};
+
 	return (
 		<HubComponent
 			setHubConnection={setHubConnection}
@@ -218,6 +247,12 @@ const Index = ({
 			setHubProject={setHubProject}
 			setHubJob={setHubJob}
 			setHubTruss={setHubTruss}
+			setProject={setProject}
+			getProject={getProject}
+			setJob={setJob}
+			getJobImage={getJobImage}
+			setTruss={setTruss}
+			getTruss={getTruss}
 		>
 			<KeyboardEventHandler
 				handleKeys={["f8"]}

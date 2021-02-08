@@ -26,29 +26,6 @@ export const HubComponent = ({
 	trussHub,
 }: HubComponent) => {
 	useEffect(() => {
-		const createHubConnection = async () => {
-			if (token) {
-				try {
-					if (trussHub?.state === "Connected") {
-						trussHub?.on(Hub.ReceivedTruss, (message) => {
-							setLoading(false);
-							const json = message && JSON.parse(message);
-							console.log(json);
-							if (!!json) {
-								getTruss(json?.General.Id);
-								setTruss(json);
-							}
-						});
-						trussHub.on(Hub.TrussChanged, () => {
-							trussHub.invoke(Hub.RequestTruss);
-						});
-					}
-				} catch (err) {
-					console.log(err);
-				}
-			}
-		};
-		createHubConnection();
 		return () => {
 			trussHub?.invoke(Hub.CloseTruss);
 		};
@@ -58,7 +35,7 @@ export const HubComponent = ({
 		const trussHandler = async () => {
 			if (trussHub?.state === "Connected") {
 				try {
-					setLoading(true);
+					//setLoading(true);
 					trussHub?.invoke(Hub.OpenTruss, id);
 				} catch (err) {
 					console.log(err);

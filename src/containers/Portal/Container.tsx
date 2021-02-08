@@ -3,11 +3,13 @@ import { clearNotificationAction } from '../../components/Toast/_actions';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createTruss, editTruss, OpenTruss } from '../../sagas/Truss/_actions';
-import { deleteJob, unlockJob } from './TreeView/Job/_actions';
-import { DeleteJob, Unlock } from './TreeView/Job/_types';
+import { DeleteJob, JobRootObject, Unlock } from './TreeView/Job/_types';
 import { deleteProject } from './Project/_actions';
 import { DeleteProject } from './Project/_types';
 import { Fetch, Page, TreeType } from '../../types/_types';
+import { getProjectFiles } from './TreeView/Project/_actions';
+import { priceListsGetAction } from './PriceLists/_actions';
+import { ProjectFileRequest } from './TreeView/Project/_types';
 import { quickSearch } from './FastNavigation/_actions';
 import { QuickSearchRequest } from './FastNavigation/_types';
 import { setCloud } from '../Home/Cloud/_actions';
@@ -18,6 +20,8 @@ import {
 	treeType,
 	usersAction
 	} from './_actions';
+import { setTruss, trussImage } from './TreeView/Truss/_actions';
+import { Truss } from './TreeView/Truss/_types';
 import { withRouter } from 'react-router';
 import {
 	setHubJob,
@@ -37,6 +41,12 @@ import {
 	getProjects,
 	getTrusses,
 } from "./SidebarFilter/_actions";
+import {
+	deleteJob,
+	jobImage,
+	setJob,
+	unlockJob,
+} from "./TreeView/Job/_actions";
 import {
 	customerTree,
 	jobTree,
@@ -108,6 +118,14 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 		dispatch(addToSelectionAction.request(data)),
 	resetSelectionAction: (data: void) =>
 		dispatch(resetSelectionAction.request(data)),
+	getFiles: (data: ProjectFileRequest) =>
+		dispatch(getProjectFiles.request(data)),
+	setJob: (data: JobRootObject) => dispatch(setJob(data)),
+	getJobImage: (data: string) => dispatch(jobImage.request(data)),
+	getTrussImage: (data: string) => dispatch(trussImage.request(data)),
+	setTruss: (data: Truss) => dispatch(setTruss(data)),
+	priceListsGetAction: (data: void) =>
+		dispatch(priceListsGetAction.request(data)),
 });
 
 export default compose(

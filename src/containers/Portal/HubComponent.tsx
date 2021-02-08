@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Hub, HubApi } from '../../constants/hub';
-import { TreeType } from '../../types/_types';
+import { JobRootObject } from './TreeView/Job/_types';
+import { Project, TreeType } from '../../types/_types';
+import { Truss } from './TreeView/Truss/_types';
 import {
 	HubConnection,
 	HubConnectionBuilder,
@@ -23,6 +25,12 @@ export interface HubComponent {
 	setHubProject: (data: any) => void;
 	setHubJob: (data: any) => void;
 	setHubTruss: (data: any) => void;
+	getProject: (id: string) => void;
+	setProject: (data: Project) => void;
+	setJob: (data: JobRootObject) => void;
+	getJobImage: (data: string) => void;
+	setTruss: (data: Truss) => void;
+	getTruss: (id: string) => void;
 }
 
 export const HubComponent = ({
@@ -38,6 +46,12 @@ export const HubComponent = ({
 	setHubProject,
 	setHubJob,
 	setHubTruss,
+	getProject,
+	setProject,
+	setJob,
+	getJobImage,
+	setTruss,
+	getTruss,
 }: HubComponent) => {
 	const getUrl = () => {
 		return local
@@ -80,6 +94,17 @@ export const HubComponent = ({
 
 			try {
 				await connect.start();
+				connect?.on(Hub.ReceivedProject, (message) => {
+					//setLoading(false); TODO
+					const json = message && JSON.parse(message);
+					if (json) {
+						getProject(json.Id);
+						json && json && setProject(json);
+					}
+				});
+				connect.on(Hub.ProjectChanged, () => {
+					connect.invoke(Hub.RequestProject);
+				});
 			} catch (err) {
 				console.log(err);
 			}
@@ -100,6 +125,18 @@ export const HubComponent = ({
 
 			try {
 				await connect.start();
+				connect.on(Hub.JobChanged, () => {
+					connect.invoke(Hub.RequestJob);
+				});
+				connect.on(Hub.JobIdChanged, (id) => {
+					connect?.invoke(Hub.OpenJob, id);
+				});
+				connect?.on(Hub.ReceivedJob, (message) => {
+					//setLoading(false);
+					const json = message && JSON.parse(message);
+					json && setJob(json);
+					getJobImage(json.Id);
+				});
 			} catch (err) {
 				console.log(err);
 			}
@@ -119,6 +156,18 @@ export const HubComponent = ({
 				.build();
 			try {
 				await connect.start();
+				connect?.on(Hub.ReceivedTruss, (message) => {
+					//setLoading(false);
+					const json = message && JSON.parse(message);
+					console.log(json);
+					if (!!json) {
+						getTruss(json?.General.Id);
+						setTruss(json);
+					}
+				});
+				connect.on(Hub.TrussChanged, () => {
+					connect.invoke(Hub.RequestTruss);
+				});
 			} catch (err) {
 				console.log(err);
 			}
@@ -127,10 +176,13 @@ export const HubComponent = ({
 	};
 
 	useEffect(() => {
-		createTreeHubConnection();
-		createProjectHubConnection();
-		createJobHubConnection();
-		createTrussHubConnection();
+		if (token) {
+			createTreeHubConnection();
+			createProjectHubConnection();
+			createJobHubConnection();
+			createTrussHubConnection();
+		}
+		console.log(token);
 	}, [token]);
 
 	useEffect(() => {
