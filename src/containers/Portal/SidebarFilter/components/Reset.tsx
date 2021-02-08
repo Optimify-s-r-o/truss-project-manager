@@ -39,7 +39,6 @@ export const Reset = (props: OwnProps) => {
 				: resetFilterTrussesValues(formik, filter);
 
 		formik.setValues(initialValues);
-		resetTree();
 	};
 	return (
 		<Fixed>

@@ -97,11 +97,22 @@ export const SliderRange = ({
 };
 
 export const DateRange = ({ title, value, show }) => {
+	const getValue = () => {
+		if (moment(value?.From)?.isValid() && moment(value?.To)?.isValid()) {
+			return `${moment(value?.From).format("D. MM. YYYY")} -
+				${moment(value?.To).format("D. MM. YYYY")}`;
+		} else if (moment(value?.From)?.isValid() && !!value?.To) {
+			return `${moment(value?.From).format("D. MM. YYYY")} -
+			 X`;
+		} else if (!!value?.From && moment(value?.To)?.isValid()) {
+			return `X -
+			${moment(value?.To).format("D. MM. YYYY")}`;
+		}
+	};
 	if (show) {
 		return (
 			<Box>
-				{title}: {moment(value?.From).format("D. MM. YYYY")} -{" "}
-				{moment(value?.To).format("D. MM. YYYY")}
+				{title}: {getValue()}
 			</Box>
 		);
 	}
