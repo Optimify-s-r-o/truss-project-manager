@@ -170,7 +170,8 @@ function* filterEntitiesActionSaga(
 		}
 
 		yield put(filterEntities.success(response));
-		if (action.payload.location === Routes.FILTER_PROJECT) {
+		console.log(action.payload.location);
+		if (action.payload?.location?.pathname === Routes.FILTER_PROJECT) {
 			yield put(
 				getProjects.request({
 					PageSize: 25,
@@ -178,7 +179,7 @@ function* filterEntitiesActionSaga(
 					Sort: null,
 				})
 			);
-		} else if (action.payload.location === Routes.FILTER_JOB) {
+		} else if (action.payload?.location?.pathname === Routes.FILTER_JOB) {
 			yield put(
 				getJobs.request({
 					PageSize: 25,
@@ -186,7 +187,7 @@ function* filterEntitiesActionSaga(
 					Sort: null,
 				})
 			);
-		} else if (action.payload.location === Routes.FILTER_TRUSS) {
+		} else if (action.payload?.location?.pathname === Routes.FILTER_TRUSS) {
 			yield put(
 				getTrusses.request({
 					PageSize: 25,
@@ -194,7 +195,7 @@ function* filterEntitiesActionSaga(
 					Sort: null,
 				})
 			);
-		} else if (action.payload.location === Routes.CUSTOMER_ALL) {
+		} else if (action.payload?.location?.pathname === Routes.CUSTOMER_ALL) {
 			yield put(
 				getCustomers.request({
 					PageSize: 25,
