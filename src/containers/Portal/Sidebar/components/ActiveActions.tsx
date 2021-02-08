@@ -86,8 +86,10 @@ export const ActiveActions = ({
 							<Active>
 								{t(translationPath(lang.common.activeFilter).path)}
 							</Active>
-						) : (
+						) : data?.IsFilterActive ? (
 							<span>{t(translationPath(lang.common.activeFilter).path)}</span>
+						) : (
+							""
 						)}
 						<ContentRow>
 							{data?.IsSkipped && (

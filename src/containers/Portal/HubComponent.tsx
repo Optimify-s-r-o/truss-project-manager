@@ -153,7 +153,7 @@ export const HubComponent = ({
 
 					connect.on(Hub.ReceivedFilters, (message) => {
 						console.log(message);
-						if (message) {
+						if (!!message) {
 							const json = message && JSON.parse(message);
 							if (json) {
 								console.log(json);

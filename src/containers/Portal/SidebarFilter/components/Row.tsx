@@ -101,10 +101,10 @@ export const DateRange = ({ title, value, show }) => {
 		if (moment(value?.From)?.isValid() && moment(value?.To)?.isValid()) {
 			return `${moment(value?.From).format("D. MM. YYYY")} -
 				${moment(value?.To).format("D. MM. YYYY")}`;
-		} else if (moment(value?.From)?.isValid() && !!value?.To) {
+		} else if (moment(value?.From)?.isValid()) {
 			return `${moment(value?.From).format("D. MM. YYYY")} -
 			 X`;
-		} else if (!!value?.From && moment(value?.To)?.isValid()) {
+		} else if (moment(value?.To)?.isValid()) {
 			return `X -
 			${moment(value?.To).format("D. MM. YYYY")}`;
 		}
