@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Active, ActiveFilter } from '../_styles';
 import { Column } from 'src/styles/global';
@@ -45,6 +45,14 @@ export const ActiveActions = ({
 }: IActiveActions) => {
 	const { t } = useTranslation();
 
+	useEffect(() => {
+		if (connect) {
+			connect.on(Hub.TreeResetFinished, (message) => {
+				resetLists();
+			});
+		}
+	}, []);
+
 	const resetLists = () => {
 		if (activeTree === TreeType.CUSTOMER) {
 			getCustomers({ Page: 0, PageSize: 25, Sort: "" });
@@ -62,7 +70,6 @@ export const ActiveActions = ({
 	};
 	const resetTree = () => {
 		try {
-			resetLists();
 			connect.invoke(Hub.ResetTree);
 		} catch (err) {
 			console.log(err);

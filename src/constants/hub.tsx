@@ -17,6 +17,7 @@ enum Hub {
 	TreeLost = "TreeLost",
 	RequestTreeSelection = "RequestTreeSelection",
 	ResetTree = "ResetTree",
+	TreeResetFinished = "TreeResetFinished",
 	ReceivedProject = "ReceivedProject",
 	ProjectChanged = "ProjectChanged",
 	RequestProject = "RequestProject",
