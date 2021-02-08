@@ -6,8 +6,13 @@ import { createTruss, editTruss, OpenTruss } from '../../sagas/Truss/_actions';
 import { DeleteJob, JobRootObject, Unlock } from './TreeView/Job/_types';
 import { deleteProject } from './Project/_actions';
 import { DeleteProject } from './Project/_types';
-import { Fetch, Page, TreeType } from '../../types/_types';
-import { getProjectFiles } from './TreeView/Project/_actions';
+import {
+	Fetch,
+	Page,
+	Project,
+	TreeType
+	} from '../../types/_types';
+import { getProjectFiles, setProject } from './TreeView/Project/_actions';
 import { priceListsGetAction } from './PriceLists/_actions';
 import { ProjectFileRequest } from './TreeView/Project/_types';
 import { quickSearch } from './FastNavigation/_actions';
@@ -126,6 +131,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	setTruss: (data: Truss) => dispatch(setTruss(data)),
 	priceListsGetAction: (data: void) =>
 		dispatch(priceListsGetAction.request(data)),
+	setProject: (data: Project) => dispatch(setProject(data)),
 });
 
 export default compose(

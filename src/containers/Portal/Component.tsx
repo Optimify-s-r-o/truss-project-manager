@@ -19,7 +19,6 @@ import { OpenTruss } from '../../sagas/Truss/_actions';
 import { ProjectFileRequest } from './TreeView/Project/_types';
 import { QuickSearchRequest } from './FastNavigation/_types';
 import { RouteComponentProps } from 'react-router';
-import { setProject } from './TreeView/Project/_actions';
 import { settings, settingsFilter } from './_actions';
 import { SidePanel } from './Sidebar/SidePanel';
 import { ThemeProvider } from 'styled-components';
@@ -36,6 +35,7 @@ import {
 	Fetch,
 	FilterSettings,
 	Page,
+	Project,
 	Tree,
 	TreeType,
 } from "../../types/_types";
@@ -111,6 +111,7 @@ export interface DispatchProps {
 	getTrussImage: (data: string) => void;
 	setTruss: (data: Truss) => void;
 	priceListsGetAction: (data: void) => void;
+	setProject: (data: Project) => void;
 }
 
 const Index = ({
@@ -165,6 +166,7 @@ const Index = ({
 	setTruss,
 	getTrussImage,
 	priceListsGetAction,
+	setProject,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { addToast } = useToasts();
 	const [treePending, setTreePending] = React.useState(true);
