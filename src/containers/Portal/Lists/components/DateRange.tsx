@@ -113,7 +113,7 @@ export const ModalWindow = (props: IModalWindow) => {
 			To: selectionRange.endDate
 				? moment(selectionRange.endDate).utc(true)
 				: null,
-			IncludeNotSet: true,
+			IncludeNotSet: false,
 			Active: true,
 		});
 		close();
