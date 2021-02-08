@@ -1,16 +1,16 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import { getType } from "typesafe-actions";
+import { ApiURL } from '../../../../constants/api';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { Error, fetchSaga } from '../../../../sagas/_sagas';
+import { getOrganization, updateOrganization } from './_actions';
+import { getType } from 'typesafe-actions';
+import { lang, t } from '../../../../translation/i18n';
+import { Method } from '../../../../constants/enum';
+import { Status } from '../../../../components/Toast/_types';
+import { translationPath } from '../../../../utils/getPath';
 import {
 	clearNotificationAction,
 	notificationAction,
 } from "../../../../components/Toast/_actions";
-import { Status } from "../../../../components/Toast/_types";
-import { ApiURL } from "../../../../constants/api";
-import { Method } from "../../../../constants/enum";
-import { Error, fetchSaga } from "../../../../sagas/_sagas";
-import { lang, t } from "../../../../translation/i18n";
-import { translationPath } from "../../../../utils/getPath";
-import { getOrganization, updateOrganization } from "./_actions";
 
 function* getOrganizationSaga(
 	action: ReturnType<typeof getOrganization.request>
@@ -39,12 +39,6 @@ function* getOrganizationSaga(
 		}
 		yield put(getOrganization.success(response));
 		yield put(clearNotificationAction());
-		yield put(
-			notificationAction({
-				code: Status.SUCCESS,
-				message: t(translationPath(lang.common.successMessage)),
-			})
-		);
 	} catch (err) {
 		yield put(
 			notificationAction({

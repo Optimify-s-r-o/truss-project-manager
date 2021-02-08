@@ -68,11 +68,28 @@ export const MultipleSelect = ({
 	return <div></div>;
 };
 
-export const SliderRange = ({ title, value, show }) => {
+export const SliderRange = ({
+	title,
+	value,
+	show,
+	round,
+}: {
+	title: string;
+	value: any;
+	show: boolean;
+	round?: boolean;
+}) => {
+	const getValue = () => {
+		if (round) {
+			return `${value?.From} - ${value?.To}`;
+		} else {
+			return `${fixed(value?.From, 2)} - ${fixed(value?.To, 2)}`;
+		}
+	};
 	if (show) {
 		return (
 			<Box>
-				{title}: {fixed(value?.From, 2)} - {fixed(value?.To, 2)}
+				{title}: {getValue()}
 			</Box>
 		);
 	}

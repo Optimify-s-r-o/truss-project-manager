@@ -127,11 +127,13 @@ export const Filter = ({
 		onSubmit: (values: any) => {
 			console.log(values);
 			if (!_.isEqual(getInitialValues(activeTree, filter), values)) {
-				invokeTreeHub(TreeType.CUSTOMER);
+				invokeTreeHub(activeTree);
 				filterEntities(values);
 			}
 		},
 	});
+	console.log(activeFilterContent);
+	console.log(formik.values);
 	return (
 		<SidebarNavigation path={path} activeFilter={activeFilter}>
 			<Sidebar>

@@ -105,6 +105,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 					settingsFrom={filter?.Truss?.SupportsCountFrom}
 					settingsTo={filter?.Truss?.SupportsCountTo}
 					step={1}
+					round={0}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.membersCount))}
@@ -115,6 +116,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 					settingsFrom={filter?.Truss?.MembersCountFrom}
 					settingsTo={filter?.Truss?.MembersCountTo}
 					step={1}
+					round={0}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.platesCount))}
@@ -125,6 +127,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 					settingsFrom={filter?.Truss?.PlatesCountFrom}
 					settingsTo={filter?.Truss?.PlatesCountTo}
 					step={1}
+					round={0}
 				/>
 
 				<FormSlider
@@ -136,6 +139,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 					settingsFrom={filter?.Truss?.ModelCountFrom}
 					settingsTo={filter?.Truss?.ModelCountTo}
 					step={1}
+					round={0}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.ply))}
@@ -146,6 +150,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 					settingsFrom={filter?.Truss?.PliesFrom}
 					settingsTo={filter?.Truss?.PliesTo}
 					step={1}
+					round={0}
 				/>
 			</EmptyFilter>
 		</FilterSection>

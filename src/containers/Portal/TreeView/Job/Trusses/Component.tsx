@@ -1,16 +1,23 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faMountains } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Select } from "antd";
-import * as React from "react";
-import Moment from "react-moment";
-import { RouteComponentProps, useHistory, useParams } from "react-router-dom";
-import { formatCurrency } from "src/utils/currencyFormat";
-import styled from "styled-components";
-import Data from "../../../../../components/Data/Data";
-import { UnitType } from "../../../../../components/Data/Unit";
-import FormRow from "../../../../../components/Optimify/Form/FormRow";
-import Loading from "../../../../../components/Optimify/Loading";
+import * as React from 'react';
+import Data from '../../../../../components/Data/Data';
+import FormRow from '../../../../../components/Optimify/Form/FormRow';
+import Loading from '../../../../../components/Optimify/Loading';
+import Moment from 'react-moment';
+import styled from 'styled-components';
+import { faMountains } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { formatCurrency } from 'src/utils/currencyFormat';
+import { GetTrusses, JobTruss, JobTrusses } from '../_types';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { IconTableCell } from './_styles';
+import { JobType, QuotationsSelection } from '../../../../../types/_types';
+import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
+import { RouteComponentProps, useHistory, useParams } from 'react-router-dom';
+import { Routes } from '../../../../../constants/routes';
+import { Select } from 'antd';
+import { StyledDiv } from '../../../Sidebar/_styles';
+import { translationPath } from '../../../../../utils/getPath';
+import { UnitType } from '../../../../../components/Data/Unit';
 import {
 	ScrollableTable,
 	TABLE_STYLE_CONDENSED,
@@ -24,19 +31,12 @@ import {
 	Header2,
 	MaterialTitleSection,
 } from "../../../../../constants/globalStyles";
-import { Routes } from "../../../../../constants/routes";
 import {
 	lang,
 	t,
 	WithTranslation,
 	withTranslation,
 } from "../../../../../translation/i18n";
-import { JobType, QuotationsSelection } from "../../../../../types/_types";
-import { translationPath } from "../../../../../utils/getPath";
-import { StyledDiv } from "../../../Sidebar/_styles";
-import { MainTreeContent, TreeContent, TreeScreen } from "../../../_styles";
-import { GetTrusses, JobTruss, JobTrusses } from "../_types";
-import { IconTableCell } from "./_styles";
 const { Option } = Select;
 
 export interface StateProps {
@@ -286,6 +286,10 @@ const SSelect = styled(Select)`
 		background-color: ${(props) =>
 			props.theme.colors.background.menu} !important;
 		color: ${(props) => props.theme.colors.secondaryText.default} !important;
+	}
+
+	.ant-select-arrow {
+		margin-top: 1px;
 	}
 
 	.anticon svg {

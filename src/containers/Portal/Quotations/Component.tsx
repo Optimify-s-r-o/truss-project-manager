@@ -197,6 +197,7 @@ const Index = ({
 							handleChangeTemplate={handleChangeTemplate}
 							quotationList={quotationList}
 							quotation={quotations}
+							addQuotationTemplate={addQuotationTemplate}
 						/>
 					</PageHeader>
 

@@ -20,6 +20,7 @@ interface NavigationProps {
 	justify?: string;
 	handleChangeTemplate: (id: string) => void;
 	quotationList: QuotationList;
+	addQuotationTemplate: () => void;
 }
 
 interface ItemDefinition {
@@ -36,6 +37,7 @@ const Navigation = ({
 	justify,
 	quotationList,
 	handleChangeTemplate,
+	addQuotationTemplate,
 }: NavigationProps) => {
 	const handleQuotationTypeChange = (value: string) => {
 		handleChangeTemplate(value);
@@ -59,7 +61,11 @@ const Navigation = ({
 					</Option>
 				))}
 			</SSelect>
-			<NavigationItem active={0} isAction={true}>
+			<NavigationItem
+				active={0}
+				isAction={true}
+				onClick={() => addQuotationTemplate()}
+			>
 				<FontAwesomeIcon icon={faPlusCircle as IconProp} />
 				{t(translationPath(lang.templates.addTemplate))}
 			</NavigationItem>

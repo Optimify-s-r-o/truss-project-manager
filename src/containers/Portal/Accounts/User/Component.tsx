@@ -5,7 +5,7 @@ import { ApiURL } from '../../../../constants/api';
 import { Button } from '../../../../components/Optimify/Button';
 import { editUser } from '../_actions';
 import { faUserPlus } from '@fortawesome/pro-light-svg-icons';
-import { Fetch } from '../../../../types/_types';
+import { Fetch, UserRole } from '../../../../types/_types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getUserByUsernameCall } from '../../../../sagas/Fetch/actions';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -45,6 +45,7 @@ export interface StateProps {
 	pending: boolean;
 	toast: any;
 	user: UserData;
+	role: string;
 }
 
 export interface DispatchProps {
@@ -59,9 +60,11 @@ export const Component = ({
 	pending,
 	user,
 	getUserByUsername,
+	role,
 }: OwnProps & StateProps & DispatchProps) => {
 	const { t } = useTranslation();
 	const { username } = useParams<{ username: string }>();
+	const admin = role == UserRole.OrganizationAdmin ? true : false;
 	React.useEffect(() => {
 		if (username) {
 			getUserByUsername(getUserByUsernameCall(username));
@@ -175,6 +178,7 @@ export const Component = ({
 											name="Role"
 											title={t(translationPath(lang.common.account.role).path)}
 											type={Input.SELECT}
+											disabled={!admin}
 											options={
 												formik.values?.Role === "ORGANIZATIONADMIN"
 													? [

@@ -71,6 +71,7 @@ export const Active = ({ active, formik, activeFilterContent }: IActive) => {
 				title={t(translationPath(lang.common.numberOfProjectsFilter).path)}
 				value={formik.values?.Customers?.NumberOfProjectsFilter}
 				show={formik.values?.Customers?.NumberOfProjectsFilter?.Active}
+				round
 			/>
 			<SliderRange
 				title={t(translationPath(lang.common.numberOfQuotationsFilter).path)}
@@ -325,26 +326,31 @@ export const Active = ({ active, formik, activeFilterContent }: IActive) => {
 				title={t(translationPath(lang.common.numberOfSupports).path)}
 				value={formik.values?.Trusses?.SupportsQuantityFilter}
 				show={formik.values?.Trusses?.SupportsQuantityFilter?.Active}
+				round
 			/>
 			<SliderRange
 				title={t(translationPath(lang.common.membersCount).path)}
 				value={formik.values?.Trusses?.MembersCountFilter}
 				show={formik.values?.Trusses?.MembersCountFilter?.Active}
+				round
 			/>
 			<SliderRange
 				title={t(translationPath(lang.common.platesCount).path)}
 				value={formik.values?.Trusses?.PlatesCountFilter}
 				show={formik.values?.Trusses?.PlatesCountFilter?.Active}
+				round
 			/>
 			<SliderRange
 				title={t(translationPath(lang.common.modelCount).path)}
 				value={formik.values?.Trusses?.ModelCountFilter}
 				show={formik.values?.Trusses?.ModelCountFilter?.Active}
+				round
 			/>
 			<SliderRange
 				title={t(translationPath(lang.common.ply).path)}
 				value={formik.values?.Trusses?.PliesFilter}
 				show={formik.values?.Trusses?.PliesFilter?.Active}
+				round
 			/>
 		</>
 	);

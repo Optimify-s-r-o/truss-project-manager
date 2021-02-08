@@ -1,6 +1,6 @@
 {
   "name": "truss-project-manager",
-  "version": "0.0.77",
+  "version": "0.0.78",
   "productName": "Truss Project Manager",
   "description": "Truss Project Manager",
   "main": "public/electron.js",
@@ -150,7 +150,7 @@
     },
     "nsis": {
       "artifactName": "${productName}-Setup-${version}.${ext}",
-      "include": "resources/installer-dev.nsh",
+      "include": "resources/installer-prod.nsh",
       "warningsAsErrors": false,
       "shortcutName": "Truss Project Manager",
       "oneClick": false,

@@ -1,43 +1,40 @@
 import * as React from 'react';
 import * as Yup from 'yup';
 import FormikRow from '../../../../components/Optimify/Form/FormikRow';
-import Loading from '../../../../components/Optimify/Loading';
 import { ApiURL } from '../../../../constants/api';
 import { Button } from '../../../../components/Optimify/Button';
 import { ChangePassword, NewPassword, UserData } from '../_types';
-import { editUser } from '../_actions';
-import { faLock } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Input, Method } from '../../../../constants/enum';
-import { Routes } from '../../../../constants/routes';
-import { translationPath } from '../../../../utils/getPath';
-import { useFormik } from 'formik';
-import {
-  PageHeader,
-  PageTitle,
-  TitleSection,
-} from '../../../../constants/globalStyles';
 import {
   ContentCard,
   Form,
   GridItem,
   GridRow,
+  PageHeader,
+  PageTitle,
   TitleName,
-} from '../../../../constants/globalStyles';
+  TitleSection
+  } from '../../../../constants/globalStyles';
+import { editUser } from '../_actions';
+import { faLock } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { Input, Method } from '../../../../constants/enum';
 import {
   lang,
   t,
   WithTranslation,
-  withTranslation,
-} from '../../../../translation/i18n';
+  withTranslation
+  } from '../../../../translation/i18n';
 import {
   MainTree,
   MainTreeContent,
   TreeButtonsRow,
   TreeContent,
-  TreeScreen,
-} from '../../_styles';
+  TreeScreen
+  } from '../../_styles';
+import { Routes } from '../../../../constants/routes';
+import { translationPath } from '../../../../utils/getPath';
+import { useFormik } from 'formik';
 interface OwnProps {
   push: any;
 }
@@ -91,11 +88,6 @@ export const Component = (
   return (
     <MainTree>
       <MainTreeContent>
-        <Loading
-          text={t(translationPath(lang.common.loading))}
-          pending={props.pending}
-          margin
-        >
           <Form onSubmit={formik.handleSubmit}>
             <TreeScreen>
               <PageHeader>
@@ -141,7 +133,6 @@ export const Component = (
               </TreeButtonsRow>
             </TreeScreen>
           </Form>
-        </Loading>
       </MainTreeContent>
     </MainTree>
   );
