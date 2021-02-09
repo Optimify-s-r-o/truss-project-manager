@@ -77,13 +77,6 @@ export const RightContext = ({
 }: IRightContext) => {
 	const history = useHistory();
 	const { t } = useTranslation();
-	const openCall = (key: any, path: any) => (
-		_event: React.MouseEvent<HTMLElement, MouseEvent>
-	) => {
-		history.push(path + key);
-		setSelectedKeys([key]);
-		setIsVisible(false);
-	};
 
 	const unlock = () => {
 		unlockJob(unlockJobAction(projectName, jobName));
@@ -296,8 +289,8 @@ export const ActiveSelection = ({
 }) => {
 	const handleAdd = () => {
 		setIsVisible(false);
-		if (selectedKeys.includes(id)) {
-			addToSelection(selectedKeys.join(","));
+		if (selectedKeys?.includes(id)) {
+			addToSelection(selectedKeys?.join(","));
 			return;
 		}
 		addToSelection(id);

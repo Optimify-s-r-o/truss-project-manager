@@ -126,7 +126,7 @@ export const Tree = ({
 		const key = info.node?.key;
 		const treeType = info.node?.treeType;
 		if (!selectedKeys?.includes(key)) {
-			setSelectedKeys(info.node?.key);
+			setSelectedKeys([info.node?.key]);
 			if (treeType === TreeType.PROJECT) {
 				history.push(Routes.TREE_LINK_PROJECT + key);
 			} else if (treeType === TreeType.JOB) {
