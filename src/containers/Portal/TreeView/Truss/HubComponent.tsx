@@ -5,7 +5,7 @@ import { Truss } from './_types';
 const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
 
 export interface HubComponent {
-	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+	setLoading: (data: void) => void;
 	token: string;
 	local: boolean;
 	trussHub: HubConnection;
@@ -35,7 +35,7 @@ export const HubComponent = ({
 		const trussHandler = async () => {
 			if (trussHub?.state === "Connected") {
 				try {
-					//setLoading(true);
+					setLoading();
 					trussHub?.invoke(Hub.OpenTruss, id);
 				} catch (err) {
 					console.log(err);

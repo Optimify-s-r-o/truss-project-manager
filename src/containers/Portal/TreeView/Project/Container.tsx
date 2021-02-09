@@ -10,6 +10,7 @@ import { getCustomers } from '../../SidebarFilter/_actions';
 import { getProjectFiles, getSelectedProject, setProject } from './_actions';
 import { ProjectFileRequest } from './_types';
 import { SelectedProjectsRequest } from '../Projects/_types';
+import { setLoading } from './General/_actions';
 import { setSelectedKeys } from '../_actions';
 import { usersAction } from '../../_actions';
 import { withRouter } from 'react-router-dom';
@@ -26,6 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	createTruss: (data: OpenTruss) => dispatch(createTruss.request(data)),
 	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
 	clearEvidenceAction: (data: void) => dispatch(clearEvidenceAction()),
+	setLoading: (data: void) => dispatch(setLoading()),
 });
 
 const mapStateToProps = (state: any): StateProps => ({
@@ -39,6 +41,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	local: state.AuthReducer.local,
 	selectedKeys: state.TreeReducer.selectedKeys,
 	projectHub: state.HubReducer.project,
+	loadingPage: state.LoadingReducer.loadingPage,
 });
 
 export default compose(

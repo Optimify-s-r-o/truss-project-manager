@@ -123,6 +123,19 @@ export const Tree = ({
 		node: any;
 	}) => {
 		const sidebarWidth = document.getElementById("sidebar").offsetWidth;
+		const key = info.node?.key;
+		const treeType = info.node?.treeType;
+		if (!selectedKeys?.includes(key)) {
+			setSelectedKeys(info.node?.key);
+			if (treeType === TreeType.PROJECT) {
+				history.push(Routes.TREE_LINK_PROJECT + key);
+			} else if (treeType === TreeType.JOB) {
+				history.push(Routes.TREE_LINK_JOB + key);
+			} else if (treeType === TreeType.TRUSS) {
+				history.push(Routes.TREE_LINK_TRUSS + key);
+			}
+		}
+
 		setX(
 			info.event.pageX + 210 > sidebarWidth
 				? sidebarWidth - 170

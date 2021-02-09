@@ -3,18 +3,28 @@ import { getType } from 'typesafe-actions';
 import {
 	projectUpdate,
 	projectUpdateActionType,
+	setLoading,
 } from "../../containers/Portal/TreeView/Project/General/_actions";
 
-const initialState: FetchStateType = {
+type LoadingReducerType = FetchStateType & { loadingPage: boolean };
+
+const initialState: LoadingReducerType = {
 	error: null,
 	pending: false,
+	loadingPage: false,
 };
 
 const LoadingReducer = (
-	state: FetchStateType = initialState,
+	state: LoadingReducerType = initialState,
 	action: projectUpdateActionType
-): FetchStateType => {
+): LoadingReducerType => {
 	switch (action.type) {
+		case getType(setLoading):
+			return {
+				...initialState,
+				error: null,
+				loadingPage: !state.loadingPage,
+			};
 		case getType(projectUpdate.request):
 			return {
 				...initialState,

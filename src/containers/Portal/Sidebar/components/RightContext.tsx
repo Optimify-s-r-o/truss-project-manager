@@ -1,30 +1,29 @@
+import Icon from '../../../../components/Icon';
+import React from 'react';
+import { DeleteJob, Unlock } from '../../TreeView/Job/_types';
+import { DeleteProject } from '../../Project/_types';
+import { Divider, Item, SPopConfirm } from '../_styles';
+import { IconWrap, Title } from '../../_styles';
+import { lang } from '../../../../translation/i18n';
+import { OpenTruss } from '../../../../sagas/Truss/_actions';
+import { Routes } from '../../../../constants/routes';
+import { translationPath } from '../../../../utils/getPath';
+import { TreeType, TrussExe } from '../../../../types/_types';
+import { unlockJobAction } from 'src/sagas/Fetch/actions';
+import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
 	faEdit,
-	faFolderOpen,
 	faLockOpenAlt,
 	faPlusSquare,
 	faTrashAlt,
 	faVoteNay,
 	faVoteYea,
 } from "@fortawesome/pro-duotone-svg-icons";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
-import { unlockJobAction } from "src/sagas/Fetch/actions";
-import Icon from "../../../../components/Icon";
-import { Routes } from "../../../../constants/routes";
 import {
 	deleteJobRoute,
 	deleteProjectRoute,
 } from "../../../../sagas/Fetch/actions";
-import { OpenTruss } from "../../../../sagas/Truss/_actions";
-import { lang } from "../../../../translation/i18n";
-import { TreeType, TrussExe } from "../../../../types/_types";
-import { translationPath } from "../../../../utils/getPath";
-import { DeleteProject } from "../../Project/_types";
-import { DeleteJob, Unlock } from "../../TreeView/Job/_types";
-import { IconWrap, Title } from "../../_styles";
-import { Divider, Item, SPopConfirm } from "../_styles";
 interface IRightContext {
 	isVisible: boolean;
 	x: number;
@@ -139,14 +138,6 @@ export const RightContext = ({
 		<>
 			{nodeType == "Project" && (
 				<>
-					<Item onClick={openCall(nodeId, Routes.TREE_LINK_PROJECT)}>
-						<IconWrap>
-							<Icon icon={faFolderOpen} />
-						</IconWrap>
-						<Title>
-							{t(translationPath(lang.contextMenu.openProject).path)}
-						</Title>
-					</Item>
 					{/* <Item
 								onClick={newProjectJob(nodeId, TrussExe.TRUSS_2D, projectName)}
 							>
@@ -201,12 +192,6 @@ export const RightContext = ({
 			)}
 			{nodeType == "Job" && (
 				<>
-					<Item onClick={openCall(nodeId, Routes.TREE_LINK_JOB)}>
-						<IconWrap>
-							<Icon icon={faFolderOpen} />
-						</IconWrap>
-						<Title>{t(translationPath(lang.contextMenu.openJob).path)}</Title>
-					</Item>
 					{jobLocked &&
 						(jobLockedByMe ? (
 							<Item onClick={unlock}>
@@ -283,12 +268,6 @@ export const RightContext = ({
 			)}
 			{nodeType == "Truss" && (
 				<>
-					<Item onClick={openCall(nodeId, Routes.TREE_LINK_TRUSS)}>
-						<IconWrap>
-							<Icon icon={faFolderOpen} />
-						</IconWrap>
-						<Title>{t(translationPath(lang.contextMenu.openTruss).path)}</Title>
-					</Item>
 					<ActiveSelection
 						id={nodeId}
 						removeFromSelection={removeFromSelection}
@@ -316,21 +295,22 @@ export const ActiveSelection = ({
 	setIsVisible,
 }) => {
 	const handleAdd = () => {
+		setIsVisible(false);
 		if (selectedKeys.includes(id)) {
 			addToSelection(selectedKeys.join(","));
 			return;
 		}
 		addToSelection(id);
-		setIsVisible(false);
 	};
 
 	const handleRemove = () => {
+		setIsVisible(false);
 		if (selectedKeys.includes(id)) {
 			removeFromSelection(selectedKeys.join(","));
 			return;
 		}
+
 		removeFromSelection(id);
-		setIsVisible(false);
 	};
 	return (
 		<>

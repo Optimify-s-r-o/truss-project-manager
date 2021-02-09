@@ -18,6 +18,7 @@ import { ProjectFileRequest } from './TreeView/Project/_types';
 import { quickSearch } from './FastNavigation/_actions';
 import { QuickSearchRequest } from './FastNavigation/_types';
 import { setCloud } from '../Home/Cloud/_actions';
+import { setLoading } from './TreeView/Project/General/_actions';
 import { setLocal } from '../Home/Local/_actions';
 import {
 	settings,
@@ -88,6 +89,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
+	setLoading: (data: void) => dispatch(setLoading()),
 	setHubTree: (data: any) => dispatch(setHubTree(data)),
 	setHubProject: (data: any) => dispatch(setHubProject(data)),
 	setHubJob: (data: any) => dispatch(setHubJob(data)),

@@ -31,6 +31,7 @@ export interface HubComponent {
 	getJobImage: (data: string) => void;
 	setTruss: (data: Truss) => void;
 	getTruss: (id: string) => void;
+	setLoading: (data: void) => void;
 }
 
 export const HubComponent = ({
@@ -52,6 +53,7 @@ export const HubComponent = ({
 	getJobImage,
 	setTruss,
 	getTruss,
+	setLoading,
 }: HubComponent) => {
 	const getUrl = () => {
 		return local
@@ -95,7 +97,7 @@ export const HubComponent = ({
 			try {
 				await connect.start();
 				connect?.on(Hub.ReceivedProject, (message) => {
-					//setLoading(false); TODO
+					setLoading();
 					const json = message && JSON.parse(message);
 					if (json) {
 						getProject(json.Id);
@@ -132,7 +134,7 @@ export const HubComponent = ({
 					connect?.invoke(Hub.OpenJob, id);
 				});
 				connect?.on(Hub.ReceivedJob, (message) => {
-					//setLoading(false);
+					setLoading();
 					const json = message && JSON.parse(message);
 					json && setJob(json);
 					getJobImage(json.Id);
@@ -157,7 +159,7 @@ export const HubComponent = ({
 			try {
 				await connect.start();
 				connect?.on(Hub.ReceivedTruss, (message) => {
-					//setLoading(false);
+					setLoading();
 					const json = message && JSON.parse(message);
 					console.log(json);
 					if (!!json) {
@@ -182,7 +184,6 @@ export const HubComponent = ({
 			createJobHubConnection();
 			createTrussHubConnection();
 		}
-		console.log(token);
 	}, [token]);
 
 	useEffect(() => {
@@ -204,7 +205,6 @@ export const HubComponent = ({
 					});
 
 					connect.on(Hub.ReceivedFilters, (message) => {
-						console.log(message);
 						if (!!message) {
 							const json = message && JSON.parse(message);
 							if (json) {

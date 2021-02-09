@@ -2,7 +2,7 @@ import Loading from '../../../../components/Optimify/Loading';
 import Material from './Material/Container';
 import Navigation from '../../../../components/NavigationLink';
 import Quotations from './Quotations/Container';
-import React, { useState } from 'react';
+import React from 'react';
 import Summary from './General/Container';
 import { faMountains } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -43,12 +43,14 @@ export interface StateProps {
 	token: string;
 	local: boolean;
 	trussHub: any;
+	loadingPage: boolean;
 }
 
 export interface DispatchProps {
 	getTrussImage: (data: string) => void;
 	setTruss: (data: Truss) => void;
 	priceListsGetAction: (data: void) => void;
+	setLoading: (data: void) => void;
 }
 
 const Component = ({
@@ -59,9 +61,10 @@ const Component = ({
 	getTrussImage,
 	priceListsGetAction,
 	trussHub,
+	loadingPage,
+	setLoading,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const { id } = useParams<{ id: string; type?: string }>();
-	const [loading, setLoading] = useState<boolean>(false);
 	const location = useLocation();
 
 	const getTruss = (id: string) => {
@@ -82,7 +85,7 @@ const Component = ({
 			<MainTree>
 				<Loading
 					text={t(translationPath(lang.common.loading))}
-					pending={loading}
+					pending={loadingPage}
 					margin
 				>
 					<PageHeader>

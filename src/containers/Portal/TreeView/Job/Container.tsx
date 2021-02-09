@@ -2,6 +2,7 @@ import Component, { StateProps } from './Component';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { editTruss, OpenTruss } from '../../../../sagas/Truss/_actions';
+import { setLoading } from '../Project/General/_actions';
 import { withRouter } from 'react-router-dom';
 import {
 	deleteJob,
@@ -29,6 +30,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	editTruss: (data: OpenTruss) => dispatch(editTruss.request(data)),
 	unlockJob: (data: Unlock) => dispatch(unlockJob.request(data)),
 	setJob: (data: JobRootObject) => dispatch(setJob(data)),
+	setLoading: (data: void) => dispatch(setLoading()),
 });
 
 const mapStateToProps = (state: any): StateProps => ({
@@ -39,6 +41,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	token: state.AuthReducer.token,
 	local: state.AuthReducer.local,
 	jobHub: state.HubReducer.job,
+	loadingPage: state.LoadingReducer.loadingPage,
 });
 
 export default compose(

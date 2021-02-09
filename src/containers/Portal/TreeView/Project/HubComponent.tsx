@@ -7,7 +7,7 @@ export interface HubComponent {
 	id: string;
 	projectHub: any;
 	children: React.ReactNode;
-	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+	setLoading: (data: void) => void;
 }
 
 export const HubComponent = ({
@@ -26,7 +26,7 @@ export const HubComponent = ({
 		const projectHandler = async () => {
 			if (projectHub?.state === "Connected") {
 				try {
-					//setLoading(true);
+					setLoading();
 					projectHub?.invoke(Hub.OpenProject, id);
 				} catch (err) {
 					console.log(err);

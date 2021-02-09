@@ -4,7 +4,7 @@ import Loading from '../../../../components/Optimify/Loading';
 import Material from './Material/Container';
 import Navigation from '../../../../components/NavigationLink';
 import Quotations from './Quotations/Container';
-import React, { useState } from 'react';
+import React from 'react';
 import Trusses from './Trusses/Container';
 import Viewer from './Viewer/Container';
 import { Delete, Lock } from '../../../../components/Button';
@@ -66,6 +66,7 @@ export interface StateProps {
 	local: boolean;
 	token: string;
 	jobHub: any;
+	loadingPage: boolean;
 }
 
 export interface DispatchProps {
@@ -76,6 +77,7 @@ export interface DispatchProps {
 	jobImageByName: (data: ProjectNameJobName) => void;
 	setJob: (data: JobRootObject) => void;
 	unlockJob: (data: Unlock) => void;
+	setLoading: (data: void) => void;
 }
 
 const Index = ({
@@ -85,12 +87,11 @@ const Index = ({
 	removeJob,
 	getJobImage,
 	editTruss,
-	token,
+	setLoading,
 	unlockJob,
-	local,
+	loadingPage,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const { id } = useParams<{ id: string; type?: string }>();
-	const [loading, setLoading] = useState<boolean>(false);
 	const location = useLocation();
 
 	const removeJobCall = (id: string) => {
@@ -110,7 +111,7 @@ const Index = ({
 			<MainTree>
 				<Loading
 					text={t(translationPath(lang.common.loading))}
-					pending={loading}
+					pending={loadingPage}
 					margin
 				>
 					<PageHeader>

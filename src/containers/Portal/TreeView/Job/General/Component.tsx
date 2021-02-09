@@ -1,22 +1,16 @@
-import * as React from 'react';
-import * as Yup from 'yup';
-import Data from '../../../../../components/Data/Data';
-import FormikRow from '../../../../../components/Optimify/Form/FormikRow';
-import Moment from 'react-moment';
-import RouteLeavingGuard from '../../../../../components/Prompt';
-import { Button } from '../../../../../components/Optimify/Button';
-import { fixed } from '../../../../../utils/formating';
-import { formatCurrency } from 'src/utils/currencyFormat';
-import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../../utils/getPath';
-import { Input } from '../../../../../constants/enum';
-import { JobProxy, UpdateJobRequest } from '../_types';
-import { JobType, Settings, TreeType } from '../../../../../types/_types';
-import { RightColumn } from './_styles';
-import { RouteComponentProps } from 'react-router-dom';
-import { UnitType } from '../../../../../components/Data/Unit';
-import { updateJobWithoutUpdate } from '../../../../../sagas/Fetch/actions';
-import { useFormik } from 'formik';
+import { useFormik } from "formik";
+import { get } from "lodash";
+import * as React from "react";
+import Moment from "react-moment";
+import { RouteComponentProps } from "react-router-dom";
+import { formatCurrency } from "src/utils/currencyFormat";
+import * as Yup from "yup";
+import Data from "../../../../../components/Data/Data";
+import { UnitType } from "../../../../../components/Data/Unit";
+import { Button } from "../../../../../components/Optimify/Button";
+import FormikRow from "../../../../../components/Optimify/Form/FormikRow";
+import RouteLeavingGuard from "../../../../../components/Prompt";
+import { Input } from "../../../../../constants/enum";
 import {
 	ContentCard,
 	Form,
@@ -25,12 +19,16 @@ import {
 	Header2,
 	Sceleton,
 } from "../../../../../constants/globalStyles";
+import { updateJobWithoutUpdate } from "../../../../../sagas/Fetch/actions";
 import {
 	lang,
 	t,
 	WithTranslation,
 	withTranslation,
 } from "../../../../../translation/i18n";
+import { JobType, Settings, TreeType } from "../../../../../types/_types";
+import { fixed } from "../../../../../utils/formating";
+import { getPath, translationPath } from "../../../../../utils/getPath";
 import {
 	CenterImage,
 	MainTreeContent,
@@ -38,6 +36,8 @@ import {
 	TreeContent,
 	TreeScreen,
 } from "../../../_styles";
+import { JobProxy, UpdateJobRequest } from "../_types";
+import { RightColumn } from "./_styles";
 
 export interface StateProps {
 	activeTree: TreeType;
@@ -117,8 +117,6 @@ const Index = ({
 		}
 		return false;
 	};
-
-	console.log(jobs);
 
 	return (
 		<MainTreeContent>

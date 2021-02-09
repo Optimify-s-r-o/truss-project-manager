@@ -115,6 +115,7 @@ export interface DispatchProps {
 	setTruss: (data: Truss) => void;
 	priceListsGetAction: (data: void) => void;
 	setProject: (data: Project) => void;
+	setLoading: (data: void) => void;
 }
 
 const Index = ({
@@ -170,6 +171,7 @@ const Index = ({
 	getTrussImage,
 	priceListsGetAction,
 	setProject,
+	setLoading,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { addToast } = useToasts();
 	const [treePending, setTreePending] = React.useState(true);
@@ -268,6 +270,7 @@ const Index = ({
 			getJobImage={getJobImage}
 			setTruss={setTruss}
 			getTruss={getTruss}
+			setLoading={setLoading}
 		>
 			<KeyboardEventHandler
 				handleKeys={["f8"]}

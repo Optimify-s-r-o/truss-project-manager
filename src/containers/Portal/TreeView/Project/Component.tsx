@@ -4,7 +4,7 @@ import Log from './Log/Container';
 import Navigation from '../../../../components/NavigationLink';
 import NewJob from './General/components/NewJob';
 import Quotations from './Quotations/Container';
-import React, { useState } from 'react';
+import React from 'react';
 import { Delete } from '../../../../components/Button';
 import { DeleteProject } from '../../Project/_types';
 import { deleteProjectRoute } from '../../../../sagas/Fetch/actions';
@@ -64,6 +64,7 @@ export interface StateProps {
 	selectedKeys?: string[];
 	projectHub: any;
 	filesUploading: boolean;
+	loadingPage: boolean;
 }
 
 export interface DispatchProps {
@@ -76,6 +77,7 @@ export interface DispatchProps {
 	setProject: (data: Project) => void;
 	setSelectedKeys: (data: string[]) => void;
 	clearEvidenceAction: (data: void) => void;
+	setLoading: (data: void) => void;
 }
 
 const Index = ({
@@ -92,10 +94,11 @@ const Index = ({
 	selectedKeys,
 	setSelectedKeys,
 	projectHub,
+	loadingPage,
 	clearEvidenceAction,
+	setLoading,
 }: WithTranslation & DispatchProps & StateProps & RouteComponentProps) => {
 	const { id } = useParams<{ id: string; type?: string }>();
-	const [loading, setLoading] = useState<boolean>(false);
 	const location = useLocation();
 
 	React.useEffect(() => {
@@ -120,7 +123,7 @@ const Index = ({
 			<MainTree>
 				<Loading
 					text={t(translationPath(lang.common.loading))}
-					pending={loading}
+					pending={loadingPage}
 					margin
 				>
 					<PageHeader>
