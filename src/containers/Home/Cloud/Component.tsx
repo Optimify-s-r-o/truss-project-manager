@@ -14,12 +14,16 @@ import { Routes } from '../../../constants/routes';
 import { translationPath } from '../../../utils/getPath';
 import { useFormik } from 'formik';
 import {
+	ELECTRON_STORE_GET,
+	ELECTRON_STORE_SET,
+} from "src/constants/ipcConstants";
+import {
 	lang,
 	t,
 	WithTranslation,
 	withTranslation,
 } from "../../../translation/i18n";
-const Store = window.require("electron-store");
+
 export interface OwnProps {
 	push: any;
 }
@@ -40,11 +44,12 @@ const Component = (
 		RouteComponentProps
 ) => {
 	const { login, pending } = props;
-	const [store, setStore] = React.useState(null);
+
 	const initialValues: Credentials = {
 		username: "",
 		password: "",
 	};
+
 	const formik = useFormik({
 		initialValues: initialValues,
 		validationSchema: Yup.object({
@@ -58,25 +63,29 @@ const Component = (
 				.required(t(translationPath(lang.common.required))),
 		}),
 		onSubmit: (values: Credentials) => {
-			// TODO
-			// if (isElectron()) {
-			// 	const ipcRenderer = getIpcRenderer();
-			// 	ipcRenderer.send("set-cloud-username", null, values.username, null);
-			// }
-
+			if (isElectron()) {
+				const electron = window.require("electron");
+				const fs = electron.remote.require("fs");
+				electron.ipcRenderer.send(ELECTRON_STORE_SET, {
+					name: "cloud-username",
+					value: values.username,
+				});
+			}
 			login(values);
 		},
 	});
 
 	React.useEffect(() => {
-		setStore(new Store());
-	}, []);
-
-	React.useEffect(() => {
-		if (isElectron() && store) {
-			formik.setFieldValue("username", store.get("cloud-username"));
+		if (isElectron()) {
+			const electron = window.require("electron");
+			electron.ipcRenderer.send(ELECTRON_STORE_GET, "cloud-username");
+			const fs = electron.remote.require("fs");
+			electron.ipcRenderer.on(ELECTRON_STORE_GET, (event, text) => {
+				console.log(text);
+				formik.setFieldValue("username", text);
+			});
 		}
-	}, [store]);
+	}, []);
 
 	return (
 		<>

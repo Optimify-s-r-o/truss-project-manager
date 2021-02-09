@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import Tooltip from '../../../../../../../components/Optimify/Tooltip';
+import { isElectron } from '../../../../../../../utils/electron';
 import { Open } from '../../_styles';
+import { OpenTruss } from '../../../../../../../sagas/Truss/_actions';
 import { translationPath } from '../../../../../../../utils/getPath';
 import { TrussAction, TrussExe } from '../../../../../../../types/_types';
 import {
@@ -10,15 +12,6 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../../../../../translation/i18n";
-import {
-	OpenTruss,
-	OpenTrussOption,
-} from "../../../../../../../sagas/Truss/_actions";
-import {
-	getIpcRenderer,
-	isElectron,
-} from "../../../../../../../utils/electron";
-const Store = window.require("electron-store");
 
 export interface OwnProps {
 	projectId: string;
@@ -39,18 +32,21 @@ const Index: FC<WithTranslation & OwnProps> = ({
 }) => {
 	const [truss3DExe, setTruss3DExe] = React.useState("");
 	const [truss2DExe, setTruss2DExe] = React.useState("");
-	const [store, setStore] = React.useState(null);
 
 	React.useEffect(() => {
-		setStore(new Store());
-	}, []);
-
-	React.useEffect(() => {
-		if (isElectron() && store) {
-			setTruss3DExe(store.get("truss3DExePath"));
-			setTruss2DExe(store.get("truss2DExePath"));
+		if (isElectron()) {
+			const electron = window.require("electron");
+			electron.ipcRenderer.send("truss3DExePath");
+			electron.ipcRenderer.send("truss2DExePath");
+			const fs = electron.remote.require("fs");
+			electron.ipcRenderer.on("truss3DExePath", (event, text) => {
+				setTruss3DExe(text);
+			});
+			electron.ipcRenderer.on("truss2DExePath", (event, text) => {
+				setTruss2DExe(text);
+			});
 		}
-	}, [store]);
+	}, []);
 
 	const openNewTruss = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 		openTruss({

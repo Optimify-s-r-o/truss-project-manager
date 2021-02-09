@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { ApiURL } from '../../../../constants/api';
 import { Box } from '../../../../components/Box';
 import { Button } from '../../../../components/Optimify/Button';
+import { ELECTRON_STORE_SET } from 'src/constants/ipcConstants';
 import { faCog } from '@fortawesome/pro-light-svg-icons';
 import { Fetch, Settings, UserRole } from '../../../../types/_types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,7 +30,6 @@ import {
 	TreeContent,
 	TreeScreen,
 } from "../../_styles";
-const Store = window.require("electron-store");
 
 export interface StateProps {
 	routerState: any;
@@ -66,15 +66,21 @@ export const Component = ({
 	}, []);
 
 	React.useEffect(() => {
-		setStore(new Store());
-	}, []);
-
-	React.useEffect(() => {
-		if (isElectron() && store) {
-			setTruss3DExe(store.get("truss3DExePath"));
-			setTruss2DExe(store.get("truss2DExePath"));
+		if (isElectron()) {
+			const electron = window.require("electron");
+			electron.ipcRenderer.send("truss3DExePath");
+			electron.ipcRenderer.send("truss2DExePath");
+			const fs = electron.remote.require("fs");
+			electron.ipcRenderer.on("truss3DExePath", (event, text) => {
+				console.log(text);
+				setTruss3DExe(text);
+			});
+			electron.ipcRenderer.on("truss2DExePath", (event, text) => {
+				console.log(text);
+				setTruss2DExe(text);
+			});
 		}
-	}, [store]);
+	}, []);
 
 	const handleFileRootChagne = () => {
 		const { remote } = window.require("electron"),
@@ -99,8 +105,15 @@ export const Component = ({
 			.showOpenDialog({ properties: ["openFile"] })
 			.then((result) => {
 				if (result && result.filePaths && result.filePaths[0]) {
-					setTruss3DExe(result.filePaths[0]);
-					store.set("truss3DExePath", result.filePaths[0]);
+					if (isElectron() && result.filePaths[0]) {
+						const electron = window.require("electron");
+						const fs = electron.remote.require("fs");
+						electron.ipcRenderer.send(ELECTRON_STORE_SET, {
+							name: "truss3DExePath",
+							value: result.filePaths[0],
+						});
+						setTruss3DExe(result.filePaths[0]);
+					}
 				}
 			});
 	};
@@ -112,8 +125,15 @@ export const Component = ({
 				.showOpenDialog({ properties: ["openFile"] })
 				.then((result) => {
 					if (result && result.filePaths && result.filePaths[0]) {
-						setTruss2DExe(result.filePaths[0]);
-						store.set("truss2DExePath", result.filePaths[0]);
+						if (isElectron() && result.filePaths[0]) {
+							const electron = window.require("electron");
+							const fs = electron.remote.require("fs");
+							electron.ipcRenderer.send(ELECTRON_STORE_SET, {
+								name: "truss2DExePath",
+								value: result.filePaths[0],
+							});
+							setTruss2DExe(result.filePaths[0]);
+						}
 					}
 				});
 		}

@@ -2,13 +2,12 @@ import * as React from 'react';
 import lang from '../../translation/lang';
 import styled from 'styled-components';
 import { CreateJobFromTrussFile } from './_types';
-import { getIpcRenderer, isElectron } from '../../utils/electron';
+import { isElectron } from '../../utils/electron';
 import { translationPath } from '../../utils/getPath';
 import { TrussExe } from '../../types/_types';
 import { Upload } from '../../components/Button';
 import { useDropzone } from 'react-dropzone';
 import { useTranslation } from 'react-i18next';
-const Store = window.require("electron-store");
 export interface OwnProps {
 	createJobFromTrussFile?: (data: CreateJobFromTrussFile) => void;
 	projectId: string;
@@ -28,17 +27,21 @@ export const CreateJobFromFile = ({
 	const { t } = useTranslation();
 	const [truss3DExe, setTruss3DExe] = React.useState("");
 	const [truss2DExe, setTruss2DExe] = React.useState("");
-	const [store, setStore] = React.useState(null);
-	React.useEffect(() => {
-		setStore(new Store());
-	}, []);
 
 	React.useEffect(() => {
-		if (isElectron() && store) {
-			setTruss3DExe(store.get("truss3DExePath"));
-			setTruss2DExe(store.get("truss2DExePath"));
+		if (isElectron()) {
+			const electron = window.require("electron");
+			electron.ipcRenderer.send("truss3DExePath");
+			electron.ipcRenderer.send("truss2DExePath");
+			const fs = electron.remote.require("fs");
+			electron.ipcRenderer.on("truss3DExePath", (event, text) => {
+				setTruss3DExe(text);
+			});
+			electron.ipcRenderer.on("truss2DExePath", (event, text) => {
+				setTruss2DExe(text);
+			});
 		}
-	}, [store]);
+	}, []);
 
 	const onDrop = React.useCallback((acceptedFiles) => {
 		readFile(acceptedFiles);

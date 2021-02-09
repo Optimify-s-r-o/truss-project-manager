@@ -7,12 +7,16 @@ import { Button } from '../../../components/Optimify/Button';
 import { Container, Headline } from './_styles';
 import { Credentials } from '../Cloud/_types';
 import { Form } from '../../../constants/globalStyles';
-import { getIpcRenderer, isElectron } from '../../../utils/electron';
 import { Input } from '../../../constants/enum';
+import { isElectron } from '../../../utils/electron';
 import { RouteComponentProps } from 'react-router-dom';
 import { translationPath } from '../../../utils/getPath';
 import { useFormik } from 'formik';
 import { UserData } from '../../Portal/Accounts/_types';
+import {
+	ELECTRON_STORE_GET,
+	ELECTRON_STORE_SET,
+} from "src/constants/ipcConstants";
 import {
 	lang,
 	t,
@@ -49,7 +53,7 @@ const Component = ({
 	WithTranslation &
 	RouteComponentProps) => {
 	const [credentials, setCredentials] = React.useState([]);
-	const [store, setStore] = React.useState(null);
+
 	const initialValues: Credentials = {
 		username: "",
 		password: "",
@@ -62,21 +66,23 @@ const Component = ({
 	}, [local]);
 
 	React.useEffect(() => {
-		const Store = window.require("electron-store");
-		setStore(new Store());
-	}, []);
-
-	React.useEffect(() => {
-		if (isElectron() && store) {
-			setCredentials(store.get("local-credentials"));
+		if (isElectron()) {
+			const electron = window.require("electron");
+			electron.ipcRenderer.send(ELECTRON_STORE_GET, "local-credentials");
+			const fs = electron.remote.require("fs");
+			electron.ipcRenderer.on(ELECTRON_STORE_GET, (event, text) => {
+				if (text) {
+					setCredentials(text);
+				}
+			});
 		}
-	}, [store]);
+	}, []);
 
 	React.useEffect(() => {
 		if (users && users.length > 0) {
 			let password = "";
 			formik.setFieldValue("username", users[0].Username);
-			credentials.forEach((value) => {
+			credentials?.forEach((value) => {
 				if (value.username === users[0].Username) {
 					password = value.password;
 				}
@@ -99,27 +105,37 @@ const Component = ({
 		}),
 		onSubmit: (values: Credentials) => {
 			if (isElectron()) {
-				const ipcRenderer = getIpcRenderer();
+				const electron = window.require("electron");
+				const fs = electron.remote.require("fs");
 				if (credentials && credentials.length > 0) {
 					let found = false;
 					const newCredentials = credentials?.map((value) => {
-						if (value.username === values.username) {
+						if (value?.username === values?.username) {
 							found = true;
 							return {
-								username: values.username,
-								password: values.password,
+								username: values?.username,
+								password: values?.password,
 							};
 						}
 						return value;
 					});
 
 					if (found) {
-						store.set("local-credentials", newCredentials);
+						electron.ipcRenderer.send(ELECTRON_STORE_SET, {
+							name: "local-credentials",
+							value: newCredentials,
+						});
 					} else {
-						store.set("local-credentials", [...newCredentials, values]);
+						electron.ipcRenderer.send(ELECTRON_STORE_SET, {
+							name: "local-credentials",
+							value: [...newCredentials, values],
+						});
 					}
 				} else {
-					store.set("local-credentials", [values]);
+					electron.ipcRenderer.send(ELECTRON_STORE_SET, {
+						name: "local-credentials",
+						value: [values],
+					});
 				}
 			}
 
@@ -131,7 +147,7 @@ const Component = ({
 		if (users && users.length > 0) {
 			let password = "";
 			formik.setFieldValue("username", formik.values.username);
-			credentials.forEach((value) => {
+			credentials?.forEach((value) => {
 				if (value.username === formik.values.username) {
 					password = value.password;
 				}

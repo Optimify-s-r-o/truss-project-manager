@@ -27,6 +27,10 @@ import { UserData } from './Accounts/_types';
 import { useToasts } from 'react-toast-notifications';
 import { WithTranslation, withTranslation } from '../../translation/i18n';
 import {
+	ELECTRON_STORE_GET,
+	ELECTRON_STORE_SET,
+} from "src/constants/ipcConstants";
+import {
 	getPortalUsers,
 	getProjectFilesAction,
 } from "../../sagas/Fetch/actions";
@@ -45,7 +49,6 @@ import {
 	FullHeightExceptHeader,
 	WindowWrapper,
 } from "./_styles";
-const Store = window.require("electron-store");
 
 export interface StateProps {
 	activeTree: TreeType;
@@ -179,24 +182,21 @@ const Index = ({
 	);
 	const [activeFilterContent, setActiveFilterContent] = useState(null);
 	const [active, setActive] = useState(false);
-	const [store, setStore] = React.useState(null);
+
+	React.useEffect(() => {}, [mode]);
 
 	React.useEffect(() => {
-		setStore(new Store());
+		if (isElectron()) {
+			const electron = window.require("electron");
+			electron.ipcRenderer.send(ELECTRON_STORE_GET, "app-theme");
+			const fs = electron.remote.require("fs");
+			electron.ipcRenderer.on(ELECTRON_STORE_GET, (event, text) => {
+				if (text) {
+					setTheme(text);
+				}
+			});
+		}
 	}, []);
-
-	React.useEffect(() => {
-		if (isElectron() && store) {
-			setTheme(store.get("app-theme"));
-		}
-	}, [store]);
-
-	React.useEffect(() => {
-		if (isElectron() && store && mode) {
-			store.delete("app-theme");
-			store.set("app-theme", mode);
-		}
-	}, [mode]);
 
 	React.useEffect(() => {
 		if (toast) {
@@ -233,6 +233,19 @@ const Index = ({
 	const getTruss = (id: string) => {
 		getTrussImage(id);
 		priceListsGetAction();
+	};
+
+	const toggleTheme = () => {
+		if (isElectron() && mode) {
+			const electron = window.require("electron");
+			const fs = electron.remote.require("fs");
+			console.log(mode);
+			electron.ipcRenderer.send(ELECTRON_STORE_SET, {
+				name: "app-theme",
+				value: mode === "light" ? "dark" : "light",
+			});
+		}
+		setTheme(mode === "light" ? "dark" : "light");
 	};
 
 	return (
@@ -275,6 +288,7 @@ const Index = ({
 							selectedKeys={selectedKeys}
 							selectedPageSize={selectedPageSize}
 							setSelectedPageSize={setSelectedPageSize}
+							toggleTheme={toggleTheme}
 						/>
 						<IconMenu
 							quickSearchRequest={quickSearchRequest}

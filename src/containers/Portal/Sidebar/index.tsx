@@ -14,7 +14,6 @@ import { RightContext } from './components/RightContext';
 import { SSpin } from '../../../constants/globalStyles';
 import { Tree } from './components/Tree';
 import { useTranslation } from 'react-i18next';
-const Store = window.require("electron-store");
 
 interface Sidebar {
 	activeTree: TreeType;
@@ -79,7 +78,6 @@ export const Sidebar = ({
 	resetSelectionAction,
 }: Sidebar) => {
 	const { t } = useTranslation();
-	const [store, setStore] = React.useState(null);
 	const [y, setY] = useState(0);
 	const [x, setX] = useState(0);
 	const [nodeId, setNodeId] = useState(null);
@@ -137,15 +135,19 @@ export const Sidebar = ({
 	}, [connect]);
 
 	React.useEffect(() => {
-		setStore(new Store());
-	}, []);
-
-	React.useEffect(() => {
-		if (isElectron() && store) {
-			setTruss3DExe(store.get("truss3DExePath"));
-			setTruss2DExe(store.get("truss2DExePath"));
+		if (isElectron()) {
+			const electron = window.require("electron");
+			electron.ipcRenderer.send("truss3DExePath");
+			electron.ipcRenderer.send("truss2DExePath");
+			const fs = electron.remote.require("fs");
+			electron.ipcRenderer.on("truss3DExePath", (event, text) => {
+				setTruss3DExe(text);
+			});
+			electron.ipcRenderer.on("truss2DExePath", (event, text) => {
+				setTruss2DExe(text);
+			});
 		}
-	}, [store]);
+	}, []);
 
 	React.useEffect(() => {
 		if (connect) {

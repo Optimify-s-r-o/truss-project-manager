@@ -30,6 +30,7 @@ interface NavigationSetting {
 	selectedKeys: string[];
 	setSelectedPageSize: React.Dispatch<React.SetStateAction<number>>;
 	selectedPageSize: number;
+	toggleTheme: () => void;
 }
 
 export const NavigationSetting = ({
@@ -43,14 +44,12 @@ export const NavigationSetting = ({
 	selectedKeys,
 	setSelectedPageSize,
 	selectedPageSize,
+	toggleTheme,
 }: NavigationSetting) => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const [language, setLanguage] = React.useState(getLanguage());
 	const history = useHistory();
 	const { t, i18n } = useTranslation();
-	const toggleTheme = () => {
-		setTheme(mode === "light" ? "dark" : "light");
-	};
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget);

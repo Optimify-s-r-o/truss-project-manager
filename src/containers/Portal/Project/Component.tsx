@@ -48,7 +48,6 @@ import {
 	TreeContent,
 	TreeScreen,
 } from "../_styles";
-const Store = window.require("electron-store");
 export interface StateProps {
 	all: CustomersAll[];
 	projectPending: boolean;
@@ -135,7 +134,6 @@ const Index = (
 	});
 
 	React.useEffect(() => {
-		setStore(new Store());
 		return () => {
 			clearEvidenceAction();
 		};
@@ -146,11 +144,19 @@ const Index = (
 	}, [props.username]);
 
 	React.useEffect(() => {
-		if (isElectron() && store) {
-			setTruss3DExe(store.get("truss3DExePath"));
-			setTruss2DExe(store.get("truss2DExePath"));
+		if (isElectron()) {
+			const electron = window.require("electron");
+			electron.ipcRenderer.send("truss3DExePath");
+			electron.ipcRenderer.send("truss2DExePath");
+			const fs = electron.remote.require("fs");
+			electron.ipcRenderer.on("truss3DExePath", (event, text) => {
+				setTruss3DExe(text);
+			});
+			electron.ipcRenderer.on("truss2DExePath", (event, text) => {
+				setTruss2DExe(text);
+			});
 		}
-	}, [store]);
+	}, []);
 
 	const addCustomer = (data: string) => {
 		props.saveEvidenceCustomer({
