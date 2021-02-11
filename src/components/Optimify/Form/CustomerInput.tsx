@@ -43,9 +43,12 @@ export const CustomerInput = ({
 	useEffect(() => {
 		if (formik.values && formik.values[name]) {
 			setCurrentCustomer(formik.values[name]);
+		} else {
+			setCurrentCustomer(null);
 		}
 	}, [formik.values]);
-
+	console.log(currentCustomer);
+	console.log(formik.values);
 	useEffect(() => {}, [customers]);
 
 	useEffect(() => {
@@ -93,9 +96,11 @@ export const CustomerInput = ({
 	};
 
 	const handleSelectChange = (data: string) => {
-		setCurrentCustomer(data);
-		formik.setFieldValue(name, data);
-		setNewCustomer("");
+		if (data) {
+			setCurrentCustomer(data);
+			formik.setFieldValue(name, data);
+			setNewCustomer("");
+		}
 	};
 
 	const antIcon = (

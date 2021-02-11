@@ -13,8 +13,8 @@ export type Lang = Readonly<{
 	quotations: {
 		variables: {
 			// Math
-			If_Then : string;
-			Multiple_if_then : string;
+			If_Then: string;
+			Multiple_if_then: string;
 			Exponential: string;
 			Square_root: string;
 			Absolute: string;
@@ -45,7 +45,7 @@ export type Lang = Readonly<{
 			Type_ContinuousOrSimpleBeam: string;
 			Type_ContinuousOrSimpleRafter: string;
 			Type_FrameStructure: string;
-			Kind_Truss : string;
+			Kind_Truss: string;
 			Kind_NonStructuralTruss: string;
 			Kind_Infill: string;
 			Kind_NonStructuralInfill: string;
@@ -99,8 +99,8 @@ export type Lang = Readonly<{
 		};
 		description: {
 			// Math
-			If_Then : string;
-			Multiple_if_then : string;
+			If_Then: string;
+			Multiple_if_then: string;
 			Exponential: string;
 			Square_root: string;
 			Absolute: string;
@@ -131,7 +131,7 @@ export type Lang = Readonly<{
 			Type_ContinuousOrSimpleBeam: string;
 			Type_ContinuousOrSimpleRafter: string;
 			Type_FrameStructure: string;
-			Kind_Truss : string;
+			Kind_Truss: string;
 			Kind_NonStructuralTruss: string;
 			Kind_Infill: string;
 			Kind_NonStructuralInfill: string;
@@ -383,6 +383,7 @@ export type Lang = Readonly<{
 		CannotDeleteAdmin: string;
 		NotDeleted: string;
 		S3UploadFailed: string;
+		IsNotOrganizationAdmin: string;
 		CloudOnly: string;
 		NeedToSetEmail: string;
 		NewPasswordSameAsOld: string;
