@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Switch } from 'antd';
@@ -9,24 +9,17 @@ interface IOwnProps {
 }
 
 export const FormikSwitch = ({ name, formik }: IOwnProps) => {
-	const [checked, setChecked] = useState(false);
-	useEffect(() => {
-		if (formik.values && formik.values[name]) {
-			setChecked(formik.values[name]);
-		}
-	}, [formik.values]);
-
 	const handleChange = (checked: boolean, _event: MouseEvent) => {
-		setChecked(checked);
 		formik.setFieldValue(name, checked);
 	};
+	console.log(formik.values);
 	return (
 		<Content>
 			<SSwitch
 				checkedChildren={<CheckOutlined />}
 				unCheckedChildren={<CloseOutlined />}
 				onChange={handleChange}
-				checked={checked}
+				checked={formik.values && formik.values[name] ? true : false}
 			/>
 		</Content>
 	);

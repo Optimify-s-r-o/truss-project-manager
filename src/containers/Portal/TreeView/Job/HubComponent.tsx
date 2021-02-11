@@ -7,7 +7,7 @@ export interface HubComponent {
 	id: string;
 	jobHub: any;
 	children: React.ReactNode;
-	setLoading: (data: void) => void;
+	setLoading: (data: boolean) => void;
 }
 
 export const HubComponent = ({
@@ -26,7 +26,7 @@ export const HubComponent = ({
 		const jobHandler = async () => {
 			if (jobHub?.state === "Connected") {
 				try {
-					setLoading();
+					setLoading(true);
 					jobHub?.invoke(Hub.OpenJob, id);
 				} catch (err) {
 					console.log(err);

@@ -31,7 +31,7 @@ export interface HubComponent {
 	getJobImage: (data: string) => void;
 	setTruss: (data: Truss) => void;
 	getTruss: (id: string) => void;
-	setLoading: (data: void) => void;
+	setLoading: (data: boolean) => void;
 }
 
 export const HubComponent = ({
@@ -97,7 +97,7 @@ export const HubComponent = ({
 			try {
 				await connect.start();
 				connect?.on(Hub.ReceivedProject, (message) => {
-					setLoading();
+					setLoading(false);
 					const json = message && JSON.parse(message);
 					if (json) {
 						getProject(json.Id);
@@ -134,7 +134,7 @@ export const HubComponent = ({
 					connect?.invoke(Hub.OpenJob, id);
 				});
 				connect?.on(Hub.ReceivedJob, (message) => {
-					setLoading();
+					setLoading(false);
 					const json = message && JSON.parse(message);
 					json && setJob(json);
 					getJobImage(json.Id);
@@ -159,7 +159,7 @@ export const HubComponent = ({
 			try {
 				await connect.start();
 				connect?.on(Hub.ReceivedTruss, (message) => {
-					setLoading();
+					setLoading(false);
 					const json = message && JSON.parse(message);
 					console.log(json);
 					if (!!json) {

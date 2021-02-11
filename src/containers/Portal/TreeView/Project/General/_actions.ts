@@ -25,7 +25,7 @@ export const deleteFile = createAsyncAction(
 	"DELETE_FILE_FAILURE"
 )<ProjectFileRequest, void, Error>();
 
-export const setLoading = createAction("HUB_LOADING")();
+export const setLoading = createAction("HUB_LOADING")<boolean>();
 
 export type projectUpdateActionType = ActionType<
 	typeof projectUpdate | typeof setLoading

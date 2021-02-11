@@ -23,7 +23,7 @@ const LoadingReducer = (
 			return {
 				...initialState,
 				error: null,
-				loadingPage: !state.loadingPage,
+				loadingPage: action.payload,
 			};
 		case getType(projectUpdate.request):
 			return {

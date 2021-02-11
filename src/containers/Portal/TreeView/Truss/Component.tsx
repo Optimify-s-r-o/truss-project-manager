@@ -50,7 +50,7 @@ export interface DispatchProps {
 	getTrussImage: (data: string) => void;
 	setTruss: (data: Truss) => void;
 	priceListsGetAction: (data: void) => void;
-	setLoading: (data: void) => void;
+	setLoading: (data: boolean) => void;
 }
 
 const Component = ({

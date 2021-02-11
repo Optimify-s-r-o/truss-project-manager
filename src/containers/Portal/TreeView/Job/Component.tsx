@@ -8,55 +8,48 @@ import React from 'react';
 import Trusses from './Trusses/Container';
 import Viewer from './Viewer/Container';
 import { Delete, Lock } from '../../../../components/Button';
-import { faCube } from '@fortawesome/pro-duotone-svg-icons';
-import { faHomeLgAlt, faMountains } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../utils/getPath';
-import { HubComponent } from './HubComponent';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { JobType, TreeType } from '../../../../types/_types';
-import { MainTree } from '../../_styles';
-import { OpenTruss } from '../../../../sagas/Truss/_actions';
-import { Phase } from '../../../../components/Phase';
-import { Routes } from '../../../../constants/routes';
-import {
-	faInfo,
-	faInventory,
-	faMoneyBillWave,
-} from "@fortawesome/pro-solid-svg-icons";
-import {
-	Route,
-	RouteComponentProps,
-	Switch,
-	useLocation,
-	useParams,
-} from "react-router-dom";
-import {
-	PageHeader,
-	PageTitle,
-	PageTitleActions,
-	TitleName,
-	TitleSection,
-} from "../../../../constants/globalStyles";
-import {
-	deleteJobRoute,
-	unlockJobAction,
-} from "../../../../sagas/Fetch/actions";
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation,
-} from "../../../../translation/i18n";
 import {
 	DeleteJob,
 	JobProxy,
 	JobRootObject,
 	JobsSelectedRequest,
 	ProjectNameJobName,
-	Unlock,
-} from "./_types";
+	Unlock
+	} from './_types';
+import { deleteJobRoute, unlockJobAction } from '../../../../sagas/Fetch/actions';
+import { faCube } from '@fortawesome/pro-duotone-svg-icons';
+import { faHomeLgAlt, faMountains } from '@fortawesome/pro-light-svg-icons';
+import { faInfo, faInventory, faMoneyBillWave } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { get } from 'lodash';
+import { getPath, translationPath } from '../../../../utils/getPath';
+import { HubComponent } from './HubComponent';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { JobType, TreeType } from '../../../../types/_types';
+import {
+	lang,
+	t,
+	WithTranslation,
+	withTranslation
+	} from '../../../../translation/i18n';
+import { MainTree } from '../../_styles';
+import { OpenTruss } from '../../../../sagas/Truss/_actions';
+import {
+	PageHeader,
+	PageTitle,
+	PageTitleActions,
+	TitleName,
+	TitleSection
+	} from '../../../../constants/globalStyles';
+import { Phase } from '../../../../components/Phase';
+import {
+	Route,
+	RouteComponentProps,
+	Switch,
+	useLocation,
+	useParams
+	} from 'react-router-dom';
+import { Routes } from '../../../../constants/routes';
 const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
 export interface StateProps {
 	activeTree: TreeType;
@@ -77,7 +70,7 @@ export interface DispatchProps {
 	jobImageByName: (data: ProjectNameJobName) => void;
 	setJob: (data: JobRootObject) => void;
 	unlockJob: (data: Unlock) => void;
-	setLoading: (data: void) => void;
+	setLoading: (data: boolean) => void;
 }
 
 const Index = ({

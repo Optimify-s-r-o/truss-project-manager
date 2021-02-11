@@ -1,24 +1,24 @@
 import Component, { StateProps } from './Component';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { editTruss, OpenTruss } from '../../../../sagas/Truss/_actions';
-import { setLoading } from '../Project/General/_actions';
-import { withRouter } from 'react-router-dom';
 import {
 	deleteJob,
 	jobImage,
 	jobImageByName,
 	selectedJob,
 	setJob,
-	unlockJob,
-} from "./_actions";
+	unlockJob
+	} from './_actions';
 import {
 	DeleteJob,
 	JobRootObject,
 	JobsSelectedRequest,
 	ProjectNameJobName,
-	Unlock,
-} from "./_types";
+	Unlock
+	} from './_types';
+import { editTruss, OpenTruss } from '../../../../sagas/Truss/_actions';
+import { setLoading } from '../Project/General/_actions';
+import { withRouter } from 'react-router-dom';
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	jobRequest: (data: JobsSelectedRequest) =>
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	editTruss: (data: OpenTruss) => dispatch(editTruss.request(data)),
 	unlockJob: (data: Unlock) => dispatch(unlockJob.request(data)),
 	setJob: (data: JobRootObject) => dispatch(setJob(data)),
-	setLoading: (data: void) => dispatch(setLoading()),
+	setLoading: (data: boolean) => dispatch(setLoading(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({

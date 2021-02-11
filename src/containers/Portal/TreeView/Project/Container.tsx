@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	createTruss: (data: OpenTruss) => dispatch(createTruss.request(data)),
 	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
 	clearEvidenceAction: (data: void) => dispatch(clearEvidenceAction()),
-	setLoading: (data: void) => dispatch(setLoading()),
+	setLoading: (data: boolean) => dispatch(setLoading(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({

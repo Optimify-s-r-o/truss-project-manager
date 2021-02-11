@@ -77,7 +77,7 @@ export interface DispatchProps {
 	setProject: (data: Project) => void;
 	setSelectedKeys: (data: string[]) => void;
 	clearEvidenceAction: (data: void) => void;
-	setLoading: (data: void) => void;
+	setLoading: (data: boolean) => void;
 }
 
 const Index = ({

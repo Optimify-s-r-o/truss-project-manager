@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	setTruss: (data: Truss) => dispatch(setTruss(data)),
 	priceListsGetAction: (data: void) =>
 		dispatch(priceListsGetAction.request(data)),
-	setLoading: (data: void) => dispatch(setLoading()),
+	setLoading: (data: boolean) => dispatch(setLoading(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({

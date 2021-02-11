@@ -89,7 +89,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-	setLoading: (data: void) => dispatch(setLoading()),
+	setLoading: (data: boolean) => dispatch(setLoading(data)),
 	setHubTree: (data: any) => dispatch(setHubTree(data)),
 	setHubProject: (data: any) => dispatch(setHubProject(data)),
 	setHubJob: (data: any) => dispatch(setHubJob(data)),
