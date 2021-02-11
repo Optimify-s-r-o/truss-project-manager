@@ -95,41 +95,40 @@ export const ActiveActions = ({
 							""
 						)}
 						<ContentRow>
-							{data?.IsSkipped ||
-								(data?.IsFilterActive && (
-									<ContentRow>
-										<SkippedSpan>
-											{t(translationPath(lang.common.activeSelection).path)}
-										</SkippedSpan>
-										<Row>
-											<Icon>
-												<FontAwesomeIcon
-													icon={faFolder as IconProp}
-													style={{ color: "#d08f1a" }}
-												/>
-											</Icon>
-											<Skipped>({data?.ProjectsSkipped})</Skipped>
-										</Row>
-										<Row>
-											<Icon>
-												<FontAwesomeIcon
-													icon={faHomeLgAlt as IconProp}
-													style={{ color: "red" }}
-												/>
-											</Icon>
-											<Skipped>({data?.JobsSkipped})</Skipped>
-										</Row>
-										<Row>
-											<Icon>
-												<FontAwesomeIcon
-													icon={faMountains as IconProp}
-													style={{ color: "#c1c132" }}
-												/>
-											</Icon>
-											<Skipped>({data?.TrussesSkipped})</Skipped>
-										</Row>
-									</ContentRow>
-								))}
+							{(data?.IsSkipped || data?.IsFilterActive) && (
+								<ContentRow>
+									<SkippedSpan>
+										{t(translationPath(lang.common.activeSelection).path)}
+									</SkippedSpan>
+									<Row>
+										<Icon>
+											<FontAwesomeIcon
+												icon={faFolder as IconProp}
+												style={{ color: "#d08f1a" }}
+											/>
+										</Icon>
+										<Skipped>({data?.ProjectsSkipped})</Skipped>
+									</Row>
+									<Row>
+										<Icon>
+											<FontAwesomeIcon
+												icon={faHomeLgAlt as IconProp}
+												style={{ color: "red" }}
+											/>
+										</Icon>
+										<Skipped>({data?.JobsSkipped})</Skipped>
+									</Row>
+									<Row>
+										<Icon>
+											<FontAwesomeIcon
+												icon={faMountains as IconProp}
+												style={{ color: "#c1c132" }}
+											/>
+										</Icon>
+										<Skipped>({data?.TrussesSkipped})</Skipped>
+									</Row>
+								</ContentRow>
+							)}
 						</ContentRow>
 					</Column>
 					{data?.IsFilterActive && (
