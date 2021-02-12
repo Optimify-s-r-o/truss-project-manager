@@ -1,18 +1,30 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faSuitcase } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useFormik } from "formik";
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { RouteComponentProps, useParams } from "react-router-dom";
-import * as Yup from "yup";
-import { Add, Delete, Edit, Upload } from "../../../../components/Button";
-import { Button } from "../../../../components/Optimify/Button";
-import FormikRow from "../../../../components/Optimify/Form/FormikRow";
-import Loading from "../../../../components/Optimify/Loading";
-import { ScrollableTable } from "../../../../components/Optimify/Table";
-import { ApiURL } from "../../../../constants/api";
-import { Input, Method } from "../../../../constants/enum";
+import * as React from 'react';
+import * as Yup from 'yup';
+import FormikRow from '../../../../components/Optimify/Form/FormikRow';
+import Loading from '../../../../components/Optimify/Loading';
+import {
+	Add,
+	Delete,
+	Edit,
+	Upload
+	} from '../../../../components/Button';
+import { ApiURL } from '../../../../constants/api';
+import { arest } from './_actions';
+import { Button } from '../../../../components/Optimify/Button';
+import { CustomerFetch } from '../_types';
+import { CustomerRootObject, IArest } from './_types';
+import { faSuitcase } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getLegalPersonByIdCall } from '../../../../sagas/Fetch/actions';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { Input, Method } from '../../../../constants/enum';
+import { lang, WithTranslation } from '../../../../translation/i18n';
+import { Modal } from './components/Dialog';
+import { RouteComponentProps, useParams } from 'react-router-dom';
+import { ScrollableTable } from '../../../../components/Optimify/Table';
+import { translationPath } from '../../../../utils/getPath';
+import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import {
 	CardEndTableWrapper,
 	ContentCard,
@@ -26,8 +38,6 @@ import {
 	TitleName,
 	TitleSection,
 } from "../../../../constants/globalStyles";
-import { getLegalPersonByIdCall } from "../../../../sagas/Fetch/actions";
-import { lang, WithTranslation } from "../../../../translation/i18n";
 import {
 	Company,
 	Contact,
@@ -36,7 +46,6 @@ import {
 	Settings,
 	TreeType,
 } from "../../../../types/_types";
-import { translationPath } from "../../../../utils/getPath";
 import {
 	MainTree,
 	MainTreeContent,
@@ -44,10 +53,6 @@ import {
 	TreeContent,
 	TreeScreen,
 } from "../../_styles";
-import { CustomerFetch } from "../_types";
-import { Modal } from "./components/Dialog";
-import { arest } from "./_actions";
-import { CustomerRootObject, IArest } from "./_types";
 
 export interface StateProps {
 	activeTree: TreeType;

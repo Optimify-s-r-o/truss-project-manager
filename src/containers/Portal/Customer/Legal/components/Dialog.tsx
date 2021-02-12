@@ -32,7 +32,7 @@ export const Modal = ({
 
 	return (
 		<SModal
-			title={t(translationPath(lang.common.address).path)}
+			title={t(translationPath(lang.common.contactPerson).path)}
 			visible={isModalVisible}
 			onCancel={handleCancel}
 			onOk={handleOk}
