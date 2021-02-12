@@ -209,6 +209,7 @@ const dictionary: Lang = {
 		priceListItem: 'Opravdu chcete odebrat položku "{{name}}" ?',
 		file: 'Opravdu chcete odebrat soubor "{{name}}" ?',
 		model: "Opravdu chcete odebrat 3d model ?",
+		contactPerson: 'Opravdu chcete odebrat kontaktni osobu "{{name}}" ?',
 	},
 	priceLists: {
 		default: "Defaultní",
@@ -865,7 +866,8 @@ const dictionary: Lang = {
 		averagePricePerPiece: "Průměrná cena ks",
 		process: "Průběh",
 		production: "Cena výroby",
-		productionsPerQuotationsFilter: "ProductionsPerQuotationsFilter",
+		productionsPerQuotationsFilter:
+			"Poměr realizovaných a nerealizovaných projektů",
 		products: "Produkty Fine",
 		profile: "Profil",
 		projectList: "Seznam projektů",

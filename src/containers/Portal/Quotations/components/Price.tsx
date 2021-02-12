@@ -152,7 +152,7 @@ export const Price = ({
 						filterOption={(input, option) =>
 							option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
 						}
-						style={{ width: "50%" }}
+						style={{ width: "49%", marginRight: "1%" }}
 						placeholder={t(translationPath(lang.templates.priceList).path)}
 						onChange={handlePriceListChange}
 						value={variable.PriceListId}
@@ -223,7 +223,16 @@ export const Price = ({
 	);
 };
 
-const SSelect = styled(Select)``;
+const SSelect = styled(Select)`
+	.ant-select-selector {
+		background-color: ${(props) => props.theme.colors.forms.select} !important;
+		color: ${(props) => props.theme.colors.secondaryText.default} !important;
+	}
+
+	.anticon svg {
+		background-color: ${(props) => props.theme.colors.forms.select} !important;
+	}
+`;
 
 const Slash = styled.span`
 	margin: 0 6px;
@@ -251,7 +260,7 @@ const Wrapper = styled(ContentRow)`
 const Input = styled.input<{ width?: number }>`
 	margin: 0 0 0.5rem;
 	padding: 0.75rem 0.45rem 0.75rem 0.8rem;
-
+	background-color: ${(props) => props.theme.colors.forms.select};
 	width: ${(props) => (props.width ? props.width : 100)}%;
 
 	box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.2);

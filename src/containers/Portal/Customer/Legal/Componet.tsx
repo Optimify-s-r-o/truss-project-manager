@@ -1,30 +1,18 @@
-import * as React from 'react';
-import * as Yup from 'yup';
-import Dialog from './components/Dialog';
-import FormikRow from '../../../../components/Optimify/Form/FormikRow';
-import Loading from '../../../../components/Optimify/Loading';
-import {
-	Add,
-	Delete,
-	Edit,
-	Upload
-	} from '../../../../components/Button';
-import { ApiURL } from '../../../../constants/api';
-import { arest } from './_actions';
-import { Button } from '../../../../components/Optimify/Button';
-import { CustomerFetch } from '../_types';
-import { CustomerRootObject, IArest } from './_types';
-import { faSuitcase } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getLegalPersonByIdCall } from '../../../../sagas/Fetch/actions';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Input, Method } from '../../../../constants/enum';
-import { lang, WithTranslation } from '../../../../translation/i18n';
-import { RouteComponentProps, useParams } from 'react-router-dom';
-import { ScrollableTable } from '../../../../components/Optimify/Table';
-import { translationPath } from '../../../../utils/getPath';
-import { useFormik } from 'formik';
-import { useTranslation } from 'react-i18next';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faSuitcase } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useFormik } from "formik";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import { RouteComponentProps, useParams } from "react-router-dom";
+import * as Yup from "yup";
+import { Add, Delete, Edit, Upload } from "../../../../components/Button";
+import { Button } from "../../../../components/Optimify/Button";
+import FormikRow from "../../../../components/Optimify/Form/FormikRow";
+import Loading from "../../../../components/Optimify/Loading";
+import { ScrollableTable } from "../../../../components/Optimify/Table";
+import { ApiURL } from "../../../../constants/api";
+import { Input, Method } from "../../../../constants/enum";
 import {
 	CardEndTableWrapper,
 	ContentCard,
@@ -38,6 +26,8 @@ import {
 	TitleName,
 	TitleSection,
 } from "../../../../constants/globalStyles";
+import { getLegalPersonByIdCall } from "../../../../sagas/Fetch/actions";
+import { lang, WithTranslation } from "../../../../translation/i18n";
 import {
 	Company,
 	Contact,
@@ -46,6 +36,7 @@ import {
 	Settings,
 	TreeType,
 } from "../../../../types/_types";
+import { translationPath } from "../../../../utils/getPath";
 import {
 	MainTree,
 	MainTreeContent,
@@ -53,6 +44,10 @@ import {
 	TreeContent,
 	TreeScreen,
 } from "../../_styles";
+import { CustomerFetch } from "../_types";
+import { Modal } from "./components/Dialog";
+import { arest } from "./_actions";
+import { CustomerRootObject, IArest } from "./_types";
 
 export interface StateProps {
 	activeTree: TreeType;
@@ -79,6 +74,28 @@ export interface DispatchProps {
 	clearLegal: () => void;
 }
 
+let guid = () => {
+	let s4 = () => {
+		return Math.floor((1 + Math.random()) * 0x10000)
+			.toString(16)
+			.substring(1);
+	};
+	return (
+		s4() +
+		s4() +
+		"-" +
+		s4() +
+		"-" +
+		s4() +
+		"-" +
+		s4() +
+		"-" +
+		s4() +
+		s4() +
+		s4()
+	);
+};
+
 const Index = ({
 	arestResponse,
 	activeTree,
@@ -93,30 +110,31 @@ const Index = ({
 	clearLegal,
 	getLegalPersonById,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
-	const [openDialog, setOpenDialog] = React.useState(false);
-	const [contacts, setContacts] = React.useState<Contact[]>([]);
-	const [contactIndex, setContactIndex] = React.useState<number>(null);
+	const [isModalVisible, setIsModalVisible] = React.useState(false);
+	const [editedPerson, setEditedPerson] = React.useState(null);
+	const [contacts, setContacts] = React.useState([]);
 	const { id, evidence } = useParams<{ id: string; evidence: string }>();
 	const { t } = useTranslation();
 	const formik = useFormik({
-		initialValues: legal
-			? legal
-			: {
-					Id: "",
-					Name: "",
-					Crn: "",
-					VatRegNo: "",
-					Address: {
-						CountryId: "",
-						RegionName: "",
-						CityName: "",
-						StreetName: "",
-						Zip: "",
-						PlaceNumber: "",
-					},
-					Contacts: [],
-			  },
-		enableReinitialize: true,
+		initialValues:
+			legal && id
+				? legal
+				: {
+						Id: "",
+						Name: "",
+						Crn: "",
+						VatRegNo: "",
+						Address: {
+							Country: "",
+							CountryId: "",
+							RegionName: "",
+							CityName: "",
+							StreetName: "",
+							Zip: "",
+							PlaceNumber: "",
+						},
+						Contacts: [],
+				  },
 		validationSchema: Yup.object({
 			Name: Yup.string()
 				.min(1, t(translationPath(lang.validation.min).path, { count: 1 }))
@@ -127,7 +145,9 @@ const Index = ({
 				.max(200, t(translationPath(lang.validation.max).path, { count: 200 }))
 				.required(t(translationPath(lang.validation.required).path)),
 		}),
+		enableReinitialize: true,
 		onSubmit: (values: Company) => {
+			console.log(values);
 			save({
 				Evidence: null,
 				Person: null,
@@ -142,7 +162,10 @@ const Index = ({
 			formik.setValues({ ...formik.values, Name: evidence, Id: id });
 		} else if (id) {
 			getLegalPersonById(getLegalPersonByIdCall(id));
+		} else {
+			formik.resetForm();
 		}
+		console.log(id);
 	}, [id, evidence]);
 
 	React.useEffect(() => {
@@ -150,11 +173,8 @@ const Index = ({
 			clearLegal();
 		};
 	}, []);
-
 	React.useEffect(() => {
-		if (legal) {
-			setContacts(legal?.Contacts);
-		}
+		setContacts(legal?.Contacts || []);
 	}, [legal]);
 
 	React.useEffect(() => {
@@ -163,24 +183,78 @@ const Index = ({
 		}
 	}, [arestResponse]);
 
-	const handleDialog = (index?: number) => {
-		if (index != null) {
-			setContactIndex(index);
-		} else {
-			setContactIndex(null);
-		}
-		setOpenDialog(!openDialog);
+	const contactFormik = useFormik({
+		initialValues: {
+			Id: guid(),
+			Name: "",
+			Description: "",
+			Email: "",
+			Phone: "",
+		},
+		validationSchema: Yup.object({
+			Name: Yup.string()
+				.min(1, t(translationPath(lang.validation.min).path, { count: 1 }))
+				.max(200, t(translationPath(lang.validation.max).path, { count: 200 }))
+				.required(t(translationPath(lang.validation.required).path)),
+			Phone: Yup.string().matches(
+				/^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
+				t(translationPath(lang.validation.phone).path)
+			),
+		}),
+		onSubmit: (value: Contact) => {
+			if (contacts?.length === 0) {
+				setContacts([value]);
+			} else if (contacts?.find((e) => e.Id === value.Id)) {
+				setContacts(contacts?.map((e) => (e.Id !== value.Id ? e : value)));
+			} else {
+				setContacts([...contacts, value]);
+			}
+			setIsModalVisible(false);
+			setEditedPerson(null);
+			contactFormik.resetForm();
+		},
+	});
+
+	const addContactPerson = () => {
+		contactFormik.setValues({
+			Id: guid(),
+			Name: "",
+			Description: "",
+			Email: "",
+			Phone: "",
+		});
+		setEditedPerson(null);
+		setIsModalVisible(true);
 	};
 
-	const handleClose = () => {
-		setOpenDialog(!openDialog);
+	const editContact = (value: Contact) => {
+		contactFormik.setValues(value);
+		setEditedPerson(value);
+		setIsModalVisible(true);
 	};
 
-	const removeContact = (index: number) => {
-		const temp = formik.values.Contacts ? formik.values.Contacts : [];
-		temp.splice(index, 1);
-		formik.setFieldValue("Contacts", temp);
+	const removeContact = (id: string) => {
+		console.log(id);
+		const filtered = contacts?.filter((e) => e.Id !== id);
+		console.log(filtered);
+		setContacts(filtered);
 	};
+
+	React.useEffect(() => {
+		console.log(editedPerson);
+	}, [editedPerson]);
+
+	React.useEffect(() => {
+		console.log(":" + editedPerson);
+		contactFormik.setValues({
+			Id: guid(),
+			Name: "",
+			Description: "",
+			Email: "",
+			Phone: "",
+		});
+	}, []);
+
 	return (
 		<MainTree>
 			<Loading
@@ -258,7 +332,7 @@ const Index = ({
 												<Header1>
 													{t(translationPath(lang.common.contactPerson).path)}
 												</Header1>
-												<Add add={() => handleDialog(null)} />
+												<Add add={() => addContactPerson()} />
 											</ContentSpaceBetween>
 											<CardEndTableWrapper>
 												<ScrollableTable
@@ -268,9 +342,9 @@ const Index = ({
 														t(translationPath(lang.common.phone).path),
 														t(translationPath(lang.common.actions).path),
 													]}
-													sortable={[true, true, true, false]}
+													sortable={[false, false, false, false]}
 													data={
-														contacts?.length > 0
+														contacts?.length != 0
 															? contacts?.map(
 																	(value: Contact, index: number) => {
 																		return [
@@ -285,26 +359,26 @@ const Index = ({
 															: []
 													}
 													renderers={[
-														(value: any, key: number, parent: Customer) => {
+														(value: any, key: number, parent: Contact) => {
 															return value;
 														},
-														(value: any, key: number, parent: Customer) => {
+														(value: any, key: number, parent: Contact) => {
 															return value;
 														},
-														(value: any, key: number, parent: Customer) => {
+														(value: any, key: number, parent: Contact) => {
 															return value;
 														},
-														(value: any, key: number, parent: Customer) => {
+														(value: any, key: number, parent: Contact) => {
 															return (
 																<div>
-																	<Edit edit={() => handleDialog(value)} />
+																	<Edit edit={() => editContact(parent)} />
 																	&nbsp;
 																	<Delete
-																		remove={() => removeContact(value)}
+																		remove={() => removeContact(parent?.Id)}
 																		title={t(
-																			translationPath(
-																				lang.common.modalAccountTitle
-																			).path
+																			translationPath(lang.remove.contactPerson)
+																				.path,
+																			{ name: parent.Name }
 																		)}
 																	/>
 																</div>
@@ -313,14 +387,10 @@ const Index = ({
 													]}
 												/>
 											</CardEndTableWrapper>
-
-											<Dialog
-												open={openDialog}
-												setContact={setContacts}
-												contact={contacts}
-												contactIndex={contactIndex}
-												close={handleClose}
-												formik={formik}
+											<Modal
+												isModalVisible={isModalVisible}
+												contactFormik={contactFormik}
+												setIsModalVisible={setIsModalVisible}
 											/>
 										</ContentCard>
 									</GridItem>

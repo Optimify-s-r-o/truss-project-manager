@@ -96,4 +96,8 @@ const SSlider = styled(Slider)`
 	.ant-slider-handle:hover {
 		border: 2px solid ${(props) => props.theme.colors.primary.default};
 	}
+
+	.ant-slider-rail {
+		background-color: ${(props) => props.theme.colors.forms.slider} !important;
+	}
 `;

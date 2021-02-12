@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { ActionButton } from '../../../../components/Quotations/index';
@@ -120,7 +119,7 @@ export const PriceListTitle = ({
 };
 
 export const TitleQuotation = styled.div`
-	color: #292929;
+	color: ${(props) => props.theme.colors.quotation.title};
 	font-size: 1.2rem;
 	font-weight: 600;
 

@@ -217,7 +217,10 @@ const Index = (
 						<PageHeader>
 							<PageTitle>
 								<TitleSection>
-									<FontAwesomeIcon icon={faFolderPlus as IconProp} />
+									<FontAwesomeIcon
+										icon={faFolderPlus as IconProp}
+										color={"#fff"}
+									/>
 									<TitleName>
 										{t(translationPath(lang.common.newProject))}
 									</TitleName>

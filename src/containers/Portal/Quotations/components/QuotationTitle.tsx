@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { ActionButton } from '../../../../components/Quotations/index';
@@ -11,21 +10,20 @@ import { lang } from '../../../../translation/i18n';
 import { translationPath } from '../../../../utils/getPath';
 import { Undo } from '../../../../components/Button/Undo';
 import { useTranslation } from 'react-i18next';
-
 import {
+	CircleRemove,
+	DownloadPure,
+	Duplicate,
+	PencilEdit,
+} from "../../../../components/Button";
+import {
+	QuotationFileImport,
 	QuotationList,
 	QuotationParam,
 	Quotations,
 	QuotationTemplatePut,
-	QuotationFileImport,
 } from "../_types";
-import {
-	CircleRemove,
-	Download,
-	Duplicate,
-	PencilEdit,
-	DownloadPure,
-} from "../../../../components/Button";
+
 interface QuotationTitle {
 	quotations: Quotations;
 	quotationTemplatePutAction: (data: QuotationTemplatePut) => void;
@@ -198,7 +196,7 @@ export const TitleQuotation = styled.div`
 	color: #292929;
 	font-size: 1.2rem;
 	font-weight: 600;
-
+	color: ${(props) => props.theme.colors.quotation.title};
 	&:first-child {
 		margin: 10px 14px 10px;
 	}

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/pro-solid-svg-icons';
@@ -78,7 +78,7 @@ const Item = styled.div``;
 const Title = styled.div`
 	padding: 8px 24px;
 
-	color: ${(props) => props.theme.colors.background.content};
+	color: ${(props) => props.theme.colors.secondaryText.white};
 `;
 
 const NavigationItem = styled.div<{ active: boolean; isAction?: boolean }>`
@@ -96,7 +96,7 @@ const NavigationItem = styled.div<{ active: boolean; isAction?: boolean }>`
 		props.active
 			? props.theme.colors.primary.default
 			: props.isAction
-			? props.theme.colors.background.content
+			? props.theme.colors.secondaryText.white
 			: props.theme.colors.secondaryText.default};
 
 	svg {
@@ -104,7 +104,7 @@ const NavigationItem = styled.div<{ active: boolean; isAction?: boolean }>`
 		color: ${(props) =>
 			props.active
 				? props.theme.colors.primary.default
-				: props.theme.colors.background.darker};
+				: props.theme.colors.secondaryText.white};
 	}
 
 	&:hover {
@@ -126,7 +126,7 @@ const NavigationItem = styled.div<{ active: boolean; isAction?: boolean }>`
 				props.active
 					? props.theme.colors.primary.default
 					: props.isAction
-					? props.theme.colors.background.content
+					? props.theme.colors.secondaryText.white
 					: props.theme.colors.secondaryText.default};
 		}
 	}

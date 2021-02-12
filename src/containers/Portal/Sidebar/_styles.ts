@@ -405,15 +405,14 @@ export const ContentRow = styled(ContentSpaceBetween)`
 
 export const Divider = styled.div`
 	height: 1px;
-	width: 95%;
-	border: 0.5px solid #ccc;
+	width: 100%;
+	border: 0.5px solid ${(props) => props.theme.colors.background.darker};
 	align-self: center;
 `;
 
 export const Item = styled.a`
 	padding: 5px 10px;
 	color: black !important;
-	/* z-index: 99999999; */
 	background-color: "red";
 	display: flex;
 	flex-direction: row;
@@ -421,8 +420,10 @@ export const Item = styled.a`
 	height: 100%;
 	cursor: pointer;
 	transition: all 0.5s ease-in-out !important;
+	background-color: ${(props) => props.theme.colors.forms.slider};
+
 	&:hover {
-		background-color: #e6e6e6;
+		background-color: ${(props) => props.theme.colors.sectionsDivider};
 		> svg {
 			color: #ff0000 !important;
 		}
@@ -465,17 +466,12 @@ export const ContextMenu = styled.div<{ show: boolean; x: number; y: number }>`
 	flex-direction: column;
 
 	width: 210px;
-	border: 1px solid #ccc;
-
-	background-color: ${(props) => props.theme.colors.background.menu};
+	border: 1px solid ${(props) => props.theme.colors.border.context};
+	background-color: ${(props) => props.theme.colors.primary.hover};
 
 	z-index: 999;
 
 	transition: all 0.5s ease-in-out !important;
-
-	&:hover {
-		border: 1px solid #17785e;
-	}
 `;
 
 export const SPopConfirm = styled(Popconfirm)`
@@ -512,4 +508,9 @@ export const ContextItem = styled.div`
 
 export const Active = styled.span`
 	margin-bottom: 4px;
+	color: ${(props) => props.theme.colors.secondaryText.text};
+`;
+
+export const ActiveFilterSpan = styled.span`
+	color: ${(props) => props.theme.colors.secondaryText.text};
 `;

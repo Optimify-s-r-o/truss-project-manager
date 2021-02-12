@@ -26,6 +26,8 @@ export interface Theme {
 			default: string;
 			hover: string;
 			active: string;
+			text: string;
+			white: string;
 		};
 		background: {
 			content: string;
@@ -43,9 +45,17 @@ export interface Theme {
 				heading: string;
 			};
 		};
+		quotation: {
+			title: string;
+		};
+		border: {
+			context: string;
+		};
 		forms: {
 			border: string;
 			labelBorder: string;
+			slider: string;
+			select: string;
 		};
 		sectionsDivider: string;
 		status: {
@@ -125,6 +135,8 @@ export const lightTheme: Theme = {
 			default: "#999",
 			hover: "#666",
 			active: "#333",
+			text: "#17785e",
+			white: "#fff",
 		},
 		background: {
 			content: "#fff",
@@ -142,9 +154,17 @@ export const lightTheme: Theme = {
 				heading: "#c5ddd7",
 			},
 		},
+		quotation: {
+			title: "#292929",
+		},
+		border: {
+			context: "#cecfd0",
+		},
 		forms: {
 			border: "#b8b8b8",
 			labelBorder: "#d8d8d8",
+			slider: "#f5f5f5",
+			select: "#ffff",
 		},
 		sectionsDivider: "#e6e6e6",
 		status: {
@@ -228,6 +248,8 @@ export const darkTheme: Theme = {
 			default: "#999",
 			hover: "#bbb",
 			active: "#ddd",
+			text: "#ccc",
+			white: "#fff",
 		},
 		background: {
 			content: "#212121",
@@ -245,9 +267,17 @@ export const darkTheme: Theme = {
 				heading: "#1a614e",
 			},
 		},
+		quotation: {
+			title: "#a7a7a7",
+		},
+		border: {
+			context: "#444",
+		},
 		forms: {
 			border: "#5d5d5d",
 			labelBorder: "#484848",
+			slider: "#444",
+			select: "#444",
 		},
 		sectionsDivider: "#3d3d3d",
 		status: {

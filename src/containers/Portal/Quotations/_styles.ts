@@ -46,9 +46,8 @@ export const AddSectionButton = styled.button`
 	}
 
 	&:hover {
-		background: white;
+		background: ${(props) => props.theme.colors.background.content};
 		box-shadow: ${(props) => props.theme.boxShadow};
-		color: ${(props) => props.theme.colors.primary.hover};
 	}
 `;
 
@@ -66,6 +65,7 @@ export const VariableTitle = styled.div`
 	min-width: 230px;
 	margin: 10px 0;
 	text-align: left;
+	color: ${(props) => props.theme.colors.secondaryText.default} !important;
 `;
 
 export const GlobalVariableContainer = styled.div`
@@ -90,13 +90,6 @@ export const VariableAdd = styled.button`
 		margin-bottom: -2px;
 
 		font-size: 1.25rem;
-	}
-
-	&:hover {
-		color: ${(props) =>
-			!props.disabled
-				? props.theme.colors.primary.hover
-				: props.theme.colors.secondaryText.default};
 	}
 `;
 
@@ -249,8 +242,7 @@ export const PageTitle = styled.h1`
 	align-items: center;
 	margin: 0;
 	padding: 12px 24px;
-
-	color: ${(props) => props.theme.colors.background.content};
+	color: ${(props) => props.theme.colors.secondaryText.white};
 	font-size: 1.5rem;
 	font-weight: 500;
 

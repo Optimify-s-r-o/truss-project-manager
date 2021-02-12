@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Active, ActiveFilter } from '../_styles';
+import { Active, ActiveFilter, ActiveFilterSpan } from '../_styles';
 import { Column } from 'src/styles/global';
 import { ContentRow } from 'src/constants/globalStyles';
 import { faSlash as faSlashSolid } from '@fortawesome/free-solid-svg-icons';
@@ -90,7 +90,9 @@ export const ActiveActions = ({
 								{t(translationPath(lang.common.activeFilter).path)}
 							</Active>
 						) : data?.IsFilterActive ? (
-							<span>{t(translationPath(lang.common.activeFilter).path)}</span>
+							<ActiveFilterSpan>
+								{t(translationPath(lang.common.activeFilter).path)}
+							</ActiveFilterSpan>
 						) : (
 							""
 						)}
@@ -168,9 +170,11 @@ export const ActiveActions = ({
 
 const Skipped = styled.span`
 	margin-left: 4px;
+	color: ${(props) => props.theme.colors.secondaryText.text};
 `;
 const SkippedSpan = styled.span`
 	margin-right: 3px;
+	color: ${(props) => props.theme.colors.secondaryText.text};
 `;
 
 const Row = styled(ContentRow)`

@@ -1,9 +1,9 @@
-import { IconDefinition } from "@fortawesome/pro-solid-svg-icons";
-import { Select } from "antd";
-import React from "react";
-import { QuotationList } from "src/containers/Portal/Quotations/_types";
-import styled from "styled-components";
-import { ListQuotation } from "../containers/Portal/Quotations/_types";
+import React from 'react';
+import styled from 'styled-components';
+import { IconDefinition } from '@fortawesome/pro-solid-svg-icons';
+import { ListQuotation } from '../containers/Portal/Quotations/_types';
+import { QuotationList } from 'src/containers/Portal/Quotations/_types';
+import { Select } from 'antd';
 const { Option } = Select;
 interface NavigationProps {
 	title?: string;
@@ -144,12 +144,11 @@ const NavigationWrapper = styled.div<{
 
 const SSelect = styled(Select)`
 	.ant-select-selector {
-		background-color: ${(props) =>
-			props.theme.colors.background.menu} !important;
+		background-color: ${(props) => props.theme.colors.forms.select} !important;
 		color: ${(props) => props.theme.colors.secondaryText.default} !important;
 	}
 
 	.anticon svg {
-		background-color: ${(props) => props.theme.colors.background.menu};
+		background-color: ${(props) => props.theme.colors.forms.select} !important;
 	}
 `;

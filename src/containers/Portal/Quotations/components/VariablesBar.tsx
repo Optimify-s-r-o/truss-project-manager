@@ -34,16 +34,6 @@ const VariablesBar = ({ variables, handleDoubleClick }: any) => {
 				e.dataTransfer.setData("Text", value);
 			}}
 		>
-			{/* 
-			TODO LOPATA KAREL:
-			1.) upravit z BE navratove hodnoty variables - nesmi tam byt mezery => Timber_Volume preved na timberVolume aby
-			slo pouzit 	t(translationPath(lang.quotations.variables.timberVolume).path)
-
-			2) preklady pridej pod quotations variables v lang.ts + vsech 3 jazycich
-
-			4) pro delsi popis ktery se ukaze na hover staci pridat stejny nazvy pod description v lang.ts a prekladech + samotne preklady a mas to ready to go
-		
-			*/}
 			<Tooltip
 				placement={"top"}
 				title={t(translationPath(lang.quotations.description[text]).path)}
@@ -151,7 +141,7 @@ export default VariablesBar;
 
 const VariablesTitle = styled.div`
 	padding: 1rem 1.5rem;
-
+	color: ${(props) => props.theme.colors.quotation.title};
 	font-size: 1.2rem;
 	font-weight: 600;
 `;

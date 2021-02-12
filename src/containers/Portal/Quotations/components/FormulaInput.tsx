@@ -124,7 +124,7 @@ const Wrapper = styled(ContentRow)`
 const Input = styled.input<{ width?: number }>`
 	margin: 0 0 0.5rem;
 	padding: 0.75em 1.1em;
-
+	background-color: ${(props) => props.theme.colors.forms.select};
 	width: ${(props) => (props.width ? props.width : 100)}%;
 
 	box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.2);

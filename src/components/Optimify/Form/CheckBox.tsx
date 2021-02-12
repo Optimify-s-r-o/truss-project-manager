@@ -52,6 +52,7 @@ export const Content = styled.div`
 
 export const Title = styled.span`
 	margin-left: 7px;
+	color: ${(props) => props.theme.colors.contentText};
 `;
 
 export const Label = styled.label`

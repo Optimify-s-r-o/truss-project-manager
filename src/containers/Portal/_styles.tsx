@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { Column } from "../../constants/globalStyles";
+import styled from 'styled-components';
+import { Column } from '../../constants/globalStyles';
+import { Link } from 'react-router-dom';
 
 export const TableTitle = styled.div`
 	font-size: 1.2rem;
@@ -137,15 +137,11 @@ export const LinkColumn = styled.div`
 		background-color: ${(props) => props.theme.colors.primary.default};
 
 		${LinkPath}, ${LinkPath} * {
-			color: ${(props) => props.theme.colors.background.content};
+			color: ${(props) => props.theme.colors.secondaryText.white};
 		}
 
 		${NewWindow}, ${NewWindow} * {
-			color: ${(props) => props.theme.colors.background.content};
-		}
-
-		svg {
-			color: ${(props) => props.theme.colors.background.content};
+			color: ${(props) => props.theme.colors.secondaryText.white};
 		}
 	}
 `;

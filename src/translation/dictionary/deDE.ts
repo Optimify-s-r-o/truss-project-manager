@@ -208,6 +208,7 @@ const dictionary: Lang = {
 		priceListItem: "Möchten Sie {{name}} wirklich entfernen ?",
 		file: 'Möchten Sie Datei {{name}} wirklich entfernen" ?',
 		model: "Sind Sie sicher, dass Sie das 3D-Jobmodell entfernen möchten ?",
+		contactPerson: "Möchten Sie {{name}} wirklich entfernen ?",
 	},
 	priceLists: {
 		default: "Default",
@@ -898,7 +899,8 @@ const dictionary: Lang = {
 		averagePricePerPiece: "Durchschnittspreis Stck",
 		process: "Der Kurs",
 		production: "Produktionspreis",
-		productionsPerQuotationsFilter: "ProductionsPerQuotationsFilter",
+		productionsPerQuotationsFilter:
+			"Verhältnis von umgesetzten und nicht realisierten Projekten ",
 		products: "Feine Produkte",
 		profile: "Profil",
 		projectList: "Liste der Projekte",

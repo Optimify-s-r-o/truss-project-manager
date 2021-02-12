@@ -256,6 +256,15 @@ const Index = ({
 	);
 };
 
-const SSelect = styled(Select)``;
+const SSelect = styled(Select)`
+	.ant-select-selector {
+		background-color: ${(props) => props.theme.colors.forms.select} !important;
+		color: ${(props) => props.theme.colors.secondaryText.default} !important;
+	}
+
+	.anticon svg {
+		background-color: ${(props) => props.theme.colors.forms.select} !important;
+	}
+`;
 
 export default withTranslation()(Index);

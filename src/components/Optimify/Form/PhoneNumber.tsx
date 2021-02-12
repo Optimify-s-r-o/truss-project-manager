@@ -1,5 +1,6 @@
 import * as React from 'react';
 import PhoneInput from 'react-phone-number-input';
+import styled from 'styled-components';
 import { BasicInlineInputProps } from './BaseInput';
 
 export const PhoneNumber = (props: BasicInlineInputProps) => {
@@ -10,7 +11,7 @@ export const PhoneNumber = (props: BasicInlineInputProps) => {
 	};
 
 	return (
-		<PhoneInput
+		<SPhoneInput
 			international
 			displayInitialValueAsLocalNumber
 			value={name && formik.values && formik.values[name]}
@@ -19,3 +20,10 @@ export const PhoneNumber = (props: BasicInlineInputProps) => {
 		/>
 	);
 };
+
+const SPhoneInput = styled(PhoneInput)`
+	.PhoneInputInput {
+		background-color: ${(props) => props.theme.colors.background.content};
+		color: ${(props) => props.theme.colors.contentText};
+	}
+`;

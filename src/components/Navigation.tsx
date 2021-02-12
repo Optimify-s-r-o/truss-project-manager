@@ -78,7 +78,7 @@ export default Navigation;
 const Title = styled.div`
 	padding: 8px 49px 16px 16px;
 
-	color: ${(props) => props.theme.colors.background.content};
+	color: ${(props) => props.theme.colors.secondaryText.white};
 `;
 
 const NavigationItem = styled.div<{ active: boolean; isAction?: boolean }>`
@@ -95,7 +95,7 @@ const NavigationItem = styled.div<{ active: boolean; isAction?: boolean }>`
 		props.active
 			? props.theme.colors.primary.default
 			: props.isAction
-			? props.theme.colors.background.content
+			? props.theme.colors.secondaryText.white
 			: props.theme.colors.secondaryText.default};
 
 	svg {
@@ -103,7 +103,7 @@ const NavigationItem = styled.div<{ active: boolean; isAction?: boolean }>`
 		color: ${(props) =>
 			props.active
 				? props.theme.colors.primary.default
-				: props.theme.colors.background.darker};
+				: props.theme.colors.secondaryText.white};
 	}
 
 	&:hover {
@@ -117,7 +117,7 @@ const NavigationItem = styled.div<{ active: boolean; isAction?: boolean }>`
 			props.active
 				? props.theme.colors.primary.default
 				: props.isAction
-				? props.theme.colors.background.content
+				? props.theme.colors.secondaryText.white
 				: props.theme.colors.secondaryText.hover};
 
 		svg {
@@ -125,7 +125,7 @@ const NavigationItem = styled.div<{ active: boolean; isAction?: boolean }>`
 				props.active
 					? props.theme.colors.primary.default
 					: props.isAction
-					? props.theme.colors.background.content
+					? props.theme.colors.secondaryText.white
 					: props.theme.colors.secondaryText.default};
 		}
 	}
@@ -159,4 +159,13 @@ const NavigationWrapper = styled.div<{
 	}
 `;
 
-const SSelect = styled(Select)``;
+const SSelect = styled(Select)`
+	.ant-select-selector {
+		background-color: ${(props) => props.theme.colors.forms.select} !important;
+		color: ${(props) => props.theme.colors.secondaryText.default} !important;
+	}
+
+	.anticon svg {
+		background-color: ${(props) => props.theme.colors.forms.select} !important;
+	}
+`;

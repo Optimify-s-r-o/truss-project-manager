@@ -1,9 +1,9 @@
-import Paper from "@material-ui/core/Paper";
-import FilterList from "@material-ui/icons/FilterList";
-import { Alert, Spin } from "antd";
-import { Link } from "react-router-dom";
-import styled, { keyframes } from "styled-components";
-import { device } from "./theme";
+import FilterList from '@material-ui/icons/FilterList';
+import Paper from '@material-ui/core/Paper';
+import styled, { keyframes } from 'styled-components';
+import { Alert, Spin } from 'antd';
+import { device } from './theme';
+import { Link } from 'react-router-dom';
 
 export const SAlert = styled(Alert)`
 	svg {
@@ -231,7 +231,7 @@ export const PageTitle = styled.h1`
 	margin: 0;
 	padding: 12px 24px;
 
-	color: ${(props) => props.theme.colors.background.content};
+	color: ${(props) => props.theme.colors.secondaryText.white};
 	font-size: 1.5rem;
 	font-weight: 500;
 
@@ -516,7 +516,7 @@ export const TitleQuotation = styled.div`
 	font-size: 1.2rem;
 	font-weight: 600;
 	margin: 20px 16px 10px;
-
+	color: ${(props) => props.theme.colors.quotation.title};
 	&:first-child {
 		margin: 5px 14px 10px;
 	}

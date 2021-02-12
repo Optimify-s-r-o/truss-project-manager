@@ -208,6 +208,7 @@ export type Lang = Readonly<{
 		priceListItem: string;
 		file: string;
 		model: string;
+		contactPerson: string;
 	};
 
 	priceLists: {

@@ -52,4 +52,12 @@ export const SelectType = ({ activeFilter, handleChange }: ISelectType) => {
 
 const SSelect = styled(Select)`
 	margin-left: 14px;
+	.ant-select-selector {
+		background-color: ${(props) => props.theme.colors.forms.select} !important;
+		color: ${(props) => props.theme.colors.secondaryText.default} !important;
+	}
+
+	.anticon svg {
+		background-color: ${(props) => props.theme.colors.forms.select} !important;
+	}
 `;

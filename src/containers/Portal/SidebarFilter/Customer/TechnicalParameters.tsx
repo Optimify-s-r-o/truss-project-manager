@@ -39,7 +39,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 				},
 				{
 					from: getPath(FilterSettingsProxy.Customer.NumberOfQuotationsFrom),
-					to: getPath(FilterSettingsProxy.Customer.NumberOfQuotationsFrom),
+					to: getPath(FilterSettingsProxy.Customer.NumberOfQuotationsTo),
 				},
 				{
 					from: getPath(FilterSettingsProxy.Customer.NumberOfProductionsFrom),
@@ -89,7 +89,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 				</FilterContentSection>
 				<FilterContentSection>
 					<FormSlider
-						label={t(translationPath(lang.common.numberOfQuotationsFilter))}
+						label={t(translationPath(lang.common.numberOfProductionsFilter))}
 						name={getPath(FilterProxy.Customers.NumberOfProductionsFilter)}
 						formik={formik}
 						from={formik?.values?.Customers?.NumberOfProductionsFilter?.From}
