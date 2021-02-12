@@ -10,15 +10,15 @@ import { Undo } from '../../../../components/Button/Undo';
 import { useTranslation } from 'react-i18next';
 import { VariablesDescriptionIcon } from '../_styles';
 import {
-	ContentInline,
-	Title,
-	TitleQuotation,
-} from "../../../../constants/globalStyles";
-import {
 	faInfoCircle,
 	faMinusCircle,
 	faPencil,
 } from "@fortawesome/pro-light-svg-icons";
+import {
+	ContentInline,
+	Title,
+	TitleQuotation,
+} from "../../../../constants/globalStyles";
 
 interface CategoryHeaderProps {
 	title: string;
@@ -187,7 +187,7 @@ export const CategoryTitleEditContent = styled(ContentInline)`
 export const CategoryTitleInput = styled.input`
 	margin: -0.5rem 0.5rem -0.5rem 0;
 	padding: 0.5rem 1.5rem;
-
+	background-color: ${(props) => props.theme.colors.forms.select};
 	box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.2);
 	border: 0;
 	border-radius: 3px;

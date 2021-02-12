@@ -205,12 +205,13 @@ export const AddressInput = ({ formik, name }: IAddressInput) => {
 					)}
 				</span>
 			</Span>
-			<Modal
+			<SModal
 				title={t(translationPath(lang.common.address).path)}
 				visible={isModalVisible}
 				onCancel={handleCancel}
 				onOk={handleOk}
 				cancelText={t(translationPath(lang.common.cancel).path)}
+				style={{ paddingBottom: 0 }}
 			>
 				<Div id="locationField">
 					<TextField
@@ -265,7 +266,7 @@ export const AddressInput = ({ formik, name }: IAddressInput) => {
 						value={location?.Country}
 					/>
 				</FormRow>
-			</Modal>
+			</SModal>
 		</>
 	);
 };
@@ -326,4 +327,33 @@ const Div = styled.div`
 const Placeholder = styled.div`
 	color: #bfbfbf;
 	font-size: 0.9rem;
+`;
+
+const SModal = styled(Modal)`
+	.ant-modal {
+		padding-bottom: 0 !important;
+	}
+	background-color: ${(props) => props.theme.colors.background.content};
+	.anticon svg {
+		background-color: ${(props) => props.theme.colors.background.content};
+		color: ${(props) => props.theme.colors.contentText};
+	}
+	.ant-modal-title {
+		color: ${(props) => props.theme.colors.contentText};
+	}
+	color: ${(props) => props.theme.colors.contentText};
+	.ant-modal-header {
+		background-color: ${(props) => props.theme.colors.background.content};
+		color: ${(props) => props.theme.colors.contentText};
+		border-bottom: 1px solid ${(props) => props.theme.colors.background.darker};
+	}
+	.ant-modal-body {
+		background-color: ${(props) => props.theme.colors.background.content};
+		color: ${(props) => props.theme.colors.contentText};
+	}
+	.ant-modal-footer {
+		border-top: 1px solid ${(props) => props.theme.colors.background.darker};
+		background-color: ${(props) => props.theme.colors.background.content};
+		color: ${(props) => props.theme.colors.contentText};
+	}
 `;

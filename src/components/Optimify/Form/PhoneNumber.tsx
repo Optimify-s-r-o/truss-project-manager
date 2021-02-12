@@ -25,5 +25,9 @@ const SPhoneInput = styled(PhoneInput)`
 	.PhoneInputInput {
 		background-color: ${(props) => props.theme.colors.background.content};
 		color: ${(props) => props.theme.colors.contentText};
+		border-bottom: 1px solid ${(props) => props.theme.colors.forms.border};
+	}
+	.PhoneInputCountry {
+		border-bottom: 1px solid ${(props) => props.theme.colors.forms.border};
 	}
 `;

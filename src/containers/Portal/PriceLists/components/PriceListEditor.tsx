@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import React from 'react';
 import styled from 'styled-components';
 import { ContentRow, GridRow } from '../../../../constants/globalStyles';
@@ -308,8 +307,6 @@ const AddSectionButton = styled.button`
 	}
 
 	&:hover {
-		background: white;
-		color: ${(props) => props.theme.colors.primary.hover};
 		box-shadow: ${(props) => props.theme.boxShadowHalf};
 	}
 `;

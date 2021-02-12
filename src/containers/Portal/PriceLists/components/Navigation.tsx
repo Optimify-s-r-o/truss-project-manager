@@ -118,7 +118,7 @@ const NavigationItem = styled.div<{ active: boolean; isAction?: boolean }>`
 			props.active
 				? props.theme.colors.primary.default
 				: props.isAction
-				? props.theme.colors.background.content
+				? props.theme.colors.secondaryText.white
 				: props.theme.colors.secondaryText.hover};
 
 		svg {
