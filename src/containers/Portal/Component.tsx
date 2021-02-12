@@ -1,24 +1,39 @@
-import { HubConnection } from "@microsoft/signalr";
-import React, { useState } from "react";
-import KeyboardEventHandler from "react-keyboard-event-handler";
-import { RouteComponentProps } from "react-router";
-import { useToasts } from "react-toast-notifications";
+import KeyboardEventHandler from 'react-keyboard-event-handler';
+import React, { useState } from 'react';
+import Routing from '../../components/Routes';
+import { ApiURL } from '../../constants/api';
+import { CustomersTreeType } from './TreeView/_types';
+import { darkTheme, GlobalStyles, lightTheme } from '../../constants/theme';
+import { DeleteJob, JobRootObject, Unlock } from './TreeView/Job/_types';
+import { DeleteProject } from './Project/_types';
+import { Filter } from './SidebarFilter';
+import { FilterProjectRequest } from './SidebarFilter/Projects/_types';
+import { GlobalNotification } from '../../components/Toast/_types';
+import { HubComponent } from './HubComponent';
+import { HubConnection } from '@microsoft/signalr';
+import { IconMenu } from './FastNavigation/Component';
+import { isElectron } from '../../utils/electron';
+import { Method } from '../../constants/enum';
+import { NavigationSetting } from './Navigation/NavigationSetting';
+import { OpenTruss } from '../../sagas/Truss/_actions';
+import { ProjectFileRequest } from './TreeView/Project/_types';
+import { QuickSearchRequest } from './FastNavigation/_types';
+import { RouteComponentProps } from 'react-router';
+import { settings, settingsFilter } from './_actions';
+import { SidePanel } from './Sidebar/SidePanel';
+import { ThemeProvider } from 'styled-components';
+import { Truss } from './TreeView/Truss/_types';
+import { UserData } from './Accounts/_types';
+import { useToasts } from 'react-toast-notifications';
+import { WithTranslation, withTranslation } from '../../translation/i18n';
 import {
 	ELECTRON_STORE_GET,
 	ELECTRON_STORE_SET,
 } from "src/constants/ipcConstants";
-import { ThemeProvider } from "styled-components";
-import Routing from "../../components/Routes";
-import { GlobalNotification } from "../../components/Toast/_types";
-import { ApiURL } from "../../constants/api";
-import { Method } from "../../constants/enum";
-import { darkTheme, GlobalStyles, lightTheme } from "../../constants/theme";
 import {
 	getPortalUsers,
 	getProjectFilesAction,
 } from "../../sagas/Fetch/actions";
-import { OpenTruss } from "../../sagas/Truss/_actions";
-import { WithTranslation, withTranslation } from "../../translation/i18n";
 import {
 	Data,
 	Fetch,
@@ -28,21 +43,6 @@ import {
 	Tree,
 	TreeType,
 } from "../../types/_types";
-import { isElectron } from "../../utils/electron";
-import { UserData } from "./Accounts/_types";
-import { IconMenu } from "./FastNavigation/Component";
-import { QuickSearchRequest } from "./FastNavigation/_types";
-import { HubComponent } from "./HubComponent";
-import { NavigationSetting } from "./Navigation/NavigationSetting";
-import { DeleteProject } from "./Project/_types";
-import { SidePanel } from "./Sidebar/SidePanel";
-import { Filter } from "./SidebarFilter";
-import { FilterProjectRequest } from "./SidebarFilter/Projects/_types";
-import { DeleteJob, JobRootObject, Unlock } from "./TreeView/Job/_types";
-import { ProjectFileRequest } from "./TreeView/Project/_types";
-import { Truss } from "./TreeView/Truss/_types";
-import { CustomersTreeType } from "./TreeView/_types";
-import { settings, settingsFilter } from "./_actions";
 import {
 	ContentHeight,
 	ContentRow,
@@ -241,7 +241,6 @@ const Index = ({
 		if (isElectron() && mode) {
 			const electron = window.require("electron");
 			const fs = electron.remote.require("fs");
-			console.log(mode);
 			electron.ipcRenderer.send(ELECTRON_STORE_SET, {
 				name: "app-theme",
 				value: mode === "light" ? "dark" : "light",

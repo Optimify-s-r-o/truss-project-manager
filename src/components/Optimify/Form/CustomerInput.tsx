@@ -47,8 +47,7 @@ export const CustomerInput = ({
 			setCurrentCustomer(null);
 		}
 	}, [formik.values]);
-	console.log(currentCustomer);
-	console.log(formik.values);
+
 	useEffect(() => {}, [customers]);
 
 	useEffect(() => {

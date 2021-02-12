@@ -12,7 +12,7 @@ export const FormikSwitch = ({ name, formik }: IOwnProps) => {
 	const handleChange = (checked: boolean, _event: MouseEvent) => {
 		formik.setFieldValue(name, checked);
 	};
-	console.log(formik.values);
+
 	return (
 		<Content>
 			<SSwitch

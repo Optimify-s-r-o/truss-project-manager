@@ -152,7 +152,6 @@ const Index = ({
 		}),
 		enableReinitialize: true,
 		onSubmit: (values: Company) => {
-			console.log(values);
 			save({
 				Evidence: null,
 				Person: null,
@@ -170,7 +169,6 @@ const Index = ({
 		} else {
 			formik.resetForm();
 		}
-		console.log(id);
 	}, [id, evidence]);
 
 	React.useEffect(() => {
@@ -239,18 +237,10 @@ const Index = ({
 	};
 
 	const removeContact = (id: string) => {
-		console.log(id);
 		const filtered = contacts?.filter((e) => e.Id !== id);
-		console.log(filtered);
-		setContacts(filtered);
 	};
 
 	React.useEffect(() => {
-		console.log(editedPerson);
-	}, [editedPerson]);
-
-	React.useEffect(() => {
-		console.log(":" + editedPerson);
 		contactFormik.setValues({
 			Id: guid(),
 			Name: "",

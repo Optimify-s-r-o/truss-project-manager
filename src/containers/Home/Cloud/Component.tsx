@@ -81,7 +81,6 @@ const Component = (
 			electron.ipcRenderer.send(ELECTRON_STORE_GET, "cloud-username");
 			const fs = electron.remote.require("fs");
 			electron.ipcRenderer.on(ELECTRON_STORE_GET, (event, text) => {
-				console.log(text);
 				formik.setFieldValue("username", text);
 			});
 		}
