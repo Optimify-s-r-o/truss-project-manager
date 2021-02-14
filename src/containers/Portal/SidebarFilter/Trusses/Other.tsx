@@ -129,7 +129,6 @@ const Index = (props: OwnProps & WithTranslation) => {
 					step={1}
 					round={0}
 				/>
-
 				<FormSlider
 					label={t(translationPath(lang.common.modelCount))}
 					name={getPath(FilterProxy.Trusses.ModelCountFilter)}

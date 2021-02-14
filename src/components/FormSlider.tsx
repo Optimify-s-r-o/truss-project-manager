@@ -50,27 +50,29 @@ const Index = (props: OwnProps & WithTranslation) => {
 		<>
 			{settingsFrom !== settingsTo ? (
 				<FilterContentSection>
-					<FormikBox
-						checked={true}
-						name={name}
-						formik={formik}
-						label={<FilterTitle>{label}</FilterTitle>}
-					/>
-					<SSlider
-						trackStyle={[{ backgroundColor: defaultColor }]}
-						handleStyle={{ borderColor: defaultColor }}
-						range
-						defaultValue={[settingsFrom, settingsTo]}
-						value={[from, to]}
-						onChange={rangeChange(name)}
-						min={settingsFrom}
-						max={settingsTo}
-						step={step ? step : getStep(settingsFrom, settingsTo)}
-					/>
-					<SpaceBetweenFullWidth>
-						<span>{fixed(from, round ? round : round === 0 ? 0 : 2)}</span>
-						<span>{fixed(to, round ? round : round === 0 ? 0 : 2)}</span>
-					</SpaceBetweenFullWidth>
+					<>
+						<FormikBox
+							checked={true}
+							name={name}
+							formik={formik}
+							label={<FilterTitle>{label}</FilterTitle>}
+						/>
+						<SSlider
+							trackStyle={[{ backgroundColor: defaultColor }]}
+							handleStyle={{ borderColor: defaultColor }}
+							range
+							defaultValue={[settingsFrom, settingsTo]}
+							value={[from, to]}
+							onChange={rangeChange(name)}
+							min={settingsFrom}
+							max={settingsTo}
+							step={step ? step : getStep(settingsFrom, settingsTo)}
+						/>
+						<SpaceBetweenFullWidth>
+							<span>{fixed(from, round ? round : round === 0 ? 0 : 2)}</span>
+							<span>{fixed(to, round ? round : round === 0 ? 0 : 2)}</span>
+						</SpaceBetweenFullWidth>
+					</>
 				</FilterContentSection>
 			) : (
 				""

@@ -2,7 +2,6 @@ import * as React from 'react';
 import EmptyFilter from '../../../../components/EmpyFilter';
 import FilterSection from '../../Lists/components/FilterSection';
 import FormSlider from '../../../../components/FormSlider';
-import { FilterContentSection } from '../../Lists/components/_styles';
 import { FilterProxy } from '../_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
 import { getPath, translationPath } from '../../../../utils/getPath';
@@ -61,62 +60,50 @@ const Index = (props: OwnProps & WithTranslation) => {
 					"ProductionsPerQuotations",
 				]}
 			>
-				<FilterContentSection>
-					<FormSlider
-						label={t(translationPath(lang.common.numberOfProjectsFilter))}
-						name={getPath(FilterProxy.Customers.NumberOfProjectsFilter)}
-						formik={formik}
-						from={formik?.values?.Customers?.NumberOfProjectsFilter?.From}
-						to={formik?.values?.Customers?.NumberOfProjectsFilter?.To}
-						settingsFrom={filter?.Customer?.NumberOfProjectsFrom}
-						settingsTo={filter?.Customer?.NumberOfProjectsTo}
-						step={1}
-						round={0}
-					/>
-				</FilterContentSection>
-				<FilterContentSection>
-					<FormSlider
-						label={t(translationPath(lang.common.numberOfQuotationsFilter))}
-						name={getPath(FilterProxy.Customers.NumberOfQuotationsFilter)}
-						formik={formik}
-						from={formik?.values?.Customers?.NumberOfQuotationsFilter?.From}
-						to={formik?.values?.Customers?.NumberOfQuotationsFilter?.To}
-						settingsFrom={filter?.Customer?.NumberOfQuotationsFrom}
-						settingsTo={filter?.Customer?.NumberOfQuotationsTo}
-						step={1}
-						round={0}
-					/>
-				</FilterContentSection>
-				<FilterContentSection>
-					<FormSlider
-						label={t(translationPath(lang.common.numberOfProductionsFilter))}
-						name={getPath(FilterProxy.Customers.NumberOfProductionsFilter)}
-						formik={formik}
-						from={formik?.values?.Customers?.NumberOfProductionsFilter?.From}
-						to={formik?.values?.Customers?.NumberOfProductionsFilter?.To}
-						settingsFrom={filter?.Customer?.NumberOfProductionsFrom}
-						settingsTo={filter?.Customer?.NumberOfProductionsTo}
-						step={1}
-						round={0}
-					/>
-				</FilterContentSection>
-				<FilterContentSection>
-					<FormSlider
-						label={t(
-							translationPath(lang.common.productionsPerQuotationsFilter)
-						)}
-						name={getPath(FilterProxy.Customers.ProductionsPerQuotationsFilter)}
-						formik={formik}
-						from={
-							formik?.values?.Customers?.ProductionsPerQuotationsFilter?.From
-						}
-						to={formik?.values?.Customers?.ProductionsPerQuotationsFilter?.To}
-						step={1}
-						round={0}
-						min={0}
-						max={1}
-					/>
-				</FilterContentSection>
+				<FormSlider
+					label={t(translationPath(lang.common.numberOfProjectsFilter))}
+					name={getPath(FilterProxy.Customers.NumberOfProjectsFilter)}
+					formik={formik}
+					from={formik?.values?.Customers?.NumberOfProjectsFilter?.From}
+					to={formik?.values?.Customers?.NumberOfProjectsFilter?.To}
+					settingsFrom={filter?.Customer?.NumberOfProjectsFrom}
+					settingsTo={filter?.Customer?.NumberOfProjectsTo}
+					step={1}
+					round={0}
+				/>
+				<FormSlider
+					label={t(translationPath(lang.common.numberOfQuotationsFilter))}
+					name={getPath(FilterProxy.Customers.NumberOfQuotationsFilter)}
+					formik={formik}
+					from={formik?.values?.Customers?.NumberOfQuotationsFilter?.From}
+					to={formik?.values?.Customers?.NumberOfQuotationsFilter?.To}
+					settingsFrom={filter?.Customer?.NumberOfQuotationsFrom}
+					settingsTo={filter?.Customer?.NumberOfQuotationsTo}
+					step={1}
+					round={0}
+				/>
+				<FormSlider
+					label={t(translationPath(lang.common.numberOfProductionsFilter))}
+					name={getPath(FilterProxy.Customers.NumberOfProductionsFilter)}
+					formik={formik}
+					from={formik?.values?.Customers?.NumberOfProductionsFilter?.From}
+					to={formik?.values?.Customers?.NumberOfProductionsFilter?.To}
+					settingsFrom={filter?.Customer?.NumberOfProductionsFrom}
+					settingsTo={filter?.Customer?.NumberOfProductionsTo}
+					step={1}
+					round={0}
+				/>
+				<FormSlider
+					label={t(translationPath(lang.common.productionsPerQuotationsFilter))}
+					name={getPath(FilterProxy.Customers.ProductionsPerQuotationsFilter)}
+					formik={formik}
+					from={formik?.values?.Customers?.ProductionsPerQuotationsFilter?.From}
+					to={formik?.values?.Customers?.ProductionsPerQuotationsFilter?.To}
+					step={1}
+					round={0}
+					min={0}
+					max={1}
+				/>
 			</EmptyFilter>
 		</FilterSection>
 	);

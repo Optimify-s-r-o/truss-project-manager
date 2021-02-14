@@ -64,7 +64,6 @@ const Index = (props: OwnProps & WithTranslation) => {
 				title={t(translationPath(lang.common.status))}
 				value={formik.values?.Trusses?.StatusFilter?.Statuses}
 			/>
-
 			<FormikCheckbox
 				formik={formik}
 				filter={filter}
@@ -75,7 +74,6 @@ const Index = (props: OwnProps & WithTranslation) => {
 				title={t(translationPath(lang.common.type))}
 				value={formik.values?.Trusses?.TypeFilter?.Types}
 			/>
-
 			<FormikCheckbox
 				formik={formik}
 				filter={filter}
