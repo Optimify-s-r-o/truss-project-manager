@@ -18,7 +18,7 @@ export interface OwnProps {
 
 const Index = (props: OwnProps & WithTranslation) => {
 	const { formik, filter } = props;
-
+	console.log(formik.values);
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.load))}
@@ -58,7 +58,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 					label={t(translationPath(lang.common.windLoad))}
 					name={getPath(FilterProxy.Trusses.WindLoadFilter)}
 					formik={formik}
-					from={formik?.values?.values?.Trusses?.WindLoadFilter?.From}
+					from={formik?.values?.Trusses?.WindLoadFilter?.From}
 					to={formik?.values?.Trusses?.WindLoadFilter?.To}
 					settingsFrom={filter?.Truss?.WindLoadFrom}
 					settingsTo={filter?.Truss?.WindLoadTo}
