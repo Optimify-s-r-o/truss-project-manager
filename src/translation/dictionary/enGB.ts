@@ -262,9 +262,9 @@ const dictionary: Lang = {
 		removeFromSelection: "Remove from active selection",
 	},
 	truss: {
-		openFailed: "Truss could not be started",
-		opening: "Truss starts",
-		downloadingTrussFile: "The truss file is being downloaded",
+		openFailed: "Job could not be started.",
+		opening: "Job starts.",
+		downloadingTrussFile: "Job is being downloaded.",
 		trussFileNotExist:
 			"The path to Truss3D does not lead to an executable file. Set the path in the settings section.",
 		exeFailedToOpen: "Truss3D opening failed.",

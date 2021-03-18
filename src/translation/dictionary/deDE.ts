@@ -262,9 +262,9 @@ const dictionary: Lang = {
 		removeFromSelection: "Aus aktiver Auswahl entfernen",
 	},
 	truss: {
-		openFailed: "Fachwerk konnte nicht gestartet werden",
-		opening: "Fachwerk beginnt",
-		downloadingTrussFile: "Die Fachwerkdatei wird heruntergeladen",
+		openFailed: "Job konnte nicht gestartet werden",
+		opening: "Job beginnt.",
+		downloadingTrussFile: "Job wird heruntergeladen",
 		trussFileNotExist:
 			"Der Pfad zu Truss3D führt nicht zu einer ausführbaren Datei. Legen Sie den Pfad im Abschnitt Einstellungen fest.",
 		exeFailedToOpen: "Truss3D-Öffnung fehlgeschlagen.",

@@ -263,9 +263,9 @@ const dictionary: Lang = {
 		removeFromSelection: "Skrýt vybrané",
 	},
 	truss: {
-		openFailed: "Truss nebylo možné spustit.",
-		opening: "Truss se spouští.",
-		downloadingTrussFile: "Truss soubor se právě stahuje.",
+		openFailed: "Úholu nebylo možné spustit.",
+		opening: "Úloha se spouští.",
+		downloadingTrussFile: "Úloha se právě stahuje.",
 		trussFileNotExist:
 			"Cesta k programu Truss3D nevede na spustitelný soubor. Nastavte cestu v sekci nastavení.",
 		exeFailedToOpen: "Otevírání Truss3D selhalo.",
