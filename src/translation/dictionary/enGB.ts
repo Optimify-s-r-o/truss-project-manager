@@ -494,6 +494,7 @@ const dictionary: Lang = {
 		closeAndSync: "Close and update",
 		DuplicateEntity: "Unable to create - the object is already in the database",
 		UsernameExists: "Username is already taken",
+		InvalidSelection: "Invalid selection",
 		InvalidJson: "Unable to read job - unknown format",
 		EntityNotFound: "Object is not in the database (It may have been deleted)",
 		MissingName: "The name must be filled in",

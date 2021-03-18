@@ -493,6 +493,7 @@ const dictionary: Lang = {
 		closeAndSync: "Zavřít a aktualizovat",
 		DuplicateEntity: "Nelze vytvořit - daný objekt se v databázi již nachází",
 		UsernameExists: "Uživatelské jméno obsazeno",
+		InvalidSelection: "Neplatný výběr",
 		InvalidJson: "Nelze přečíst úlohu - formát neodpovídá",
 		EntityNotFound: "Objekt se nenachází v databázi (pravděpodobně byl smazán)",
 		MissingName: "Název musí být vyplněn",

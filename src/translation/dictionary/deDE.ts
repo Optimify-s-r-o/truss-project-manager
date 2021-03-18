@@ -501,6 +501,7 @@ const dictionary: Lang = {
 		DuplicateEntity:
 			"Kann nicht erstellt werden - das Objekt befindet sich bereits in der Datenbank",
 		UsernameExists: "Benutzername beschäftigt",
+		InvalidSelection: "Ungültige Auswahl",
 		InvalidJson: "Jobformat kann nicht gelesen werden - stimmt nicht überein",
 		EntityNotFound:
 			"Objekt befindet sich nicht in der Datenbank (es wurde wahrscheinlich gelöscht)",

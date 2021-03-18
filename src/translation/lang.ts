@@ -487,6 +487,7 @@ export type Lang = Readonly<{
 		closeAndSync: string;
 		DuplicateEntity: string;
 		UsernameExists: string;
+		InvalidSelection: string;
 		InvalidJson: string;
 		EntityNotFound: string;
 		NameAlreadyExists: string;
