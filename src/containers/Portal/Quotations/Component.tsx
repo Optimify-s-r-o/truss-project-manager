@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import VariablesBar from './components/VariablesBar';
 import { ContentInline, PageHeader } from '../../../constants/globalStyles';
-import { ContentTemplate, PageTitle, TemplateContent } from './_styles';
 import { EmptyTemplate } from './components/EmpyTemplate';
 import { Main } from '../SidebarFilter/Jobs/_styles';
 import { PriceList } from '../PriceLists/_types';
@@ -18,6 +17,12 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../translation/i18n";
+import {
+	ContentTemplate,
+	PageTitle,
+	QuotationTitle,
+	TemplateContent,
+} from "./_styles";
 import {
 	DeleteEpression,
 	QuotationFileImport,
@@ -172,8 +177,17 @@ const Index = ({
 			<Main>
 				<ContentTemplate>
 					<PageHeader>
+						<Navigation
+							title={t(translationPath(lang.templates.configutarions))}
+							handleChangeTemplate={handleChangeTemplate}
+							quotationList={quotationList}
+							quotation={quotations}
+							addQuotationTemplate={addQuotationTemplate}
+						/>
 						<PageTitle>
-							{t(translationPath(lang.templates.template))}{" "}
+							<QuotationTitle>
+								{t(translationPath(lang.templates.template))}
+							</QuotationTitle>
 							<SSelect
 								optionFilterProp="children"
 								filterOption={(input, option) =>
@@ -192,13 +206,6 @@ const Index = ({
 								))}
 							</SSelect>
 						</PageTitle>
-						<Navigation
-							title={t(translationPath(lang.templates.configutarions))}
-							handleChangeTemplate={handleChangeTemplate}
-							quotationList={quotationList}
-							quotation={quotations}
-							addQuotationTemplate={addQuotationTemplate}
-						/>
 					</PageHeader>
 
 					<TemplateContent>

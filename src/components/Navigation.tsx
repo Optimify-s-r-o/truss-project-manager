@@ -76,8 +76,7 @@ const Navigation = ({
 export default Navigation;
 
 const Title = styled.div`
-	padding: 8px 49px 16px 16px;
-
+	padding: 8px 26px 16px 16px;
 	color: ${(props) => props.theme.colors.secondaryText.white};
 `;
 

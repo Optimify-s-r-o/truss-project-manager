@@ -235,7 +235,7 @@ export const SContentCard = styled(ContentCard)`
 	width: 100%;
 `;
 
-export const PageTitle = styled.h1`
+export const PageTitle = styled.span`
 	display: flex;
 	justify-content: flex-start;
 	flex-direction: row;
@@ -243,10 +243,15 @@ export const PageTitle = styled.h1`
 	margin: 0;
 	padding: 12px 24px;
 	color: ${(props) => props.theme.colors.secondaryText.white};
-	font-size: 1.5rem;
 	font-weight: 500;
 
 	> svg {
 		margin-right: 16px;
 	}
+`;
+
+export const QuotationTitle = styled.span`
+	color: ${(props) => props.theme.colors.secondaryText.white};
+	font-weight: 500;
+	padding-right: 15px;
 `;
