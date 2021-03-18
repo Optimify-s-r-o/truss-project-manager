@@ -396,7 +396,7 @@ const dictionary: Lang = {
 		NeedToSetEmail: "E-Mail ist erforderlich.",
 		NewPasswordSameAsOld:
 			"Das neue Passwort muss sich vom ursprünglichen Passwort unterscheiden.",
-		TargetJobLocked: "Der Job wird von einem anderen Benutzer gesperrt.",
+		TargetJobLocked: "Job gesperrt.",
 		InvalidQuotationType: "Ungültige Art des Preisangebots",
 		TitleAlreadyExists: "Name existiert bereits.",
 		SomeExpressionNotValid: "Einige Ausdrücke sind ungültig.",

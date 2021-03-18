@@ -394,7 +394,7 @@ const dictionary: Lang = {
 		NeedToSetEmail: "Email is required.",
 		NewPasswordSameAsOld:
 			"The new password must be different from the original password.",
-		TargetJobLocked: "The job is locked by another user.",
+		TargetJobLocked: "The job is locked.",
 		InvalidQuotationType: "Invalid type of quotation.",
 		TitleAlreadyExists: "Name already exists.",
 		SomeExpressionNotValid: "Some expressions are not valid.",
