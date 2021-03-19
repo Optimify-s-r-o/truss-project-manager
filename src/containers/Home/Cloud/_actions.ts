@@ -1,7 +1,6 @@
 import { ActionType, createAction, createAsyncAction } from 'typesafe-actions';
 import { Credentials } from './_types';
 import { Error } from '../../../sagas/_sagas';
-import { localUsers, loginLocal, setLocal } from '../Local/_actions';
 import { resetPassword } from '../LostPassword/_actions';
 import { UserInfo } from '../../../types/_types';
 
@@ -14,10 +13,5 @@ export const login = createAsyncAction(
 export const setCloud = createAction("SET_CLOOUD")<boolean>();
 
 export type loginType = ActionType<
-	| typeof login
-	| typeof setCloud
-	| typeof localUsers
-	| typeof loginLocal
-	| typeof setLocal
-	| typeof resetPassword
+	typeof login | typeof setCloud | typeof resetPassword
 >;

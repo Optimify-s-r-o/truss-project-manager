@@ -3,12 +3,7 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import SidebarNavigation from '../Lists/components/SidebarNavigation';
 import { Customer } from './Customer';
-import {
-	Fetch,
-	FilterSettings,
-	Page,
-	TreeType
-	} from '../../../types/_types';
+import { FilterSettings, Page, TreeType } from '../../../types/_types';
 import { FilterWrapper, Icon, Title } from './_styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form } from '../../../constants/globalStyles';
@@ -46,7 +41,7 @@ interface IFilter {
 	filter: FilterSettings;
 	activeTree: TreeType;
 	path: string;
-	getUsers: (data: Fetch) => void;
+	getUsers: (data: Page) => void;
 	users: UserData[];
 	connect: HubConnection;
 	active: boolean;
@@ -90,6 +85,10 @@ export const Filter = ({
 	const [activeFilterType, setActiveFilter] = useState<FilterType>(
 		FilterType.Job
 	);
+
+	React.useEffect(() => {
+		getUsers({ Page: 0, PageSize: 25, Sort: "" });
+	}, []);
 
 	useEffect(() => {
 		setActiveFilter(
@@ -191,7 +190,6 @@ export const Filter = ({
 							activeTree={activeTree}
 							path={path}
 							users={users}
-							getUsers={getUsers}
 							active={active}
 							resetTree={resetTree}
 							activeFilterContent={activeFilterContent}
@@ -207,7 +205,6 @@ export const Filter = ({
 							activeTree={activeTree}
 							path={path}
 							users={users}
-							getUsers={getUsers}
 							active={active}
 							resetTree={resetTree}
 							activeFilterContent={activeFilterContent}
@@ -222,7 +219,6 @@ export const Filter = ({
 							filter={filter}
 							activeTree={activeTree}
 							path={path}
-							getUsers={getUsers}
 							active={active}
 							resetTree={resetTree}
 							activeFilterContent={activeFilterContent}

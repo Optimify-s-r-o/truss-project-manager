@@ -5,14 +5,13 @@ import { connect } from 'react-redux';
 import { createTruss, OpenTruss } from '../../../../sagas/Truss/_actions';
 import { deleteProject } from '../../Project/_actions';
 import { DeleteProject } from '../../Project/_types';
-import { Fetch, Page, Project } from '../../../../types/_types';
 import { getCustomers } from '../../SidebarFilter/_actions';
 import { getProjectFiles, getSelectedProject, setProject } from './_actions';
+import { Page, Project } from '../../../../types/_types';
 import { ProjectFileRequest } from './_types';
 import { SelectedProjectsRequest } from '../Projects/_types';
 import { setLoading } from './General/_actions';
 import { setSelectedKeys } from '../_actions';
-import { usersAction } from '../../_actions';
 import { withRouter } from 'react-router-dom';
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -20,7 +19,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 		dispatch(getSelectedProject.request(data)),
 	getFiles: (data: ProjectFileRequest) =>
 		dispatch(getProjectFiles.request(data)),
-	getUsers: (data: Fetch) => dispatch(usersAction.request(data)),
 	getCustomers: (data: Page) => dispatch(getCustomers.request(data)),
 	removeProject: (data: DeleteProject) => dispatch(deleteProject.request(data)),
 	setProject: (data: Project) => dispatch(setProject(data)),

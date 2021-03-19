@@ -4,7 +4,6 @@ import Moment from 'react-moment';
 import React from 'react';
 import { FilterProjectRequest } from '../../SidebarFilter/Projects/_types';
 import { formatCurrency } from 'src/utils/currencyFormat';
-import { getPortalUsers } from '../../../../sagas/Fetch/actions';
 import { insert } from '../../../../utils/helpers';
 import { lang } from '../../../../translation/i18n';
 import { Main } from '../../SidebarFilter/Jobs/_styles';
@@ -26,7 +25,6 @@ import {
 } from "../../../../constants/globalStyles";
 import {
 	Data,
-	Fetch,
 	FilterSettings,
 	JobType,
 	Page,
@@ -68,7 +66,7 @@ interface DispatchProps {
 	getProjects: (data: Page) => void;
 	projectFilterRequest: (data: FilterProjectRequest) => void;
 	openTruss: (data: OpenTruss) => void;
-	getUsers: (data: Fetch) => void;
+	getUsers: (data: Page) => void;
 	setSelectedKeys: (data: string[]) => void;
 	push: any;
 }
@@ -118,7 +116,12 @@ const Index = (
 			Page: 0,
 			Sort: null,
 		});
-		getUsers(getPortalUsers());
+		getUsers({
+			PageSize: 25,
+			Page: 0,
+			Sort: null,
+			All: true,
+		});
 	}, []);
 
 	const changeChecked = (newItem: Checkbox) => {
@@ -141,7 +144,7 @@ const Index = (
 	const checkboxes: Checkbox[] = [
 		{
 			name: "Name",
-			title: t(translationPath(lang.common.jobName).path),
+			title: t(translationPath(lang.common.projectName).path),
 			section: "General",
 		},
 		{

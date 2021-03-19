@@ -1,15 +1,13 @@
 import * as React from 'react';
 import Sidebar from './Sidebar';
-import { Fetch, FilterSettings, TreeType } from '../../../../types/_types';
+import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
-import { getPortalUsers } from '../../../../sagas/Fetch/actions';
 import { Show } from '../_styles';
 
 export interface ITruss {
 	filter: FilterSettings;
 	activeTree: TreeType;
 	path: string;
-	getUsers: (data: Fetch) => void;
 	active: boolean;
 	resetTree: () => void;
 	activeFilterContent: any;
@@ -25,7 +23,6 @@ export const Truss = ({
 	filter,
 	activeTree,
 	path,
-	getUsers,
 	active,
 	resetTree,
 	activeFilterContent,
@@ -35,9 +32,6 @@ export const Truss = ({
 	formik,
 	show,
 }: ITruss) => {
-	React.useEffect(() => {
-		getUsers(getPortalUsers());
-	}, []);
 	return (
 		<Show show={show}>
 			<Sidebar

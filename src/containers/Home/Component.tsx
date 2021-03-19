@@ -1,23 +1,23 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import {
-	faCloud,
-	faComputerSpeaker,
-	faGlobeAfrica,
-} from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Menu from "@material-ui/core/Menu";
-import * as React from "react";
-import { RouteComponentProps } from "react-router";
-import { Route, Switch } from "react-router-dom";
-import { useToasts } from "react-toast-notifications";
-import { GlobalNotification } from "../../components/Toast/_types";
+import * as React from 'react';
+import Carousel from './components/Carousel';
+import Cloud from './Cloud/Container';
+import LostPassword from './LostPassword/Container';
+import Menu from '@material-ui/core/Menu';
+import { faCloud, faGlobeAfrica } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { GlobalNotification } from '../../components/Toast/_types';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { Route, Switch } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router';
+import { Routes } from '../../constants/routes';
+import { translationPath } from '../../utils/getPath';
+import { useToasts } from 'react-toast-notifications';
 import {
 	NavBar,
 	NavButton,
 	NavItems,
 	NavLink,
 } from "../../constants/globalStyles";
-import { Routes } from "../../constants/routes";
 import {
 	getLanguage,
 	lang,
@@ -25,11 +25,6 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../translation/i18n";
-import { translationPath } from "../../utils/getPath";
-import Cloud from "./Cloud/Container";
-import Carousel from "./components/Carousel";
-import Local from "./Local/Container";
-import LostPassword from "./LostPassword/Container";
 import {
 	CarouselContainer,
 	Container,
@@ -52,7 +47,6 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-	setLocal: (data: boolean) => void;
 	setCloud: (data: boolean) => void;
 	clearToast: () => void;
 }
@@ -80,18 +74,6 @@ const Index = (
 		handleClose();
 	};
 
-	const changeUrl = (server: Server) => (
-		_event: React.MouseEvent<HTMLDivElement, MouseEvent>
-	) => {
-		if (server == Server.CLOUD) {
-			props.setLocal(false);
-			props.setCloud(true);
-		} else {
-			props.setLocal(true);
-			props.setCloud(false);
-		}
-	};
-
 	React.useEffect(() => {
 		if (props.toast) {
 			addToast(props.toast.message, {
@@ -114,7 +96,7 @@ const Index = (
 					<Navigation>
 						<NavBar>
 							<NavItems>
-								<div onClick={changeUrl(Server.CLOUD)}>
+								<div>
 									<NavLink
 										to={Routes.HOME}
 										active={pathname === Routes.HOME ? 1 : 0}
@@ -126,20 +108,6 @@ const Index = (
 										</span>
 									</NavLink>
 								</div>
-								{process.env.REACT_APP_WEB === "false" && (
-									<div onClick={changeUrl(Server.LOCAL)}>
-										<NavLink
-											to={Routes.LOCAL}
-											active={pathname.includes(Routes.LOCAL)}
-										>
-											<FontAwesomeIcon icon={faComputerSpeaker as IconProp} />
-											<span className="xsHide">
-												&nbsp;&nbsp;
-												{t(translationPath(lang.common.local))}
-											</span>
-										</NavLink>
-									</div>
-								)}
 								<div>
 									<NavButton
 										aria-controls="simple-menu"
@@ -182,7 +150,6 @@ const Index = (
 					<Container>
 						<Switch>
 							<Route path={Routes.LOST_PASSWORD} component={LostPassword} />
-							<Route exact path={Routes.LOCAL} component={Local} />
 							<Route exact path={Routes.HOME} component={Cloud} />
 						</Switch>
 					</Container>

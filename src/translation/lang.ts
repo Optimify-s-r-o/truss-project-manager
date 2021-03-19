@@ -951,7 +951,6 @@ export type Lang = Readonly<{
 		timberSummary: string;
 		timeOfCreation: string;
 		timePeriod: string;
-		title: string;
 		totalPrice: string;
 		priceTotal: string;
 		averagePrice: string;

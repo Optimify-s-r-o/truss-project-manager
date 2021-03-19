@@ -5,12 +5,11 @@ import { Error, fetchSaga } from '../../../sagas/_sagas';
 import { getType } from 'typesafe-actions';
 import { lang, t } from '../../../translation/i18n';
 import { login } from './_actions';
-import { Method } from '../../../constants/enum';
 import { push } from 'connected-react-router';
 import { Routes } from '../../../constants/routes';
 import { Status } from '../../../components/Toast/_types';
 import { translationPath } from '../../../utils/getPath';
-import { usersAction } from '../../Portal/_actions';
+import { usersAction } from 'src/containers/Portal/Accounts/_actions';
 import {
 	clearNotificationAction,
 	notificationAction,
@@ -49,16 +48,10 @@ function* cloudLoginActionSaga(
 		yield new Cookies().set("token", response.Token);
 		yield put(
 			usersAction.request({
-				action: usersAction,
-				method: Method.GET,
-				url: ApiURL.USERS,
-			})
-		);
-		yield put(
-			usersAction.request({
-				action: usersAction,
-				method: Method.GET,
-				url: ApiURL.USERS,
+				PageSize: 25,
+				Page: 0,
+				Sort: null,
+				All: true,
 			})
 		);
 		yield put(push(Routes.PORTAL));

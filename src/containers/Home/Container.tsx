@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { RootStateType } from '../../reducers';
 import { setCloud } from './Cloud/_actions';
-import { setLocal } from './Local/_actions';
 
 const mapStateToProps = (state: RootStateType): StateProps => ({
 	path: state.router.location.pathname,
@@ -14,7 +13,6 @@ const mapStateToProps = (state: RootStateType): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-	setLocal: (data: boolean) => dispatch(setLocal(data)),
 	setCloud: (data: boolean) => dispatch(setCloud(data)),
 	clearToast: () => dispatch(clearNotificationAction()),
 });

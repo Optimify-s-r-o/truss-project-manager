@@ -1,11 +1,11 @@
 import Component, { StateProps } from './Component';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { Fetch, Page } from '../../../../types/_types';
 import { getProjects } from '../../SidebarFilter/_actions';
+import { Page } from '../../../../types/_types';
 import { push } from 'connected-react-router';
 import { setSelectedKeys } from '../../TreeView/_actions';
-import { usersAction } from '../../_actions';
+import { usersAction } from '../../Accounts/_actions';
 
 const mapStateToProps = (state: any): StateProps => ({
 	firstRecordOnPage: state.FilterReducer.projects?.FirstRecordOnPage,
@@ -34,7 +34,7 @@ const mapStateToProps = (state: any): StateProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	getProjects: (data: Page) => dispatch(getProjects.request(data)),
-	getUsers: (data: Fetch) => dispatch(usersAction.request(data)),
+	getUsers: (data: Page) => dispatch(usersAction.request(data)),
 	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
 	push,
 });

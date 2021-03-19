@@ -1,13 +1,14 @@
 import { ActionType, createAction, createAsyncAction } from 'typesafe-actions';
 import { ChangePassword, User, UserData } from './_types';
+import { Data, Fetch } from '../../../types/_types';
 import { Error } from '../../../sagas/_sagas';
-import { Fetch } from '../../../types/_types';
+import { Page } from './../../../types/_types';
 
 export const usersAction = createAsyncAction(
 	"USERS_REQUEST",
 	"USERS_SUCCESS",
 	"USERS_FAILURE"
-)<Fetch, User[], Error>();
+)<Page, Data<UserData>, Error>();
 
 export const changeLocalPasswordAction = createAsyncAction(
 	"LOCAL_USER_NEW_PASSWORD_SUCCESS",
@@ -25,7 +26,7 @@ export const deleteUser = createAsyncAction(
 	"DELETE_USER_REQUEST",
 	"DELETE_USER_SUCCESS",
 	"DELETE_USER_FAILURE"
-)<Fetch, void, Error>();
+)<string, void, Error>();
 
 export const getUserByUsername = createAsyncAction(
 	"GET_USER_BY_USERNAME_REQUEST",

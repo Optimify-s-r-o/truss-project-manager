@@ -29,7 +29,6 @@ import {
 	Header2,
 } from "../../../../../constants/globalStyles";
 import {
-	getPortalUsers,
 	getProjectFilesAction,
 	getProjectLog,
 	getSelectedProjectTreeFetch,
@@ -44,7 +43,6 @@ import {
 import {
 	Customer,
 	Evidence,
-	Fetch,
 	Page,
 	Project,
 	ProjectProxy,
@@ -100,7 +98,7 @@ export interface DispatchProps {
 	downloadFile: (data: FileRequest) => void;
 	uploadProjectFile: (data: ProjectUploadFileRequest) => void;
 	selectedProjectRequest: (data: SelectedProjectsRequest) => void;
-	getUsers: (data: Fetch) => void;
+	getUsers: (data: Page) => void;
 	getCustomers: (data: Page) => void;
 	getLogs: (data: ProjectLogsRequest) => void;
 	setSelectedKeys: (data: string[]) => void;
@@ -185,7 +183,11 @@ const Index = ({
 		const id = formik.values.Id;
 		selectedProjectRequest(getSelectedProjectTreeFetch(id, activeTree));
 		getFiles(getProjectFilesAction(id));
-		getUsers(getPortalUsers());
+		getUsers({
+			PageSize: 25,
+			Page: 0,
+			Sort: null,
+		});
 		getLogs(getProjectLog(id));
 	};
 

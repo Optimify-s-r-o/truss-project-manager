@@ -18,6 +18,7 @@ import { makeFormData } from '../../utils/makeFormData';
 import { Method } from '../../constants/enum';
 import { push } from 'connected-react-router';
 import { quickSearch } from '../../containers/Portal/FastNavigation/_actions';
+import { settings, settingsFilter } from '../../containers/Portal/_actions';
 import { Status } from '../../components/Toast/_types';
 import { translationPath } from '../../utils/getPath';
 import {
@@ -26,7 +27,6 @@ import {
 } from "../../components/Toast/_actions";
 import {
 	changeLocalPasswordAction,
-	deleteUser,
 	editUser,
 	getUserByUsername,
 } from "../../containers/Portal/Accounts/_actions";
@@ -71,11 +71,6 @@ import {
 	treeReset,
 	trussTree,
 } from "../../containers/Portal/TreeView/_actions";
-import {
-	settings,
-	settingsFilter,
-	usersAction,
-} from "../../containers/Portal/_actions";
 
 const setData = (
 	method: Method,
@@ -203,11 +198,9 @@ function* Call(action: ReturnType<typeof editUser.request>): Generator {
 }
 
 export function* watchSagaCall() {
-	yield takeEvery(getType(usersAction.request), Call);
 	yield takeEvery(getType(settings.request), Call);
 	yield takeEvery(getType(settingsFilter.request), Call);
 	yield takeEvery(getType(editUser.request), Call);
-	yield takeEvery(getType(deleteUser.request), Call);
 	yield takeEvery(getType(customerAction.request), Call);
 	yield takeEvery(getType(quickSearch.request), Call);
 	yield takeEvery(getType(projectTree.request), Call);

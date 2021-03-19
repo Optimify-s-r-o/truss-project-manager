@@ -8,51 +8,46 @@ import React from 'react';
 import { Delete } from '../../../../components/Button';
 import { DeleteProject } from '../../Project/_types';
 import { deleteProjectRoute } from '../../../../sagas/Fetch/actions';
+import { faDatabase, faInfo, faMoneyBillWave } from '@fortawesome/pro-solid-svg-icons';
 import { faFolder } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { get } from 'lodash';
 import { getPath, translationPath } from '../../../../utils/getPath';
 import { HubComponent } from './HubComponent';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import {
+	lang,
+	t,
+	WithTranslation,
+	withTranslation
+	} from '../../../../translation/i18n';
 import { MainTree } from '../../_styles';
 import { OpenTruss } from '../../../../sagas/Truss/_actions';
-import { Phase } from '../../../../components/Phase';
-import { ProjectFile, ProjectFileRequest } from './_types';
-import { Routes } from '../../../../constants/routes';
-import { SelectedProjectsRequest } from '../Projects/_types';
 import {
-	faDatabase,
-	faInfo,
-	faMoneyBillWave,
-} from "@fortawesome/pro-solid-svg-icons";
-import {
-	Route,
-	RouteComponentProps,
-	Switch,
-	useLocation,
-	useParams,
-} from "react-router-dom";
+	Page,
+	Project,
+	ProjectProxy,
+	TreeType,
+	TrussExe
+	} from '../../../../types/_types';
 import {
 	PageHeader,
 	PageTitle,
 	PageTitleActions,
 	TitleName,
-	TitleSection,
-} from "../../../../constants/globalStyles";
+	TitleSection
+	} from '../../../../constants/globalStyles';
+import { Phase } from '../../../../components/Phase';
+import { ProjectFile, ProjectFileRequest } from './_types';
 import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation,
-} from "../../../../translation/i18n";
-import {
-	Fetch,
-	Page,
-	Project,
-	ProjectProxy,
-	TreeType,
-	TrussExe,
-} from "../../../../types/_types";
+	Route,
+	RouteComponentProps,
+	Switch,
+	useLocation,
+	useParams
+	} from 'react-router-dom';
+import { Routes } from '../../../../constants/routes';
+import { SelectedProjectsRequest } from '../Projects/_types';
 export interface StateProps {
 	activeTree: TreeType;
 	pending: boolean;
@@ -70,7 +65,6 @@ export interface StateProps {
 export interface DispatchProps {
 	selectedProjectRequest: (data: SelectedProjectsRequest) => void;
 	getFiles: (data: ProjectFileRequest) => void;
-	getUsers: (data: Fetch) => void;
 	getCustomers: (data: Page) => void;
 	removeProject: (data: DeleteProject) => void;
 	createTruss: (data: OpenTruss) => void;
@@ -81,16 +75,10 @@ export interface DispatchProps {
 }
 
 const Index = ({
-	getFiles,
-	getUsers,
-	getCustomers,
 	project,
-	setProject,
 	removeProject,
 	createTruss,
-	token,
 	activeTree,
-	filesUploading,
 	selectedKeys,
 	setSelectedKeys,
 	projectHub,

@@ -4,7 +4,7 @@ import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_actions';
 import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
-import { Customer, Fetch, Page } from '../../../../../types/_types';
+import { Customer, Page } from '../../../../../types/_types';
 import { deleteFile, duplicateJob, projectUpdate } from './_actions';
 import { deleteJob, unlockJob } from '../../Job/_actions';
 import { DeleteJob, Unlock } from '../../Job/_types';
@@ -13,7 +13,7 @@ import { IAddJsonToProject } from './File/_types';
 import { SelectedProjectsRequest } from '../../Projects/_types';
 import { setExpandedKeys, setSelectedKeys } from '../../_actions';
 import { updateCustomerAction } from '../../../Customer/_actions';
-import { usersAction } from '../../../_actions';
+import { usersAction } from 'src/containers/Portal/Accounts/_actions';
 import { withRouter } from 'react-router-dom';
 import {
 	download,
@@ -56,7 +56,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 		dispatch(uploadProjectFile.request(data)),
 	selectedProjectRequest: (data: SelectedProjectsRequest) =>
 		dispatch(getSelectedProject.request(data)),
-	getUsers: (data: Fetch) => dispatch(usersAction.request(data)),
+	getUsers: (data: Page) => dispatch(usersAction.request(data)),
 	getCustomers: (data: Page) => dispatch(getCustomers.request(data)),
 	getLogs: (data: ProjectLogsRequest) => dispatch(getProjectLogs.request(data)),
 	createJobFromTrussFile: (data: CreateJobFromTrussFile) =>

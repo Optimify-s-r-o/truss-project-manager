@@ -1,16 +1,6 @@
 import * as React from 'react';
 import Checkbox from './Checkbox';
 import ExternalTable from '../../../../components/Optimify/Table/ExternalTable';
-import { fixed } from '../../../../utils/formating';
-import { formatCurrency } from 'src/utils/currencyFormat';
-import { getPortalUsers } from '../../../../sagas/Fetch/actions';
-import { insert } from '../../../../utils/helpers';
-import { Main } from '../../SidebarFilter/Jobs/_styles';
-import { RouteComponentProps } from 'react-router';
-import { Routes } from '../../../../constants/routes';
-import { StyledDiv } from '../../Sidebar/_styles';
-import { translationPath } from '../../../../utils/getPath';
-import { useTranslation } from 'react-i18next';
 import {
 	CardMiddleTableWrapper,
 	ContentCard,
@@ -18,22 +8,26 @@ import {
 	ContentInline,
 	ContentSpaceBetweenWithPadding,
 	Header1,
-	SAlert,
-} from "../../../../constants/globalStyles";
-import {
-	lang,
-	WithTranslation,
-	withTranslation,
-} from "../../../../translation/i18n";
+	SAlert
+	} from '../../../../constants/globalStyles';
 import {
 	Data,
-	Fetch,
 	FilterSettings,
 	Page,
 	Tree,
 	TreeType,
-	Truss,
-} from "../../../../types/_types";
+	Truss
+	} from '../../../../types/_types';
+import { fixed } from '../../../../utils/formating';
+import { formatCurrency } from 'src/utils/currencyFormat';
+import { insert } from '../../../../utils/helpers';
+import { lang, WithTranslation, withTranslation } from '../../../../translation/i18n';
+import { Main } from '../../SidebarFilter/Jobs/_styles';
+import { RouteComponentProps } from 'react-router';
+import { Routes } from '../../../../constants/routes';
+import { StyledDiv } from '../../Sidebar/_styles';
+import { translationPath } from '../../../../utils/getPath';
+import { useTranslation } from 'react-i18next';
 const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
 
 interface OwnProps {}
@@ -62,7 +56,7 @@ export interface StateProps {
 
 interface DispatchProps {
 	getTrusses: (data: Page) => void;
-	getUsers: (data: Fetch) => void;
+	getUsers: (data: Page) => void;
 	setSelectedKeys: (data: string[]) => void;
 	setExpandedKeys: (data: string[]) => void;
 }
@@ -101,7 +95,7 @@ const Index = (
 
 	React.useEffect(() => {
 		getTrusses({ Page: 0, PageSize: 25, Sort: "" });
-		getUsers(getPortalUsers());
+		getUsers({ Page: 0, PageSize: 25, Sort: "", All: true });
 	}, []);
 
 	const defaultChecked = [

@@ -21,7 +21,6 @@ import { useTranslation } from 'react-i18next';
 
 interface NavigationSetting {
 	local: boolean;
-	setLocal: (data: boolean) => void;
 	setCloud: (data: boolean) => void;
 	setTheme: React.Dispatch<React.SetStateAction<"light" | "dark">>;
 	mode: "light" | "dark";
@@ -36,7 +35,6 @@ interface NavigationSetting {
 export const NavigationSetting = ({
 	local,
 	setCloud,
-	setLocal,
 	setTheme,
 	mode,
 	connect,
@@ -68,15 +66,8 @@ export const NavigationSetting = ({
 	};
 
 	const logout = (_event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		if (local) {
-			history.push(Routes.LOCAL);
-			setLocal(true);
-			setCloud(false);
-		} else {
-			history.push(Routes.HOME);
-			setLocal(false);
-			setCloud(true);
-		}
+		history.push(Routes.HOME);
+		setCloud(true);
 	};
 
 	return (

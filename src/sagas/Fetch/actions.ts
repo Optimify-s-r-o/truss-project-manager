@@ -9,6 +9,7 @@ import { getUserByUsername } from '../../containers/Portal/Accounts/_actions';
 import { Method } from '../../constants/enum';
 import { ProjectNameJobName } from '../../containers/Portal/TreeView/Job/_types';
 import { Routes } from '../../constants/routes';
+import { settings, settingsFilter } from '../../containers/Portal/_actions';
 import { updateCustomerAction } from '../../containers/Portal/Customer/_actions';
 import {
 	deleteCustomer,
@@ -48,11 +49,6 @@ import {
 	treeReset,
 	trussTree,
 } from "../../containers/Portal/TreeView/_actions";
-import {
-	settings,
-	settingsFilter,
-	usersAction,
-} from "../../containers/Portal/_actions";
 import {
 	Customer,
 	CustomerEnum,
@@ -371,14 +367,6 @@ export const deleteProjectById = (id: string, activeTree: TreeType) => {
 	};
 };
 
-export const getPortalUsers = () => {
-	return {
-		action: usersAction,
-		method: Method.GET,
-		url: ApiURL.USERS,
-	};
-};
-
 export const getUserByUsernameCall = (username: string) => {
 	return {
 		action: getUserByUsername,
@@ -408,60 +396,6 @@ export const resetTreeAction = (activeTree: TreeType) => {
 		url: ApiURL.TREE_RESET,
 	};
 };
-
-// export const filterProject = (
-// 	data: ProjectFilter,
-// 	activeTree: TreeType,
-// 	query: Page | null,
-// 	persistTree: boolean
-// ) => {
-// 	let actions = [];
-// 	return {
-// 		action: filterProjects,
-// 		actionsOnSuccess: actions,
-// 		url: ApiURL.PROJECT_FILTER,
-// 		method: Method.POST,
-// 		data: data,
-// 		param: query,
-// 		successMessage: false,
-// 	};
-// };
-
-// export const filterJob = (
-// 	data: JobsFilter,
-// 	activeTree: TreeType,
-// 	query: Page | null,
-// 	persistTree: boolean
-// ) => {
-// 	let actions = [];
-// 	return {
-// 		action: filterJobs,
-// 		actionsOnSuccess: actions,
-// 		url: ApiURL.JOB_FILTER,
-// 		method: Method.POST,
-// 		data: data,
-// 		param: query,
-// 		successMessage: false,
-// 	};
-// };
-
-// export const filterTrussCall = (
-// 	data: TrussFilter,
-// 	activeTree: TreeType,
-// 	query: Page | null,
-// 	persistTree: boolean
-// ) => {
-// 	let actions = [];
-// 	return {
-// 		action: filterTrusses,
-// 		actionsOnSuccess: actions,
-// 		url: ApiURL.TRUSS_FILTER,
-// 		method: Method.POST,
-// 		data: data,
-// 		param: query,
-// 		successMessage: false,
-// 	};
-// };
 
 export const getProjectsAction = (query: object) => {
 	let param = query;
@@ -502,42 +436,6 @@ export const getJobTree = () => {
 	};
 };
 
-// export const getJobsAction = (query: any, activeFilter?: boolean) => {
-// 	let param = query;
-// 	if (!param) {
-// 		param = {
-// 			PageSize: 25,
-// 			Page: 0,
-// 			Sort: null,
-// 		};
-// 	}
-// 	return {
-// 		action: getJobs,
-// 		url: ApiURL.JOBS,
-// 		method: Method.GET,
-// 		param: param,
-// 	};
-// };
-
-// export const getJobsCall = (query: any, activeTree: TreeType) => {
-// 	return {
-// 		action: getJobs,
-// 		url: ApiURL.JOBS,
-// 		method: Method.GET,
-// 		param: query,
-// 	};
-// };
-
-// export const getJobUpdateApm = (id: any, activeTree: TreeType) => {
-// 	return {
-// 		action: getJobs,
-// 		actionsOnSuccess: [getJob(id), getFiltersSettings()],
-// 		url: ApiURL.JOBS,
-// 		method: Method.GET,
-// 		param: null,
-// 	};
-// };
-
 export const getCustomerTree = () => {
 	return {
 		action: customerTree,
@@ -563,32 +461,6 @@ export const getTrussTree = () => {
 		url: ApiURL.TRUSS_TREE,
 	};
 };
-
-// export const getTrussAction = (query: Page) => {
-// 	let param = query;
-// 	if (!param) {
-// 		param = {
-// 			PageSize: 25,
-// 			Page: 0,
-// 			Sort: null,
-// 		};
-// 	}
-// 	return {
-// 		action: getTrusses,
-// 		url: ApiURL.TRUSSES,
-// 		method: Method.GET,
-// 		param: param,
-// 	};
-// };
-
-// export const getTrussCall = (query: Page) => {
-// 	return {
-// 		action: getTrusses,
-// 		url: ApiURL.TRUSSES,
-// 		method: Method.GET,
-// 		param: query,
-// 	};
-// };
 
 export const removeFileAction = (id: string, projectId: string) => {
 	return {

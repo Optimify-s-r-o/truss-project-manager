@@ -225,7 +225,7 @@ export const NavigationMenu = ({
 				},
 				{
 					path: Routes.USERS,
-					text: t(translationPath(lang.common.accounts).path),
+					text: t(translationPath(lang.common.accountsList).path),
 					icon: faUsers,
 					shortcut: "Ctrl + Q",
 					color: "salmon",

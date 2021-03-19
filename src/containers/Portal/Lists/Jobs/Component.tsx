@@ -6,7 +6,6 @@ import Moment from 'react-moment';
 import sort from 'fast-sort';
 import { FilterRequest } from '../components/_types';
 import { formatCurrency } from 'src/utils/currencyFormat';
-import { getPortalUsers } from '../../../../sagas/Fetch/actions';
 import { Job } from '../../TreeView/_types';
 import { lang, WithTranslation } from '../../../../translation/i18n';
 import { Main } from '../../SidebarFilter/Jobs/_styles';
@@ -29,7 +28,6 @@ import {
 } from "../../../../constants/globalStyles";
 import {
 	Data,
-	Fetch,
 	FilterSettings,
 	JobType,
 	Page,
@@ -68,7 +66,7 @@ interface DispatchProps {
 	getJobs: (data: Page) => void;
 	jobFilterRequest: (data: FilterRequest) => void;
 	editTruss: (data: OpenTruss) => void;
-	getUsers: (data: Fetch) => void;
+	getUsers: (data: Page) => void;
 	setSelectedKeys: (data: string[]) => void;
 	setExpandedKeys: (data: string[]) => void;
 }
@@ -121,7 +119,7 @@ const Index = (
 
 	React.useEffect(() => {
 		props.getJobs({ Page: 0, PageSize: 25, Sort: "" });
-		getUsers(getPortalUsers());
+		getUsers({ Page: 0, PageSize: 25, Sort: "", All: true });
 	}, []);
 
 	const changeChecked = (newItem: Checkbox) => {

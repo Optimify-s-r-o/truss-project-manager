@@ -8,6 +8,7 @@ import { DeleteJob, JobRootObject, Unlock } from './TreeView/Job/_types';
 import { DeleteProject } from './Project/_types';
 import { Filter } from './SidebarFilter';
 import { FilterProjectRequest } from './SidebarFilter/Projects/_types';
+import { getProjectFilesAction } from '../../sagas/Fetch/actions';
 import { GlobalNotification } from '../../components/Toast/_types';
 import { HubComponent } from './HubComponent';
 import { HubConnection } from '@microsoft/signalr';
@@ -30,10 +31,6 @@ import {
 	ELECTRON_STORE_GET,
 	ELECTRON_STORE_SET,
 } from "src/constants/ipcConstants";
-import {
-	getPortalUsers,
-	getProjectFilesAction,
-} from "../../sagas/Fetch/actions";
 import {
 	Data,
 	Fetch,
@@ -86,7 +83,6 @@ export interface DispatchProps {
 	jobTree: (data: Fetch) => void;
 	trussTree: (data: Fetch) => void;
 	changeTree: (data: TreeType) => void;
-	setLocal: (data: boolean) => void;
 	setCloud: (data: boolean) => void;
 	setExpandedKeys: (data: string[]) => void;
 	setSelectedKeys: (data: string[]) => void;
@@ -98,7 +94,7 @@ export interface DispatchProps {
 	unlockJob: (data: Unlock) => void;
 	clearToast: () => void;
 	quickSearchRequest: (data: QuickSearchRequest) => void;
-	getUsers: (data: Fetch) => void;
+	getUsers: (data: Page) => void;
 	projectFilterRequest: (data: FilterProjectRequest) => void;
 	getCustomers: (data: Page) => void;
 	getTrusses: (data: Page) => void;
@@ -124,7 +120,6 @@ const Index = ({
 	local,
 	token,
 	setCloud,
-	setLocal,
 	currentPage,
 	totalPages,
 	totalRecords,
@@ -229,7 +224,12 @@ const Index = ({
 
 	const getProject = (id: string) => {
 		getFiles(getProjectFilesAction(id));
-		getUsers(getPortalUsers());
+		getUsers({
+			Page: 0,
+			PageSize: 25,
+			Sort: "",
+			All: true,
+		});
 	};
 
 	const getTruss = (id: string) => {
@@ -280,7 +280,6 @@ const Index = ({
 				<WindowWrapper>
 					<FullHeightExceptHeader>
 						<NavigationSetting
-							setLocal={setLocal}
 							local={local}
 							setCloud={setCloud}
 							setTheme={setTheme}

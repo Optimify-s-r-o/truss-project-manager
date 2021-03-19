@@ -6,9 +6,9 @@ import { watchCreateTruss, watchEditTruss } from './Truss/_sagas';
 import { watchResetPassword } from '../containers/Home/LostPassword/_sagas';
 import { watchSagaCall } from './Fetch/call';
 import {
-	watchlocalLogin,
-	watchlocalUsers,
-} from "../containers/Home/Local/_sagas";
+	watchGetUsersAction,
+	watchRemoveUsersAction,
+} from "../containers/Portal/Accounts/_sagas";
 import {
 	watchRemoveCustomerAction,
 	watchUpdateCustomerAction,
@@ -104,8 +104,6 @@ export const rootSaga = [
 	watchTrussImage,
 	watchJobImageByName,
 	watchFileChangeRootPath,
-	watchlocalLogin,
-	watchlocalUsers,
 	watchCreateJobFromTrussFileSaga,
 	watchQuotationPostAction,
 	watchQuotationPutAction,
@@ -164,6 +162,8 @@ export const rootSaga = [
 	watchResetSelection,
 	watchRemoveCustomerAction,
 	watchGetTrussesGetAction,
+	watchRemoveUsersAction,
+	watchGetUsersAction,
 ];
 
 export type SagasType = typeof rootSaga;

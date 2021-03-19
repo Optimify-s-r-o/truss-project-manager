@@ -19,15 +19,10 @@ import { quickSearch } from './FastNavigation/_actions';
 import { QuickSearchRequest } from './FastNavigation/_types';
 import { setCloud } from '../Home/Cloud/_actions';
 import { setLoading } from './TreeView/Project/General/_actions';
-import { setLocal } from '../Home/Local/_actions';
-import {
-	settings,
-	settingsFilter,
-	treeType,
-	usersAction
-	} from './_actions';
+import { settings, settingsFilter, treeType } from './_actions';
 import { setTruss, trussImage } from './TreeView/Truss/_actions';
 import { Truss } from './TreeView/Truss/_types';
+import { usersAction } from './Accounts/_actions';
 import { withRouter } from 'react-router';
 import {
 	setHubJob,
@@ -100,7 +95,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	jobTree: (data: Fetch) => dispatch(jobTree.request(data)),
 	trussTree: (data: Fetch) => dispatch(trussTree.request(data)),
 	changeTree: (data: TreeType) => dispatch(treeType(data)),
-	setLocal: (data: boolean) => dispatch(setLocal(data)),
 	setCloud: (data: boolean) => dispatch(setCloud(data)),
 	setExpandedKeys: (data: string[]) => dispatch(setExpandedKeys(data)),
 	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
@@ -113,7 +107,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	clearToast: () => dispatch(clearNotificationAction()),
 	quickSearchRequest: (data: QuickSearchRequest) =>
 		dispatch(quickSearch.request(data)),
-	getUsers: (data: Fetch) => dispatch(usersAction.request(data)),
+	getUsers: (data: Page) => dispatch(usersAction.request(data)),
 	filterEntities: (data: any) => dispatch(filterEntities.request(data)),
 	getCustomers: (data: Page) => dispatch(getCustomers.request(data)),
 	getTrusses: (data: Page) => dispatch(getTrusses.request(data)),

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import Sidebar from './Sidebar';
-import { Fetch, FilterSettings, TreeType } from '../../../../types/_types';
+import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
-import { getPortalUsers } from '../../../../sagas/Fetch/actions';
 import { Show } from '../_styles';
 import { UserData } from '../../Accounts/_types';
 
@@ -10,7 +9,7 @@ export interface IProject {
 	filter: FilterSettings;
 	activeTree: TreeType;
 	path: string;
-	getUsers: (data: Fetch) => void;
+
 	users: UserData[];
 	active: boolean;
 	resetTree: () => void;
@@ -28,7 +27,7 @@ export const Project = ({
 	activeTree,
 	path,
 	users,
-	getUsers,
+
 	active,
 	resetTree,
 	activeFilterContent,
@@ -39,10 +38,6 @@ export const Project = ({
 	show,
 	formik,
 }: IProject) => {
-	React.useEffect(() => {
-		getUsers(getPortalUsers());
-	}, []);
-
 	return (
 		<Show show={show}>
 			<Sidebar

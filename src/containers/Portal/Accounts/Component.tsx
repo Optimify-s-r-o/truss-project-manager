@@ -1,16 +1,12 @@
+import ExternalTable from '../../../components/Optimify/Table/ExternalTable';
 import Loading from '../../../components/Optimify/Loading';
 import React, { useEffect } from 'react';
-import { ApiURL } from '../../../constants/api';
-import { deleteUser } from './_actions';
-import { Fetch, UserRole } from '../../../types/_types';
 import { GlobalNotification } from '../../../components/Toast/_types';
-import { Method } from '../../../constants/enum';
+import { lastPathMember, translationPath } from '../../../utils/getPath';
+import { Page, UserRole } from '../../../types/_types';
 import { Routes } from '../../../constants/routes';
-import { ScrollableTable } from '../../../components/Optimify/Table';
-import { translationPath } from '../../../utils/getPath';
 import { useHistory } from 'react-router-dom';
-import { UserData } from './_types';
-import { usersAction } from '../_actions';
+import { UserData, UserProxy } from './_types';
 import {
 	CreateAccount,
 	Delete,
@@ -38,77 +34,104 @@ export interface StateProps {
 	users: UserData[];
 	pendingLocal: boolean;
 	pendingCloud: boolean;
-	local: boolean;
 	role: string;
 	username: string;
+	firstRecordOnPage: number | null;
+	lastRecordOnPage: number | null;
+	currentPage: number | null;
+	totalPages: number | null;
+	totalRecords: number | null;
+	pending: boolean;
+	pageSize: string | null;
 }
 
 interface DispatchProps {
-	getUsers: (data: Fetch) => void;
-	deleteUserCall: (data: Fetch) => void;
+	getUsers: (data: Page) => void;
+	deleteUserCall: (data: string) => void;
 	notify: (data: GlobalNotification) => void;
 }
 
-export const Component = (
-	props: OwnProps & WithTranslation & DispatchProps & StateProps
-) => {
-	const { deleteUserCall, getUsers, local, role, username } = props;
+export const Component = ({
+	firstRecordOnPage,
+	lastRecordOnPage,
+	currentPage,
+	totalPages,
+	totalRecords,
+	deleteUserCall,
+	role,
+	username,
+	pendingCloud,
+	getUsers,
+	pending,
+	users,
+	pageSize,
+}: OwnProps & WithTranslation & DispatchProps & StateProps) => {
 	const admin = role == UserRole.OrganizationAdmin ? true : false;
 	const history = useHistory();
 	useEffect(() => {
 		getUsers({
-			action: usersAction,
-			method: Method.GET,
-			url: ApiURL.USERS,
+			PageSize: 25,
+			Page: 0,
+			Sort: null,
 		});
 	}, []);
 
 	const removeUser = (username: string) => {
-		deleteUserCall({
-			action: deleteUser,
-			method: Method.DELETE,
-			param: username,
-			actionsOnSuccess: [
-				{
-					action: usersAction,
-					method: Method.GET,
-					url: ApiURL.USERS,
-				},
-			],
-			url: ApiURL.USERS,
-		});
+		deleteUserCall(username);
 	};
 
 	return (
 		<Content>
 			<ContentCard>
 				<ContentSpaceBetweenWithPadding>
-					<Header1>{t(translationPath(lang.common.title))}</Header1>
+					<Header1>{t(translationPath(lang.common.accountsList))}</Header1>
 					{admin && <CreateAccount />}
 				</ContentSpaceBetweenWithPadding>
 				<Loading
 					text={t(translationPath(lang.common.loading))}
-					pending={local ? props.pendingLocal : props.pendingCloud}
+					pending={pendingCloud}
 					margin
 				>
 					<CardMiddleTableWrapper>
-						<ScrollableTable
-							height={600}
+						<ExternalTable
 							headers={[
 								t(translationPath(lang.common.username)),
 								t(translationPath(lang.common.email)),
 								t(translationPath(lang.common.phone)),
-								t(translationPath(lang.common.fullName)),
+								t(translationPath(lang.common.forename)),
+								t(translationPath(lang.common.surname)),
 								t(translationPath(lang.common.account.role)),
 								t(translationPath(lang.common.actions)),
 							]}
+							sortable={[true, true, true, true, true, true, false]}
+							columnNames={[
+								lastPathMember(UserProxy.Username).path,
+								lastPathMember(UserProxy.Email).path,
+								,
+								lastPathMember(UserProxy.PhoneNumber).path,
+								,
+								lastPathMember(UserProxy.Name).path,
+								lastPathMember(UserProxy.Surname).path,
+								lastPathMember(UserProxy.Role).path,
+							]}
+							onPageRequired={(requiredPage: Page) => {
+								getUsers(requiredPage);
+							}}
+							pageSize={parseInt(pageSize)}
+							firstRecordOnPage={firstRecordOnPage}
+							lastRecordOnPage={lastRecordOnPage}
+							currentPage={currentPage}
+							totalPages={totalPages}
+							totalRecords={totalRecords}
+							isLoading={pending}
 							data={
-								props.users
-									? props.users?.map((user: UserData, key: number) => [
+								users
+									? users?.map((user: UserData, key: number) => [
 											user.Username,
 											user.Email,
 											user.PhoneNumber,
-											user.Name + " " + user.Surname,
+											user.Name,
+											user.Surname,
 											user.Role,
 											null,
 											user,
@@ -116,6 +139,9 @@ export const Component = (
 									: []
 							}
 							renderers={[
+								(value: any, key: number, parent: UserData) => {
+									return value;
+								},
 								(value: any, key: number, parent: UserData) => {
 									return value;
 								},

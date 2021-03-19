@@ -1,10 +1,10 @@
 import Component, { StateProps } from './Component';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { Fetch, Page } from '../../../../types/_types';
 import { getTrusses } from '../../SidebarFilter/_actions';
+import { Page } from '../../../../types/_types';
 import { setExpandedKeys, setSelectedKeys } from '../../TreeView/_actions';
-import { usersAction } from '../../_actions';
+import { usersAction } from '../../Accounts/_actions';
 
 const mapStateToProps = (state: any): StateProps => ({
 	firstRecordOnPage: state.TrussesReducer.trusses?.FirstRecordOnPage,
@@ -30,7 +30,7 @@ const mapStateToProps = (state: any): StateProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	getTrusses: (data: Page) => dispatch(getTrusses.request(data)),
-	getUsers: (data: Fetch) => dispatch(usersAction.request(data)),
+	getUsers: (data: Page) => dispatch(usersAction.request(data)),
 	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
 	setExpandedKeys: (data: string[]) => dispatch(setExpandedKeys(data)),
 });
