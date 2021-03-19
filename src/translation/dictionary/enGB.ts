@@ -358,6 +358,7 @@ const dictionary: Lang = {
 		passwordMatch: "The passwords you entered did not match.",
 	},
 	common: {
+		designPrice: "Design price",
 		FileTooLarge: "File size exceeds 100 MB",
 		passwordResetSuccessful:
 			"Password reset request successful. A password reset link will be sent to your email address shortly.",

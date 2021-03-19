@@ -358,6 +358,7 @@ export type Lang = Readonly<{
 	};
 
 	common: {
+		designPrice: string;
 		FileTooLarge: string;
 		passwordResetSuccessful: string;
 		productionsCount: string;

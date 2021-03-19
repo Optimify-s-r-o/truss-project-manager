@@ -117,10 +117,7 @@ const Index = (
 			Sort: null,
 		});
 		getUsers({
-			PageSize: 25,
-			Page: 0,
-			Sort: null,
-			All: true,
+			Paginate: false,
 		});
 	}, []);
 

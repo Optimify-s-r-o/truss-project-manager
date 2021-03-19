@@ -344,7 +344,7 @@ const Index = ({
 							<GridItem fill>
 								<ContentCard fullSize>
 									<Header2>
-										{t(translationPath(lang.templates.templates))}
+										{t(translationPath(lang.common.designPrice))}
 									</Header2>
 									<DataRow title={t(translationPath(lang.common.quotation))}>
 										{formatCurrency(project?.QuotationPrice)}

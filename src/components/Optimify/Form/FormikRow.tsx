@@ -3,10 +3,9 @@ import ErrorMessage from './ErrorMessage';
 import FormikInput from './FormikInput';
 import { ContentColumn } from '../../../constants/globalStyles';
 import { Evidence, Settings } from '../../../types/_types';
-import { GroupedOptionsType, OptionsType } from 'react-select';
 import { Input } from '../../../constants/enum';
-import { OptionType, SelectDirection } from './Select';
 import { Row, Title, Value } from './FormRow';
+import { SelectDirection } from './Select';
 
 interface FormRowProps {
 	title?: string;
@@ -17,7 +16,7 @@ interface FormRowProps {
 	titleWidth?: number;
 	formik?: any;
 	type: Input;
-	options?: GroupedOptionsType<OptionType> | OptionsType<OptionType>;
+	options?: any;
 	settings?: Settings;
 	children?: React.ReactNode;
 	format?: string;

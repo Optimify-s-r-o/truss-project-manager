@@ -359,6 +359,7 @@ const dictionary: Lang = {
 		passwordMatch: "Die Passwörter die du eingegeben hast, passen nicht",
 	},
 	common: {
+		designPrice: "Preis je nach Design",
 		FileTooLarge: "Die Dateigröße überschreitet 100 MB",
 		passwordResetSuccessful:
 			"Anforderung zum Zurücksetzen des Passworts erfolgreich. Ein Link zum Zurücksetzen Ihres Passworts wird in Kürze in Ihrer E-Mail-Adresse eintreffen.",

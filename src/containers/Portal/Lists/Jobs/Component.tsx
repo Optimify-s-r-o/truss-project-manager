@@ -119,7 +119,7 @@ const Index = (
 
 	React.useEffect(() => {
 		props.getJobs({ Page: 0, PageSize: 25, Sort: "" });
-		getUsers({ Page: 0, PageSize: 25, Sort: "", All: true });
+		getUsers({ Paginate: false });
 	}, []);
 
 	const changeChecked = (newItem: Checkbox) => {

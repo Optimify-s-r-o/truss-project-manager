@@ -361,6 +361,7 @@ const dictionary: Lang = {
 		passwordMatch: "Zadaná hesla se neshodují",
 	},
 	common: {
+		designPrice: "Design price",
 		FileTooLarge: "Die Dateigröße überschreitet 100 MB",
 		passwordResetSuccessful:
 			"Požadavek na reset hesla byl úspěšný. Na Vaši e-mailovou adresu Vám během chvíle dorazí odkaz pro reset hesla.",

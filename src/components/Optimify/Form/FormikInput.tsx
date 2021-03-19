@@ -8,12 +8,12 @@ import { Evidence, Settings } from '../../../types/_types';
 import { FormikSwitch } from './FormikSwitch';
 import { get } from 'lodash';
 import { getLabel, getValue } from '../../../utils/country';
-import { GroupedOptionsType, OptionsType, ValueType } from 'react-select';
 import { Input } from '../../../constants/enum';
 import { NumericInput } from './NumericInput';
 import { PasswordInput } from './PasswordInput';
 import { PhoneNumber } from './PhoneNumber';
 import { TextInput } from './TextInput';
+import { ValueType } from 'react-select';
 import {
 	OptionType,
 	SearchableSelect,
@@ -25,7 +25,7 @@ interface FormRowProps {
 	name?: string;
 	formik?: any;
 	type: Input;
-	options?: GroupedOptionsType<OptionType> | OptionsType<OptionType>;
+	options?: any;
 	settings?: Settings;
 	format?: string;
 	placeholder?: string;

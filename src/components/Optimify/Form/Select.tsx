@@ -32,7 +32,7 @@ export type SelectDirection =
 	| "left-down";
 
 export interface OptionType extends OptionTypeBase {
-	label: string | number;
+	label: string | number | object;
 	value: string | number;
 }
 

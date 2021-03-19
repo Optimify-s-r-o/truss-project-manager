@@ -48,10 +48,7 @@ function* cloudLoginActionSaga(
 		yield new Cookies().set("token", response.Token);
 		yield put(
 			usersAction.request({
-				PageSize: 25,
-				Page: 0,
-				Sort: null,
-				All: true,
+				Paginate: false,
 			})
 		);
 		yield put(push(Routes.PORTAL));

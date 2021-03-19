@@ -1,6 +1,15 @@
 import * as React from 'react';
 import Checkbox from './Checkbox';
 import ExternalTable from '../../../../components/Optimify/Table/ExternalTable';
+import { fixed } from '../../../../utils/formating';
+import { formatCurrency } from 'src/utils/currencyFormat';
+import { insert } from '../../../../utils/helpers';
+import { Main } from '../../SidebarFilter/Jobs/_styles';
+import { RouteComponentProps } from 'react-router';
+import { Routes } from '../../../../constants/routes';
+import { StyledDiv } from '../../Sidebar/_styles';
+import { translationPath } from '../../../../utils/getPath';
+import { useTranslation } from 'react-i18next';
 import {
 	CardMiddleTableWrapper,
 	ContentCard,
@@ -8,26 +17,21 @@ import {
 	ContentInline,
 	ContentSpaceBetweenWithPadding,
 	Header1,
-	SAlert
-	} from '../../../../constants/globalStyles';
+	SAlert,
+} from "../../../../constants/globalStyles";
+import {
+	lang,
+	WithTranslation,
+	withTranslation,
+} from "../../../../translation/i18n";
 import {
 	Data,
 	FilterSettings,
 	Page,
 	Tree,
 	TreeType,
-	Truss
-	} from '../../../../types/_types';
-import { fixed } from '../../../../utils/formating';
-import { formatCurrency } from 'src/utils/currencyFormat';
-import { insert } from '../../../../utils/helpers';
-import { lang, WithTranslation, withTranslation } from '../../../../translation/i18n';
-import { Main } from '../../SidebarFilter/Jobs/_styles';
-import { RouteComponentProps } from 'react-router';
-import { Routes } from '../../../../constants/routes';
-import { StyledDiv } from '../../Sidebar/_styles';
-import { translationPath } from '../../../../utils/getPath';
-import { useTranslation } from 'react-i18next';
+	Truss,
+} from "../../../../types/_types";
 const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
 
 interface OwnProps {}
@@ -95,7 +99,7 @@ const Index = (
 
 	React.useEffect(() => {
 		getTrusses({ Page: 0, PageSize: 25, Sort: "" });
-		getUsers({ Page: 0, PageSize: 25, Sort: "", All: true });
+		getUsers({ Paginate: false });
 	}, []);
 
 	const defaultChecked = [

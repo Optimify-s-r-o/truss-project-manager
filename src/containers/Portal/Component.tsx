@@ -225,10 +225,7 @@ const Index = ({
 	const getProject = (id: string) => {
 		getFiles(getProjectFilesAction(id));
 		getUsers({
-			Page: 0,
-			PageSize: 25,
-			Sort: "",
-			All: true,
+			Paginate: false,
 		});
 	};
 

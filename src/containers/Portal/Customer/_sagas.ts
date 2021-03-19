@@ -47,7 +47,7 @@ function* updateCustomersActionSaga(
 		}
 
 		yield put(updateCustomerAction.success(response));
-		yield put(getCustomers.request({ All: true }));
+		yield put(getCustomers.request({ Paginate: false }));
 		if (action.payload.Redirect) {
 			yield put(push(Routes.CUSTOMER_ALL));
 		}
