@@ -4,6 +4,7 @@ import FormikRow from '../../../../components/Optimify/Form/FormikRow';
 import IncludeNotSetCheckbox from '../../../../components/Optimify/Form/IncludeNotSetCheckbox';
 import Tooltip from '../../../../components/Optimify/Tooltip';
 import { ContentRowEnd } from '../../../../constants/globalStyles';
+import { FilterContentSection } from '../../Lists/components/_styles';
 import { FilterProxy } from '../_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
 import { FormikCheckbox } from '../components/FormikCheckbox';
@@ -20,10 +21,6 @@ import {
 	lastPathMember,
 	translationPath,
 } from "../../../../utils/getPath";
-import {
-	FilterContentSection,
-	FilterTitle,
-} from "../../Lists/components/_styles";
 
 export interface OwnProps {
 	formik: any;
@@ -48,8 +45,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 				getPath(FilterProxy.Projects.UserFilter.Name),
 			]}
 		>
-			<FilterContentSection>
-				<FilterTitle>{t(translationPath(lang.common.details))}</FilterTitle>
+			<FilterContentSection withoutMargin>
 				<FormikRow
 					formik={formik}
 					name={getPath(FilterProxy.Projects.NameFilter.Name)}

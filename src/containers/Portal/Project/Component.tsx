@@ -273,7 +273,7 @@ const Index = (
 										<FormikRow
 											formik={formik}
 											name={lastPathMember(ProjectProxy.AssignedUser).path}
-											title={t(translationPath(lang.common.assignee))}
+											title={t(translationPath(lang.common.user))}
 											type={Input.SELECT}
 											options={
 												props.users

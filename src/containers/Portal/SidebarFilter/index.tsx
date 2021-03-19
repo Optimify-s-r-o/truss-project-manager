@@ -5,7 +5,6 @@ import SidebarNavigation from '../Lists/components/SidebarNavigation';
 import { Customer } from './Customer';
 import { FilterSettings, Page, TreeType } from '../../../types/_types';
 import { FilterWrapper, Icon, Title } from './_styles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form } from '../../../constants/globalStyles';
 import { getInitialValues } from './_services';
 import { Hub } from '../../../constants/hub';
@@ -21,11 +20,6 @@ import { Truss } from './Trusses';
 import { useFormik } from 'formik';
 import { useLocation } from 'react-router';
 import { UserData } from '../Accounts/_types';
-import {
-	faFolders,
-	faHomeLgAlt,
-	faMountains,
-} from "@fortawesome/pro-light-svg-icons";
 
 export enum FilterType {
 	Customer,
@@ -160,16 +154,7 @@ export const Filter = ({
 						placement={"top"}
 					>
 						<Icon isActive={true}>
-							{t(translationPath(lang.common.filterTitle))}{" "}
-							<FontAwesomeIcon
-								icon={
-									activeFilterType === FilterType.Job
-										? faHomeLgAlt
-										: activeFilterType === FilterType.Project
-										? faFolders
-										: faMountains
-								}
-							/>
+							{t(translationPath(lang.common.filterTitle))}
 						</Icon>
 					</Tooltip>
 				</Title>

@@ -43,7 +43,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 					formik={formik}
 					label={
 						<DateRangeTitle>
-							{t(translationPath(lang.common.dateOfCreation))}
+							{t(translationPath(lang.common.projectTimeOfCreation))}
 						</DateRangeTitle>
 					}
 				/>
@@ -51,23 +51,6 @@ const Index = (props: OwnProps & WithTranslation) => {
 					formik={formik}
 					name={getPath(FilterProxy.Projects.DateOfCreationFilter)}
 					title={t(translationPath(lang.common.dateOfCreation))}
-				/>
-			</FilterContentSection>
-			<FilterContentSection>
-				<FormikBox
-					checked={true}
-					name={[getPath(FilterProxy.Projects.ConstructionDateFilter)]}
-					formik={formik}
-					label={
-						<DateRangeTitle>
-							{t(translationPath(lang.common.constructionDate))}
-						</DateRangeTitle>
-					}
-				/>
-				<DateRange
-					formik={formik}
-					name={getPath(FilterProxy.Projects.ConstructionDateFilter)}
-					title={t(translationPath(lang.common.constructionDate))}
 				/>
 			</FilterContentSection>
 			<FilterContentSection>
@@ -85,6 +68,23 @@ const Index = (props: OwnProps & WithTranslation) => {
 					formik={formik}
 					name={getPath(FilterProxy.Projects.QuotationDateFilter)}
 					title={t(translationPath(lang.common.quotationDate))}
+				/>
+			</FilterContentSection>
+			<FilterContentSection>
+				<FormikBox
+					checked={true}
+					name={[getPath(FilterProxy.Projects.ConstructionDateFilter)]}
+					formik={formik}
+					label={
+						<DateRangeTitle>
+							{t(translationPath(lang.common.constructionDate))}
+						</DateRangeTitle>
+					}
+				/>
+				<DateRange
+					formik={formik}
+					name={getPath(FilterProxy.Projects.ConstructionDateFilter)}
+					title={t(translationPath(lang.common.constructionDate))}
 				/>
 			</FilterContentSection>
 		</FilterSection>

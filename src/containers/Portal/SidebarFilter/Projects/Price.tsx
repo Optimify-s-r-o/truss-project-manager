@@ -21,7 +21,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 
 	return (
 		<FilterSection
-			title={t(translationPath(lang.common.price))}
+			title={t(translationPath(lang.templates.templates))}
 			formik={formik}
 			filters={[
 				getPath(FilterProxy.Projects.QuotationPriceFilter),

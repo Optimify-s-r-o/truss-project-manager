@@ -40,8 +40,8 @@ const Index = ({
 			<SelectType activeFilter={activeFilter} handleChange={handleChange} />
 			<Grow>
 				<General formik={formik} filter={filter} users={users} />
-				<Price formik={formik} filter={filter} />
 				<DateRange formik={formik} filter={filter} />
+				<Price formik={formik} filter={filter} />
 			</Grow>
 			<Reset
 				activeTree={activeTree}

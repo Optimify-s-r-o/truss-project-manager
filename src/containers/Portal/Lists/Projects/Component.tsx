@@ -179,24 +179,24 @@ const Index = (
 		},
 		{
 			name: "TimeOfCreation",
-			title: t(translationPath(lang.common.dateOfCreation).path),
-			section: "General",
+			title: t(translationPath(lang.common.projectTimeOfCreation).path),
+			section: "Date",
 		},
 		{
 			name: "ConstructionDate",
 			title: t(translationPath(lang.common.constructionDate).path),
-			section: "General",
+			section: "Date",
 		},
 		{
 			name: "QuotationDate",
 			title: t(translationPath(lang.common.quotationDate).path),
-			section: "General",
+			section: "Date",
 		},
 
 		{
 			name: "DateOfLastUpdate",
 			title: t(translationPath(lang.common.dateOfLastUpdate).path),
-			section: "General",
+			section: "Date",
 		},
 		{
 			name: "AssignedUser",

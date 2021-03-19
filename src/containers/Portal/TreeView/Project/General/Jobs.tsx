@@ -168,8 +168,8 @@ const Index = (props: WithTranslation & OwnProps) => {
 													value.JobName,
 													null,
 													value.Description,
-													value.State,
 													value.Type,
+													value.State,
 													value.LastChange,
 													value.Price,
 													value,
@@ -213,11 +213,11 @@ const Index = (props: WithTranslation & OwnProps) => {
 										return (
 											<FormikRow
 												formik={formik}
-												name={`Jobs.${key}.State`}
+												name={`Jobs.${key}.Type`}
 												type={Input.SELECT}
 												options={
-													typeOptions
-														? Array.from(stateOptions)?.map(
+													stateOptions
+														? Array.from(typeOptions).map(
 																(option: [string, string], n: number) => {
 																	return {
 																		value: option[0],
@@ -236,11 +236,11 @@ const Index = (props: WithTranslation & OwnProps) => {
 										return (
 											<FormikRow
 												formik={formik}
-												name={`Jobs.${key}.Type`}
+												name={`Jobs.${key}.State`}
 												type={Input.SELECT}
 												options={
-													stateOptions
-														? Array.from(typeOptions).map(
+													typeOptions
+														? Array.from(stateOptions)?.map(
 																(option: [string, string], n: number) => {
 																	return {
 																		value: option[0],

@@ -274,7 +274,7 @@ const Index = ({
 									<FormikRow
 										formik={formik}
 										name={lastPathMember(ProjectProxy.AssignedUser).path}
-										title={t(translationPath(lang.common.assignee))}
+										title={t(translationPath(lang.common.user))}
 										type={Input.SELECT}
 										options={
 											users
@@ -303,24 +303,29 @@ const Index = ({
 								<ContentCard fullSize>
 									<FormikRow
 										formik={formik}
+										titleWidth={40}
 										disabled
 										name={lastPathMember(ProjectProxy.TimeOfCreation).path}
-										title={t(translationPath(lang.common.timeOfCreation))}
+										title={t(
+											translationPath(lang.common.projectTimeOfCreation)
+										)}
 										type={Input.DATE}
 									/>
 									<FormikRow
 										formik={formik}
+										titleWidth={40}
 										name={lastPathMember(ProjectProxy.QuotationDate).path}
 										title={t(translationPath(lang.common.quotationDate))}
 										type={Input.DATE}
 									/>
 									<FormikRow
 										formik={formik}
+										titleWidth={40}
 										name={lastPathMember(ProjectProxy.ConstructionDate).path}
 										title={t(translationPath(lang.common.constructionDate))}
 										type={Input.DATE}
 									/>
-									<FormikRow
+									{/* <FormikRow
 										formik={formik}
 										name={lastPathMember(ProjectProxy.QuotationFinished).path}
 										title={t(translationPath(lang.common.QuotationFinished))}
@@ -333,12 +338,14 @@ const Index = ({
 										}
 										title={t(translationPath(lang.common.ConstructionFinished))}
 										type={Input.SWITCH}
-									/>
+									/> */}
 								</ContentCard>
 							</GridItem>
 							<GridItem fill>
 								<ContentCard fullSize>
-									<Header2>{t(translationPath(lang.common.price))}</Header2>
+									<Header2>
+										{t(translationPath(lang.templates.templates))}
+									</Header2>
 									<DataRow title={t(translationPath(lang.common.quotation))}>
 										{formatCurrency(project?.QuotationPrice)}
 									</DataRow>

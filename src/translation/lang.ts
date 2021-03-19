@@ -459,6 +459,7 @@ export type Lang = Readonly<{
 		ContinuousOrSimpleRafter: string;
 		FrameStructure: string;
 		checkboxSectionGeneral: string;
+		checkboxSectionDate: string;
 		checkboxSectionCalculation: string;
 		checkboxSectionDimensions: string;
 		checkboxSectionLoad: string;
@@ -950,6 +951,7 @@ export type Lang = Readonly<{
 		averageTilt: string;
 		timberSummary: string;
 		timeOfCreation: string;
+		projectTimeOfCreation: string;
 		timePeriod: string;
 		totalPrice: string;
 		priceTotal: string;

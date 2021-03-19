@@ -215,7 +215,7 @@ export const FilterContent = styled.div`
 		${(props) => props.theme.colors.background.secondaryMenu};
 `;
 
-export const FilterContentSection = styled.div`
+export const FilterContentSection = styled.div<{ withoutMargin: boolean }>`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -223,11 +223,11 @@ export const FilterContentSection = styled.div`
 	width: 100%;
 
 	& + & {
-		margin-top: 24px;
+		margin-top: ${(props) => (props.withoutMargin ? "0" : "24px")};
 	}
 
 	& > *:not(:first-child) {
-		margin-left: 8px;
+		margin-left: ${(props) => (props.withoutMargin ? "0" : "8px")};
 		width: calc(100% - 8px);
 
 		${BaseInlineInputWrapper} {
