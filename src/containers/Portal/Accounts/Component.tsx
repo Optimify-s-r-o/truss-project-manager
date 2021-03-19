@@ -73,13 +73,14 @@ export const Component = ({
 			PageSize: 25,
 			Page: 0,
 			Sort: null,
+			Paginate: true,
 		});
 	}, []);
 
 	const removeUser = (username: string) => {
 		deleteUserCall(username);
 	};
-
+	console.log(users);
 	return (
 		<Content>
 			<ContentCard>

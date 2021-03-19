@@ -62,8 +62,8 @@ const Index = (props: OwnProps & WithTranslation) => {
 					title={t(translationPath(lang.common.user))}
 					type={Input.SELECT}
 					options={
-						users
-							? users.map((value: UserData) => {
+						users?.length > 0
+							? users?.map((value: UserData) => {
 									return {
 										value: value.Username,
 										label: value.Username,

@@ -73,11 +73,13 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.prod react-scripts start",
+    "start:local": "env-cmd -f .env.local react-scripts start",
     "build": "env-cmd -f .env.prod react-scripts build",
     "build:dev": "env-cmd -f .env.dev react-scripts build",
     "build:prod": "env-cmd -f .env.prod react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "local": "concurrently -k \"npm run start:local\" \"npm:electron\"",
     "dev": "concurrently -k \"npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
     "release": "npm run build:prod && electron-builder build --win -p always",

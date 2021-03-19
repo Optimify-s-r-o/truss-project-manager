@@ -75,7 +75,7 @@ const mapStateToProps = (state: any) => ({
 	toast: state.toastReducer.notification,
 	filter: state.SettingsReducer.filter,
 	path: state.router.location.pathname,
-	users: state.UserReducer.users,
+	users: state.UserReducer.users?.Data,
 	trussPending: state.TrussesReducer.trussPending,
 	jobPending: state.FilterReducer.pending,
 	projectPending: state.FilterReducer.projectPending,

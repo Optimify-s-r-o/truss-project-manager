@@ -66,10 +66,17 @@ const Component = (
 			if (isElectron()) {
 				const electron = window.require("electron");
 				const fs = electron.remote.require("fs");
-				electron.ipcRenderer.send(ELECTRON_STORE_SET, {
-					name: "cloud-username",
-					value: values.username,
-				});
+				if (process.env.NODE_ENV === "development") {
+					electron.ipcRenderer.send(ELECTRON_STORE_SET, {
+						name: "credentials",
+						value: { username: values.username, password: values.password },
+					});
+				} else {
+					electron.ipcRenderer.send(ELECTRON_STORE_SET, {
+						name: "credentials",
+						value: { username: values.username },
+					});
+				}
 			}
 			login(values);
 		},
@@ -78,10 +85,12 @@ const Component = (
 	React.useEffect(() => {
 		if (isElectron()) {
 			const electron = window.require("electron");
-			electron.ipcRenderer.send(ELECTRON_STORE_GET, "cloud-username");
-			const fs = electron.remote.require("fs");
+			electron.ipcRenderer.send(ELECTRON_STORE_GET, "credentials");
 			electron.ipcRenderer.on(ELECTRON_STORE_GET, (event, text) => {
-				formik.setFieldValue("username", text);
+				formik.setValues({
+					username: text?.username,
+					password: text?.password,
+				});
 			});
 		}
 	}, []);
