@@ -19,7 +19,6 @@ import {
 	faFolderPlus,
 	faFolderTree,
 	faHomeLgAlt,
-	faIdCard,
 	faLayerGroup,
 	faMountain,
 	faMountains,
@@ -145,18 +144,11 @@ export const NavigationMenu = ({
 			menu: t(translationPath(lang.common.customers).path),
 			submenu: [
 				{
-					path: Routes.LINK_NEW_LEGAL_CUSTOMER,
-					text: t(translationPath(lang.common.createLegalPerson).path),
+					path: Routes.CREATE_CUSTOMER,
+					text: t(translationPath(lang.common.newCustomer).path),
 					icon: faSuitcase,
 					shortcut: "Ctrl + L",
 					color: "#bb9e00",
-				},
-				{
-					path: Routes.LINK_NEW_NATURAL_CUSTOMER,
-					text: t(translationPath(lang.common.createNaturalPerson).path),
-					icon: faIdCard,
-					shortcut: "Ctrl + I",
-					color: "green",
 				},
 				{
 					path: Routes.CUSTOMER_ALL,

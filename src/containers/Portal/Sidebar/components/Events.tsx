@@ -299,11 +299,7 @@ export const Events = ({
 			/>
 			<KeyboardEventHandler
 				handleKeys={["ctrl+l"]}
-				onKeyEvent={(key, e) => history.push(Routes.LINK_NEW_LEGAL_CUSTOMER)}
-			/>
-			<KeyboardEventHandler
-				handleKeys={["ctrl+i"]}
-				onKeyEvent={(key, e) => history.push(Routes.LINK_NEW_NATURAL_CUSTOMER)}
+				onKeyEvent={(key, e) => history.push(Routes.CREATE_CUSTOMER)}
 			/>
 			<KeyboardEventHandler
 				handleKeys={["ctrl+s"]}

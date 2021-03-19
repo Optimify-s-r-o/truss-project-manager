@@ -9,7 +9,6 @@ import {
 	FetchSagaReponseType,
 	WildCards
 	} from '../_sagas';
-import { getNaturalPersonById } from '../../containers/Portal/Customer/Natural/_actions';
 import { getSelectedJobs } from '../../containers/Portal/TreeView/Jobs/_actions';
 import { getSelectedProjects } from '../../containers/Portal/TreeView/Projects/_actions';
 import { getType } from 'typesafe-actions';
@@ -31,13 +30,9 @@ import {
 	getUserByUsername,
 } from "../../containers/Portal/Accounts/_actions";
 import {
-	getEvidenceCustomer,
-	saveEvidenceCustomer,
-} from "../../containers/Portal/Customer/Evidence/_actions";
-import {
 	arest,
 	getLegalPersonById,
-} from "../../containers/Portal/Customer/Legal/_actions";
+} from "../../containers/Portal/Customer/Create/_actions";
 import {
 	filterCustomers,
 	filterCustomersEvidence,
@@ -229,12 +224,9 @@ export function* watchSagaCall() {
 	yield takeEvery(getType(filterCustomersEvidence.request), Call);
 	yield takeEvery(getType(getProjectLogs.request), Call);
 	yield takeEvery(getType(trussTree.request), Call);
-	yield takeEvery(getType(saveEvidenceCustomer.request), Call);
 	yield takeEvery(getType(treeReset.request), Call);
 	yield takeEvery(getType(changeLocalPasswordAction.request), Call);
 	yield takeEvery(getType(getLegalPersonById.request), Call);
-	yield takeEvery(getType(getEvidenceCustomer.request), Call);
-	yield takeEvery(getType(getNaturalPersonById.request), Call);
 	yield takeEvery(getType(getUserByUsername.request), Call);
 	yield takeEvery(getType(unlockJob.request), Call);
 }

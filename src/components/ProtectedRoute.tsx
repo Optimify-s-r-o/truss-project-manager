@@ -15,7 +15,7 @@ interface OwnProps {
 const Component = (props: OwnProps) => {
 	const { exact, component, path, token } = props;
 
-	if (!token) {
+	if (!token && process.env.NODE_ENV != "development") {
 		return <Redirect to={Routes.HOME} />;
 	}
 

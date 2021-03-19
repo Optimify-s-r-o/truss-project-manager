@@ -1,9 +1,7 @@
 import { addJsonToProject } from '../../containers/Portal/TreeView/Project/General/File/_actions';
 import { ApiURL } from '../../constants/api';
 import { deleteProject } from '../../containers/Portal/Project/_actions';
-import { getEvidenceCustomer } from '../../containers/Portal/Customer/Evidence/_actions';
-import { getLegalPersonById } from '../../containers/Portal/Customer/Legal/_actions';
-import { getNaturalPersonById } from '../../containers/Portal/Customer/Natural/_actions';
+import { getLegalPersonById } from '../../containers/Portal/Customer/Create/_actions';
 import { getProjects } from './../../containers/Portal/SidebarFilter/_actions';
 import { getUserByUsername } from '../../containers/Portal/Accounts/_actions';
 import { Method } from '../../constants/enum';
@@ -121,15 +119,6 @@ export const saveNaturalCustomerAction = (
 	};
 };
 
-export const getNaturalPersonByIdCall = (id: string) => {
-	return {
-		action: getNaturalPersonById,
-		param: id,
-		method: Method.GET,
-		url: ApiURL.CUSTOMERS_PERSON,
-	};
-};
-
 export const saveEvidenceCustomerAction = (
 	value: Customer,
 	activeTree?: TreeType
@@ -154,14 +143,6 @@ export const saveEvidenceAction = (value: Customer, activeTree?: TreeType) => {
 	};
 };
 
-export const getEvidenceCustomerById = (id: string) => {
-	return {
-		action: getEvidenceCustomer,
-		param: id,
-		method: Method.GET,
-		url: ApiURL.CUSTOMERS_EVIDENCE,
-	};
-};
 export const updateProject = (value: Project, activeTree: TreeType) => {
 	return {
 		action: projectUpdate,

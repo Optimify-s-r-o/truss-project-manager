@@ -30,6 +30,7 @@ export enum Routes {
 	NEW_NATURAL_CUSTOMER_UPGRADE = "/portal/customer/natural/:id/:evidence",
 	NEW_EVIDENCE_CUSTOMER = "/portal/customer/evidence/:id",
 	LINK_NEW_LEGAL_CUSTOMER = "/portal/customer/legal/",
+	CREATE_CUSTOMER = "/portal/customer/create",
 	LINK_NEW_NATURAL_CUSTOMER = "/portal/customer/natural/",
 	LINK_NEW_EVIDENCE_CUSTOMER = "/portal/customer/evidence/",
 	USERS = "/portal/users",

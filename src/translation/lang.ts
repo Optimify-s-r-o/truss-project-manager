@@ -658,6 +658,8 @@ export type Lang = Readonly<{
 		createNaturalPerson: string;
 		createNewFromEvidence: string;
 		createNewJob: string;
+		newCustomer: string;
+		editCustomer: string;
 		createNewLegal: string;
 		createNewNatural: string;
 		credit: string;
@@ -804,7 +806,6 @@ export type Lang = Readonly<{
 		name: string;
 		naturalPerson: string;
 		newAccount: string;
-		newCustomers: string;
 		newProject: string;
 		next: string;
 		notCounted: string;

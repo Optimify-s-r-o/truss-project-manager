@@ -2,7 +2,6 @@ import Home from './containers/Home/Container';
 import LazyPortal from './containers/Portal/Container';
 import ProtectedRoute from './components/ProtectedRoute';
 import React, { Suspense } from 'react';
-import { AuthReducer } from './containers/Home/_reducers';
 import { configuredStore } from './store';
 import { connect } from 'react-redux';
 import { RootStateType } from './reducers';
@@ -24,7 +23,6 @@ const Root = ({ token }: IApp) => {
 					component={LazyPortal}
 					token={token}
 				/>
-				<Route path={Routes.PORTAL} component={LazyPortal} />
 				<Route path={Routes.HOME} component={Home} />
 			</Switch>
 		</Suspense>

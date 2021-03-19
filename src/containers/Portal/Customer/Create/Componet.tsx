@@ -266,10 +266,8 @@ const Index = ({
 										<FontAwesomeIcon icon={faSuitcase as IconProp} />
 										<TitleName>
 											{formik.values && formik.values.Id
-												? t(translationPath(lang.common.editLegalPerson).path)
-												: t(
-														translationPath(lang.common.createLegalPerson).path
-												  )}
+												? t(translationPath(lang.common.editCustomer).path)
+												: t(translationPath(lang.common.newCustomer).path)}
 										</TitleName>
 									</TitleSection>
 								</PageTitle>
@@ -310,7 +308,7 @@ const Index = ({
 											<FormikRow
 												formik={formik}
 												name="Name"
-												title={t(translationPath(lang.common.name).path)}
+												title={t(translationPath(lang.common.companyName).path)}
 												type={Input.TEXT}
 											/>
 											<FormikRow

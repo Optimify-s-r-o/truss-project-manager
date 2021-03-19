@@ -6,9 +6,6 @@ import FilterTruss from '../containers/Portal/Lists/Trusses/Container';
 import Job from '../containers/Portal/TreeView/Job/Container';
 import JobMultiple from '../containers/Portal/TreeView/Jobs/Container';
 import ListOfCustomers from '../containers/Portal/Lists/Customers/Container';
-import NewEvidenceCustomer from '../containers/Portal/Customer/Evidence/Container';
-import NewLegalCustomer from '../containers/Portal/Customer/Legal/Container';
-import NewNaturalCustomer from '../containers/Portal/Customer/Natural/Container';
 import NewPassword from '../containers/Portal/Accounts/PasswordChange/Container';
 import PriceListCustom from '../containers/Portal/PriceLists/Container';
 import PriceListPlates from '../containers/Portal/PriceListsPlates/Container';
@@ -27,6 +24,10 @@ import User from '../containers/Portal/Accounts/User/Container';
 import { HubConnection } from '@microsoft/signalr';
 import { Routes } from '../constants/routes';
 import { Switch } from 'react-router';
+import {
+	default as CreateCustomer,
+	default as NewLegalCustomer,
+} from "../containers/Portal/Customer/Create/Container";
 
 interface IProps {
 	token: string;
@@ -140,38 +141,8 @@ const Index = ({ token, connect }: IProps) => {
 				token={token}
 			/>
 			<ProtectedRoute
-				path={Routes.NEW_LEGAL_CUSTOMER}
-				component={NewLegalCustomer}
-				token={token}
-			/>
-			<ProtectedRoute
-				path={Routes.LINK_NEW_LEGAL_CUSTOMER}
-				component={NewLegalCustomer}
-				token={token}
-			/>
-			<ProtectedRoute
-				path={Routes.NEW_NATURAL_CUSTOMER_UPGRADE}
-				component={NewNaturalCustomer}
-				token={token}
-			/>
-			<ProtectedRoute
-				path={Routes.NEW_NATURAL_CUSTOMER}
-				component={NewNaturalCustomer}
-				token={token}
-			/>
-			<ProtectedRoute
-				path={Routes.LINK_NEW_NATURAL_CUSTOMER}
-				component={NewNaturalCustomer}
-				token={token}
-			/>
-			<ProtectedRoute
-				path={Routes.NEW_EVIDENCE_CUSTOMER}
-				component={NewEvidenceCustomer}
-				token={token}
-			/>
-			<ProtectedRoute
-				path={Routes.LINK_NEW_EVIDENCE_CUSTOMER}
-				component={NewEvidenceCustomer}
+				path={Routes.CREATE_CUSTOMER}
+				component={CreateCustomer}
 				token={token}
 			/>
 			<ProtectedRoute
