@@ -83,6 +83,8 @@ import {
 } from "../containers/Portal/TreeView/Job/Viewer/_sagas";
 import {
 	watchCalculateJobQuotationAction,
+	watchGetJobMaterialsAction,
+	watchGetJobQuotationsAction,
 	watchGetJobTrussesAction,
 	watchJobImage,
 	watchJobImageByName,
@@ -176,6 +178,8 @@ export const rootSaga = [
 	watchGetUsersAction,
 	watchGetTrussQuotationsAction,
 	watchGetTrussMaterialsAction,
+	watchGetJobMaterialsAction,
+	watchGetJobQuotationsAction,
 ];
 
 export type SagasType = typeof rootSaga;

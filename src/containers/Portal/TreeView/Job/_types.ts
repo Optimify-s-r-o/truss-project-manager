@@ -1,5 +1,7 @@
 import { createProxy } from '../../../../utils/getPath';
 import { Customer } from '../../Customer/_types';
+import { Location } from '../../Customer/Create/_types';
+import { Plank } from '../Truss/_types';
 import {
 	Fetch,
 	FetchStateType,
@@ -64,12 +66,7 @@ export interface Contact {
 	Phone: string;
 }
 
-export interface Details {
-	Location: Location;
-	CustomerContainer: Customer;
-	Roof: RoofInfo;
-	Load: Load;
-}
+export interface Details {}
 
 export interface JobRootObject {
 	Name: string;
@@ -107,7 +104,9 @@ export interface JobRootObject {
 	PriceOnPlanks: number;
 	Material: Material;
 	Documents: Document[];
-	Details: Details;
+	Location: Location;
+	CustomerContainer: Customer;
+	Roof: RoofInfo;
 	Id: string;
 }
 
@@ -119,6 +118,8 @@ export type JobStateType = FetchStateType &
 		image: any;
 		quotationCalculating: boolean;
 		trusses: JobTrusses;
+		quotations: QuotationsInfo;
+		materials: Materials;
 	}>;
 
 export interface JobsSelectedRequest extends Fetch {
@@ -171,4 +172,67 @@ export interface JobTrusses {
 export interface GetTrusses {
 	jobId: string;
 	templateId?: string;
+}
+
+export interface Materials {
+	Id: string;
+	JobName: string;
+	Phases: string[];
+	Trusses: Truss[];
+	Models: Model[];
+	NailPlates: NailPlate[];
+	Members: Member[];
+}
+
+export interface Truss {
+	Name: string;
+	Count: number;
+	ModelCount: number;
+}
+
+export interface Model {
+	Name: string;
+	Count: number;
+	PlyCount: number;
+}
+
+export interface NailPlate {
+	Name: string;
+	Count: number;
+	Type: string;
+	Width: number;
+	Length: number;
+	Thickness: number;
+}
+
+export interface Member {
+	Name: string;
+	Count: number;
+}
+
+export const PlankProxy = createProxy<Plank>();
+export const MemberProxy = createProxy<Member>();
+export const ModelProxy = createProxy<Model>();
+export const NailPlateProxy = createProxy<NailPlate>();
+
+export interface Quotation {
+	Title: string;
+	Generated: boolean;
+	IsDefault: boolean;
+	TemplateId: string;
+	Id: string;
+	Created: Date;
+	IsDefaultSelect: boolean;
+}
+
+export interface QuotationsInfo {
+	Quotations: Quotation[];
+	DefaultQuotationTitle: string;
+	DefaultQuotationGenerated: boolean;
+	DefaultQuotationTemplateId: string;
+	DefaultQuotationId: string;
+	DefaultQuotationCreated: Date;
+	Id: string;
+	JobName: string;
+	Status: string;
 }

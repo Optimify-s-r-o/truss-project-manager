@@ -1,37 +1,36 @@
-import lang from '../../../../../translation/lang';
-import Loading from '../../../../../components/Optimify/Loading';
-import Navigation from '../../../../../components/NavigationCalculated';
-import React from 'react';
-import { Empty, Popconfirm } from 'antd';
-import { faServer, faSync } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { JobsSelectedRequest } from '../_types';
-import { JobType } from '../../../../../types/_types';
-import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
-import { PriceList } from '../../../PriceLists/_types';
-import { QuotationCalculate } from '../../Project/_types';
-import { QuotationColumn } from '../../../../../constants/globalStyles';
-import { QuotationList, QuotationType } from '../../../Quotations/_types';
-import { SelectionQuotation } from '../../../../../components/Quotations';
-import { translationPath } from '../../../../../utils/getPath';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { useTranslation } from 'react-i18next';
+import { faServer, faSync } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Empty, Popconfirm } from "antd";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
+import Navigation from "../../../../../components/NavigationCalculated";
+import Loading from "../../../../../components/Optimify/Loading";
 import {
 	ActionButton,
 	ActionSection,
+	SelectionQuotation,
 } from "../../../../../components/Quotations";
+import { QuotationColumn } from "../../../../../constants/globalStyles";
+import lang from "../../../../../translation/lang";
+import { translationPath } from "../../../../../utils/getPath";
+import { PriceList } from "../../../PriceLists/_types";
 import {
+	QuotationList,
 	QuotationParam,
 	QuotationRequest,
-	QuotationSelection,
 	Quotations,
+	QuotationSelection,
+	QuotationType,
 	SectionVariableRequest,
 } from "../../../Quotations/_types";
+import { MainTreeContent, TreeContent, TreeScreen } from "../../../_styles";
+import { QuotationCalculate } from "../../Project/_types";
+import { JobsSelectedRequest, QuotationsInfo } from "../_types";
 
 export interface StateProps {
 	quotations: Quotations;
-	job: JobType;
+	quotationsInfo: QuotationsInfo;
 	quotationCalculating: boolean;
 	quotationList: QuotationList;
 	priceLists: PriceList[];
@@ -49,6 +48,7 @@ export interface DispatchProps {
 	quotationDownloadQuotationAction: (data: QuotationParam) => void;
 	selectedJob: (data: JobsSelectedRequest) => void;
 	quotationListGetAction: (data: QuotationParam) => void;
+	getJobQuotations: (data: string) => void;
 }
 
 export default ({
@@ -57,7 +57,6 @@ export default ({
 	quotationSelectionPutAction,
 	quotationSelectionSummaryPutAction,
 	clearQuotation,
-	job,
 	quotationCalculating,
 	calculateJob,
 	quotationSelectionVariableDeleteAction,
@@ -67,6 +66,8 @@ export default ({
 	quotationList,
 	quotationListGetAction,
 	pending,
+	getJobQuotations,
+	quotationsInfo,
 }: StateProps & DispatchProps) => {
 	const { t } = useTranslation();
 	const [selected, setSelected] = useState(null);
@@ -76,22 +77,28 @@ export default ({
 		quotationListGetAction({ Type: QuotationType.JOB });
 	}, []);
 
+	React.useEffect(() => {
+		if (id) {
+			getJobQuotations(id);
+		}
+	}, [id]);
+	console.log(quotationsInfo);
 	useEffect(() => {
 		if (quotationList) {
-			const defaultId = job?.DefaultQuotationTemplateId
-				? job?.DefaultQuotationTemplateId
+			const defaultId = quotationsInfo?.DefaultQuotationTemplateId
+				? quotationsInfo?.DefaultQuotationTemplateId
 				: quotationList?.DefaultId;
 
-			if (defaultId && job?.Id) {
+			if (defaultId && quotationsInfo?.Id) {
 				setSelected(defaultId);
 				quotationSelectionGetAction({
 					type: QuotationType.JOB,
-					entityId: job?.Id,
+					entityId: quotationsInfo?.Id,
 					templateId: defaultId,
 				});
 			}
 		}
-	}, [quotationList, job]);
+	}, [quotationList, quotationsInfo]);
 
 	const quotationPutAction = (node: SectionVariableRequest) => {
 		quotationSelectionPutAction({
@@ -113,7 +120,7 @@ export default ({
 		event: React.MouseEvent<HTMLElement, MouseEvent>
 	) => {
 		calculateJob({
-			entityId: job.Id,
+			entityId: quotationsInfo.Id,
 			recursiveRecreate: false,
 			templateId: selected,
 			type: QuotationType.JOB,
@@ -124,7 +131,7 @@ export default ({
 		event: React.MouseEvent<HTMLElement, MouseEvent>
 	) => {
 		calculateJob({
-			entityId: job.Id,
+			entityId: quotationsInfo.Id,
 			recursiveRecreate: true,
 			templateId: selected,
 			type: QuotationType.JOB,
@@ -141,7 +148,7 @@ export default ({
 		setSelected(id);
 		quotationSelectionGetAction({
 			type: QuotationType.JOB,
-			entityId: job?.Id,
+			entityId: quotationsInfo?.Id,
 			templateId: id,
 		});
 	};
@@ -165,7 +172,7 @@ export default ({
 						{quotations?.IsCalculated ? (
 							<SelectionQuotation
 								quotations={quotations}
-								id={job?.Id}
+								id={quotationsInfo?.Id}
 								quotationPutAction={quotationPutAction}
 								quotationSummaryPutAction={quotationSummaryPutAction}
 								type={QuotationSelection.JOB}

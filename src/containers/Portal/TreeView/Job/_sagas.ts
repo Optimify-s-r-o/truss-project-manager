@@ -1,10 +1,4 @@
 import { ApiURL } from '../../../../constants/api';
-import {
-	calculateJob,
-	getTrusses,
-	jobImage,
-	jobImageByName
-	} from './_actions';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
 import { lang, t } from '../../../../translation/i18n';
@@ -22,6 +16,14 @@ import {
 	fetchSaga,
 	FetchSagaReponseType,
 } from "../../../../sagas/_sagas";
+import {
+	calculateJob,
+	getJobMaterials,
+	getJobQuotations,
+	getTrusses,
+	jobImage,
+	jobImageByName,
+} from "./_actions";
 
 function* JobImageSaga(action: ReturnType<typeof jobImage.request>): Generator {
 	try {
@@ -192,6 +194,73 @@ function* getJobTrussesActionSaga(
 		);
 		yield put(getTrusses.failure(err));
 	}
+}
+
+function* getJobQuotationsActionSaga(
+	action: ReturnType<typeof getJobQuotations.request>
+): Generator {
+	try {
+		// @ts-ignore
+		const { errorResponseData, response, success } = yield call(
+			fetchSaga,
+			ApiURL.JOBS + "/" + action.payload + "/quotations",
+			Method.GET
+		);
+
+		if (!success) {
+			yield put(getTrusses.failure(errorResponseData));
+			return;
+		}
+
+		yield put(getJobQuotations.success(response));
+	} catch (err) {
+		yield put(
+			notificationAction({
+				code: Status.ERROR,
+				message: t(translationPath(lang.common.errorMessage)),
+			})
+		);
+		yield put(getJobQuotations.failure(err));
+	}
+}
+
+function* getJobMaterialsActionSaga(
+	action: ReturnType<typeof getJobMaterials.request>
+): Generator {
+	try {
+		// @ts-ignore
+		const { errorResponseData, response, success } = yield call(
+			fetchSaga,
+			ApiURL.JOBS + "/" + action.payload + "/material",
+			Method.GET
+		);
+
+		if (!success) {
+			yield put(getJobMaterials.failure(errorResponseData));
+			return;
+		}
+
+		yield put(getJobMaterials.success(response));
+	} catch (err) {
+		yield put(
+			notificationAction({
+				code: Status.ERROR,
+				message: t(translationPath(lang.common.errorMessage)),
+			})
+		);
+		yield put(getJobMaterials.failure(err));
+	}
+}
+
+export function* watchGetJobMaterialsAction() {
+	yield takeLatest(getType(getJobMaterials.request), getJobMaterialsActionSaga);
+}
+
+export function* watchGetJobQuotationsAction() {
+	yield takeLatest(
+		getType(getJobQuotations.request),
+		getJobQuotationsActionSaga
+	);
 }
 
 export function* watchGetJobTrussesAction() {

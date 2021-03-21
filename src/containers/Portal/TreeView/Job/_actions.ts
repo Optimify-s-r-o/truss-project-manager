@@ -8,7 +8,9 @@ import {
 	JobRootObject,
 	JobsSelectedRequest,
 	JobTrusses,
+	Materials,
 	ProjectNameJobName,
+	QuotationsInfo,
 	Unlock,
 	UpdateJobRequest,
 } from "./_types";
@@ -18,6 +20,18 @@ export const selectedJob = createAsyncAction(
 	"JOB_SUCCESS",
 	"JOB_FAILURE"
 )<JobsSelectedRequest, JobRootObject, Error>();
+
+export const getJobMaterials = createAsyncAction(
+	"GET_JOB_MATERIAL_REQUEST",
+	"GET_JOB_MATERIAL_SUCCESS",
+	"GET_JOB_MATERIAL_FAILURE"
+)<string, Materials, Error>();
+
+export const getJobQuotations = createAsyncAction(
+	"GET_JOB_QUOTATIONS_REQUEST",
+	"GET_JOB_QUOTATIONS_SUCCESS",
+	"GET_JOB_QUOTATIONS_FAILURE"
+)<string, QuotationsInfo, Error>();
 
 export const getTrusses = createAsyncAction(
 	"JOB_TRUSSES_REQUEST",
@@ -73,4 +87,6 @@ export type selectedJobType = ActionType<
 	| typeof setJob
 	| typeof calculateJob
 	| typeof getTrusses
+	| typeof getJobMaterials
+	| typeof getJobQuotations
 >;

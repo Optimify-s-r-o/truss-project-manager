@@ -2,19 +2,12 @@ import * as React from 'react';
 import Export from '../../../../../components/Export';
 import Loading from '../../../../../components/Optimify/Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../../utils/getPath';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { IconTableCell } from './_styles';
-import {
-  JobProxy,
-  JobRootObject,
-  Member,
-  Model,
-  NailPlate
-  } from '../_types';
+import { lastPathMember, translationPath } from '../../../../../utils/getPath';
 import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
-import { RouteComponentProps } from 'react-router-dom';
+import { Plate, PlateProxy } from '../../Truss/_types';
+import { RouteComponentProps, useParams } from 'react-router-dom';
 import {
 	faRectanglePortrait,
 	faRectangleWide,
@@ -38,18 +31,41 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../../../translation/i18n";
+import {
+	Materials,
+	Member,
+	MemberProxy,
+	Model,
+	ModelProxy,
+	NailPlate,
+	NailPlateProxy,
+} from "../_types";
 
 export interface StateProps {
-	jobs: JobRootObject;
-	history: any;
+	materials: Materials;
 }
 
-const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
+export interface DispatchProps {
+	getJobMaterials: (data: string) => void;
+}
+
+const Index = ({
+	getJobMaterials,
+	materials,
+}: WithTranslation & StateProps & RouteComponentProps & DispatchProps) => {
+	const { id } = useParams<{ id: string }>();
+
+	React.useEffect(() => {
+		if (id) {
+			getJobMaterials(id);
+		}
+	}, [id]);
+
 	return (
 		<MainTreeContent>
 			<Loading
 				text={t(translationPath(lang.common.loading))}
-				pending={!props.jobs || !props.jobs?.Material}
+				pending={!materials}
 				margin
 			>
 				<TreeScreen>
@@ -63,22 +79,35 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 										</Header2>
 										<Export
 											name={
-												props.jobs?.Name +
+												materials?.JobName +
 												"-" +
 												t(translationPath(lang.common.nailPlates))
 											}
-											data={get(
-												props.jobs,
-												getPath(JobProxy.Material.NailPlates)
-											)}
+											data={materials?.NailPlates}
 											structure={[
 												{
-													label: t(translationPath(lang.common.name)),
-													valueName: "Name",
+													label: t(translationPath(lang.common.type)),
+													valueName: lastPathMember(NailPlateProxy.Type).path,
 												},
 												{
-													label: t(translationPath(lang.common.trussCount)),
-													valueName: "Count",
+													label: t(translationPath(lang.common.name)),
+													valueName: lastPathMember(PlateProxy.Name).path,
+												},
+												{
+													label: t(translationPath(lang.priceLists.width)),
+													valueName: lastPathMember(PlateProxy.Width).path,
+												},
+												{
+													label: t(translationPath(lang.common.length)),
+													valueName: lastPathMember(PlateProxy.Length).path,
+												},
+												{
+													label: t(translationPath(lang.common.thickness)),
+													valueName: lastPathMember(PlateProxy.Thickness).path,
+												},
+												{
+													label: t(translationPath(lang.common.count)),
+													valueName: lastPathMember(PlateProxy.Count).path,
 												},
 											]}
 										/>
@@ -87,16 +116,28 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 										<ScrollableTable
 											style={TABLE_STYLE_CONDENSED}
 											headers={[
+												t(translationPath(lang.common.type)),
 												t(translationPath(lang.common.name)),
-												t(translationPath(lang.common.count)),
+												t(translationPath(lang.priceLists.width)),
+												t(translationPath(lang.common.length)),
+												t(translationPath(lang.common.thickness)),
+												t(translationPath(lang.common.countPerTruss)),
 											]}
-											sortable={[true, true]}
-											data={get(
-												props.jobs,
-												getPath(JobProxy.Material.NailPlates)
-											)?.map((value: NailPlate, key: number) => {
-												return [value.Name, value.Count, value];
-											})}
+											sortable={[true, true, true, true, true, true]}
+											data={materials?.NailPlates?.map(
+												(value: NailPlate, key: number) => {
+													return [
+														value.Type,
+														value.Name,
+														value.Width,
+														value.Length,
+														value.Thickness,
+														value.Count,
+
+														value,
+													];
+												}
+											)}
 											renderers={[
 												(value: any, key: number, parent: NailPlate) => {
 													return (
@@ -111,6 +152,18 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 												(value: any, key: number, parent: NailPlate) => {
 													return value;
 												},
+												(value: any, key: number, parent: Plate) => {
+													return value;
+												},
+												(value: any, key: number, parent: Plate) => {
+													return value;
+												},
+												(value: any, key: number, parent: Plate) => {
+													return value;
+												},
+												(value: any, key: number, parent: Plate) => {
+													return value;
+												},
 											]}
 										/>
 									</FullCardEndTableWrapper>
@@ -122,19 +175,19 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 										<Header2>{t(translationPath(lang.common.members))}</Header2>
 										<Export
 											name={
-												props.jobs?.Name +
+												materials?.JobName +
 												"-" +
 												t(translationPath(lang.common.members))
 											}
-											data={get(props.jobs, getPath(JobProxy.Material.Members))}
+											data={materials?.Members}
 											structure={[
 												{
 													label: t(translationPath(lang.common.name)),
-													valueName: "Name",
+													valueName: lastPathMember(MemberProxy.Name).path,
 												},
 												{
 													label: t(translationPath(lang.common.trussCount)),
-													valueName: "Count",
+													valueName: lastPathMember(MemberProxy.Count).path,
 												},
 											]}
 										/>
@@ -147,12 +200,11 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 												t(translationPath(lang.common.count)),
 											]}
 											sortable={[true, true]}
-											data={get(
-												props.jobs,
-												getPath(JobProxy.Material.Members)
-											)?.map((value: Member, key: number) => {
-												return [value.Name, value.Count, value];
-											})}
+											data={materials?.Members?.map(
+												(value: Member, key: number) => {
+													return [value.Name, value.Count, value];
+												}
+											)}
 											renderers={[
 												(value: any, key: number, parent: Member) => {
 													return (
@@ -178,23 +230,23 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 										<Header2>{t(translationPath(lang.common.models))}</Header2>
 										<Export
 											name={
-												props.jobs?.Name +
+												materials?.JobName +
 												"-" +
 												t(translationPath(lang.common.models))
 											}
-											data={get(props.jobs, getPath(JobProxy.Material.Models))}
+											data={materials?.Models}
 											structure={[
 												{
 													label: t(translationPath(lang.common.name)),
-													valueName: "Name",
+													valueName: lastPathMember(ModelProxy.Name).path,
 												},
 												{
 													label: t(translationPath(lang.common.trussCount)),
-													valueName: "Count",
+													valueName: lastPathMember(ModelProxy.Count).path,
 												},
 												{
 													label: t(translationPath(lang.common.plyCount)),
-													valueName: "PlyCount",
+													valueName: lastPathMember(ModelProxy.PlyCount).path,
 												},
 											]}
 										/>
@@ -208,12 +260,16 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 												t(translationPath(lang.common.plyCount)),
 											]}
 											sortable={[true, true, true]}
-											data={get(
-												props.jobs,
-												getPath(JobProxy.Material.Models)
-											)?.map((value: Model, key: number) => {
-												return [value.Name, value.Count, value.PlyCount, value];
-											})}
+											data={materials?.Models?.map(
+												(value: Model, key: number) => {
+													return [
+														value.Name,
+														value.Count,
+														value.PlyCount,
+														value,
+													];
+												}
+											)}
 											renderers={[
 												(value: any, key: number, parent: Model) => {
 													return (

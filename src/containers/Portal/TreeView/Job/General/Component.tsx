@@ -92,18 +92,16 @@ const Index = ({
 	]);
 
 	const getLocation =
-		formik.values && formik.values?.Details?.Location
-			? formik.values?.Details?.Location?.CityName +
-			  (formik.values?.Details?.Location?.CityName ? ", " : "") +
-			  formik.values?.Details?.Location?.StreetName +
+		formik.values && formik.values?.Place
+			? formik.values?.Place?.CityName +
+			  (formik.values?.Place?.CityName ? ", " : "") +
+			  formik.values?.Place?.StreetName +
 			  " " +
-			  formik.values?.Details?.Location?.PlaceNumber +
-			  (formik.values?.Details?.Location?.StreetName ? ", " : "") +
-			  formik.values?.Details?.Location?.RegionName +
-			  (formik.values?.Details?.Location?.RegionName ? ", " : "") +
-			  (formik.values.Details.Location.Country
-					? formik.values.Details.Location.Country
-					: "")
+			  formik.values?.Place?.PlaceNumber +
+			  (formik.values?.Place?.StreetName ? ", " : "") +
+			  formik.values?.Place?.RegionName +
+			  (formik.values?.Place?.RegionName ? ", " : "") +
+			  (formik.values.Place.Country ? formik.values.Place.Country : "")
 			: "";
 
 	const equal = (var1: JobType, var2: JobType): boolean => {
@@ -290,7 +288,7 @@ const Index = ({
 												<Data
 													title={t(translationPath(lang.common.pitch))}
 													data={fixed(
-														get(jobs, getPath(JobProxy.Details.Roof.Pitch)),
+														get(jobs, getPath(JobProxy.Roof.Pitch)),
 														0
 													)}
 													unit={UnitType.EMPTY}
@@ -326,10 +324,7 @@ const Index = ({
 												<Data
 													title={t(translationPath(lang.common.roofingLoad))}
 													data={fixed(
-														get(
-															jobs,
-															getPath(JobProxy.Details.Load.RoofingLoad)
-														),
+														get(jobs, getPath(JobProxy.Load.RoofingLoad)),
 														2
 													)}
 													unit={UnitType.KNM2}
@@ -337,10 +332,7 @@ const Index = ({
 												<Data
 													title={t(translationPath(lang.common.ceilingLoad))}
 													data={fixed(
-														get(
-															jobs,
-															getPath(JobProxy.Details.Load.CeilingLoad)
-														),
+														get(jobs, getPath(JobProxy.Load.CeilingLoad)),
 														2
 													)}
 													unit={UnitType.KNM2}
@@ -348,7 +340,7 @@ const Index = ({
 												<Data
 													title={t(translationPath(lang.common.snowLoad))}
 													data={fixed(
-														get(jobs, getPath(JobProxy.Details.Load.SnowLoad)),
+														get(jobs, getPath(JobProxy.Load.SnowLoad)),
 														2
 													)}
 													unit={UnitType.KNM2}
@@ -356,7 +348,7 @@ const Index = ({
 												<Data
 													title={t(translationPath(lang.common.windLoad))}
 													data={fixed(
-														get(jobs, getPath(JobProxy.Details.Load.WindLoad)),
+														get(jobs, getPath(JobProxy.Load.WindLoad)),
 														2
 													)}
 													unit={UnitType.KNM2}
@@ -366,10 +358,7 @@ const Index = ({
 														translationPath(lang.common.usefulInTheAttic)
 													)}
 													data={fixed(
-														get(
-															jobs,
-															getPath(JobProxy.Details.Load.CeilingLoad)
-														),
+														get(jobs, getPath(JobProxy.Load.CeilingLoad)),
 														2
 													)}
 													unit={UnitType.KNM2}
