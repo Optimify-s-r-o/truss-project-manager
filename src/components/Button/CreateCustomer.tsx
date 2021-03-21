@@ -10,22 +10,22 @@ import { Routes } from '../../constants/routes';
 import { translationPath } from '../../utils/getPath';
 import { useTranslation } from 'react-i18next';
 
-export const CreateLegalCustomer = () => {
-  const { t } = useTranslation();
-  return (
-    <Tooltip
-      title={t(translationPath(lang.common.createLegalPerson).path)}
-      placement={'bottom'}
-    >
-      <Link
-        to={{
-          pathname: Routes.LINK_NEW_LEGAL_CUSTOMER,
-        }}
-      >
-        <IconButton iconOnly>
-          <FontAwesomeIcon icon={faSuitcase as IconProp} color={'#bb9e00'} />
-        </IconButton>
-      </Link>
-    </Tooltip>
-  );
+export const CreateCustomer = () => {
+	const { t } = useTranslation();
+	return (
+		<Tooltip
+			title={t(translationPath(lang.common.newCustomer).path)}
+			placement={"bottom"}
+		>
+			<Link
+				to={{
+					pathname: Routes.CREATE_CUSTOMER,
+				}}
+			>
+				<IconButton iconOnly>
+					<FontAwesomeIcon icon={faSuitcase as IconProp} color={"#bb9e00"} />
+				</IconButton>
+			</Link>
+		</Tooltip>
+	);
 };

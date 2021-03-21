@@ -38,145 +38,75 @@ const Index = ({ token, connect }: IProps) => {
 	return (
 		<Switch>
 			{/*Projects*/}
-			<ProtectedRoute
-				path={Routes.PROJECT_NEW}
-				component={Projects}
-				token={token}
-			/>
-			<ProtectedRoute
-				exact={true}
-				path={Routes.PORTAL}
-				component={Projects}
-				token={token}
-			/>
+			<ProtectedRoute path={Routes.PROJECT_NEW} component={Projects} />
+			<ProtectedRoute exact={true} path={Routes.PORTAL} component={Projects} />
 			{/*Customers*/}
-			<ProtectedRoute
-				path={Routes.CUSTOMER_LIST}
-				component={ListOfCustomers}
-				token={token}
-			/>
+			<ProtectedRoute path={Routes.CUSTOMER_LIST} component={ListOfCustomers} />
 			{/*Filter*/}
-			<ProtectedRoute
-				path={Routes.FILTER_PROJECT}
-				component={FilterProject}
-				token={token}
-			/>
-			<ProtectedRoute
-				path={Routes.FILTER_TRUSS}
-				component={FilterTruss}
-				token={token}
-			/>
-			<ProtectedRoute
-				exact
-				path={Routes.FILTER_JOB}
-				component={FilterJob}
-				token={token}
-			/>
+			<ProtectedRoute path={Routes.FILTER_PROJECT} component={FilterProject} />
+			<ProtectedRoute path={Routes.FILTER_TRUSS} component={FilterTruss} />
+			<ProtectedRoute exact path={Routes.FILTER_JOB} component={FilterJob} />
 			{/*Accounts*/}
 			<ProtectedRoute
 				exact={true}
 				path={Routes.ACCOUNTS_NEW_PASSWORD}
 				component={NewPassword}
-				token={token}
 			/>
-			<ProtectedRoute
-				exact={true}
-				path={Routes.CREATE_USER}
-				component={User}
-				token={token}
-			/>
+			<ProtectedRoute exact={true} path={Routes.CREATE_USER} component={User} />
 			<ProtectedRoute
 				exact={true}
 				path={Routes.LINK_CREATE_USER}
 				component={User}
-				token={token}
 			/>
-			<ProtectedRoute
-				exact={true}
-				path={Routes.USERS}
-				component={Accounts}
-				token={token}
-			/>
+			<ProtectedRoute exact={true} path={Routes.USERS} component={Accounts} />
 			{/*Tree*/}
-			<ProtectedRoute
-				path={Routes.TREE_PROJECT}
-				component={Project}
-				token={token}
-			/>
+			<ProtectedRoute path={Routes.TREE_PROJECT} component={Project} />
 			<ProtectedRoute
 				path={Routes.TREE_PROJECT_MULTIPLE}
 				component={ProjectMultiple}
-				token={token}
 			/>
-			<ProtectedRoute path={Routes.TREE_JOB} component={Job} token={token} />
-			<ProtectedRoute
-				path={Routes.TREE_JOB_MULTIPLE}
-				component={JobMultiple}
-				token={token}
-			/>
+			<ProtectedRoute path={Routes.TREE_JOB} component={Job} />
+			<ProtectedRoute path={Routes.TREE_JOB_MULTIPLE} component={JobMultiple} />
 			<ProtectedRoute
 				path={Routes.TREE_TRUSS_MULTIPLE}
 				component={TrussMultiple}
-				token={token}
 			/>
-			<ProtectedRoute
-				path={Routes.TREE_TRUSS}
-				component={Truss}
-				token={token}
-			/>
+			<ProtectedRoute path={Routes.TREE_TRUSS} component={Truss} />
 			{/*Searched*/}
-			<ProtectedRoute
-				path={Routes.SEARCHED}
-				component={Searched}
-				token={token}
-			/>
-			<ProtectedRoute
-				path={Routes.CREATE_USER}
-				component={User}
-				token={token}
-			/>
+			<ProtectedRoute path={Routes.SEARCHED} component={Searched} />
+			<ProtectedRoute path={Routes.CREATE_USER} component={User} />
 			<ProtectedRoute
 				path={Routes.NEW_LEGAL_CUSTOMER_UPGRADE}
 				component={NewLegalCustomer}
-				token={token}
 			/>
 			<ProtectedRoute
 				path={Routes.CREATE_CUSTOMER}
 				component={CreateCustomer}
-				token={token}
 			/>
+			<ProtectedRoute path={Routes.EDIT_CUSTOMER} component={CreateCustomer} />
 			<ProtectedRoute
 				path={Routes.SETTINGS_ABOUT_PROGRAM}
 				component={SettingsAboutProgram}
-				token={token}
 			/>
 			<ProtectedRoute
 				path={Routes.SETTINGS_ORGANIZATION}
 				component={SettingsOrganization}
-				token={token}
 			/>
 			<ProtectedRoute
 				path={Routes.SETTINGS_TRUSS}
 				component={SettingsTrussSystem}
-				token={token}
 			/>
 			{/*Templates*/}
-			<ProtectedRoute
-				path={Routes.TEMPLATES}
-				component={Templates}
-				token={token}
-			/>
+			<ProtectedRoute path={Routes.TEMPLATES} component={Templates} />
 			{/*Templates*/}
 			<ProtectedRoute
 				path={Routes.PRICE_LISTS_PLATES}
 				component={PriceListPlates}
-				token={token}
 			/>
 			{/*Templates*/}
 			<ProtectedRoute
 				path={Routes.PRICE_LISTS_CUSTOM}
 				component={PriceListCustom}
-				token={token}
 			/>
 		</Switch>
 	);

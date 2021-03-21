@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { Customer, CustomerProxy } from '../../../types/_types';
+import { Customer, CustomerProxy } from '../Customer/_types';
 import { get } from 'lodash';
 import { getPath, translationPath } from '../../../utils/getPath';
-import { Job, SearchRootObject } from '../FastNavigation/_types';
-import { Project } from '../FastNavigation/_types';
+import { Job, Project, SearchRootObject } from '../FastNavigation/_types';
 import { Routes } from '../../../constants/routes';
 import { SRoute } from '../_styles';
 import { useHistory } from 'react-router-dom';
+import {
+	ScrollableTable,
+	TABLE_STYLE_CONDENSED,
+} from "../../../components/Optimify/Table";
 import {
 	CardEndTableWrapper,
 	Content,
@@ -23,10 +26,6 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../translation/i18n";
-import {
-	ScrollableTable,
-	TABLE_STYLE_CONDENSED,
-} from "../../../components/Optimify/Table";
 
 export interface StateProps {
 	routerState: any;
@@ -61,23 +60,8 @@ const Component = ({
 	};
 
 	const routeToCustomer = (parent: any) => () => {
-		setSelectedKeys([
-			get(parent, getPath(CustomerProxy.Company.Id))
-				? get(parent, getPath(CustomerProxy.Company.Id))
-				: get(parent, getPath(CustomerProxy.Evidence.Id))
-				? get(parent, getPath(CustomerProxy.Evidence.Id))
-				: get(parent, getPath(CustomerProxy.Person.Id)),
-		]);
-		history.push({
-			pathname: get(parent, getPath(CustomerProxy.Company.Id))
-				? Routes.LINK_NEW_LEGAL_CUSTOMER +
-				  get(parent, getPath(CustomerProxy.Company.Id))
-				: get(parent, getPath(CustomerProxy.Evidence.Id))
-				? Routes.LINK_NEW_EVIDENCE_CUSTOMER +
-				  get(parent, getPath(CustomerProxy.Evidence.Id))
-				: Routes.LINK_NEW_NATURAL_CUSTOMER +
-				  get(parent, getPath(CustomerProxy.Person.Id)),
-		});
+		setSelectedKeys([parent.Id]);
+		history.push(Routes.EDIT_CUSTOMER_LINK + parent.Id);
 	};
 
 	return (
@@ -172,13 +156,13 @@ const Component = ({
 									searched &&
 									searched.Customers &&
 									searched.Customers?.map((value: Customer, key: number) => {
-										const name = get(value, getPath(CustomerProxy.Company.Id))
-											? get(value, getPath(CustomerProxy.Company.Name))
-											: get(value, getPath(CustomerProxy.Evidence.Id))
-											? get(value, getPath(CustomerProxy.Evidence.Name))
-											: get(value, getPath(CustomerProxy.Person.Forename)) +
+										const name = get(value, getPath(CustomerProxy.Id))
+											? get(value, getPath(CustomerProxy.Name))
+											: get(value, getPath(CustomerProxy.Id))
+											? get(value, getPath(CustomerProxy.Name))
+											: get(value, getPath(CustomerProxy.Forename)) +
 											  " " +
-											  get(value, getPath(CustomerProxy.Person.Surname));
+											  get(value, getPath(CustomerProxy.Surname));
 										return [name, value];
 									})
 								}

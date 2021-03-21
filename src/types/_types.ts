@@ -1,12 +1,11 @@
 import { ApiURL } from '../constants/api';
 import { createProxy } from '../utils/getPath';
+import { Customer } from 'src/containers/Portal/Customer/_types';
+import { CustomerSimplified } from '../containers/Portal/Customer/_types';
 import { Method } from '../constants/enum';
+import { ProjectFile, ProjectLog } from '../containers/Portal/TreeView/Project/_types';
 import { Quotations } from '../containers/Portal/Quotations/_types';
 import { Routes } from '../constants/routes';
-import {
-	ProjectFile,
-	ProjectLog,
-} from "../containers/Portal/TreeView/Project/_types";
 
 export type FetchStateType = Readonly<{
 	error: string;
@@ -340,25 +339,19 @@ export interface Evidence {
 	Name: string;
 }
 
-export interface Customer {
-	Company: Company;
-	Person: Person;
-	Evidence: Evidence;
-	Redirect?: boolean;
-}
-
 export interface CustomerRequest extends Fetch {
 	data: Customer;
 }
-export const CustomerProxy = createProxy<Customer>();
 export const PersonProxy = createProxy<Person>();
 export const CompanyProxy = createProxy<Company>();
 
 export type CustomerStateType = FetchStateType &
 	Readonly<{
 		customer: Customer;
-		createdEvidence: Evidence;
-		updatingCustomer: boolean;
+		ares: Customer;
+		aresPending: boolean;
+		customers: Data<Customer>;
+		customersSimplified: Data<CustomerSimplified>;
 	}>;
 
 export interface Job {

@@ -1,12 +1,12 @@
 import { ActionType, createAsyncAction } from 'typesafe-actions';
-import { Error } from '../../../../sagas/_sagas';
 import {
 	Company,
-	Customer,
 	Evidence,
 	Fetch,
-	Person,
-} from "../../../../types/_types";
+	Person
+	} from '../../../../types/_types';
+import { Customer } from '../../Customer/_types';
+import { Error } from '../../../../sagas/_sagas';
 import {
 	CustomersEvidenceFilterRequest,
 	CustomersLegalFilterRequest,

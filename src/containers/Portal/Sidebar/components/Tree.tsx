@@ -104,13 +104,7 @@ export const Tree = ({
 				history.push(Routes.TREE_LINK_TRUSS + keys);
 			}
 		} else if (event?.node?.treeType === TreeType.CUSTOMER) {
-			history.push(
-				event.node.customerType === "InEvidence"
-					? Routes.LINK_NEW_EVIDENCE_CUSTOMER + keys
-					: event.node.customerType === "Company"
-					? Routes.LINK_NEW_LEGAL_CUSTOMER + keys
-					: Routes.LINK_NEW_NATURAL_CUSTOMER + keys
-			);
+			history.push(Routes.EDIT_CUSTOMER_LINK + keys);
 		}
 	};
 

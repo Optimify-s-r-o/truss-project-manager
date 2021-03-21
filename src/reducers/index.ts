@@ -2,7 +2,6 @@ import CustomerReducer from '../containers/Portal/Customer/_reducers';
 import CustomersReducer from '../containers/Portal/Lists/Customers/_reducers';
 import JobMultipleReducer from '../containers/Portal/TreeView/Jobs/_reducers';
 import JobReducer from '../containers/Portal/TreeView/Job/_reducers';
-import LegalPersonReducer from '../containers/Portal/Customer/Create/_reducers';
 import LoadingReducer from './loadingReducer/_reducers';
 import ProjectMultipleReducer from '../containers/Portal/TreeView/Projects/_reducers';
 import ProjectReducer from '../containers/Portal/Project/_reducers';
@@ -41,7 +40,6 @@ const createRootReducer = (history: History) =>
 		toastReducer,
 		CustomersReducer,
 		CustomerReducer,
-		LegalPersonReducer,
 		SettingsReducer,
 		JobMultipleReducer,
 		ProjectMultipleReducer,

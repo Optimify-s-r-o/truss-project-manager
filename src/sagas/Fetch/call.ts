@@ -1,6 +1,5 @@
 import { addJsonToProject } from '../../containers/Portal/TreeView/Project/General/File/_actions';
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { customerAction } from '../../containers/Portal/Customer/_actions';
 import { deleteProject } from '../../containers/Portal/Project/_actions';
 import { EnumBody } from '../../types/_types';
 import {
@@ -29,10 +28,6 @@ import {
 	editUser,
 	getUserByUsername,
 } from "../../containers/Portal/Accounts/_actions";
-import {
-	arest,
-	getLegalPersonById,
-} from "../../containers/Portal/Customer/Create/_actions";
 import {
 	filterCustomers,
 	filterCustomersEvidence,
@@ -196,7 +191,6 @@ export function* watchSagaCall() {
 	yield takeEvery(getType(settings.request), Call);
 	yield takeEvery(getType(settingsFilter.request), Call);
 	yield takeEvery(getType(editUser.request), Call);
-	yield takeEvery(getType(customerAction.request), Call);
 	yield takeEvery(getType(quickSearch.request), Call);
 	yield takeEvery(getType(projectTree.request), Call);
 	yield takeEvery(getType(customerTree.request), Call);
@@ -209,7 +203,6 @@ export function* watchSagaCall() {
 	yield takeEvery(getType(duplicateJob.request), Call);
 	yield takeEvery(getType(addJsonToProject.request), Call);
 	yield takeEvery(getType(deleteProject.request), Call);
-	yield takeEvery(getType(arest.request), Call);
 	yield takeEvery(getType(jobTree.request), Call);
 	yield takeEvery(getType(deleteJob.request), Call);
 	yield takeEvery(getType(getProjectFiles.request), Call);
@@ -226,7 +219,6 @@ export function* watchSagaCall() {
 	yield takeEvery(getType(trussTree.request), Call);
 	yield takeEvery(getType(treeReset.request), Call);
 	yield takeEvery(getType(changeLocalPasswordAction.request), Call);
-	yield takeEvery(getType(getLegalPersonById.request), Call);
 	yield takeEvery(getType(getUserByUsername.request), Call);
 	yield takeEvery(getType(unlockJob.request), Call);
 }

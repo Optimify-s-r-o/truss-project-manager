@@ -3,9 +3,7 @@ import { Check } from './Check';
 import { CircleRemove } from './CircleRemove';
 import { Clone } from './Clone';
 import { CreateAccount } from './CreateAccount';
-import { CreateEvidenceCustomer } from './CreateEvidenceCustomer';
-import { CreateLegalCustomer } from './CreateLegalCustomer';
-import { CreateNaturalCustomer } from './CreateNaturalCustomer';
+import { CreateCustomer } from './CreateCustomer';
 import { Delete } from './Delete';
 import { Download } from './Download';
 import { DownloadPure } from './DownloadPure';
@@ -30,9 +28,7 @@ export {
 	Link,
 	Clone,
 	Upload,
-	CreateEvidenceCustomer,
-	CreateLegalCustomer,
-	CreateNaturalCustomer,
+	CreateCustomer,
 	CircleRemove,
 	PencilEdit,
 	Undo,

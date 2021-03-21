@@ -1,7 +1,6 @@
 import * as React from 'react';
 import DateInput from './DateInput';
 import { AddressInput } from './AddressInput';
-import { AddressInputSeznam } from './AddressInputSeznam';
 import { CustomerInput } from './CustomerInput';
 import { EmailInput } from './EmailInput';
 import { Evidence, Settings } from '../../../types/_types';
@@ -79,8 +78,6 @@ const FormikInput = (props: FormRowProps) => {
 			return <FormikSwitch formik={formik} name={name} />;
 		case Input.ADDRESS_GOOGLE:
 			return <AddressInput formik={formik} name={name} />;
-		case Input.ADDRESS_SEZNAM:
-			return <AddressInputSeznam formik={formik} name={name} />;
 		case Input.FILTER_TEXT:
 			return (
 				<TextInput

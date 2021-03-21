@@ -564,6 +564,8 @@ const dictionary: Lang = {
 			"Für das Passwort ist mindestens ein Kleinbuchstabe erforderlich.",
 		PasswordRequiresUpper:
 			"Für das Passwort ist mindestens ein Großbuchstabe erforderlich",
+			finishedQuotationCount: "Anzahl der fertigen Angebote",
+			finishedProductionCount: "Anzahl der fertigen Produktion",
 		treeTooltipTrussNotCalculated: "Nicht gezählt",
 		treeTooltipTrussFailed: "Er hat sich nicht daran gehalten",
 		treeTooltipTrussSucceeded: "Er folgte",
@@ -672,7 +674,7 @@ const dictionary: Lang = {
 		editEvidence: "Datensätze bearbeiten",
 		createJobInTruss3D: "Erstellen Sie eine neue Aufgabe in Truss3D",
 		createJobInTruss2D: "Erstellen Sie eine neue Aufgabe in Truss2D",
-		createLegalPerson: "Neue juristische Person",
+		createCustomer: "Kunden erstellen",
 		newCustomer: "Neuer Kunde",
 		editCustomer: "Edit Kunde",
 		editLegalPerson: "Bearbeiten einer juristischen Person",

@@ -23,7 +23,7 @@ function* getCustomersActionSaga(
 		// @ts-ignore
 		const { errorResponseData, response, success, statusText } = yield call(
 			fetchSaga,
-			ApiURL.CUSTOMERS_ALL,
+			ApiURL.CUSTOMERS,
 			Method.GET,
 			{
 				urlWildCards: action.payload as WildCards,

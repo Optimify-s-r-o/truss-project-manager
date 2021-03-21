@@ -10,6 +10,10 @@ import {
 	watchRemoveUsersAction,
 } from "../containers/Portal/Accounts/_sagas";
 import {
+	watchAresGetAction,
+	watchCreateCustomerAction,
+	watchGetCustomerByIdAction,
+	watchGetCustomerSimplifiedAction,
 	watchRemoveCustomerAction,
 	watchUpdateCustomerAction,
 } from "../containers/Portal/Customer/_sagas";
@@ -159,9 +163,13 @@ export const rootSaga = [
 	watchAddToSelection,
 	watchRemoveFromSelection,
 	watchUpdateCustomerAction,
+	watchCreateCustomerAction,
 	watchResetSelection,
+	watchGetCustomerByIdAction,
+	watchGetCustomerSimplifiedAction,
 	watchRemoveCustomerAction,
 	watchGetTrussesGetAction,
+	watchAresGetAction,
 	watchRemoveUsersAction,
 	watchGetUsersAction,
 ];

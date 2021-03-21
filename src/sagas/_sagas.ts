@@ -1,5 +1,6 @@
+import Cookies from 'universal-cookie';
 import { ApiURL } from '../constants/api';
-import { call, put, select } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { getLanguage, lang, t } from '../translation/i18n';
 import { notificationAction } from '../components/Toast/_actions';
 import { push } from 'connected-react-router';
@@ -65,19 +66,19 @@ const createRequestParams = ({
 	bodyFormData,
 	bodyJSON,
 	method,
-	privateToken,
+	token,
 }: {
 	bodyFormData?: FormData;
 	bodyJSON?: object;
 	method: string;
-	privateToken: string;
+	token: string;
 }): RequestInit => {
 	const headers: HeadersInit = {
 		...(getLanguage && { "Accept-Language": getLanguage() }),
 		Accept: "application/json",
 		"no-cors": "true",
 		"Access-Control-Allow-Origin": "*",
-		...(privateToken && { Authorization: `Bearer ${privateToken}` }),
+		...(token && { Authorization: `Bearer ${token}` }),
 		...(bodyJSON && { "Content-Type": "application/json" }),
 	} as HeadersInit;
 
@@ -154,19 +155,15 @@ export function* fetchSaga(
 	let fetchData: FetchSagaReponseType;
 
 	try {
-		const local = yield select((state: any) => state.AuthReducer.local);
-		const privateToken = yield select((state: any) => state.AuthReducer.token);
-
+		const token = new Cookies().get("token");
 		const requestParams = yield call(createRequestParams, {
 			bodyFormData,
 			bodyJSON,
 			method,
-			privateToken,
+			token,
 		});
 
-		const server = local
-			? process.env.REACT_APP_API_URL_LOCAL
-			: process.env.REACT_APP_BACKEND_API;
+		const server = process.env.REACT_APP_BACKEND_API;
 
 		const appUrl = yield call(
 			makeUrl,

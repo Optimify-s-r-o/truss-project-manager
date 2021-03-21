@@ -2,17 +2,18 @@ import Component from './Component';
 import { addJsonToProject } from './File/_actions';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { CreateCustomer } from '../../../Customer/_types';
+import { createCustomerAction } from '../../../Customer/_actions';
 import { createJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_actions';
 import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
-import { Customer, Page } from '../../../../../types/_types';
 import { deleteFile, duplicateJob, projectUpdate } from './_actions';
 import { deleteJob, unlockJob } from '../../Job/_actions';
 import { DeleteJob, Unlock } from '../../Job/_types';
 import { getCustomers } from '../../../SidebarFilter/_actions';
 import { IAddJsonToProject } from './File/_types';
+import { Page } from '../../../../../types/_types';
 import { SelectedProjectsRequest } from '../../Projects/_types';
 import { setExpandedKeys, setSelectedKeys } from '../../_actions';
-import { updateCustomerAction } from '../../../Customer/_actions';
 import { usersAction } from 'src/containers/Portal/Accounts/_actions';
 import { withRouter } from 'react-router-dom';
 import {
@@ -64,8 +65,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
 	setExpandedKeys: (data: string[]) => dispatch(setExpandedKeys(data)),
 	unlockJob: (data: Unlock) => dispatch(unlockJob.request(data)),
-	saveEvidenceCustomer: (data: Customer) =>
-		dispatch(updateCustomerAction.request(data)),
+	createCustomerAction: (data: CreateCustomer) =>
+		dispatch(createCustomerAction.request(data)),
 });
 
 const mapStateToProps = (state: any) => ({

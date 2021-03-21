@@ -1,12 +1,12 @@
 import Logs from './Logs';
 import React, { useEffect } from 'react';
-import { Customer, Project, TreeType } from '../../../../../types/_types';
+import { Customer } from 'src/containers/Portal/Customer/_types';
 import { CustomersAll } from '../../../Lists/Customers/_types';
 import { getProjectLog } from '../../../../../sagas/Fetch/actions';
 import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
+import { Project, Settings, TreeType } from '../../../../../types/_types';
 import { ProjectFile, ProjectLog, ProjectLogsRequest } from '../_types';
 import { RouteComponentProps, useParams } from 'react-router-dom';
-import { Settings } from '../../../../../types/_types';
 import { UserData } from '../../../Accounts/_types';
 import {
 	WithTranslation,

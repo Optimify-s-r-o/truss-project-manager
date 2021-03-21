@@ -1,25 +1,14 @@
 import ExternalTable from '../../../../components/Optimify/Table/ExternalTable';
 import Moment from 'react-moment';
 import React, { useEffect } from 'react';
-import Tooltip from '../../../../components/Optimify/Tooltip';
-import { faIdCard } from '@fortawesome/pro-light-svg-icons';
-import { faSuitcase } from '@fortawesome/pro-duotone-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { formatCurrency } from '../../../../utils/currencyFormat';
-import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../utils/getPath';
-import { IconButton } from '../../../../components/Optimify/Button';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Link, RouteComponentProps, useHistory } from 'react-router-dom';
+import { CreateCustomer, Delete, Edit } from '../../../../components/Button';
+import { Customer, CustomerProxy } from '../../Customer/_types';
+import { CustomersAllFilterRequest, DeleteRequest } from './_types';
+import { FilterSettings, Page, TreeType } from '../../../../types/_types';
+import { lastPathMember, translationPath } from '../../../../utils/getPath';
 import { Main } from './_styles';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
 import { Routes } from '../../../../constants/routes';
-import {
-	CreateEvidenceCustomer,
-	CreateLegalCustomer,
-	CreateNaturalCustomer,
-	Delete,
-	Edit,
-} from "../../../../components/Button";
 import {
 	CardEndTableWrapper,
 	ContentCard,
@@ -36,24 +25,11 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../../translation/i18n";
-import {
-	Customer,
-	FilterSettings,
-	Page,
-	TreeType,
-} from "../../../../types/_types";
-import {
-	CustomersAll,
-	CustomersAllFilterRequest,
-	CustomersAllProxy,
-	CustomerType,
-	DeleteRequest,
-} from "./_types";
 
 export interface StateProps {
 	activeTree: TreeType;
 	filter: FilterSettings;
-	customers: CustomersAll[];
+	customers: Customer[];
 	path: string;
 	pending: boolean;
 	firstRecordOnPage: number | null;
@@ -93,7 +69,7 @@ const Index = ({
 	const history = useHistory();
 
 	useEffect(() => {
-		getCustomers({ Page: 0, PageSize: 25, Sort: "" });
+		getCustomers({ Page: 0, PageSize: 25, Sort: "", Paginate: true });
 	}, []);
 
 	const remove = (id: string) => (
@@ -109,32 +85,20 @@ const Index = ({
 		});
 	};
 
-	const navigate = (customer: CustomersAll) => {
-		const id =
-			customer.Type === 0
-				? get(customer, getPath(CustomersAllProxy.Customer.Evidence.Id))
-				: customer.Type === 1
-				? get(customer, getPath(CustomersAllProxy.Customer.Company.Id))
-				: get(customer, getPath(CustomersAllProxy.Customer.Person.Id));
-		history.push(
-			customer.Type === CustomerType.Evidence
-				? Routes.LINK_NEW_EVIDENCE_CUSTOMER + id
-				: customer.Type === CustomerType.Legal
-				? Routes.LINK_NEW_LEGAL_CUSTOMER + id
-				: Routes.LINK_NEW_NATURAL_CUSTOMER + id
-		);
+	const navigate = (customer: Customer) => {
+		history.push(Routes.EDIT_CUSTOMER_LINK + customer.Id);
 	};
 
 	const columns = [
-		"Name",
-		"Type",
-		"ProjectsCount",
-		"DateOfCreation",
-		"Crn",
-		"VatRegNum",
-		"SumOfProjectPrices",
-		"QuotationCount",
-		"ProductionCount",
+		lastPathMember(CustomerProxy.Company).path,
+		lastPathMember(CustomerProxy.Crn).path,
+		lastPathMember(CustomerProxy.VatRegNo).path,
+		lastPathMember(CustomerProxy.Forename).path,
+		lastPathMember(CustomerProxy.Surname).path,
+		lastPathMember(CustomerProxy.DateOfCreation).path,
+		lastPathMember(CustomerProxy.ProjectCount).path,
+		lastPathMember(CustomerProxy.FinishedQuotationCount).path,
+		lastPathMember(CustomerProxy.FinishedProductionCount).path,
 	];
 
 	return (
@@ -156,9 +120,7 @@ const Index = ({
 						<ContentSpaceBetweenWithPadding>
 							<Header1>{t(translationPath(lang.common.customersList))}</Header1>
 							<ContentRow>
-								<CreateLegalCustomer />
-								<CreateNaturalCustomer />
-								<CreateEvidenceCustomer />
+								<CreateCustomer />
 							</ContentRow>
 						</ContentSpaceBetweenWithPadding>
 
@@ -188,125 +150,66 @@ const Index = ({
 									false,
 								]}
 								headers={[
-									t(translationPath(lang.common.name)),
-									t(translationPath(lang.common.projectNumber)),
-									t(translationPath(lang.common.type)),
-									t(translationPath(lang.common.dateOfCreation)),
+									t(translationPath(lang.common.companyName)),
 									t(translationPath(lang.common.crn)),
 									t(translationPath(lang.common.vatRegNo)),
-									t(translationPath(lang.common.sumOfProjects)),
-									t(translationPath(lang.common.numberOfQuotationsFilter)),
-									t(translationPath(lang.common.productionsCount)),
+									t(translationPath(lang.common.surname)),
+									t(translationPath(lang.common.forename)),
+									t(translationPath(lang.common.customerDateOfCreationFilter)),
+									t(translationPath(lang.common.numberOfProjectsFilter)),
+									t(translationPath(lang.common.finishedQuotationCount)),
+									t(translationPath(lang.common.finishedProductionCount)),
 									t(translationPath(lang.common.actions)),
 								]}
 								data={
 									customers
-										? customers?.map((value: CustomersAll, key: number) => [
-												value.Name,
-												value.ProjectsCount,
-												value.Type,
-												value.DateOfCreation,
+										? customers?.map((value: Customer, key: number) => [
+												value.Company,
 												value.Crn,
-												value.VatNumber,
-												value.SumOfProjectPrices,
-												value.QuotationsCount,
-												value.ProductionsCount,
+												value.VatRegNo,
+												value.Surname,
+												value.Forename,
+												value.DateOfCreation,
+												value.ProjectCount,
+												value.FinishedQuotationCount,
+												value.FinishedProductionCount,
 												value,
 												value,
 										  ])
 										: []
 								}
 								renderers={[
-									(value: CustomersAll, key: number, parent: Customer) => {
+									(value: Customer, key: number, parent: Customer) => {
 										return value;
 									},
-									(value: CustomersAll, key: number, parent: Customer) => {
+									(value: Customer, key: number, parent: Customer) => {
 										return value;
 									},
 									(value: number, key: number, parent: Customer) => {
-										return value == 0
-											? t(translationPath(lang.common.evidencePerson))
-											: value == 1
-											? t(translationPath(lang.common.legalPerson))
-											: t(translationPath(lang.common.naturalPerson));
+										return value;
+									},
+									(value: number, key: number, parent: Customer) => {
+										return value;
+									},
+									(value: number, key: number, parent: Customer) => {
+										return value;
 									},
 									(value: string, key: number, parent: Customer) => {
 										return <Moment format="DD/MM/YYYY">{value}</Moment>;
 									},
-									(value: CustomersAll, key: number, parent: Customer) => {
+									(value: Customer, key: number, parent: Customer) => {
 										return value;
 									},
-									(value: CustomersAll, key: number, parent: Customer) => {
+									(value: Customer, key: number, parent: Customer) => {
 										return value;
 									},
-									(value: CustomersAll, key: number, parent: Customer) => {
-										return formatCurrency(value);
-									},
-									(value: CustomersAll, key: number, parent: Customer) => {
+									(value: Customer, key: number, parent: Customer) => {
 										return value;
 									},
-									(value: CustomersAll, key: number, parent: Customer) => {
-										return value;
-									},
-									(value: CustomersAll, key: number, parent: Customer) => {
+									(value: Customer, key: number, parent: Customer) => {
 										return (
 											<div>
 												<Edit edit={() => navigate(value)} />
-												{value.Type === CustomerType.Evidence && (
-													<>
-														<Tooltip
-															title={t(
-																translationPath(lang.common.createLegalPerson)
-															)}
-															placement={"bottom"}
-														>
-															<span style={{ marginLeft: 5 }}>
-																<Link
-																	to={{
-																		pathname:
-																			Routes.LINK_NEW_LEGAL_CUSTOMER +
-																			value.Id +
-																			"/" +
-																			value.Name,
-																	}}
-																>
-																	<IconButton iconOnly>
-																		<FontAwesomeIcon
-																			icon={faSuitcase as IconProp}
-																			color={"#bb9e00"}
-																		/>
-																	</IconButton>
-																</Link>
-															</span>
-														</Tooltip>
-														<Tooltip
-															title={t(
-																translationPath(lang.common.createNaturalPerson)
-															)}
-															placement={"bottom"}
-															sideMargin
-														>
-															<span style={{ marginLeft: 5, marginRight: 2 }}>
-																<Link
-																	to={{
-																		pathname:
-																			Routes.LINK_NEW_NATURAL_CUSTOMER +
-																			value.Id +
-																			"/" +
-																			value.Name,
-																	}}
-																>
-																	<IconButton iconOnly>
-																		<FontAwesomeIcon
-																			icon={faIdCard as IconProp}
-																			color={"green"}
-																		/>
-																	</IconButton>
-																</Link>
-															</span>
-														</Tooltip>
-													</>
-												)}
 												&nbsp;
 												<Delete
 													title={t(translationPath(lang.remove.customer), {

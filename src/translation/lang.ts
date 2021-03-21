@@ -535,7 +535,8 @@ export type Lang = Readonly<{
 		PasswordRequiresDigit: string;
 		PasswordRequiresLower: string;
 		PasswordRequiresUpper: string;
-
+		finishedQuotationCount: string;
+		finishedProductionCount: string;
 		// Truss
 		treeTooltipTrussNotCalculated: string;
 		treeTooltipTrussFailed: string;
@@ -653,7 +654,7 @@ export type Lang = Readonly<{
 		editEvidence: string;
 		createJobInTruss3D: string;
 		createJobInTruss2D: string;
-		createLegalPerson: string;
+		createCustomer: string;
 		editLegalPerson: string;
 		createNaturalPerson: string;
 		createNewFromEvidence: string;

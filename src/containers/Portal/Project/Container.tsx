@@ -1,24 +1,21 @@
 import Component, { StateProps } from './Component';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { CreateCustomer } from '../Customer/_types';
+import { createCustomerAction } from '../Customer/_actions';
 import { createfromJson, ProjectRequest } from './_types';
 import { createProject, createProjectWithJson } from './_actions';
-import { Customer, Page } from '../../../types/_types';
 import { getCustomers } from '../SidebarFilter/_actions';
+import { Page } from '../../../types/_types';
 import { withRouter } from 'react-router-dom';
-import {
-	clearEvidenceAction,
-	updateCustomerAction,
-} from "../Customer/_actions";
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	saveProject: (data: ProjectRequest) => dispatch(createProject.request(data)),
 	saveProjectFromJson: (data: createfromJson) =>
 		dispatch(createProjectWithJson.request(data)),
 	getCustomers: (data: Page) => dispatch(getCustomers.request(data)),
-	saveEvidenceCustomer: (data: Customer) =>
-		dispatch(updateCustomerAction.request(data)),
-	clearEvidenceAction: (data: void) => dispatch(clearEvidenceAction()),
+	createCustomerAction: (data: CreateCustomer) =>
+		dispatch(createCustomerAction.request(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({

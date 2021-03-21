@@ -5,8 +5,15 @@ import AttachedFiles, { FileEnum } from './AttachedFiles';
 import FormikRow from '../../../components/Optimify/Form/FormikRow';
 import moment from 'moment';
 import { Button } from '../../../components/Optimify/Button';
+import { CreateCustomer, Customer } from '../Customer/_types';
 import { createfromJson, CreateInEvidence, ProjectRequest } from './_types';
 import { CustomersAll } from '../Lists/Customers/_types';
+import {
+	Evidence,
+	Page,
+	ProjectProxy,
+	Settings
+	} from '../../../types/_types';
 import { faFolderPlus } from '@fortawesome/pro-light-svg-icons';
 import { Files } from './Files';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -35,13 +42,6 @@ import {
 	withTranslation,
 } from "../../../translation/i18n";
 import {
-	Customer,
-	Evidence,
-	Page,
-	ProjectProxy,
-	Settings,
-} from "../../../types/_types";
-import {
 	MainTree,
 	MainTreeContent,
 	TreeButtonsRow,
@@ -69,14 +69,13 @@ export interface DispatchProps {
 	getCustomers: (data: Page) => void;
 	saveProjectFromJson: (data: createfromJson) => void;
 	createInEvidenceAction: (data: CreateInEvidence) => void;
-	saveEvidenceCustomer: (data: Customer) => void;
-	clearEvidenceAction: (data: void) => void;
+	createCustomerAction: (data: CreateCustomer) => void;
 }
 
 const Index = (
 	props: StateProps & DispatchProps & WithTranslation & RouteComponentProps
 ) => {
-	const { all, clearEvidenceAction } = props;
+	const { all } = props;
 	const [truss3DExe, setTruss3DExe] = React.useState("");
 	const [truss2DExe, setTruss2DExe] = React.useState("");
 	const [button, setButton] = React.useState(3);
@@ -134,12 +133,6 @@ const Index = (
 	});
 
 	React.useEffect(() => {
-		return () => {
-			clearEvidenceAction();
-		};
-	}, []);
-
-	React.useEffect(() => {
 		formik.setFieldValue("AssignedUser", props.username);
 	}, [props.username]);
 
@@ -159,10 +152,9 @@ const Index = (
 	}, []);
 
 	const addCustomer = (data: string) => {
-		props.saveEvidenceCustomer({
-			Evidence: { Name: data },
-			Person: null,
-			Company: null,
+		props.createCustomerAction({
+			Company: data,
+			Redirect: false,
 		});
 	};
 

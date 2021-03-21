@@ -1,5 +1,4 @@
 import Component, { StateProps } from './Component';
-import { clearEvidenceAction } from '../../Customer/_actions';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createTruss, OpenTruss } from '../../../../sagas/Truss/_actions';
@@ -24,7 +23,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	setProject: (data: Project) => dispatch(setProject(data)),
 	createTruss: (data: OpenTruss) => dispatch(createTruss.request(data)),
 	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
-	clearEvidenceAction: (data: void) => dispatch(clearEvidenceAction()),
 	setLoading: (data: boolean) => dispatch(setLoading(data)),
 });
 

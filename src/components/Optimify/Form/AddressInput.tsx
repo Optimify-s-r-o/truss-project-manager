@@ -11,6 +11,7 @@ interface IAddressInput {
 	formik: any;
 	name: string;
 }
+/* global google */
 export const AddressInput = ({ formik, name }: IAddressInput) => {
 	const address = useRef(null);
 	const [currentAddress, setCurrentAddress] = useState<string>(null);

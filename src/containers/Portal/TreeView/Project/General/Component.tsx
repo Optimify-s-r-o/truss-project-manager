@@ -7,7 +7,9 @@ import Jobs from './Jobs';
 import moment from 'moment';
 import RouteLeavingGuard from '../../../../../components/Prompt';
 import { Button } from '../../../../../components/Optimify/Button';
+import { CreateCustomer } from '../../../Customer/_types';
 import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
+import { Customer } from 'src/containers/Portal/Customer/_types';
 import { CustomersAll } from '../../../Lists/Customers/_types';
 import { DeleteJob, Unlock } from '../../Job/_types';
 import { FileRequest } from '../../../../../sagas/DownloadFile/_actions';
@@ -41,7 +43,6 @@ import {
 	withTranslation,
 } from "../../../../../translation/i18n";
 import {
-	Customer,
 	Evidence,
 	Page,
 	Project,
@@ -105,7 +106,7 @@ export interface DispatchProps {
 	setExpandedKeys: (data: string[]) => void;
 	createJobFromTrussFile?: (data: CreateJobFromTrussFile) => void;
 	unlockJob: (data: Unlock) => void;
-	saveEvidenceCustomer: (data: Customer) => void;
+	createCustomerAction: (data: CreateCustomer) => void;
 }
 
 export interface JobName {
@@ -142,7 +143,7 @@ const Index = ({
 	selectedKeys,
 	createJobFromTrussFile,
 	unlockJob,
-	saveEvidenceCustomer,
+	createCustomerAction,
 	filesUploading,
 	loadingCustomerAction,
 	loadingCustomers,
@@ -172,10 +173,9 @@ const Index = ({
 	});
 
 	const addCustomer = (data: string) => {
-		saveEvidenceCustomer({
-			Evidence: { Name: data },
-			Person: null,
-			Company: null,
+		createCustomerAction({
+			Company: data,
+			Redirect: false,
 		});
 	};
 

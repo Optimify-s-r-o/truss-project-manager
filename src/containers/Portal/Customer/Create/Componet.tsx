@@ -8,21 +8,18 @@ import {
 	Edit,
 	Upload
 	} from '../../../../components/Button';
-import { ApiURL } from '../../../../constants/api';
-import { arest } from './_actions';
 import { Button } from '../../../../components/Optimify/Button';
-import { CustomerFetch } from '../_types';
-import { CustomerRootObject, IArest } from './_types';
+import { Contact, Page } from '../../../../types/_types';
+import { CreateCustomer, Customer, CustomerProxy } from '../_types';
 import { faSuitcase } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getLegalPersonByIdCall } from '../../../../sagas/Fetch/actions';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Input, Method } from '../../../../constants/enum';
+import { Input } from '../../../../constants/enum';
 import { lang, WithTranslation } from '../../../../translation/i18n';
+import { lastPathMember, translationPath } from '../../../../utils/getPath';
 import { Modal } from './components/Dialog';
 import { RouteComponentProps, useParams } from 'react-router-dom';
 import { ScrollableTable } from '../../../../components/Optimify/Table';
-import { translationPath } from '../../../../utils/getPath';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import {
@@ -39,14 +36,6 @@ import {
 	TitleSection,
 } from "../../../../constants/globalStyles";
 import {
-	Company,
-	Contact,
-	Customer,
-	Fetch,
-	Settings,
-	TreeType,
-} from "../../../../types/_types";
-import {
 	MainTree,
 	MainTreeContent,
 	TreeButtonsRow,
@@ -55,28 +44,22 @@ import {
 } from "../../_styles";
 
 export interface StateProps {
-	activeTree: TreeType;
-	pending: boolean;
-	pendingArest: boolean;
-	arestResponse: Company;
-	settings: Settings;
 	customer: Customer;
-	customerPending: boolean;
-	toast: any;
-	legal: Company;
+	pending: boolean;
+	ares: Customer;
+	aresPending: boolean;
 }
 
 export interface DispatchProps {
-	loadData: (data: IArest) => void;
-	saveLegalPerson: (data: CustomerRootObject) => void;
-	getCustomer: (data: CustomerFetch) => void;
-	save: (data: Customer) => void;
-	clearCustomer: () => void;
-	clearArest: () => void;
-	getSettings: (data: Fetch) => void;
+	createCustomerAction: (data: CreateCustomer) => void;
+	getAllCustomersSimplifiedAction: (data: Page) => void;
+	getCustomerByIdAction: (data: string) => void;
+	updateCustomerAction: (data: Customer) => void;
+	deleteCustomerAction: (data: string) => void;
+	loadCompanyDataFromAres: (data: string) => void;
+	clearAres: () => void;
+	clearCustomerAction: () => void;
 	clearToast: () => void;
-	getLegalPersonById: (data: Fetch) => void;
-	clearLegal: () => void;
 }
 
 let guid = () => {
@@ -102,33 +85,43 @@ let guid = () => {
 };
 
 const Index = ({
-	arestResponse,
-	activeTree,
-	getSettings,
-	settings,
-	loadData,
+	customer,
 	pending,
-	pendingArest,
-	save,
-	legal,
-	customerPending,
-	clearLegal,
-	getLegalPersonById,
+	ares,
+	aresPending,
+	createCustomerAction,
+	getAllCustomersSimplifiedAction,
+	getCustomerByIdAction,
+	updateCustomerAction,
+	deleteCustomerAction,
+	loadCompanyDataFromAres,
+	clearAres,
+	clearCustomerAction,
+	clearToast,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const [isModalVisible, setIsModalVisible] = React.useState(false);
 	const [editedPerson, setEditedPerson] = React.useState(null);
 	const [contacts, setContacts] = React.useState([]);
-	const { id, evidence } = useParams<{ id: string; evidence: string }>();
+	const { id } = useParams<{ id: string }>();
 	const { t } = useTranslation();
+
 	const formik = useFormik({
 		initialValues:
-			legal && id
-				? legal
+			customer && id
+				? customer
 				: {
 						Id: "",
 						Name: "",
 						Crn: "",
 						VatRegNo: "",
+						Company: "",
+						Forename: "",
+						Surname: "",
+						DateOfCreation: "",
+						ProjectCount: "",
+						FinishedQuotationCount: "",
+						FinishedProductionCount: "",
+						Note: "",
 						Address: {
 							Country: "",
 							CountryId: "",
@@ -141,50 +134,49 @@ const Index = ({
 						Contacts: [],
 				  },
 		validationSchema: Yup.object({
-			Name: Yup.string()
-				.min(1, t(translationPath(lang.validation.min).path, { count: 1 }))
-				.max(200, t(translationPath(lang.validation.max).path, { count: 200 }))
-				.required(t(translationPath(lang.validation.required).path)),
-			Crn: Yup.string()
+			Company: Yup.string()
 				.min(1, t(translationPath(lang.validation.min).path, { count: 1 }))
 				.max(200, t(translationPath(lang.validation.max).path, { count: 200 }))
 				.required(t(translationPath(lang.validation.required).path)),
 		}),
 		enableReinitialize: true,
-		onSubmit: (values: Company) => {
-			save({
-				Evidence: null,
-				Person: null,
-				Company: { ...values, Contacts: contacts },
-				Redirect: true,
-			});
+		onSubmit: (values: Customer) => {
+			if (customer && id) {
+				updateCustomerAction({ ...values, Contacts: contacts });
+				return;
+			}
+			createCustomerAction({ ...values, Contacts: contacts, Redirect: true });
 		},
 	});
 
 	React.useEffect(() => {
-		if (evidence && id) {
-			formik.setValues({ ...formik.values, Name: evidence, Id: id });
-		} else if (id) {
-			getLegalPersonById(getLegalPersonByIdCall(id));
+		console.log(id);
+		if (id) {
+			getCustomerByIdAction(id);
 		} else {
 			formik.resetForm();
 		}
-	}, [id, evidence]);
+	}, [id]);
 
 	React.useEffect(() => {
 		return () => {
-			clearLegal();
+			clearCustomerAction();
 		};
 	}, []);
 	React.useEffect(() => {
-		setContacts(legal?.Contacts || []);
-	}, [legal]);
+		setContacts(customer?.Contacts || []);
+	}, [customer]);
 
 	React.useEffect(() => {
-		if (arestResponse) {
-			formik.setValues(arestResponse);
+		if (ares) {
+			formik.setValues({
+				...formik.values,
+				Company: ares.Name,
+				Address: ares.Address as any,
+				VatRegNo: ares.VatRegNo,
+			});
 		}
-	}, [arestResponse]);
+	}, [ares]);
 
 	const contactFormik = useFormik({
 		initialValues: {
@@ -254,7 +246,7 @@ const Index = ({
 		<MainTree>
 			<Loading
 				text={t(translationPath(lang.common.loading).path)}
-				pending={customerPending}
+				pending={pending}
 				margin
 			>
 				<MainTreeContent>
@@ -283,39 +275,69 @@ const Index = ({
 											</Header1>
 											<FormikRow
 												formik={formik}
-												name="Crn"
-												title={t(translationPath(lang.common.crn).path)}
-												type={Input.TEXT}
-											>
-												<Upload
-													upload={() =>
-														loadData({
-															action: arest,
-															url: ApiURL.ARES,
-															method: Method.GET,
-															param: formik.values.Crn,
-														})
-													}
-													title={t(translationPath(lang.common.ares).path)}
-												/>
-											</FormikRow>
-											<FormikRow
-												formik={formik}
-												name="VatRegNo"
-												title={t(translationPath(lang.common.vatRegNo).path)}
-												type={Input.TEXT}
-											/>
-											<FormikRow
-												formik={formik}
-												name="Name"
+												name={lastPathMember(CustomerProxy.Company).path}
 												title={t(translationPath(lang.common.companyName).path)}
 												type={Input.TEXT}
 											/>
 											<FormikRow
 												formik={formik}
-												name={"Address"}
+												name={lastPathMember(CustomerProxy.Crn).path}
+												title={t(translationPath(lang.common.crn).path)}
+												type={Input.TEXT}
+											>
+												<Upload
+													upload={() =>
+														loadCompanyDataFromAres(formik.values.Crn)
+													}
+													title={t(translationPath(lang.common.ares).path)}
+													uploading={aresPending}
+												/>
+											</FormikRow>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(CustomerProxy.VatRegNo).path}
+												title={t(translationPath(lang.common.vatRegNo).path)}
+												type={Input.TEXT}
+											/>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(CustomerProxy.Surname).path}
+												title={t(translationPath(lang.common.surname).path)}
+												type={Input.TEXT}
+											/>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(CustomerProxy.Forename).path}
+												title={t(translationPath(lang.common.forename).path)}
+												type={Input.TEXT}
+											/>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(CustomerProxy.PhoneNumber).path}
+												title={t(translationPath(lang.common.phone).path)}
+												type={Input.PHONE}
+											/>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(CustomerProxy.Email).path}
+												title={t(translationPath(lang.common.email).path)}
+												type={Input.EMAIL}
+											/>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(CustomerProxy.Address).path}
 												title={t(translationPath(lang.common.address).path)}
 												type={Input.ADDRESS_GOOGLE}
+											/>
+											<FormikRow
+												formik={formik}
+												name={lastPathMember(CustomerProxy.DateOfCreation).path}
+												title={t(
+													translationPath(
+														lang.common.customerDateOfCreationFilter
+													).path
+												)}
+												type={Input.DATE}
 											/>
 										</ContentCard>
 									</GridItem>
@@ -393,7 +415,7 @@ const Index = ({
 								<Button level={1} loading={pending}>
 									{id
 										? t(translationPath(lang.common.save).path)
-										: t(translationPath(lang.common.createLegalPerson).path)}
+										: t(translationPath(lang.common.createCustomer).path)}
 								</Button>
 							</TreeButtonsRow>
 						</TreeScreen>

@@ -1,8 +1,8 @@
 import { createProxy } from '../../../../utils/getPath';
+import { Customer } from '../../Customer/_types';
 import { Page } from './../../../../types/_types';
 import {
 	Company,
-	Customer,
 	Evidence,
 	Fetch,
 	FetchStateType,

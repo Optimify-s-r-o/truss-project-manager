@@ -18,11 +18,7 @@ const Root = ({ token }: IApp) => {
 	return (
 		<Suspense fallback={<h1>Loading profile...</h1>}>
 			<Switch>
-				<ProtectedRoute
-					path={Routes.PORTAL}
-					component={LazyPortal}
-					token={token}
-				/>
+				<ProtectedRoute path={Routes.PORTAL} component={LazyPortal} />
 				<Route path={Routes.HOME} component={Home} />
 			</Switch>
 		</Suspense>

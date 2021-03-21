@@ -20,7 +20,7 @@ export const Upload = ({ upload, title, uploading }: IUpload) => {
 				<IconButton type="button" iconOnly onClick={() => upload()}>
 					{uploading ? (
 						<LoaderWrapper iconOnly={true}>
-							<Loader size={24} />
+							<Loader size={24} color={"#6d4b0c"} />
 						</LoaderWrapper>
 					) : (
 						<FontAwesomeIcon icon={faUpload as IconProp} color={"#6d4b0c"} />

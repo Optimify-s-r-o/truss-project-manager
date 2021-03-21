@@ -1,14 +1,12 @@
 import { addJsonToProject } from '../../containers/Portal/TreeView/Project/General/File/_actions';
 import { ApiURL } from '../../constants/api';
 import { deleteProject } from '../../containers/Portal/Project/_actions';
-import { getLegalPersonById } from '../../containers/Portal/Customer/Create/_actions';
 import { getProjects } from './../../containers/Portal/SidebarFilter/_actions';
 import { getUserByUsername } from '../../containers/Portal/Accounts/_actions';
 import { Method } from '../../constants/enum';
 import { ProjectNameJobName } from '../../containers/Portal/TreeView/Job/_types';
 import { Routes } from '../../constants/routes';
 import { settings, settingsFilter } from '../../containers/Portal/_actions';
-import { updateCustomerAction } from '../../containers/Portal/Customer/_actions';
 import {
 	deleteCustomer,
 	filterCustomersEvidence,
@@ -48,7 +46,6 @@ import {
 	trussTree,
 } from "../../containers/Portal/TreeView/_actions";
 import {
-	Customer,
 	CustomerEnum,
 	EnumBody,
 	JobType,
@@ -86,60 +83,6 @@ export const deleteCustomerAction = (
 		method: Method.DELETE,
 		url: ApiURL.CUSTOMERS,
 		param: id,
-	};
-};
-
-export const saveLegalCustomerAction = (
-	value: Customer,
-	activeTree: TreeType
-) => {
-	return {
-		action: updateCustomerAction,
-		actionsOnSuccess: [getFiltersSettings()],
-		data: value,
-		method: Method.PUT,
-		url: ApiURL.CUSTOMERS,
-		successMessage: true,
-		path: Routes.CUSTOMER_ALL,
-	};
-};
-
-export const saveNaturalCustomerAction = (
-	value: Customer,
-	activeTree: TreeType
-) => {
-	return {
-		action: updateCustomerAction,
-		actionsOnSuccess: [getFiltersSettings()],
-		data: value,
-		method: Method.PUT,
-		url: ApiURL.CUSTOMERS,
-		successMessage: true,
-		path: Routes.CUSTOMER_ALL,
-	};
-};
-
-export const saveEvidenceCustomerAction = (
-	value: Customer,
-	activeTree?: TreeType
-) => {
-	return {
-		action: updateCustomerAction,
-		actionsOnSuccess: [getFiltersSettings()],
-		data: value,
-		method: Method.PUT,
-		url: ApiURL.CUSTOMERS,
-		successMessage: true,
-		path: Routes.CUSTOMER_ALL,
-	};
-};
-
-export const saveEvidenceAction = (value: Customer, activeTree?: TreeType) => {
-	return {
-		action: updateCustomerAction,
-		data: value,
-		method: Method.PUT,
-		url: ApiURL.CUSTOMERS,
 	};
 };
 
@@ -253,14 +196,7 @@ export const getLegalCustomers = () => {
 		method: Method.GET,
 	};
 };
-export const getLegalPersonByIdCall = (id: string) => {
-	return {
-		url: ApiURL.CUSTOMERS_LEGAL,
-		action: getLegalPersonById,
-		param: id,
-		method: Method.GET,
-	};
-};
+
 export const getPersonCustomers = () => {
 	return {
 		url: ApiURL.CUSTOMERS_PERSON,
