@@ -122,12 +122,15 @@ function* createCustomerActionSaga(
 				bodyJSON: action.payload,
 			}
 		);
-
 		if (!success) {
 			yield put(
 				notificationAction({
 					code: Status.ERROR,
-					message: t(translationPath(lang.common[statusText])),
+					message: t(
+						translationPath(
+							lang.common[(errorResponseData as Error).ErrorMessage]
+						)
+					),
 				})
 			);
 			yield put(createCustomerAction.failure(errorResponseData));

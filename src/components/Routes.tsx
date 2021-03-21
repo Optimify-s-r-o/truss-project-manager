@@ -30,11 +30,10 @@ import {
 } from "../containers/Portal/Customer/Create/Container";
 
 interface IProps {
-	token: string;
 	connect: HubConnection;
 }
 
-const Index = ({ token, connect }: IProps) => {
+const Index = ({ connect }: IProps) => {
 	return (
 		<Switch>
 			{/*Projects*/}

@@ -54,8 +54,7 @@ export interface StateProps {
 	pending: boolean;
 	router: any;
 	pathname: string;
-	local: boolean;
-	token: string;
+
 	currentPage: number;
 	totalPages: number;
 	totalRecords: number;
@@ -117,8 +116,6 @@ export interface DispatchProps {
 const Index = ({
 	removeFromSelection,
 	addToSelection,
-	local,
-	token,
 	setCloud,
 	currentPage,
 	totalPages,
@@ -249,8 +246,6 @@ const Index = ({
 	return (
 		<HubComponent
 			setHubConnection={setHubConnection}
-			token={token}
-			local={local}
 			connect={connect}
 			setActiveTree={setActiveTree}
 			setActive={setActive}
@@ -277,7 +272,6 @@ const Index = ({
 				<WindowWrapper>
 					<FullHeightExceptHeader>
 						<NavigationSetting
-							local={local}
 							setCloud={setCloud}
 							setTheme={setTheme}
 							mode={mode}
@@ -328,7 +322,7 @@ const Index = ({
 								resetSelectionAction={resetSelectionAction}
 							/>
 							<ContentRow>
-								<Routing token={token} connect={connect} />
+								<Routing connect={connect} />
 							</ContentRow>
 							<Filter
 								filterEntities={filterEntities}

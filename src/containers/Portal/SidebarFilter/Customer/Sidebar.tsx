@@ -1,8 +1,7 @@
 import * as React from 'react';
 import DateRange from './DateRange';
 import General from './General';
-import Price from './Price';
-import TechnicalParameters from './TechnicalParameters';
+import Statistics from './Statistics';
 import { FilterSettings, Page, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
 import { Grow } from '../../Lists/components/_styles';
@@ -39,8 +38,8 @@ const Index = ({
 			<SelectType activeFilter={activeFilter} handleChange={handleChange} />
 			<Grow>
 				<General formik={formik} filter={filter} />
-				<TechnicalParameters formik={formik} filter={filter} />
-				<Price formik={formik} filter={filter} />
+				<Statistics formik={formik} filter={filter} />
+				{/* <Price formik={formik} filter={filter} /> */}
 				<DateRange formik={formik} filter={filter} />
 			</Grow>
 			<Reset

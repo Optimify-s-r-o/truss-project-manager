@@ -3,9 +3,12 @@ import { createProxy } from '../utils/getPath';
 import { Customer } from 'src/containers/Portal/Customer/_types';
 import { CustomerSimplified } from '../containers/Portal/Customer/_types';
 import { Method } from '../constants/enum';
-import { ProjectFile, ProjectLog } from '../containers/Portal/TreeView/Project/_types';
 import { Quotations } from '../containers/Portal/Quotations/_types';
 import { Routes } from '../constants/routes';
+import {
+	ProjectFile,
+	ProjectLog,
+} from "../containers/Portal/TreeView/Project/_types";
 
 export type FetchStateType = Readonly<{
 	error: string;

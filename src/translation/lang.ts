@@ -274,6 +274,7 @@ export type Lang = Readonly<{
 		min: string;
 		max: string;
 		required: string;
+		companyOrSurnameRequired: string;
 		email: string;
 		phone: string;
 		passwordMatch: string;
@@ -358,6 +359,8 @@ export type Lang = Readonly<{
 	};
 
 	common: {
+		CustomerExists: string;
+		statistics: string;
 		designPrice: string;
 		FileTooLarge: string;
 		passwordResetSuccessful: string;
@@ -391,6 +394,7 @@ export type Lang = Readonly<{
 		NewPasswordSameAsOld: string;
 		TargetJobLocked: string;
 		InvalidQuotationType: string;
+		MissingSurnameAndCompany: string;
 		TitleAlreadyExists: string;
 		SomeExpressionNotValid: string;
 		CannotContainVariableKeyword: string;
@@ -639,6 +643,8 @@ export type Lang = Readonly<{
 		clipboard: string;
 		copyTo: string;
 		count: string;
+		countSum: string;
+		countPerTruss: string;
 		totalCount: string;
 		counted: string;
 		country: string;

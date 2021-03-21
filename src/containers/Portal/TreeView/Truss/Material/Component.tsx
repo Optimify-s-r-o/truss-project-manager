@@ -2,15 +2,7 @@ import * as React from 'react';
 import Export from '../../../../../components/Export';
 import Loading from '../../../../../components/Optimify/Loading';
 import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../../utils/getPath';
-import {
-	Member,
-	Plank,
-	Plate,
-	Truss,
-	TrussProxy
-	} from '../_types';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, useParams } from 'react-router-dom';
 import {
 	ScrollableTable,
 	TABLE_STYLE_CONDENSED,
@@ -31,31 +23,61 @@ import {
 	withTranslation,
 } from "../../../../../translation/i18n";
 import {
+	getPath,
+	lastPathMember,
+	translationPath,
+} from "../../../../../utils/getPath";
+import {
 	CenterImage,
 	MainTreeContent,
 	TreeContent,
 	TreeScreen,
 } from "../../../_styles";
+import {
+	Material,
+	Member,
+	MemberProxy,
+	Plank,
+	PlankProxy,
+	Plate,
+	PlateProxy,
+	Truss,
+	TrussProxy,
+} from "../_types";
 export interface StateProps {
 	pending: boolean;
 	truss: Truss;
 	image: string;
 	history: any;
+	materials: Material;
 }
 
-const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
-	const { image } = props;
+export interface DispatchProps {
+	getTrussMaterials: (data: string) => void;
+}
+
+const Index = (
+	props: WithTranslation & StateProps & RouteComponentProps & DispatchProps
+) => {
+	const { image, materials, getTrussMaterials } = props;
+	const { id } = useParams<{ id: string }>();
 
 	React.useEffect(() => {
 		if (props.truss) {
 			const img = window.document.querySelector(
-				`#image_${props.truss?.General?.Name}`
+				`#image_${props.truss?.TrussName}`
 			) as any;
 			if (img) {
 				img.src = image;
 			}
 		}
 	}, [image, props.truss]);
+
+	React.useEffect(() => {
+		if (id) {
+			getTrussMaterials(id);
+		}
+	}, [id]);
 
 	return (
 		<MainTreeContent>
@@ -75,22 +97,39 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 										</Header2>
 										<Export
 											name={
-												props.truss?.General?.Name +
+												props.truss?.TrussName +
 												"-" +
 												t(translationPath(lang.common.nailPlates))
 											}
-											data={get(
-												props.truss,
-												getPath(TrussProxy.Material.Plates)
-											)}
+											data={materials?.Plates}
 											structure={[
 												{
-													label: t(translationPath(lang.common.name)),
-													valueName: "Name",
+													label: t(translationPath(lang.common.type)),
+													valueName: lastPathMember(PlateProxy.Type).path,
 												},
 												{
-													label: t(translationPath(lang.common.trussCount)),
-													valueName: "Count",
+													label: t(translationPath(lang.common.name)),
+													valueName: lastPathMember(PlateProxy.Name).path,
+												},
+												{
+													label: t(translationPath(lang.priceLists.width)),
+													valueName: lastPathMember(PlateProxy.Width).path,
+												},
+												{
+													label: t(translationPath(lang.common.length)),
+													valueName: lastPathMember(PlateProxy.Length).path,
+												},
+												{
+													label: t(translationPath(lang.common.thickness)),
+													valueName: lastPathMember(PlateProxy.Thickness).path,
+												},
+												{
+													label: t(translationPath(lang.common.count)),
+													valueName: lastPathMember(PlateProxy.Count).path,
+												},
+												{
+													label: t(translationPath(lang.common.count)),
+													valueName: lastPathMember(PlateProxy.CountSum).path,
 												},
 											]}
 										/>
@@ -99,20 +138,46 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 										<ScrollableTable
 											style={TABLE_STYLE_CONDENSED}
 											headers={[
+												t(translationPath(lang.common.type)),
 												t(translationPath(lang.common.name)),
-												t(translationPath(lang.common.count)),
+												t(translationPath(lang.priceLists.width)),
+												t(translationPath(lang.common.length)),
+												t(translationPath(lang.common.thickness)),
+												t(translationPath(lang.common.countPerTruss)),
+												t(translationPath(lang.common.countSum)),
 											]}
-											sortable={[true, true]}
+											sortable={[true, true, true, true, true, true, true]}
 											data={
-												get(props.truss, getPath(TrussProxy.Material.Plates)) &&
-												get(
-													props.truss,
-													getPath(TrussProxy.Material.Plates)
-												)?.map((value: Plate, key: number) => {
-													return [value.Name, value.Count, value];
+												materials?.Plates &&
+												materials?.Plates?.map((value: Plate, key: number) => {
+													return [
+														value.Type,
+														value.Name,
+														value.Width,
+														value.Length,
+														value.Thickness,
+														value.Count,
+														value.CountSum,
+														value,
+													];
 												})
 											}
 											renderers={[
+												(value: any, key: number, parent: Plate) => {
+													return value;
+												},
+												(value: any, key: number, parent: Plate) => {
+													return value;
+												},
+												(value: any, key: number, parent: Plate) => {
+													return value;
+												},
+												(value: any, key: number, parent: Plate) => {
+													return value;
+												},
+												(value: any, key: number, parent: Plate) => {
+													return value;
+												},
 												(value: any, key: number, parent: Plate) => {
 													return value;
 												},
@@ -132,7 +197,7 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 												src=""
 												id={`image_${get(
 													props.truss,
-													getPath(TrussProxy.General.Name)
+													getPath(TrussProxy.TrussName)
 												)}`}
 											/>
 										) : (
@@ -148,34 +213,35 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 										<Header2>{t(translationPath(lang.common.planks))}</Header2>
 										<Export
 											name={
-												props.truss?.General?.Name +
+												props.truss?.TrussName +
 												"-" +
 												t(translationPath(lang.common.planks))
 											}
-											data={get(
-												props.truss,
-												getPath(TrussProxy.Material.Planks)
-											)}
+											data={materials?.Planks}
 											structure={[
 												{
 													label: t(translationPath(lang.common.thickness)),
-													valueName: "B",
+													valueName: lastPathMember(PlankProxy.Thickness).path,
 												},
 												{
 													label: t(translationPath(lang.priceLists.width)),
-													valueName: "H",
+													valueName: lastPathMember(PlankProxy.Width).path,
 												},
 												{
 													label: t(translationPath(lang.common.length)),
-													valueName: "Length",
+													valueName: lastPathMember(PlankProxy.Length).path,
 												},
 												{
 													label: t(translationPath(lang.common.quality)),
-													valueName: "Quality",
+													valueName: lastPathMember(PlankProxy.Grade).path,
 												},
 												{
-													label: t(translationPath(lang.common.count)),
-													valueName: "Quantity",
+													label: t(translationPath(lang.common.countPerTruss)),
+													valueName: lastPathMember(PlankProxy.Count).path,
+												},
+												{
+													label: t(translationPath(lang.common.countSum)),
+													valueName: lastPathMember(PlankProxy.CountSum).path,
 												},
 											]}
 										/>
@@ -188,26 +254,27 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 												t(translationPath(lang.priceLists.width)),
 												t(translationPath(lang.common.length)),
 												t(translationPath(lang.common.quality)),
-												t(translationPath(lang.common.count)),
+												t(translationPath(lang.common.countPerTruss)),
+												t(translationPath(lang.common.countSum)),
 											]}
-											sortable={[true, true, true]}
-											data={
-												get(props.truss, getPath(TrussProxy.Material.Planks)) &&
-												get(
-													props.truss,
-													getPath(TrussProxy.Material.Planks)
-												)?.map((value: Plank, key: number) => {
+											sortable={[true, true, true, true, true, true]}
+											data={materials?.Planks?.map(
+												(value: Plank, key: number) => {
 													return [
-														value.B,
-														value.H,
+														value.Thickness,
+														value.Width,
 														value.Length,
-														value.Quality,
-														value.Quantity,
+														value.Grade,
+														value.Count,
+														value.CountSum,
 														value,
 													];
-												})
-											}
+												}
+											)}
 											renderers={[
+												(value: any, key: number, parent: Plank) => {
+													return value;
+												},
 												(value: any, key: number, parent: Plank) => {
 													return value;
 												},
@@ -235,22 +302,19 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 										<Header2>{t(translationPath(lang.common.members))}</Header2>
 										<Export
 											name={
-												props.truss?.Name +
+												props.truss?.TrussName +
 												"-" +
 												t(translationPath(lang.common.members))
 											}
-											data={get(
-												props.truss,
-												getPath(TrussProxy.Material.Members)
-											)}
+											data={materials?.Members}
 											structure={[
 												{
 													label: t(translationPath(lang.common.name)),
-													valueName: "Name",
+													valueName: lastPathMember(MemberProxy.Name).path,
 												},
 												{
 													label: t(translationPath(lang.common.trussCount)),
-													valueName: "Count",
+													valueName: lastPathMember(MemberProxy.CountSum).path,
 												},
 											]}
 										/>
@@ -264,16 +328,12 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 											]}
 											sortable={[true, true]}
 											data={
-												get(
-													props.truss,
-													getPath(TrussProxy.Material.Members)
-												) &&
-												get(
-													props.truss,
-													getPath(TrussProxy.Material.Members)
-												)?.map((value: Member, key: number) => {
-													return [value.Name, value.Count, value];
-												})
+												materials?.Members &&
+												materials?.Members?.map(
+													(value: Member, key: number) => {
+														return [value.Name, value.CountSum, value];
+													}
+												)
 											}
 											renderers={[
 												(value: any, key: number, parent: Member) => {

@@ -18,43 +18,6 @@ export interface Load {
 	RoofingName: string;
 	CeilingName: string;
 }
-
-export interface General {
-	Name: string;
-	Status: string;
-	State: string;
-	Place: string;
-	Type: string;
-	DateOfCreation: string;
-	Description: string;
-	LastEdit: string;
-	RoofType: string;
-	Complexity: string;
-	PlatesWeight: number;
-	PlanksVolume: number;
-	Price: number;
-	PlatesOnPlanks: number;
-	PlatesOnArea: number;
-	PlanksOnArea: number;
-	PriceOnPlanks: number;
-	PriceOnArea: number;
-	RoofingArea: number;
-	CeilingArea: number;
-	Pitch: number;
-	Centres: number;
-	TrussTypesCount: number;
-	TrussCount: number;
-	Load: Load;
-	LastChange: Date;
-	Altitude: number;
-	MergedDocumentation: boolean;
-	PlatesWeightOnArea: number;
-	PlatesWeightOnPlanksVolume: number;
-	ProjectId: string;
-	ProjectName: string;
-	TrussType: TrussExe;
-}
-
 export interface Truss {
 	Name: string;
 	Count: number;
@@ -109,7 +72,39 @@ export interface Details {
 }
 
 export interface JobRootObject {
-	General: General;
+	Name: string;
+	Status: string;
+	State: string;
+	Place: string;
+	Type: string;
+	DateOfCreation: string;
+	Description: string;
+	LastEdit: string;
+	RoofType: string;
+	Complexity: string;
+	Price: number;
+	PlatesOnPlanks: number;
+	PlatesOnArea: number;
+	PlanksOnArea: number;
+	PriceOnArea: number;
+	RoofingArea: number;
+	CeilingArea: number;
+	Pitch: number;
+	Centres: number;
+	TrussTypesCount: number;
+	TrussCount: number;
+	Load: Load;
+	LastChange: Date;
+	Altitude: number;
+	MergedDocumentation: boolean;
+	ProjectId: string;
+	ProjectName: string;
+	TrussType: TrussExe;
+	PlatesWeightOnArea: number;
+	PlatesWeightOnPlanksVolume: number;
+	PlatesWeight: number;
+	PlanksVolume: number;
+	PriceOnPlanks: number;
 	Material: Material;
 	Documents: Document[];
 	Details: Details;

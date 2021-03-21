@@ -8,46 +8,50 @@ import React from 'react';
 import { Delete } from '../../../../components/Button';
 import { DeleteProject } from '../../Project/_types';
 import { deleteProjectRoute } from '../../../../sagas/Fetch/actions';
-import { faDatabase, faInfo, faMoneyBillWave } from '@fortawesome/pro-solid-svg-icons';
 import { faFolder } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { get } from 'lodash';
 import { getPath, translationPath } from '../../../../utils/getPath';
 import { HubComponent } from './HubComponent';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation
-	} from '../../../../translation/i18n';
 import { MainTree } from '../../_styles';
 import { OpenTruss } from '../../../../sagas/Truss/_actions';
-import {
-	Page,
-	Project,
-	ProjectProxy,
-	TreeType,
-	TrussExe
-	} from '../../../../types/_types';
-import {
-	PageHeader,
-	PageTitle,
-	PageTitleActions,
-	TitleName,
-	TitleSection
-	} from '../../../../constants/globalStyles';
 import { Phase } from '../../../../components/Phase';
 import { ProjectFile, ProjectFileRequest } from './_types';
+import { Routes } from '../../../../constants/routes';
+import { SelectedProjectsRequest } from '../Projects/_types';
+import {
+	faDatabase,
+	faInfo,
+	faMoneyBillWave,
+} from "@fortawesome/pro-solid-svg-icons";
 import {
 	Route,
 	RouteComponentProps,
 	Switch,
 	useLocation,
-	useParams
-	} from 'react-router-dom';
-import { Routes } from '../../../../constants/routes';
-import { SelectedProjectsRequest } from '../Projects/_types';
+	useParams,
+} from "react-router-dom";
+import {
+	PageHeader,
+	PageTitle,
+	PageTitleActions,
+	TitleName,
+	TitleSection,
+} from "../../../../constants/globalStyles";
+import {
+	lang,
+	t,
+	WithTranslation,
+	withTranslation,
+} from "../../../../translation/i18n";
+import {
+	Page,
+	Project,
+	ProjectProxy,
+	TreeType,
+	TrussExe,
+} from "../../../../types/_types";
 export interface StateProps {
 	activeTree: TreeType;
 	pending: boolean;
@@ -70,7 +74,6 @@ export interface DispatchProps {
 	createTruss: (data: OpenTruss) => void;
 	setProject: (data: Project) => void;
 	setSelectedKeys: (data: string[]) => void;
-	clearEvidenceAction: (data: void) => void;
 	setLoading: (data: boolean) => void;
 }
 
@@ -83,7 +86,6 @@ const Index = ({
 	setSelectedKeys,
 	projectHub,
 	loadingPage,
-	clearEvidenceAction,
 	setLoading,
 }: WithTranslation & DispatchProps & StateProps & RouteComponentProps) => {
 	const { id } = useParams<{ id: string; type?: string }>();
@@ -97,9 +99,6 @@ const Index = ({
 		) {
 			setSelectedKeys([id]);
 		}
-		return () => {
-			clearEvidenceAction();
-		};
 	}, [location.pathname, id]);
 
 	const removeProjectCall = (id: string) => {

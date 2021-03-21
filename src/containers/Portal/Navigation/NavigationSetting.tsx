@@ -20,7 +20,6 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 interface NavigationSetting {
-	local: boolean;
 	setCloud: (data: boolean) => void;
 	setTheme: React.Dispatch<React.SetStateAction<"light" | "dark">>;
 	mode: "light" | "dark";
@@ -33,7 +32,6 @@ interface NavigationSetting {
 }
 
 export const NavigationSetting = ({
-	local,
 	setCloud,
 	setTheme,
 	mode,

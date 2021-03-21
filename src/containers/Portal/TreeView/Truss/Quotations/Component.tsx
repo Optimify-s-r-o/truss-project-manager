@@ -1,19 +1,23 @@
-import { faServer, faSync } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Empty } from "antd";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import Navigation from "../../../../../components/NavigationCalculated";
-import Loading from "../../../../../components/Optimify/Loading";
+import lang from '../../../../../translation/lang';
+import Loading from '../../../../../components/Optimify/Loading';
+import Navigation from '../../../../../components/NavigationCalculated';
+import React, { useEffect, useState } from 'react';
+import { Empty } from 'antd';
+import { faServer, faSync } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
+import { PriceList } from '../../../PriceLists/_types';
+import { QuotationCalculate } from '../../Project/_types';
+import { QuotationColumn } from '../../../../../constants/globalStyles';
+import { translationPath } from '../../../../../utils/getPath';
+import { Truss, TrussQuotationInfo, TrussRequest } from '../_types';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
 	ActionButton,
 	ActionSection,
 	SelectionQuotation,
 } from "../../../../../components/Quotations";
-import { QuotationColumn } from "../../../../../constants/globalStyles";
-import lang from "../../../../../translation/lang";
-import { translationPath } from "../../../../../utils/getPath";
-import { PriceList } from "../../../PriceLists/_types";
 import {
 	QuotationList,
 	QuotationParam,
@@ -23,9 +27,6 @@ import {
 	QuotationType,
 	SectionVariableRequest,
 } from "../../../Quotations/_types";
-import { MainTreeContent, TreeContent, TreeScreen } from "../../../_styles";
-import { QuotationCalculate } from "../../Project/_types";
-import { Truss, TrussRequest } from "../_types";
 
 export interface StateProps {
 	quotations: Quotations;
@@ -34,6 +35,7 @@ export interface StateProps {
 	quotationList: QuotationList;
 	priceLists: PriceList[];
 	pending: boolean;
+	quotationsInfo: TrussQuotationInfo;
 }
 
 export interface DispatchProps {
@@ -47,6 +49,7 @@ export interface DispatchProps {
 	quotationDownloadQuotationAction: (data: QuotationParam) => void;
 	getTruss: (data: TrussRequest) => void;
 	quotationListGetAction: (data: QuotationParam) => void;
+	getTrussQuotations: (data: string) => void;
 }
 
 export default ({
@@ -65,24 +68,33 @@ export default ({
 	quotationList,
 	priceLists,
 	pending,
+	getTrussQuotations,
+	quotationsInfo,
 }: StateProps & DispatchProps) => {
 	const { t } = useTranslation();
 	const [selected, setSelected] = useState(null);
+	const { id } = useParams<{ id: string }>();
 
+	useEffect(() => {
+		if (id) {
+			getTrussQuotations(id);
+		}
+	}, [id]);
+	console.log(quotationsInfo);
 	useEffect(() => {
 		quotationListGetAction({ Type: QuotationType.TRUSS });
 	}, []);
 
 	useEffect(() => {
 		if (quotationList) {
-			const defaultId = truss?.DefaultQuotationTemplateId
-				? truss?.DefaultQuotationTemplateId
+			const defaultId = quotationsInfo?.DefaultQuotationTemplateId
+				? quotationsInfo?.DefaultQuotationTemplateId
 				: quotationList?.DefaultId;
 			if (defaultId) {
 				setSelected(defaultId);
 				quotationSelectionGetAction({
 					type: QuotationType.TRUSS,
-					entityId: truss?.General?.Id,
+					entityId: truss?.Id,
 					templateId: defaultId,
 				});
 			}
@@ -107,7 +119,7 @@ export default ({
 		event: React.MouseEvent<HTMLElement, MouseEvent>
 	) => {
 		calculateTruss({
-			entityId: truss?.General?.Id,
+			entityId: truss?.Id,
 			recursiveRecreate: false,
 			templateId: selected,
 			type: QuotationType.TRUSS,
@@ -118,7 +130,7 @@ export default ({
 		event: React.MouseEvent<HTMLElement, MouseEvent>
 	) => {
 		calculateTruss({
-			entityId: truss?.General?.Id,
+			entityId: truss?.Id,
 			recursiveRecreate: true,
 			templateId: selected,
 			type: QuotationType.TRUSS,
@@ -135,7 +147,7 @@ export default ({
 		setSelected(id);
 		quotationSelectionGetAction({
 			type: QuotationType.TRUSS,
-			entityId: truss?.General?.Id,
+			entityId: truss?.Id,
 			templateId: id,
 		});
 	};
@@ -158,7 +170,7 @@ export default ({
 						{quotations?.IsCalculated ? (
 							<SelectionQuotation
 								quotations={quotations}
-								id={truss?.General?.Id}
+								id={truss?.Id}
 								quotationPutAction={quotationPutAction}
 								quotationSummaryPutAction={quotationSummaryPutAction}
 								type={QuotationSelection.TRUSS}

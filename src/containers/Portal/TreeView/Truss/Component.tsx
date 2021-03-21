@@ -95,8 +95,8 @@ const Component = ({
 									icon={faMountains as IconProp}
 									color={"#fff"}
 								/>
-								<TitleName>{truss?.General?.Name}</TitleName>
-								{truss?.Phases && <Phase phase={truss?.Phases} />}
+								<TitleName>{truss?.TrussName}</TitleName>
+								{truss?.Status && <Phase phase={[truss?.Status]} />}
 							</TitleSection>
 						</PageTitle>
 						<Navigation

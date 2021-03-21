@@ -4,11 +4,10 @@ import styled from 'styled-components';
 import { faFileExcel } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Planks } from '../types/_types';
+import { Member, Plank } from 'src/containers/Portal/TreeView/Truss/_types';
 import { WithTranslation } from '../translation/i18n';
 import { withTranslation } from 'react-i18next';
 import {
-	Member,
 	Model,
 	NailPlate,
 	Truss,
@@ -23,7 +22,7 @@ interface DataStructure {
 }
 
 interface OwnProps {
-	data: Model[] | Truss[] | NailPlate[] | Member[] | Planks[] | null;
+	data: Model[] | Truss[] | NailPlate[] | Member[] | Plank[] | null;
 	structure: DataStructure[];
 	name: string;
 }

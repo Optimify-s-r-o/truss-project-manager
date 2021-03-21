@@ -1,3 +1,4 @@
+import Cookies from 'universal-cookie';
 import React, { useEffect } from 'react';
 import { Hub, HubApi } from '../../constants/hub';
 import { JobRootObject } from './TreeView/Job/_types';
@@ -13,8 +14,6 @@ const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
 
 export interface HubComponent {
 	setHubConnection: React.Dispatch<React.SetStateAction<HubConnection>>;
-	token: string;
-	local: boolean;
 	connect: HubConnection;
 	setActiveTree: React.Dispatch<React.SetStateAction<TreeType>>;
 	setActive: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,8 +34,6 @@ export interface HubComponent {
 }
 
 export const HubComponent = ({
-	local,
-	token,
 	connect,
 	setHubConnection,
 	setActive,
@@ -55,10 +52,9 @@ export const HubComponent = ({
 	getTruss,
 	setLoading,
 }: HubComponent) => {
+	const token = new Cookies().get("token");
 	const getUrl = () => {
-		return local
-			? process.env.REACT_APP_API_URL_LOCAL
-			: process.env.REACT_APP_BACKEND_API;
+		return process.env.REACT_APP_BACKEND_API;
 	};
 	const createTreeHubConnection = async () => {
 		if (token) {
@@ -137,6 +133,7 @@ export const HubComponent = ({
 					setLoading(false);
 					const json = message && JSON.parse(message);
 					json && setJob(json);
+					console.log(json);
 					getJobImage(json.Id);
 				});
 			} catch (err) {
@@ -163,7 +160,7 @@ export const HubComponent = ({
 					const json = message && JSON.parse(message);
 					console.log(json);
 					if (!!json) {
-						getTruss(json?.General.Id);
+						getTruss(json?.Id);
 						setTruss(json);
 					}
 				});

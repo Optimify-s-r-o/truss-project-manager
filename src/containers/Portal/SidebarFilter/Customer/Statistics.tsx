@@ -22,7 +22,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 
 	return (
 		<FilterSection
-			title={t(translationPath(lang.common.filterTechnicalParametr))}
+			title={t(translationPath(lang.common.statistics))}
 			formik={formik}
 			filters={[
 				getPath(FilterProxy.Customers.NumberOfProjectsFilter),
@@ -72,7 +72,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 					round={0}
 				/>
 				<FormSlider
-					label={t(translationPath(lang.common.numberOfQuotationsFilter))}
+					label={t(translationPath(lang.common.finishedQuotationCount))}
 					name={getPath(FilterProxy.Customers.NumberOfQuotationsFilter)}
 					formik={formik}
 					from={formik?.values?.Customers?.NumberOfQuotationsFilter?.From}
@@ -83,7 +83,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 					round={0}
 				/>
 				<FormSlider
-					label={t(translationPath(lang.common.numberOfProductionsFilter))}
+					label={t(translationPath(lang.common.finishedProductionCount))}
 					name={getPath(FilterProxy.Customers.NumberOfProductionsFilter)}
 					formik={formik}
 					from={formik?.values?.Customers?.NumberOfProductionsFilter?.From}

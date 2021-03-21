@@ -5,7 +5,6 @@ import { CustomersAllFilterProxy } from './_types';
 import { FilterCustomerContentSection } from '../../Lists/components/_styles';
 import { FilterProxy } from '../_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
-import { FormikCheckbox } from '../components/FormikCheckbox';
 import { Input } from '../../../../constants/enum';
 import {
 	lang,
@@ -89,20 +88,6 @@ const Index = (props: OwnProps & WithTranslation) => {
 					}
 					title={t(translationPath(lang.common.vatRegNo))}
 					type={Input.FILTER_TEXT}
-				/>
-				<br />
-				<FormikCheckbox
-					formik={formik}
-					filter={filter}
-					filterPath={getPath(FilterSettingsProxy.Job.CustomerTypes)}
-					name={getPath(FilterProxy.Customers.CustomerTypeFilter.Customers)}
-					pathName={
-						lastPathMember(FilterProxy.Customers.CustomerTypeFilter.Customers)
-							.path
-					}
-					path={getPath(FilterProxy.Customers.CustomerTypeFilter)}
-					title={t(translationPath(lang.common.customerType))}
-					value={formik.values?.Customers?.CustomerTypeFilter?.Customers}
 				/>
 			</FilterCustomerContentSection>
 		</FilterSection>

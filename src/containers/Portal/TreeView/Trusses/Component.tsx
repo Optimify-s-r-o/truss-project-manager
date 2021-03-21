@@ -6,15 +6,7 @@ import { faMountains } from '@fortawesome/pro-light-svg-icons';
 import { fixed } from '../../../../utils/formating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../utils/getPath';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import {
-	Member,
-	Plank,
-	Plate,
-	Truss,
-	TrussProxy
-	} from '../Truss/_types';
 import { Page } from '../../../../types/_types';
 import { TableTitle } from '../../_styles';
 import { UnitType } from '../../../../components/Data/Unit';
@@ -42,6 +34,21 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../../translation/i18n";
+import {
+	getPath,
+	lastPathMember,
+	translationPath,
+} from "../../../../utils/getPath";
+import {
+	Member,
+	MemberProxy,
+	Plank,
+	PlankProxy,
+	Plate,
+	PlateProxy,
+	Truss,
+	TrussesProxy,
+} from "../Truss/_types";
 
 export interface StateProps {
 	routerState: any;
@@ -74,10 +81,10 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 						<TitleSection>
 							<FontAwesomeIcon icon={faMountains as IconProp} color={"#fff"} />
 							<TitleName>
-								{get(props.truss, getPath(TrussProxy.Names))?.map(
+								{get(props.truss, getPath(TrussesProxy.Names))?.map(
 									(value: string, key: number) =>
 										value +
-										(get(props.truss, getPath(TrussProxy.Names))?.length ==
+										(get(props.truss, getPath(TrussesProxy.Names))?.length ==
 										key + 1
 											? " "
 											: ", ")
@@ -94,45 +101,36 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							</Header2>
 							<Data
 								title={t(translationPath(lang.common.totalCount))}
-								data={get(props.truss, getPath(TrussProxy.General.Count))}
+								data={get(props.truss, getPath(TrussesProxy.Count))}
 								unit={UnitType.EMPTY}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averageMultiplicity))}
-								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.Plies)),
-									2
-								)}
+								data={fixed(get(props.truss, getPath(TrussesProxy.Plies)), 2)}
 								unit={UnitType.EMPTY}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averageThickness))}
 								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.Thickness)),
+									get(props.truss, getPath(TrussesProxy.Thickness)),
 									0
 								)}
 								unit={UnitType.MM}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averageLoadWidth))}
-								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.Width)),
-									0
-								)}
+								data={fixed(get(props.truss, getPath(TrussesProxy.Width)), 0)}
 								unit={UnitType.MM}
 							/>
 							<Data
 								title={t(translationPath(lang.common.totalNumberOfModels))}
-								data={get(
-									props.truss,
-									getPath(TrussProxy.General.MembersCount)
-								)}
+								data={get(props.truss, getPath(TrussesProxy.MembersCount))}
 								unit={UnitType.EMPTY}
 							/>
 							<Data
 								title={t(translationPath(lang.common.totalPlatesWeight))}
 								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.PlateWeight)),
+									get(props.truss, getPath(TrussesProxy.PlateWeight)),
 									2
 								)}
 								unit={UnitType.KG}
@@ -140,26 +138,20 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							<Data
 								title={t(translationPath(lang.common.averagePlatesWeight))}
 								data={fixed(
-									get(
-										props.truss,
-										getPath(TrussProxy.General.AveragePlateWeight)
-									),
+									get(props.truss, getPath(TrussesProxy.AveragePlateWeight)),
 									2
 								)}
 								unit={UnitType.KG}
 							/>
 							<Data
 								title={t(translationPath(lang.common.totalPlanksVolume))}
-								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.Planks)),
-									4
-								)}
+								data={fixed(get(props.truss, getPath(TrussesProxy.Planks)), 4)}
 								unit={UnitType.M3}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averagePlanksVolume))}
 								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.AveragePlanks)),
+									get(props.truss, getPath(TrussesProxy.AveragePlanks)),
 									4
 								)}
 								unit={UnitType.M3}
@@ -167,23 +159,20 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							<Data
 								title={t(translationPath(lang.common.totalTransportWeight))}
 								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.TransportWeight)),
+									get(props.truss, getPath(TrussesProxy.TransportWeight)),
 									2
 								)}
 								unit={UnitType.KG}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averagePricePerPiece))}
-								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.Price)),
-									2
-								)}
+								data={fixed(get(props.truss, getPath(TrussesProxy.Price)), 2)}
 								unit={UnitType.KC}
 							/>
 							<Data
 								title={t(translationPath(lang.common.priceTotal))}
 								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.PriceSum)),
+									get(props.truss, getPath(TrussesProxy.PriceSum)),
 									2
 								)}
 								unit={UnitType.KC}
@@ -199,10 +188,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							<Data
 								title={t(translationPath(lang.common.averagePlateWeightOnArea))}
 								data={fixed(
-									get(
-										props.truss,
-										getPath(TrussProxy.General.PlateWeightOnArea)
-									),
+									get(props.truss, getPath(TrussesProxy.PlateWeightOnArea)),
 									4
 								)}
 								unit={UnitType.KGM2}
@@ -212,10 +198,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 									translationPath(lang.common.averagePlatesWeighOnPlanksVolume)
 								)}
 								data={fixed(
-									get(
-										props.truss,
-										getPath(TrussProxy.General.PlatesWeighOnPlanksVolume) //TODO Check
-									),
+									get(props.truss, getPath(TrussesProxy.PlateWeightOnVolume)),
 									2
 								)}
 								unit={UnitType.KGM2}
@@ -223,7 +206,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							<Data
 								title={t(translationPath(lang.common.averagePlatesOnArea))}
 								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.PlanksOnArea)),
+									get(props.truss, getPath(TrussesProxy.PlanksOnArea)),
 									2
 								)}
 								unit={UnitType.M3M2}
@@ -231,7 +214,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							<Data
 								title={t(translationPath(lang.common.averagePriceOnPlanks))}
 								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.PriceOnPlanks)),
+									get(props.truss, getPath(TrussesProxy.PriceOnPlanks)),
 									2
 								)}
 								unit={UnitType.KCM3}
@@ -239,7 +222,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							<Data
 								title={t(translationPath(lang.common.averagePriceOnArea))}
 								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.PriceOnArea)),
+									get(props.truss, getPath(TrussesProxy.PriceOnArea)),
 									2
 								)}
 								unit={UnitType.KCM2}
@@ -253,56 +236,38 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							<Header2>{t(translationPath(lang.common.geometry))}</Header2>
 							<Data
 								title={t(translationPath(lang.common.averageWidth))}
-								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.Width)),
-									0
-								)}
+								data={fixed(get(props.truss, getPath(TrussesProxy.Width)), 0)}
 								unit={UnitType.MM}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averageHeight))}
-								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.Height)),
-									0
-								)}
+								data={fixed(get(props.truss, getPath(TrussesProxy.Height)), 0)}
 								unit={UnitType.MM}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averageTilt))}
-								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.Pitch)),
-									2
-								)}
+								data={fixed(get(props.truss, getPath(TrussesProxy.Pitch)), 2)}
 								unit={UnitType.DEGREE}
 							/>
 							<Data
 								title={t(translationPath(lang.common.totalNumberOfPart))}
-								data={get(
-									props.truss,
-									getPath(TrussProxy.General.MembersCount)
-								)}
+								data={get(props.truss, getPath(TrussesProxy.MembersCount))}
 								unit={UnitType.EMPTY}
 							/>
 							<Data
 								title={t(translationPath(lang.common.totalPlatesCount))}
-								data={get(props.truss, getPath(TrussProxy.General.PlatesCount))}
+								data={get(props.truss, getPath(TrussesProxy.PlatesCount))}
 								unit={UnitType.EMPTY}
 							/>
 							<Data
 								title={t(translationPath(lang.common.totalNumberOfSupports))}
-								data={get(
-									props.truss,
-									getPath(TrussProxy.General.SupportsCount)
-								)}
+								data={get(props.truss, getPath(TrussesProxy.SupportsQuantity))}
 								unit={UnitType.EMPTY}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averageNumberOfSupports))}
 								data={fixed(
-									get(
-										props.truss,
-										getPath(TrussProxy.General.AverageSupportsCount)
-									),
+									get(props.truss, getPath(TrussesProxy.AverageSupportsCount)),
 									2
 								)}
 								unit={UnitType.EMPTY}
@@ -315,7 +280,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							<Data
 								title={t(translationPath(lang.common.averageRoofingLoad))}
 								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.RoofingLoad)),
+									get(props.truss, getPath(TrussesProxy.RoofingLoad)),
 									2
 								)}
 								unit={UnitType.KNM2}
@@ -323,7 +288,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							<Data
 								title={t(translationPath(lang.common.averageCeilingLoad))}
 								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.CeilingLoad)),
+									get(props.truss, getPath(TrussesProxy.CeilingLoad)),
 									2
 								)}
 								unit={UnitType.KNM2}
@@ -331,7 +296,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							<Data
 								title={t(translationPath(lang.common.averageSnowLoad))}
 								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.SnowLoad)),
+									get(props.truss, getPath(TrussesProxy.SnowLoad)),
 									2
 								)}
 								unit={UnitType.KNM2}
@@ -339,7 +304,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							<Data
 								title={t(translationPath(lang.common.averageWindLoad))}
 								data={fixed(
-									get(props.truss, getPath(TrussProxy.General.WindLoad)),
+									get(props.truss, getPath(TrussesProxy.WindLoad)),
 									2
 								)}
 								unit={UnitType.KNM2}
@@ -361,15 +326,15 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 										"-" +
 										t(translationPath(lang.common.members))
 									}
-									data={get(props.truss, getPath(TrussProxy.Material.Members))}
+									data={get(props.truss, getPath(TrussesProxy.Members))}
 									structure={[
 										{
 											label: t(translationPath(lang.common.name)),
-											valueName: "Name",
+											valueName: lastPathMember(MemberProxy.Name).path,
 										},
 										{
 											label: t(translationPath(lang.common.trussCount)),
-											valueName: "Count",
+											valueName: lastPathMember(MemberProxy.Count).path,
 										},
 									]}
 								/>
@@ -384,10 +349,10 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 									]}
 									sortable={[true, true]}
 									data={
-										get(props.truss, getPath(TrussProxy.Material.Members)) &&
-										get(props.truss, getPath(TrussProxy.Material.Members))?.map(
+										get(props.truss, getPath(TrussesProxy.Members)) &&
+										get(props.truss, getPath(TrussesProxy.Members))?.map(
 											(value: Member, key: number) => {
-												return [value.Name, value.Count, value];
+												return [value.Name, value];
 											}
 										)
 									}
@@ -415,15 +380,31 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 										"-" +
 										t(translationPath(lang.common.nailPlates))
 									}
-									data={get(props.truss, getPath(TrussProxy.Material.Plates))}
+									data={get(props.truss, getPath(TrussesProxy.Plates))}
 									structure={[
 										{
-											label: t(translationPath(lang.common.name)),
-											valueName: "Name",
+											label: t(translationPath(lang.common.type)),
+											valueName: lastPathMember(PlateProxy.Type).path,
 										},
 										{
-											label: t(translationPath(lang.common.platesCount)),
-											valueName: "Count",
+											label: t(translationPath(lang.common.name)),
+											valueName: lastPathMember(PlateProxy.Name).path,
+										},
+										{
+											label: t(translationPath(lang.priceLists.width)),
+											valueName: lastPathMember(PlateProxy.Width).path,
+										},
+										{
+											label: t(translationPath(lang.common.length)),
+											valueName: lastPathMember(PlateProxy.Length).path,
+										},
+										{
+											label: t(translationPath(lang.common.thickness)),
+											valueName: lastPathMember(PlateProxy.Thickness).path,
+										},
+										{
+											label: t(translationPath(lang.common.count)),
+											valueName: lastPathMember(PlateProxy.Count).path,
 										},
 									]}
 								/>
@@ -433,19 +414,43 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 									style={TABLE_STYLE_CONDENSED}
 									height={200}
 									headers={[
+										t(translationPath(lang.common.type)),
 										t(translationPath(lang.common.name)),
-										t(translationPath(lang.common.count)),
+										t(translationPath(lang.priceLists.width)),
+										t(translationPath(lang.common.length)),
+										t(translationPath(lang.common.thickness)),
+										t(translationPath(lang.common.countPerTruss)),
 									]}
-									sortable={[true, true]}
+									sortable={[true, true, true, true, true, true]}
 									data={
-										get(props.truss, getPath(TrussProxy.Material.Plates)) &&
-										get(props.truss, getPath(TrussProxy.Material.Plates)).map(
+										get(props.truss, getPath(TrussesProxy.Plates)) &&
+										get(props.truss, getPath(TrussesProxy.Plates)).map(
 											(value: Plate, key: number) => {
-												return [value.Name, value.Count, value];
+												return [
+													value.Type,
+													value.Name,
+													value.Width,
+													value.Length,
+													value.Thickness,
+													value.Count,
+													value,
+												];
 											}
 										)
 									}
 									renderers={[
+										(value: any, key: number, parent: Plate) => {
+											return value;
+										},
+										(value: any, key: number, parent: Plate) => {
+											return value;
+										},
+										(value: any, key: number, parent: Plate) => {
+											return value;
+										},
+										(value: any, key: number, parent: Plate) => {
+											return value;
+										},
 										(value: any, key: number, parent: Plate) => {
 											return value;
 										},
@@ -469,27 +474,27 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 										"-" +
 										t(translationPath(lang.common.planks))
 									}
-									data={get(props.truss, getPath(TrussProxy.Material.Planks))}
+									data={get(props.truss, getPath(TrussesProxy.Planks))}
 									structure={[
 										{
 											label: t(translationPath(lang.common.thickness)),
-											valueName: "B",
+											valueName: lastPathMember(PlankProxy.Thickness).path,
 										},
 										{
 											label: t(translationPath(lang.priceLists.width)),
-											valueName: "H",
+											valueName: lastPathMember(PlankProxy.Width).path,
 										},
 										{
 											label: t(translationPath(lang.common.length)),
-											valueName: "Length",
+											valueName: lastPathMember(PlankProxy.Length).path,
 										},
 										{
 											label: t(translationPath(lang.common.quality)),
-											valueName: "Quality",
+											valueName: lastPathMember(PlankProxy.Grade).path,
 										},
 										{
-											label: t(translationPath(lang.common.count)),
-											valueName: "Quantity",
+											label: t(translationPath(lang.common.countPerTruss)),
+											valueName: lastPathMember(PlankProxy.Count).path,
 										},
 									]}
 								/>
@@ -507,15 +512,15 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 									]}
 									sortable={[true, true, true, true, true]}
 									data={
-										get(props.truss, getPath(TrussProxy.Material.Planks)) &&
-										get(props.truss, getPath(TrussProxy.Material.Planks)).map(
+										get(props.truss, getPath(TrussesProxy.Planks)) &&
+										get(props.truss, getPath(TrussesProxy.Planks)).map(
 											(value: Plank, key: number) => {
 												return [
-													value.B,
-													value.H,
+													value.Thickness,
+													value.Width,
 													value.Length,
-													value.Quality,
-													value.Quantity,
+													value.Grade,
+													value.Count,
 													value,
 												];
 											}

@@ -1,9 +1,5 @@
 import { createProxy } from '../../../../utils/getPath';
-import {
-	Fetch,
-	FetchStateType,
-	QuotationsSelection,
-} from "../../../../types/_types";
+import { Fetch, FetchStateType } from '../../../../types/_types';
 
 export interface Load {
 	RoofingLoad: number;
@@ -16,52 +12,9 @@ export interface Load {
 	CeilingName: string;
 }
 
-export interface General {
-	Id: string;
-	Name: string;
-	Count: number;
-	Plies: number;
-	Thickness: number;
-	Centres: number;
-	Phase: string;
-	Type: string;
-	ModelCount: number;
-	PlateWeight: number;
-	AveragePlateWeight: number;
-	Planks: number;
-	AveragePlanks: number;
-	TransportWeight: number;
-	Price: number;
-	PriceSum: number;
-	PlatesOnPlanks: number;
-	PlatesOnArea: number;
-	PlanksOnArea: number;
-	PriceOnPlanks: number;
-	PriceOnArea: number;
-	Width: number;
-	Height: number;
-	Pitch: number;
-	MembersCount: number;
-	PlatesCount: number;
-	SupportsCount: number;
-	AverageSupportsCount: number;
-	Load: Load;
-	Status: string;
-	PlateWeightOnArea: number;
-	PlatesWeighOnPlanksVolume: number;
-	Kind: string;
-	RoofingLoad: number;
-	CeilingLoad: number;
-	SnowRegion: string;
-	SnowLoad: number;
-	WindRegion: string;
-	WindLoad: number;
-	RoofingName: string;
-	CeilingName: string;
-}
-
 export interface Member {
 	Name: string;
+	CountSum: number;
 	Count: number;
 }
 
@@ -69,17 +22,27 @@ export interface Plate {
 	Id: string;
 	Name: string;
 	Count: number;
+	CountSum: number;
+	Length: number;
+	Thickness: number;
+	Type: string;
+	Width: string;
 }
 
 export interface Plank {
 	Id: string;
 	Size: string;
-	Quality: string;
-	Quantity: number;
+	Grade: string;
+	Count: number;
+	CountSum: number;
 	Length: number;
-	B: number;
-	H: number;
+	Thickness: number;
+	Width: number;
 }
+
+export const PlankProxy = createProxy<Plank>();
+export const MemberProxy = createProxy<Member>();
+export const PlateProxy = createProxy<Plate>();
 
 export interface Material {
 	Members: Member[];
@@ -88,25 +51,85 @@ export interface Material {
 }
 
 export interface Truss {
-	General: General;
-	Material: Material;
-	Name: string;
+	Id: string;
+	TrussName: string;
+	Status: string;
+	Quantity: string;
+	PliesCount: string;
+	Thickness: number;
+	Centres: number;
+	Kind: string;
+	Type: string;
+	ModelsCount: number;
+	PlateWeight: number;
+	Volume: number;
+	TransportWeight: number;
+	Price: number;
+	PriceSum: number;
+
+	PlateWeightOnArea: number;
+	PlateWeightOnVolume: number;
+	VolumeOnArea: number;
+	PriceOnVolume: number;
+	PriceOnArea: number;
+
+	Span: number;
+	Height: number;
+	Pitch: number;
+	MembersCount: number;
+	JointsCount: number;
+	SupportsQuantity: number;
+
+	RoofingLoad: number;
+	CeilingLoad: number;
+	SnowLoad: number;
+	WindLoad: number;
+	SnowArea: string;
+	WindArea: string;
+
+	Names: string[];
+}
+
+export interface Trusses extends Truss {
+	Members: Member[];
+	Plates: Plate[];
+	Planks: Plank[];
+	Count: number;
+	Plies: number;
+	AveragePlateWeight: number;
+	AveragePlanks: number;
+	PlatesOnPlanks: number;
+	PlatesOnArea: number;
+	PlanksOnArea: number;
+	PriceOnPlanks: number;
+	Width: number;
+	PlatesCount: number;
+	AverageSupportsCount: number;
+	Load: Load;
+	SnowRegion: string;
+	WindRegion: string;
+	RoofingName: string;
+	CeilingName: string;
 	Names: string[];
 	Phases: string[];
-	Quotations: QuotationsSelection[];
+}
+export interface TrussQuotationInfo {
+	Quotations: any;
 	DefaultQuotationTitle: string;
 	DefaultQuotationGenerated: boolean;
 	DefaultQuotationTemplateId: string;
 	DefaultQuotationId: string;
 }
-
 export const TrussProxy = createProxy<Truss>();
+export const TrussesProxy = createProxy<Trusses>();
 
 export type TrussStateType = FetchStateType &
 	Readonly<{
 		truss: Truss;
 		image: string;
 		quotationCalculating: boolean;
+		materials: Material;
+		quotations: TrussQuotationInfo;
 	}>;
 
 export interface TrussRequest extends Fetch {

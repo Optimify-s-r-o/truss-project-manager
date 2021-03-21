@@ -8,54 +8,61 @@ import React from 'react';
 import Trusses from './Trusses/Container';
 import Viewer from './Viewer/Container';
 import { Delete, Lock } from '../../../../components/Button';
-import {
-	DeleteJob,
-	JobProxy,
-	JobRootObject,
-	JobsSelectedRequest,
-	ProjectNameJobName,
-	Unlock
-	} from './_types';
-import { deleteJobRoute, unlockJobAction } from '../../../../sagas/Fetch/actions';
 import { faCube } from '@fortawesome/pro-duotone-svg-icons';
 import { faHomeLgAlt, faMountains } from '@fortawesome/pro-light-svg-icons';
-import { faInfo, faInventory, faMoneyBillWave } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { get } from 'lodash';
 import { getPath, translationPath } from '../../../../utils/getPath';
 import { HubComponent } from './HubComponent';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { JobType, TreeType } from '../../../../types/_types';
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation
-	} from '../../../../translation/i18n';
 import { MainTree } from '../../_styles';
 import { OpenTruss } from '../../../../sagas/Truss/_actions';
-import {
-	PageHeader,
-	PageTitle,
-	PageTitleActions,
-	TitleName,
-	TitleSection
-	} from '../../../../constants/globalStyles';
 import { Phase } from '../../../../components/Phase';
+import { Routes } from '../../../../constants/routes';
+import {
+	faInfo,
+	faInventory,
+	faMoneyBillWave,
+} from "@fortawesome/pro-solid-svg-icons";
 import {
 	Route,
 	RouteComponentProps,
 	Switch,
 	useLocation,
-	useParams
-	} from 'react-router-dom';
-import { Routes } from '../../../../constants/routes';
+	useParams,
+} from "react-router-dom";
+import {
+	PageHeader,
+	PageTitle,
+	PageTitleActions,
+	TitleName,
+	TitleSection,
+} from "../../../../constants/globalStyles";
+import {
+	deleteJobRoute,
+	unlockJobAction,
+} from "../../../../sagas/Fetch/actions";
+import {
+	lang,
+	t,
+	WithTranslation,
+	withTranslation,
+} from "../../../../translation/i18n";
+import {
+	DeleteJob,
+	JobProxy,
+	JobRootObject,
+	JobsSelectedRequest,
+	ProjectNameJobName,
+	Unlock,
+} from "./_types";
 const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
 export interface StateProps {
 	activeTree: TreeType;
 	routerState: any;
 	pending: boolean;
-	jobs: JobType;
+	job: JobType;
 	local: boolean;
 	token: string;
 	jobHub: any;
@@ -76,7 +83,7 @@ export interface DispatchProps {
 const Index = ({
 	jobHub,
 	setJob,
-	jobs,
+	job,
 	removeJob,
 	getJobImage,
 	editTruss,
@@ -96,9 +103,9 @@ const Index = ({
 	};
 
 	const unlock = () => {
-		unlockJob(unlockJobAction(jobs.Project, jobs.JobName));
+		unlockJob(unlockJobAction(job.Project, job.JobName));
 	};
-
+	console.log(job);
 	return (
 		<HubComponent id={id} jobHub={jobHub} setLoading={setLoading}>
 			<MainTree>
@@ -114,24 +121,24 @@ const Index = ({
 									icon={faHomeLgAlt as IconProp}
 									color={"#fff"}
 								/>
-								<TitleName>{jobs?.JobName}</TitleName>
-								{jobs?.Phases && <Phase phase={jobs?.Phases} />}
+								<TitleName>{job?.JobName}</TitleName>
+								{job?.Phases && <Phase phase={job?.Phases} />}
 							</TitleSection>
 							<PageTitleActions>
 								<EditJob
 									openTruss={editTruss}
-									id={get(jobs, getPath(JobProxy.Id))}
-									trussExe={jobs?.TrussType}
-									jobName={jobs?.JobName}
-									projectName={jobs?.Project}
+									id={get(job, getPath(JobProxy.Id))}
+									trussExe={job?.TrussType}
+									jobName={job?.JobName}
+									projectName={job?.Project}
 								/>
-								{!!jobs?.Lock && <Lock unlock={() => unlock()} />}
+								{!!job?.Lock && <Lock unlock={() => unlock()} />}
 
 								<Delete
 									title={t(translationPath(lang.remove.job), {
-										name: jobs?.JobName,
+										name: job?.JobName,
 									})}
-									remove={() => removeJobCall(get(jobs, getPath(JobProxy.Id)))}
+									remove={() => removeJobCall(get(job, getPath(JobProxy.Id)))}
 								/>
 							</PageTitleActions>
 						</PageTitle>

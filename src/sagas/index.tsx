@@ -90,6 +90,8 @@ import {
 import {
 	watchCalculateTrussQuotationAction,
 	watchGetTrussesGetAction,
+	watchGetTrussMaterialsAction,
+	watchGetTrussQuotationsAction,
 	watchTrussImage,
 } from "../containers/Portal/TreeView/Truss/_sagas";
 import {
@@ -172,6 +174,8 @@ export const rootSaga = [
 	watchAresGetAction,
 	watchRemoveUsersAction,
 	watchGetUsersAction,
+	watchGetTrussQuotationsAction,
+	watchGetTrussMaterialsAction,
 ];
 
 export type SagasType = typeof rootSaga;

@@ -1,23 +1,29 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import { getType } from "typesafe-actions";
+import { ApiURL } from '../../../../constants/api';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { getType } from 'typesafe-actions';
+import { lang, t } from '../../../../translation/i18n';
+import { Method } from '../../../../constants/enum';
+import { Quotations } from '../../Quotations/_types';
+import { quotationSelectionGetAction } from '../../Quotations/_actions';
+import { Status } from '../../../../components/Toast/_types';
+import { translationPath } from '../../../../utils/getPath';
 import {
 	clearNotificationAction,
 	notificationAction,
 } from "../../../../components/Toast/_actions";
-import { Status } from "../../../../components/Toast/_types";
-import { ApiURL } from "../../../../constants/api";
-import { Method } from "../../../../constants/enum";
 import {
 	Error,
 	fetchSaga,
 	FetchSagaReponseType,
 	WildCards,
 } from "../../../../sagas/_sagas";
-import { lang, t } from "../../../../translation/i18n";
-import { translationPath } from "../../../../utils/getPath";
-import { quotationSelectionGetAction } from "../../Quotations/_actions";
-import { Quotations } from "../../Quotations/_types";
-import { calculateTruss, getTruss, trussImage } from "./_actions";
+import {
+	calculateTruss,
+	getTruss,
+	getTrussMaterials,
+	getTrussQuotations,
+	trussImage,
+} from "./_actions";
 
 function* TrussImageSaga(
 	action: ReturnType<typeof trussImage.request>
@@ -26,7 +32,7 @@ function* TrussImageSaga(
 		const data: FetchSagaReponseType = yield call(
 			fetchSaga,
 			ApiURL.TRUSS_IMAGE,
-			"GET",
+			Method.GET,
 			{
 				param: action.payload,
 			}
@@ -148,6 +154,76 @@ function* getTrussesActionSaga(
 		);
 		yield put(getTruss.failure(err));
 	}
+}
+
+function* getTrussMaterialsActionSaga(
+	action: ReturnType<typeof getTrussMaterials.request>
+): Generator {
+	try {
+		// @ts-ignore
+		const { errorResponseData, response, success, statusText } = yield call(
+			fetchSaga,
+			ApiURL.TRUSSES + "/" + action.payload + "/material",
+			Method.GET
+		);
+
+		if (!success) {
+			yield put(getTrussMaterials.failure(errorResponseData));
+			return;
+		}
+
+		yield put(getTrussMaterials.success(response));
+	} catch (err) {
+		yield put(
+			notificationAction({
+				code: Status.ERROR,
+				message: t(translationPath(lang.common.errorMessage)),
+			})
+		);
+		yield put(getTrussMaterials.failure(err));
+	}
+}
+
+function* getTrussQuotationsActionSaga(
+	action: ReturnType<typeof getTrussQuotations.request>
+): Generator {
+	try {
+		// @ts-ignore
+		const { errorResponseData, response, success, statusText } = yield call(
+			fetchSaga,
+			ApiURL.TRUSSES + "/" + action.payload + "/quotations",
+			Method.GET
+		);
+
+		if (!success) {
+			yield put(getTrussQuotations.failure(errorResponseData));
+			return;
+		}
+
+		yield put(getTrussQuotations.success(response));
+	} catch (err) {
+		yield put(
+			notificationAction({
+				code: Status.ERROR,
+				message: t(translationPath(lang.common.errorMessage)),
+			})
+		);
+		yield put(getTrussQuotations.failure(err));
+	}
+}
+
+export function* watchGetTrussQuotationsAction() {
+	yield takeLatest(
+		getType(getTrussQuotations.request),
+		getTrussQuotationsActionSaga
+	);
+}
+
+export function* watchGetTrussMaterialsAction() {
+	yield takeLatest(
+		getType(getTrussMaterials.request),
+		getTrussMaterialsActionSaga
+	);
 }
 
 export function* watchGetTrussesGetAction() {

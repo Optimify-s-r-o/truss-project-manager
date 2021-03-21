@@ -1,16 +1,22 @@
-import { useFormik } from "formik";
-import { get } from "lodash";
-import * as React from "react";
-import Moment from "react-moment";
-import { RouteComponentProps } from "react-router-dom";
-import { formatCurrency } from "src/utils/currencyFormat";
-import * as Yup from "yup";
-import Data from "../../../../../components/Data/Data";
-import { UnitType } from "../../../../../components/Data/Unit";
-import { Button } from "../../../../../components/Optimify/Button";
-import FormikRow from "../../../../../components/Optimify/Form/FormikRow";
-import RouteLeavingGuard from "../../../../../components/Prompt";
-import { Input } from "../../../../../constants/enum";
+import * as React from 'react';
+import * as Yup from 'yup';
+import Data from '../../../../../components/Data/Data';
+import FormikRow from '../../../../../components/Optimify/Form/FormikRow';
+import Moment from 'react-moment';
+import RouteLeavingGuard from '../../../../../components/Prompt';
+import { Button } from '../../../../../components/Optimify/Button';
+import { fixed } from '../../../../../utils/formating';
+import { formatCurrency } from 'src/utils/currencyFormat';
+import { get } from 'lodash';
+import { getPath, translationPath } from '../../../../../utils/getPath';
+import { Input } from '../../../../../constants/enum';
+import { JobProxy, UpdateJobRequest } from '../_types';
+import { JobType, Settings, TreeType } from '../../../../../types/_types';
+import { RightColumn } from './_styles';
+import { RouteComponentProps } from 'react-router-dom';
+import { UnitType } from '../../../../../components/Data/Unit';
+import { updateJobWithoutUpdate } from '../../../../../sagas/Fetch/actions';
+import { useFormik } from 'formik';
 import {
 	ContentCard,
 	Form,
@@ -19,16 +25,12 @@ import {
 	Header2,
 	Sceleton,
 } from "../../../../../constants/globalStyles";
-import { updateJobWithoutUpdate } from "../../../../../sagas/Fetch/actions";
 import {
 	lang,
 	t,
 	WithTranslation,
 	withTranslation,
 } from "../../../../../translation/i18n";
-import { JobType, Settings, TreeType } from "../../../../../types/_types";
-import { fixed } from "../../../../../utils/formating";
-import { getPath, translationPath } from "../../../../../utils/getPath";
 import {
 	CenterImage,
 	MainTreeContent,
@@ -36,8 +38,6 @@ import {
 	TreeContent,
 	TreeScreen,
 } from "../../../_styles";
-import { JobProxy, UpdateJobRequest } from "../_types";
-import { RightColumn } from "./_styles";
 
 export interface StateProps {
 	activeTree: TreeType;
@@ -117,7 +117,7 @@ const Index = ({
 		}
 		return false;
 	};
-
+	console.log(jobs);
 	return (
 		<MainTreeContent>
 			<Form onSubmit={formik.handleSubmit}>
@@ -186,7 +186,7 @@ const Index = ({
 										title={t(translationPath(lang.common.dateOfCreation))}
 										data={
 											<Moment format="DD/MM/YYYY HH:MM">
-												{get(jobs, getPath(JobProxy.General.DateOfCreation))}
+												{get(jobs, getPath(JobProxy.DateOfCreation))}
 											</Moment>
 										}
 										unit={UnitType.EMPTY}
@@ -195,25 +195,19 @@ const Index = ({
 										title={t(translationPath(lang.common.lastEdit))}
 										data={
 											<Moment format="DD/MM/YYYY HH:MM">
-												{get(jobs, getPath(JobProxy.General.LastEdit))}
+												{get(jobs, getPath(JobProxy.LastEdit))}
 											</Moment>
 										}
 										unit={UnitType.EMPTY}
 									/>
 									<Data
 										title={t(translationPath(lang.common.platesWeight))}
-										data={fixed(
-											get(jobs, getPath(JobProxy.General.PlatesWeight)),
-											2
-										)}
+										data={fixed(get(jobs, getPath(JobProxy.PlatesWeight)), 2)}
 										unit={UnitType.KG}
 									/>
 									<Data
 										title={t(translationPath(lang.common.planksVolume))}
-										data={fixed(
-											get(jobs, getPath(JobProxy.General.PlanksVolume)),
-											4
-										)}
+										data={fixed(get(jobs, getPath(JobProxy.PlanksVolume)), 4)}
 										unit={UnitType.M3}
 									/>
 									<Data
@@ -228,7 +222,7 @@ const Index = ({
 									<Data
 										title={t(translationPath(lang.common.PlateWeightOnArea))}
 										data={fixed(
-											get(jobs, getPath(JobProxy.General.PlatesWeightOnArea)),
+											get(jobs, getPath(JobProxy.PlatesWeightOnArea)),
 											2
 										)}
 										unit={UnitType.KGM2}
@@ -238,26 +232,20 @@ const Index = ({
 											translationPath(lang.common.PlatesWeighOnPlanksVolume)
 										)}
 										data={fixed(
-											get(
-												jobs,
-												getPath(JobProxy.General.PlatesWeightOnPlanksVolume)
-											),
+											get(jobs, getPath(JobProxy.PlatesWeightOnPlanksVolume)),
 											2
 										)}
 										unit={UnitType.KGM2}
 									/>
 									<Data
 										title={t(translationPath(lang.common.priceOnPlanks))}
-										data={formatCurrency(
-											jobs?.General.PriceOnPlanks,
-											UnitType.KCM3
-										)}
+										data={formatCurrency(jobs?.PriceOnPlanks, UnitType.KCM3)}
 										unit={UnitType.EMPTY}
 									/>
 									<Data
 										title={t(translationPath(lang.common.PriceOnArea))}
 										data={formatCurrency(
-											jobs?.General.PriceOnArea,
+											jobs?.General?.PriceOnArea,
 											UnitType.KCM2
 										)}
 										unit={UnitType.EMPTY}
@@ -286,7 +274,7 @@ const Index = ({
 												<Data
 													title={t(translationPath(lang.common.roofingArea))}
 													data={fixed(
-														get(jobs, getPath(JobProxy.General.RoofingArea)),
+														get(jobs, getPath(JobProxy.RoofingArea)),
 														2
 													)}
 													unit={UnitType.M2}
@@ -294,7 +282,7 @@ const Index = ({
 												<Data
 													title={t(translationPath(lang.common.ceilingArea))}
 													data={fixed(
-														get(jobs, getPath(JobProxy.General.CeilingArea)),
+														get(jobs, getPath(JobProxy.CeilingArea)),
 														2
 													)}
 													unit={UnitType.M2}
@@ -309,10 +297,7 @@ const Index = ({
 												/>
 												<Data
 													title={t(translationPath(lang.common.centres))}
-													data={fixed(
-														get(jobs, getPath(JobProxy.General.Centres)),
-														0
-													)}
+													data={fixed(get(jobs, getPath(JobProxy.Centres)), 0)}
 													unit={UnitType.MM}
 												/>
 												<Data
@@ -320,10 +305,7 @@ const Index = ({
 														translationPath(lang.common.trussTypesCount)
 													)}
 													data={fixed(
-														get(
-															jobs,
-															getPath(JobProxy.General.TrussTypesCount)
-														),
+														get(jobs, getPath(JobProxy.TrussTypesCount)),
 														0
 													)}
 													unit={UnitType.EMPTY}
@@ -331,7 +313,7 @@ const Index = ({
 												<Data
 													title={t(translationPath(lang.common.trussCount))}
 													data={fixed(
-														get(jobs, getPath(JobProxy.General.TrussCount)),
+														get(jobs, getPath(JobProxy.TrussCount)),
 														0
 													)}
 													unit={UnitType.EMPTY}

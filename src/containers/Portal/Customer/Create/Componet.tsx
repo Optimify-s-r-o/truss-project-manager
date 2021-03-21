@@ -134,10 +134,23 @@ const Index = ({
 						Contacts: [],
 				  },
 		validationSchema: Yup.object({
-			Company: Yup.string()
-				.min(1, t(translationPath(lang.validation.min).path, { count: 1 }))
-				.max(200, t(translationPath(lang.validation.max).path, { count: 200 }))
-				.required(t(translationPath(lang.validation.required).path)),
+			Company: Yup.string().test(
+				"Company",
+				t(translationPath(lang.validation.companyOrSurnameRequired).path),
+				(value) => {
+					console.log(formik.values.Surname === "");
+					console.log(formik.values.Company === "");
+					console.log(!!!value || !!!formik.values.Surname);
+					return formik.values.Surname != "" || formik.values.Company != "";
+				}
+			),
+			Surname: Yup.string().test(
+				"Surname",
+				t(translationPath(lang.validation.companyOrSurnameRequired).path),
+				(value) => {
+					return formik.values.Surname != "" || formik.values.Company != "";
+				}
+			),
 		}),
 		enableReinitialize: true,
 		onSubmit: (values: Customer) => {
