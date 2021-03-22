@@ -122,6 +122,7 @@ export const CustomerInput = ({
 			<SSelect
 				ref={ref}
 				allowClear
+				showSearch
 				onClick={(e) => handleClose(e)}
 				style={{ width: "100%" }}
 				value={currentCustomer}

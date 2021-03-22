@@ -50,7 +50,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 				<DateRange
 					formik={formik}
 					name={getPath(FilterProxy.Projects.DateOfCreationFilter)}
-					title={t(translationPath(lang.common.dateOfCreation))}
+					title={t(translationPath(lang.common.projectTimeOfCreation))}
 				/>
 			</FilterContentSection>
 			<FilterContentSection>

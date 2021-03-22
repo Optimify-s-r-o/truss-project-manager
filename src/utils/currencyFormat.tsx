@@ -1,4 +1,3 @@
-import CurrencyFormat from 'react-currency-format';
 import styled from 'styled-components';
 import { fixed } from './formating';
 import { Unit } from '../components/Data/Unit';
@@ -6,13 +5,14 @@ import { UnitType } from 'src/components/Data/Unit';
 
 export const formatCurrency = (value: any, unit?: UnitType) => {
 	if (value === null) return "x";
+	const amount = value
+		? fixed(value, 2)
+				.toString()
+				.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ")
+		: 0;
 	return (
 		<>
-			<CurrencyFormat
-				value={fixed(value, 2)}
-				displayType={"text"}
-				thousandSeparator={true}
-			/>
+			{amount}
 			<Span>{unit ? <Unit unit={unit} /> : "Kč"}</Span>
 		</>
 	);

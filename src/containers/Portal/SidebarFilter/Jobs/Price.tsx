@@ -21,7 +21,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 
 	return (
 		<FilterSection
-			title={t(translationPath(lang.common.price))}
+			title={t(translationPath(lang.common.designPrice))}
 			formik={formik}
 			filters={[
 				getPath(FilterProxy.Jobs.PriceFilter),
@@ -41,7 +41,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 		>
 			<EmptyFilter filter={filter} type="Job" names={["Price"]}>
 				<FormSlider
-					label={t(translationPath(lang.common.price))}
+					label={t(translationPath(lang.common.designPrice))}
 					name={getPath(FilterProxy.Jobs.PriceFilter)}
 					formik={formik}
 					from={formik?.values?.Jobs.PriceFilter?.From}

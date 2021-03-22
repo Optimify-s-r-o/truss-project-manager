@@ -59,6 +59,9 @@ export interface RoofInfo {
 	Ridge: number;
 	HipLength: number;
 	WallplateLength: number;
+	Centres: number;
+	TrussTypes: number;
+	TrussCount: number;
 }
 
 export interface Load {
@@ -400,8 +403,8 @@ export interface Project {
 	CustomerType: string;
 	AssignedUser: string;
 	AssignedUserRole: string;
-	QuotationPrice: number | string;
-	ProductionPrice: number | string;
+	QuotationPrice: number;
+	ProductionPrice: number;
 	Location: Location;
 	Jobs: Job[];
 	ParentCustomerId?: string;

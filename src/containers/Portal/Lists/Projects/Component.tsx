@@ -233,7 +233,9 @@ const Index = (
 				return t(translationPath(lang.common[value[item.name]]).path);
 			case "QuotationPrice":
 			case "ProductionPrice":
-				return !!value[item.name] ? formatCurrency(value[item.name]) : "x";
+				return !!value[item.name]
+					? formatCurrency(value[item.name] as number)
+					: "x";
 			case "Location":
 				return (
 					<span>

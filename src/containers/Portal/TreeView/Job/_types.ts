@@ -90,6 +90,7 @@ export interface JobRootObject {
 	Centres: number;
 	TrussTypesCount: number;
 	TrussCount: number;
+	TrussTypes: number;
 	Load: Load;
 	LastChange: Date;
 	Altitude: number;
@@ -106,7 +107,7 @@ export interface JobRootObject {
 	Documents: Document[];
 	Location: Location;
 	CustomerContainer: Customer;
-	Roof: RoofInfo;
+	RoofInfo: RoofInfo;
 	Id: string;
 }
 

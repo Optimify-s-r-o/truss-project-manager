@@ -46,14 +46,14 @@ const Index = (props: OwnProps & WithTranslation) => {
 					formik={formik}
 					label={
 						<DateRangeTitle>
-							{t(translationPath(lang.common.dateOfCreation))}
+							{t(translationPath(lang.common.jobDateOfCreation))}
 						</DateRangeTitle>
 					}
 				/>
 				<DateRange
 					formik={formik}
 					name={getPath(FilterProxy.Jobs.JobDateOfCreationFilter)}
-					title={t(translationPath(lang.common.dateOfCreation))}
+					title={t(translationPath(lang.common.jobDateOfCreation))}
 				/>
 			</FilterContentSection>
 			<FilterContentSection>
@@ -63,14 +63,14 @@ const Index = (props: OwnProps & WithTranslation) => {
 					formik={formik}
 					label={
 						<DateRangeTitle>
-							{t(translationPath(lang.common.dateOfLastUpdate))}
+							{t(translationPath(lang.common.jobDateOfLastUpdate))}
 						</DateRangeTitle>
 					}
 				/>
 				<DateRange
 					formik={formik}
 					name={getPath(FilterProxy.Jobs.DateOfLastUpdateFilter)}
-					title={t(translationPath(lang.common.dateOfLastUpdate))}
+					title={t(translationPath(lang.common.jobDateOfLastUpdate))}
 				/>
 			</FilterContentSection>
 		</FilterSection>

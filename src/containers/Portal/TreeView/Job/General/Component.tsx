@@ -91,19 +91,6 @@ const Index = ({
 		["Construction", t(translationPath(lang.common.output))],
 	]);
 
-	const getLocation =
-		formik.values && formik.values?.Place
-			? formik.values?.Place?.CityName +
-			  (formik.values?.Place?.CityName ? ", " : "") +
-			  formik.values?.Place?.StreetName +
-			  " " +
-			  formik.values?.Place?.PlaceNumber +
-			  (formik.values?.Place?.StreetName ? ", " : "") +
-			  formik.values?.Place?.RegionName +
-			  (formik.values?.Place?.RegionName ? ", " : "") +
-			  (formik.values.Place.Country ? formik.values.Place.Country : "")
-			: "";
-
 	const equal = (var1: JobType, var2: JobType): boolean => {
 		if (
 			var1?.JobName === var2?.JobName &&
@@ -140,7 +127,7 @@ const Index = ({
 									<FormikRow
 										formik={formik}
 										name="JobName"
-										title={t(translationPath(lang.common.name))}
+										title={t(translationPath(lang.common.jobName))}
 										type={Input.TEXT}
 										titleWidth={40}
 									/>
@@ -153,20 +140,8 @@ const Index = ({
 									/>
 									<FormikRow
 										formik={formik}
-										name="State"
-										title={t(translationPath(lang.common.state))}
-										type={Input.SELECT}
-										options={Array.from(stateOptions)?.map(
-											(value: [string, string]) => {
-												return { value: value[0], label: value[1] };
-											}
-										)}
-										titleWidth={40}
-									/>
-									<FormikRow
-										formik={formik}
 										name="Type"
-										title={t(translationPath(lang.common.type))}
+										title={t(translationPath(lang.common.jobType))}
 										type={Input.SELECT}
 										options={Array.from(typeOptions)?.map(
 											(value: [string, string]) => {
@@ -175,13 +150,20 @@ const Index = ({
 										)}
 										titleWidth={40}
 									/>
-									<Data
-										title={t(translationPath(lang.common.address))}
-										data={getLocation}
-										unit={UnitType.EMPTY}
+									<FormikRow
+										formik={formik}
+										name="State"
+										title={t(translationPath(lang.common.jobState))}
+										type={Input.SELECT}
+										options={Array.from(stateOptions)?.map(
+											(value: [string, string]) => {
+												return { value: value[0], label: value[1] };
+											}
+										)}
+										titleWidth={40}
 									/>
 									<Data
-										title={t(translationPath(lang.common.dateOfCreation))}
+										title={t(translationPath(lang.common.jobDateOfCreation))}
 										data={
 											<Moment format="DD/MM/YYYY HH:MM">
 												{get(jobs, getPath(JobProxy.DateOfCreation))}
@@ -190,10 +172,10 @@ const Index = ({
 										unit={UnitType.EMPTY}
 									/>
 									<Data
-										title={t(translationPath(lang.common.lastEdit))}
+										title={t(translationPath(lang.common.jobDateOfLastUpdate))}
 										data={
 											<Moment format="DD/MM/YYYY HH:MM">
-												{get(jobs, getPath(JobProxy.LastEdit))}
+												{get(jobs, getPath(JobProxy.LastChange))}
 											</Moment>
 										}
 										unit={UnitType.EMPTY}
@@ -209,7 +191,7 @@ const Index = ({
 										unit={UnitType.M3}
 									/>
 									<Data
-										title={t(translationPath(lang.common.price))}
+										title={t(translationPath(lang.common.designPrice))}
 										data={formatCurrency(jobs?.Price)}
 										unit={UnitType.EMPTY}
 									/>
@@ -237,15 +219,15 @@ const Index = ({
 									/>
 									<Data
 										title={t(translationPath(lang.common.priceOnPlanks))}
-										data={formatCurrency(jobs?.PriceOnPlanks, UnitType.KCM3)}
+										data={formatCurrency(
+											jobs?.TrussPriceOnPlanksVolume,
+											UnitType.KCM3
+										)}
 										unit={UnitType.EMPTY}
 									/>
 									<Data
 										title={t(translationPath(lang.common.PriceOnArea))}
-										data={formatCurrency(
-											jobs?.General?.PriceOnArea,
-											UnitType.KCM2
-										)}
+										data={formatCurrency(jobs?.TrussPriceOnArea, UnitType.KCM2)}
 										unit={UnitType.EMPTY}
 									/>
 								</ContentCard>
@@ -272,7 +254,7 @@ const Index = ({
 												<Data
 													title={t(translationPath(lang.common.roofingArea))}
 													data={fixed(
-														get(jobs, getPath(JobProxy.RoofingArea)),
+														get(jobs, getPath(JobProxy.RoofInfo.RoofArea)),
 														2
 													)}
 													unit={UnitType.M2}
@@ -280,7 +262,7 @@ const Index = ({
 												<Data
 													title={t(translationPath(lang.common.ceilingArea))}
 													data={fixed(
-														get(jobs, getPath(JobProxy.CeilingArea)),
+														get(jobs, getPath(JobProxy.RoofInfo.CoveredArea)),
 														2
 													)}
 													unit={UnitType.M2}
@@ -288,7 +270,7 @@ const Index = ({
 												<Data
 													title={t(translationPath(lang.common.pitch))}
 													data={fixed(
-														get(jobs, getPath(JobProxy.Roof.Pitch)),
+														get(jobs, getPath(JobProxy.RoofInfo.Pitch)),
 														0
 													)}
 													unit={UnitType.EMPTY}
@@ -303,7 +285,7 @@ const Index = ({
 														translationPath(lang.common.trussTypesCount)
 													)}
 													data={fixed(
-														get(jobs, getPath(JobProxy.TrussTypesCount)),
+														get(jobs, getPath(JobProxy.TrussTypes)),
 														0
 													)}
 													unit={UnitType.EMPTY}
@@ -349,6 +331,15 @@ const Index = ({
 													title={t(translationPath(lang.common.windLoad))}
 													data={fixed(
 														get(jobs, getPath(JobProxy.Load.WindLoad)),
+														2
+													)}
+													unit={UnitType.KNM2}
+												/>
+
+												<Data
+													title={t(translationPath(lang.common.floorArea))}
+													data={fixed(
+														get(jobs, getPath(JobProxy.RoofInfo.FloorArea)),
 														2
 													)}
 													unit={UnitType.KNM2}

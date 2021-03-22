@@ -1,6 +1,7 @@
 import * as React from 'react';
 import FilterSection from '../../Lists/components/FilterSection';
 import FormikRow from '../../../../components/Optimify/Form/FormikRow';
+import { FilterContentSection } from '../../Lists/components/_styles';
 import { FilterProxy } from '../_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
 import { FormikCheckbox } from '../components/FormikCheckbox';
@@ -17,10 +18,6 @@ import {
 	lastPathMember,
 	translationPath,
 } from "../../../../utils/getPath";
-import {
-	FilterContentSection,
-	FilterTitle,
-} from "../../Lists/components/_styles";
 
 export interface OwnProps {
 	formik: any;
@@ -43,14 +40,13 @@ const Index = (props: OwnProps & WithTranslation) => {
 			checkboxes={[getPath(FilterSettingsProxy.Job.JobTypes)]}
 			input={[getPath(FilterProxy.Jobs.NameFilter.Name)]}
 		>
-			<FilterContentSection>
-				<FilterTitle>{t(translationPath(lang.common.job))}</FilterTitle>
+			<FilterContentSection withoutMargin>
 				<FormikRow
 					formik={formik}
 					name={getPath(FilterProxy.Jobs.NameFilter.Name)}
 					filter={getPath(FilterProxy.Jobs.NameFilter)}
 					filterName={lastPathMember(FilterProxy.Jobs.NameFilter.Name).path}
-					title={t(translationPath(lang.common.name))}
+					title={t(translationPath(lang.common.jobName))}
 					type={Input.FILTER_TEXT}
 				/>
 			</FilterContentSection>
@@ -73,7 +69,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 					lastPathMember(FilterProxy.Jobs.JobStateFilter.JobStates).path
 				}
 				path={getPath(FilterProxy.Jobs.JobStateFilter)}
-				title={t(translationPath(lang.common.state))}
+				title={t(translationPath(lang.common.jobState))}
 				value={formik?.values?.Jobs?.JobStateFilter?.JobStates}
 			/>
 		</FilterSection>

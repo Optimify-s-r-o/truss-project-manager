@@ -436,6 +436,7 @@ export type Lang = Readonly<{
 		changeTruss2DPath: string;
 		jobType: string;
 		projectState: string;
+		jobState: string;
 		editNaturalPerson: string;
 		editEvidencePerson: string;
 		unavailable: string;
@@ -687,7 +688,9 @@ export type Lang = Readonly<{
 		dateFromLabel: string;
 		dateFromSellLabel: string;
 		dateOfCreation: string;
+		jobDateOfCreation: string;
 		dateOfLastUpdate: string;
+		jobDateOfLastUpdate: string;
 		dateOfProcessing: string;
 		dateToBuyLabel: string;
 		dateToLabel: string;
@@ -737,6 +740,7 @@ export type Lang = Readonly<{
 		filterGeneral: string;
 		filterSubmit: string;
 		filterTechnicalParametr: string;
+		checkboxSectionTechnicalParameters: string;
 		filterTree: string;
 		find: string;
 		finished: string;

@@ -149,7 +149,7 @@ const Index = (
 	const checkboxes: Checkbox[] = [
 		{
 			name: "JobName",
-			title: t(translationPath(lang.common.name).path),
+			title: t(translationPath(lang.common.jobName).path),
 			section: "General",
 		},
 		{
@@ -159,7 +159,7 @@ const Index = (
 		},
 		{
 			name: "Price",
-			title: t(translationPath(lang.common.price).path),
+			title: t(translationPath(lang.common.designPrice).path),
 			section: "Calculation",
 		},
 		{
@@ -169,7 +169,7 @@ const Index = (
 		},
 		{
 			name: "LastChange",
-			title: t(translationPath(lang.common.dateOfLastUpdate).path),
+			title: t(translationPath(lang.common.jobDateOfLastUpdate).path),
 			section: "General",
 		},
 		{
@@ -184,7 +184,7 @@ const Index = (
 		},
 		{
 			name: "State",
-			title: t(translationPath(lang.common.state).path),
+			title: t(translationPath(lang.common.jobState).path),
 			section: "General",
 		},
 		{
@@ -195,12 +195,12 @@ const Index = (
 		{
 			name: "CoveredArea",
 			title: t(translationPath(lang.common.roofArea).path),
-			section: "Dimensions",
+			section: "TechnicalParameters",
 		},
 		{
 			name: "HipLength",
 			title: t(translationPath(lang.common.hipLength).path),
-			section: "Dimensions",
+			section: "TechnicalParameters",
 		},
 		{
 			name: "SnowRegion",
@@ -212,11 +212,11 @@ const Index = (
 			title: t(translationPath(lang.common.windArea).path),
 			section: "Load",
 		},
-		{
-			name: "Altitude",
-			title: t(translationPath(lang.common.altitude).path),
-			section: "Load",
-		},
+		// {
+		// 	name: "Altitude",
+		// 	title: t(translationPath(lang.common.altitude).path),
+		// 	section: "Load",
+		// },
 	];
 
 	const [checked, setChecked] = React.useState<Checkbox[]>(
