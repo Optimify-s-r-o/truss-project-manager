@@ -136,7 +136,7 @@ export type ListQuotation = {
 };
 
 export type QuotationFileImport = {
-	Id: string;
+	Id?: string;
 	File: any;
 	Type: string;
 };

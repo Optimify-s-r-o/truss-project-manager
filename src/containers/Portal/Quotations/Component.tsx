@@ -211,7 +211,13 @@ const Index = ({
 					<TemplateContent>
 						<TreeContent>
 							{quotationList?.DefaultId == null ? (
-								<EmptyTemplate addQuotationTemplate={addQuotationTemplate} />
+								<EmptyTemplate
+									quotationTemplateImportPostAction={
+										quotationTemplateImportPostAction
+									}
+									addQuotationTemplate={addQuotationTemplate}
+									type={typeParam}
+								/>
 							) : (
 								<QuotationEditor
 									quotationTemplateImportPostAction={

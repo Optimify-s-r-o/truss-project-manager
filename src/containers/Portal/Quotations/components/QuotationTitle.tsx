@@ -154,7 +154,6 @@ export const QuotationTitle = ({
 					</ActionButton>
 					<ActionButton>
 						<File
-							id={quotations?.Id}
 							title={quotations?.Title}
 							uploadFile={quotationTemplateImportPostAction}
 							type={type}

@@ -19,6 +19,7 @@ import { Sync } from './Sync';
 import { Undo } from './Undo';
 import { Upload } from './Upload';
 import { UploadPure } from './UploadPure';
+import { UploadPureEmpty } from './UploadPureEmpty';
 
 export {
 	Edit,
@@ -42,4 +43,5 @@ export {
 	DownloadPure,
 	Save,
 	CreateAccount,
+	UploadPureEmpty,
 };
