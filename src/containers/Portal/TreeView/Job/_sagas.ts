@@ -169,6 +169,12 @@ function* copyJobActionSaga(
 	action: ReturnType<typeof copyJob.request>
 ): Generator {
 	try {
+		yield put(
+			notificationAction({
+				code: Status.INFO,
+				message: t(translationPath(lang.common.copyingJob)),
+			})
+		);
 		// @ts-ignore
 		const { errorResponseData, response, success, statusText } = yield call(
 			fetchSaga,
@@ -196,6 +202,12 @@ function* copyJobActionSaga(
 			yield put(calculateJob.failure(errorResponseData));
 			return;
 		}
+		yield put(
+			notificationAction({
+				code: Status.SUCCESS,
+				message: t(translationPath(lang.common.jobCopied)),
+			})
+		);
 		yield put(copyJob.success(response));
 	} catch (err) {
 		yield put(

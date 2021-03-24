@@ -366,6 +366,8 @@ const dictionary: Lang = {
 		passwordMatch: "Zadaná hesla se neshodují",
 	},
 	common: {
+		copyingJob: "Úloha se právě stahuje.",
+		jobCopied: "Úloha byla úspěšně stažena.",
 		CustomerExists: "Zákazník již existuje.",
 		statistics: "Statistika",
 		designPrice: "Cena dle návrhu",

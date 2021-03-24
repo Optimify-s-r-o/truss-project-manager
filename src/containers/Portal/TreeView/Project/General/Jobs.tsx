@@ -3,12 +3,6 @@ import EditJob from './components/EditJob';
 import FormikRow from '../../../../../components/Optimify/Form/FormikRow';
 import Moment from 'react-moment';
 import NewJob from './components/NewJob';
-import {
-	Clone,
-	Delete,
-	Link,
-	Lock
-	} from '../../../../../components/Button';
 import { CreateJobFromFile } from '../../../../../sagas/CreateJobFromFile';
 import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
 import { DeleteJob, Unlock } from '../../Job/_types';
@@ -18,9 +12,17 @@ import { getPath, translationPath } from '../../../../../utils/getPath';
 import { IAddJsonToProject } from './File/_types';
 import { Input } from '../../../../../constants/enum';
 import { IProjectDuplicate } from '../_types';
+import { isElectron } from '../../../../../utils/electron';
 import { NameColumn, StatusBox, VerticalScroll } from './_styles';
 import { OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { Routes } from '../../../../../constants/routes';
+import {
+	Clone,
+	Delete,
+	Download,
+	Link,
+	Lock,
+} from "../../../../../components/Button";
 import {
 	ActionsColumn,
 	Table,
@@ -120,6 +122,27 @@ const Index = (props: WithTranslation & OwnProps) => {
 
 	const unlock = (project: string, job: string) => {
 		unlockJob(unlockJobAction(project, job));
+	};
+
+	const download = (id: string) => {
+		if (isElectron()) {
+			let options = {
+				title: "Truss Project Manager",
+				defaultPath: `C:\\${name}`,
+				buttonLabel: "Save",
+			};
+			const { remote } = window.require("electron");
+			const { app } = require("electron");
+
+			console.log(app.getPath("home"));
+
+			const WIN = remote.getCurrentWindow();
+			remote.dialog.showSaveDialog(WIN, options).then((result) => {
+				console.log(result.filePath);
+				if (result.filePath) {
+				}
+			});
+		}
 	};
 
 	return (
@@ -289,14 +312,20 @@ const Index = (props: WithTranslation & OwnProps) => {
 												/>
 												&nbsp;
 												<Link link={() => routeJob(parent)} />
-												&nbsp;
 												{!!value?.Lock && (
-													<Lock
-														unlock={() =>
-															leavingGuard(unlock(project.Name, parent.JobName))
-														}
-													/>
+													<>
+														&nbsp;
+														<Lock
+															unlock={() =>
+																leavingGuard(
+																	unlock(project.Name, parent.JobName)
+																)
+															}
+														/>
+													</>
 												)}
+												&nbsp;
+												<Download download={() => download(parent.Id)} />
 												&nbsp;
 												<Delete
 													title={t(translationPath(lang.remove.job), {

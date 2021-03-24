@@ -364,6 +364,8 @@ const dictionary: Lang = {
 		passwordMatch: "Die Passwörter die du eingegeben hast, passen nicht",
 	},
 	common: {
+		copyingJob: "Der Job wird heruntergeladen.",
+		jobCopied: "Der Job wurde erfolgreich heruntergeladen.",
 		CustomerExists: "Kunde existiert bereits.",
 		statistics: "Statistiken",
 		designPrice: "Preis je nach Design",
