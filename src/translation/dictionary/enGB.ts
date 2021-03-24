@@ -412,6 +412,8 @@ const dictionary: Lang = {
 		CannotContainValueCharacter:
 			"Must not contain the following characters: (,), $",
 		NoFinishedQuotationExists: "At least one job must have a completed quote",
+		JobNameTaken : "Job with this name already exists in selected project",
+		CannotDeleteCustomerInUse : "Customer with assigned projects cannot be deleted",
 		FailedToCreateFile: "The file could not be created.",
 		PreviousSectionMissing: "The previous section is missing.",
 		AtLeastOneSectionRequired: "Enter at least one section.",
