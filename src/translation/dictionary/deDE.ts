@@ -433,6 +433,9 @@ const dictionary: Lang = {
 			"Möchten Sie die Seite wirklich verlassen, ohne sie zu speichern?",
 		closeWithoutSavingMessage:
 			"Es gibt nicht gespeicherte Änderungen auf der Seite. Um Ihre Änderungen zu speichern, bleiben Sie auf der Seite und speichern Sie Ihre Änderungen.",
+		actionWithoutSavingTitle: "Sie haben nicht gespeicherte Änderungen.",
+		actionWithoutSavingMessage:
+			"Speichern Sie Ihre Änderungen mit der Schaltfläche Speichern, bevor Sie die Aktion ausführen.",
 		confirmMessage: "Möchten Sie diesen Artikel wirklich löschen?",
 		leave: "Änderungen abbrechen und verlassen",
 		saveChanges: "Änderungen sichern und beenden",

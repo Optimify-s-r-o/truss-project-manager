@@ -48,7 +48,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 					formik={formik}
 					name={getPath(FilterProxy.Trusses.NameFilter.Name)}
 					filter={getPath(FilterProxy.Trusses.NameFilter)}
-					title={t(translationPath(lang.common.name))}
+					title={t(translationPath(lang.common.truss))}
 					type={Input.FILTER_TEXT}
 				/>
 			</FilterContentSection>

@@ -9,9 +9,11 @@ import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_
 import { deleteFile, duplicateJob, projectUpdate } from './_actions';
 import { deleteJob, unlockJob } from '../../Job/_actions';
 import { DeleteJob, Unlock } from '../../Job/_types';
+import { deleteProject } from '../../../Project/_actions';
+import { DeleteProject } from '../../../Project/_types';
 import { getCustomers } from '../../../SidebarFilter/_actions';
 import { IAddJsonToProject } from './File/_types';
-import { Page } from '../../../../../types/_types';
+import { Page, Project } from '../../../../../types/_types';
 import { SelectedProjectsRequest } from '../../Projects/_types';
 import { setExpandedKeys, setSelectedKeys } from '../../_actions';
 import { usersAction } from 'src/containers/Portal/Accounts/_actions';
@@ -33,15 +35,13 @@ import {
 } from "../_actions";
 import {
 	IProjectDuplicate,
-	IProjectUpdate,
 	ProjectFileRequest,
 	ProjectLogsRequest,
 	ProjectUploadFileRequest,
 } from "../_types";
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-	updateProjectRequest: (data: IProjectUpdate) =>
-		dispatch(projectUpdate.request(data)),
+	updateProject: (data: Project) => dispatch(projectUpdate.request(data)),
 	addJsonRequest: (data: IAddJsonToProject) =>
 		dispatch(addJsonToProject.request(data)),
 	createTruss: (data: OpenTruss) => dispatch(createTruss.request(data)),
@@ -67,6 +67,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	unlockJob: (data: Unlock) => dispatch(unlockJob.request(data)),
 	createCustomerAction: (data: CreateCustomer) =>
 		dispatch(createCustomerAction.request(data)),
+	removeProject: (data: DeleteProject) => dispatch(deleteProject.request(data)),
 });
 
 const mapStateToProps = (state: any) => ({

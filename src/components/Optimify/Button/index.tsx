@@ -433,10 +433,6 @@ const IcondButtonElement = styled(ButtonElement)`
 		&:before {
 			background-color: #f9efc8;
 		}
-
-		.loaderWrapper > div:after {
-			background: #fff;
-		}
 	}
 
 	&:active {

@@ -416,6 +416,7 @@ export interface Project {
 	DefaultQuotationGenerated: boolean;
 	DefaultQuotationTemplateId: string;
 	DefaultQuotationId: string;
+	callback: any;
 }
 
 export type QuotationsSelection = {
@@ -526,6 +527,7 @@ export interface JobType {
 	DefaultQuotationGenerated: boolean;
 	DefaultQuotationTemplateId: string;
 	DefaultQuotationId: string;
+	callback: any;
 }
 
 export const JobTypeProxy = createProxy<JobType>();

@@ -421,6 +421,8 @@ export type Lang = Readonly<{
 		stay: string;
 		closeWithoutSavingTitle: string;
 		closeWithoutSavingMessage: string;
+		actionWithoutSavingTitle: string;
+		actionWithoutSavingMessage: string;
 		editInTruss3D: string;
 		editInTruss2D: string;
 		confirmMessage: string;

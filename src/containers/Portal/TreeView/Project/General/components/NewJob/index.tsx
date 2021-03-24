@@ -18,6 +18,7 @@ export interface OwnProps {
 	projectName: string;
 	openTruss: (data: OpenTruss) => void;
 	trussExe: TrussExe;
+	leavingGuard?: (callback) => void;
 }
 
 export interface JobName {
@@ -29,6 +30,7 @@ const Index: FC<WithTranslation & OwnProps> = ({
 	openTruss,
 	projectId,
 	projectName,
+	leavingGuard,
 }) => {
 	const [truss3DExe, setTruss3DExe] = React.useState("");
 	const [truss2DExe, setTruss2DExe] = React.useState("");
@@ -49,12 +51,25 @@ const Index: FC<WithTranslation & OwnProps> = ({
 	}, []);
 
 	const openNewTruss = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-		openTruss({
-			projectId: projectId,
-			jobName: projectName,
-			trussExe: trussExe === TrussExe.TRUSS_3D ? truss3DExe : truss2DExe,
-			fileType: trussExe,
-		});
+		if (leavingGuard) {
+			console.log("zde?");
+			leavingGuard(() =>
+				openTruss({
+					projectId: projectId,
+					jobName: projectName,
+					trussExe: trussExe === TrussExe.TRUSS_3D ? truss3DExe : truss2DExe,
+					fileType: trussExe,
+				})
+			);
+		} else {
+			console.log("proc");
+			openTruss({
+				projectId: projectId,
+				jobName: projectName,
+				trussExe: trussExe === TrussExe.TRUSS_3D ? truss3DExe : truss2DExe,
+				fileType: trussExe,
+			});
+		}
 	};
 
 	return (

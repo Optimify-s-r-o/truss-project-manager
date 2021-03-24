@@ -1,14 +1,15 @@
 import { createProxy } from '../../../../utils/getPath';
 import { Customer } from '../../Customer/_types';
-import { Location } from '../../Customer/Create/_types';
-import { Plank } from '../Truss/_types';
 import {
 	Fetch,
 	FetchStateType,
 	JobType,
+	QuotationsSelection,
 	RoofInfo,
-	TrussExe,
-} from "../../../../types/_types";
+	TrussExe
+	} from '../../../../types/_types';
+import { Location } from '../../Customer/Create/_types';
+import { Plank } from '../Truss/_types';
 
 export interface Load {
 	RoofingLoad: number;
@@ -168,6 +169,11 @@ export interface JobTrusses {
 	JobPriceWithoutTrusses: number;
 	TrussQuantitySum: number;
 	TrussTypesCount: number;
+	Quotations: QuotationsSelection[];
+	DefaultQuotationTitle: string;
+	DefaultQuotationGenerated: boolean;
+	DefaultQuotationTemplateId: string;
+	DefaultQuotationId: string;
 }
 
 export interface GetTrusses {

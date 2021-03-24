@@ -41,12 +41,10 @@ import {
 	deleteJob,
 	selectedJob,
 	unlockJob,
-	updateSelectedJob,
 } from "../../containers/Portal/TreeView/Job/_actions";
 import {
 	deleteFile,
 	duplicateJob,
-	projectUpdate,
 } from "../../containers/Portal/TreeView/Project/General/_actions";
 import {
 	getProjectFiles,
@@ -198,8 +196,6 @@ export function* watchSagaCall() {
 	yield takeEvery(getType(getSelectedProject.request), Call);
 	yield takeEvery(getType(getSelectedProjects.request), Call);
 	yield takeEvery(getType(selectedJob.request), Call);
-	yield takeEvery(getType(updateSelectedJob.request), Call);
-	yield takeEvery(getType(projectUpdate.request), Call);
 	yield takeEvery(getType(duplicateJob.request), Call);
 	yield takeEvery(getType(addJsonToProject.request), Call);
 	yield takeEvery(getType(deleteProject.request), Call);

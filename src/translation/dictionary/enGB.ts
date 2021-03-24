@@ -427,6 +427,9 @@ const dictionary: Lang = {
 			"Are you sure you want to leave the page without saving?",
 		closeWithoutSavingMessage:
 			"There are unsaved changes on the page. Stay on the page and save your changes.",
+		actionWithoutSavingTitle: "You have unsaved changes.",
+		actionWithoutSavingMessage:
+			"Save your changes with the save button before performing the action.",
 		confirmMessage: "Are you sure you want to delete this item?",
 		leave: "Discard changes and leave",
 		saveChanges: "Save changes and exit",

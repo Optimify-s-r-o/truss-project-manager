@@ -1,8 +1,8 @@
 import Component, { DispatchProps, StateProps } from './Component';
-import { calculateJob, getJobQuotations, selectedJob } from '../_actions';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { JobsSelectedRequest } from '../_types';
+import { DeleteJob, JobsSelectedRequest, Unlock } from '../_types';
+import { editTruss, OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { QuotationCalculate } from '../../Project/_types';
 import { withRouter } from 'react-router-dom';
 import {
@@ -20,6 +20,13 @@ import {
 	QuotationRequest,
 	SectionVariableRequest,
 } from "../../../Quotations/_types";
+import {
+	calculateJob,
+	deleteJob,
+	getJobQuotations,
+	selectedJob,
+	unlockJob,
+} from "../_actions";
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 	quotationSelectionGetAction: (data: QuotationCalculate) =>
@@ -42,6 +49,9 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 	quotationListGetAction: (data: QuotationParam) =>
 		dispatch(quotationListGetAction.request(data)),
 	getJobQuotations: (data: string) => dispatch(getJobQuotations.request(data)),
+	removeJob: (data: DeleteJob) => dispatch(deleteJob.request(data)),
+	editTruss: (data: OpenTruss) => dispatch(editTruss.request(data)),
+	unlockJob: (data: Unlock) => dispatch(unlockJob.request(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({
@@ -51,6 +61,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	quotationList: state.QuotationReducer.quotationList,
 	priceLists: state.PriceListsReducer.priceLists,
 	pending: state.QuotationReducer.pending,
+	job: state.JobReducer.jobs,
 });
 
 export default compose(

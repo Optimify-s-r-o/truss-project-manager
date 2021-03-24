@@ -426,6 +426,9 @@ const dictionary: Lang = {
 		closeWithoutSavingTitle: "Opravdu chcete opustit stránku bez uložení?",
 		closeWithoutSavingMessage:
 			"Na stránce jsou neuložené změny. Pro uložení změn zůstaňte na stránce a uložte změny.",
+		actionWithoutSavingTitle: "Máte neuložené změny.",
+		actionWithoutSavingMessage:
+			"Před provedením akce uložte Vaše změny tlačítkem uložit.",
 		confirmMessage: "Jste si jisti, že chcete smazat tuto položku?",
 		leave: "Zrušit a odejít",
 		saveChanges: "Uložit",

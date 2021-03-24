@@ -1,20 +1,25 @@
-import { faServer, faSync } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Empty, Popconfirm } from "antd";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
-import Navigation from "../../../../../components/NavigationCalculated";
-import Loading from "../../../../../components/Optimify/Loading";
+import lang from '../../../../../translation/lang';
+import Loading from '../../../../../components/Optimify/Loading';
+import Navigation from '../../../../../components/NavigationCalculated';
+import React, { useEffect, useState } from 'react';
+import { Empty, Popconfirm } from 'antd';
+import { faServer, faSync } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Header } from '../components/Header';
+import { JobType } from 'src/types/_types';
+import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
+import { OpenTruss } from '../../../../../sagas/Truss/_actions';
+import { PriceList } from '../../../PriceLists/_types';
+import { QuotationCalculate } from '../../Project/_types';
+import { QuotationColumn } from '../../../../../constants/globalStyles';
+import { translationPath } from '../../../../../utils/getPath';
+import { useParams } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import {
 	ActionButton,
 	ActionSection,
 	SelectionQuotation,
 } from "../../../../../components/Quotations";
-import { QuotationColumn } from "../../../../../constants/globalStyles";
-import lang from "../../../../../translation/lang";
-import { translationPath } from "../../../../../utils/getPath";
-import { PriceList } from "../../../PriceLists/_types";
 import {
 	QuotationList,
 	QuotationParam,
@@ -24,9 +29,12 @@ import {
 	QuotationType,
 	SectionVariableRequest,
 } from "../../../Quotations/_types";
-import { MainTreeContent, TreeContent, TreeScreen } from "../../../_styles";
-import { QuotationCalculate } from "../../Project/_types";
-import { JobsSelectedRequest, QuotationsInfo } from "../_types";
+import {
+	DeleteJob,
+	JobsSelectedRequest,
+	QuotationsInfo,
+	Unlock,
+} from "../_types";
 
 export interface StateProps {
 	quotations: Quotations;
@@ -35,6 +43,7 @@ export interface StateProps {
 	quotationList: QuotationList;
 	priceLists: PriceList[];
 	pending: boolean;
+	job: JobType;
 }
 
 export interface DispatchProps {
@@ -49,6 +58,9 @@ export interface DispatchProps {
 	selectedJob: (data: JobsSelectedRequest) => void;
 	quotationListGetAction: (data: QuotationParam) => void;
 	getJobQuotations: (data: string) => void;
+	removeJob: (data: DeleteJob) => void;
+	unlockJob: (data: Unlock) => void;
+	editTruss: (data: OpenTruss) => void;
 }
 
 export default ({
@@ -68,6 +80,10 @@ export default ({
 	pending,
 	getJobQuotations,
 	quotationsInfo,
+	unlockJob,
+	editTruss,
+	removeJob,
+	job,
 }: StateProps & DispatchProps) => {
 	const { t } = useTranslation();
 	const [selected, setSelected] = useState(null);
@@ -154,75 +170,84 @@ export default ({
 	};
 
 	return (
-		<MainTreeContent>
-			<Navigation
-				title={t(translationPath(lang.templates.configutarions).path)}
-				selected={selected}
-				quotationList={quotationList}
-				handleChangeTemplate={handleChangeTemplate}
-				justify={"flex-end"}
+		<>
+			<Header
+				removeJob={removeJob}
+				unlockJob={unlockJob}
+				editTruss={editTruss}
+				job={job}
 			/>
-			<Loading
-				text={t(translationPath(lang.common.loading).path)}
-				pending={quotationCalculating || pending}
-				margin
-			>
-				<TreeScreen>
-					<TreeContent>
-						{quotations?.IsCalculated ? (
-							<SelectionQuotation
-								quotations={quotations}
-								id={quotationsInfo?.Id}
-								quotationPutAction={quotationPutAction}
-								quotationSummaryPutAction={quotationSummaryPutAction}
-								type={QuotationSelection.JOB}
-								quotationType={QuotationType.JOB}
-								calculate={calculateJob}
-								pendingCalculation={quotationCalculating}
-								quotationSelectionSectionDeleteAction={
-									quotationSelectionSectionDeleteAction
-								}
-								quotationSelectionVariableDeleteAction={
-									quotationSelectionVariableDeleteAction
-								}
-								quotationDownloadAction={quotationDownloadQuotationAction}
-								selected={selected}
-								priceLists={priceLists}
-							/>
-						) : (
-							<QuotationColumn>
-								<Empty description={""} />
-								<br />
-								<ActionSection>
-									<ActionButton onClick={handleQuotationCalculation}>
-										<FontAwesomeIcon icon={faSync} />
-										{t(
-											translationPath(lang.templates.generateNewQuotation).path
-										)}
-									</ActionButton>
-									<Popconfirm
-										title={t(
-											translationPath(lang.templates.warningQuotation).path
-										)}
-										onConfirm={handleQuotationCalculationLoadData}
-										okText={t(translationPath(lang.common.yes).path)}
-										cancelText={t(translationPath(lang.common.no).path)}
-									>
-										<ActionButton>
-											<FontAwesomeIcon icon={faServer} />
+			<MainTreeContent>
+				<Navigation
+					title={t(translationPath(lang.templates.configutarions).path)}
+					selected={selected}
+					quotationList={quotationList}
+					handleChangeTemplate={handleChangeTemplate}
+					justify={"flex-end"}
+				/>
+				<Loading
+					text={t(translationPath(lang.common.loading).path)}
+					pending={quotationCalculating || pending}
+					margin
+				>
+					<TreeScreen>
+						<TreeContent>
+							{quotations?.IsCalculated ? (
+								<SelectionQuotation
+									quotations={quotations}
+									id={quotationsInfo?.Id}
+									quotationPutAction={quotationPutAction}
+									quotationSummaryPutAction={quotationSummaryPutAction}
+									type={QuotationSelection.JOB}
+									quotationType={QuotationType.JOB}
+									calculate={calculateJob}
+									pendingCalculation={quotationCalculating}
+									quotationSelectionSectionDeleteAction={
+										quotationSelectionSectionDeleteAction
+									}
+									quotationSelectionVariableDeleteAction={
+										quotationSelectionVariableDeleteAction
+									}
+									quotationDownloadAction={quotationDownloadQuotationAction}
+									selected={selected}
+									priceLists={priceLists}
+								/>
+							) : (
+								<QuotationColumn>
+									<Empty description={""} />
+									<br />
+									<ActionSection>
+										<ActionButton onClick={handleQuotationCalculation}>
+											<FontAwesomeIcon icon={faSync} />
 											{t(
-												translationPath(
-													lang.templates.generateNewQuotationFromNewData
-												).path
+												translationPath(lang.templates.generateNewQuotation)
+													.path
 											)}
 										</ActionButton>
-									</Popconfirm>
-								</ActionSection>
-							</QuotationColumn>
-						)}
-					</TreeContent>
-				</TreeScreen>
-			</Loading>
-		</MainTreeContent>
+										<Popconfirm
+											title={t(
+												translationPath(lang.templates.warningQuotation).path
+											)}
+											onConfirm={handleQuotationCalculationLoadData}
+											okText={t(translationPath(lang.common.yes).path)}
+											cancelText={t(translationPath(lang.common.no).path)}
+										>
+											<ActionButton>
+												<FontAwesomeIcon icon={faServer} />
+												{t(
+													translationPath(
+														lang.templates.generateNewQuotationFromNewData
+													).path
+												)}
+											</ActionButton>
+										</Popconfirm>
+									</ActionSection>
+								</QuotationColumn>
+							)}
+						</TreeContent>
+					</TreeScreen>
+				</Loading>
+			</MainTreeContent>
+		</>
 	);
 };

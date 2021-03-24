@@ -1,6 +1,9 @@
 import Component from './Component';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { createTruss, OpenTruss } from '../../../../../sagas/Truss/_actions';
+import { deleteProject } from '../../../Project/_actions';
+import { DeleteProject } from '../../../Project/_types';
 import { getProjectLogs } from '../_actions';
 import { ProjectLogsRequest } from '../_types';
 import { withRouter } from 'react-router-dom';
@@ -12,6 +15,8 @@ import {
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	downloadFile: (data: FileRequest) => dispatch(download.request(data)),
 	getLogs: (data: ProjectLogsRequest) => dispatch(getProjectLogs.request(data)),
+	createTruss: (data: OpenTruss) => dispatch(createTruss.request(data)),
+	removeProject: (data: DeleteProject) => dispatch(deleteProject.request(data)),
 });
 
 const mapStateToProps = (state: any) => ({

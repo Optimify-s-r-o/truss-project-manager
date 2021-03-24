@@ -161,10 +161,7 @@ function* editTrussSaga(
 			ApiURL.JOB_FILE,
 			Method.POST,
 			{
-				paramObject: {
-					projectName: action.payload.projectName,
-					jobName: action.payload.jobName,
-				},
+				paramObject: { id: action.payload.jobId },
 			}
 		);
 

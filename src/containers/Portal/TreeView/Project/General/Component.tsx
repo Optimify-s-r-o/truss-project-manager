@@ -6,15 +6,18 @@ import FormikRow from '../../../../../components/Optimify/Form/FormikRow';
 import Jobs from './Jobs';
 import moment from 'moment';
 import RouteLeavingGuard from '../../../../../components/Prompt';
+import { Alert, Button as SButton, Modal } from 'antd';
 import { Button } from '../../../../../components/Optimify/Button';
 import { CreateCustomer } from '../../../Customer/_types';
 import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
 import { Customer } from 'src/containers/Portal/Customer/_types';
 import { CustomersAll } from '../../../Lists/Customers/_types';
 import { DeleteJob, Unlock } from '../../Job/_types';
+import { DeleteProject } from '../../../Project/_types';
 import { FileRequest } from '../../../../../sagas/DownloadFile/_actions';
 import { Files } from './Files';
 import { formatCurrency } from 'src/utils/currencyFormat';
+import { Header } from '../components/Header';
 import { IAddJsonToProject } from './File/_types';
 import { Input } from '../../../../../constants/enum';
 import { lastPathMember, translationPath } from '../../../../../utils/getPath';
@@ -30,12 +33,6 @@ import {
 	GridRow,
 	Header2,
 } from "../../../../../constants/globalStyles";
-import {
-	getProjectFilesAction,
-	getProjectLog,
-	getSelectedProjectTreeFetch,
-	updateProjectWithoutLoadingEntity,
-} from "../../../../../sagas/Fetch/actions";
 import {
 	lang,
 	t,
@@ -58,7 +55,6 @@ import {
 } from "../../../_styles";
 import {
 	IProjectDuplicate,
-	IProjectUpdate,
 	ProjectFile,
 	ProjectFileRequest,
 	ProjectLog,
@@ -88,7 +84,7 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-	updateProjectRequest: (data: IProjectUpdate) => void;
+	updateProject: (data: Project) => void;
 	addJsonRequest: (data: IAddJsonToProject) => void;
 	editTruss: (data: OpenTruss) => void;
 	createTruss: (data: OpenTruss) => void;
@@ -107,16 +103,14 @@ export interface DispatchProps {
 	createJobFromTrussFile?: (data: CreateJobFromTrussFile) => void;
 	unlockJob: (data: Unlock) => void;
 	createCustomerAction: (data: CreateCustomer) => void;
+	removeProject: (data: DeleteProject) => void;
 }
-
+let globalCallback = null;
 export interface JobName {
 	jobName: string;
 }
 const Index = ({
-	selectedProjectRequest,
-	getUsers,
-	getCustomers,
-	getLogs,
+	removeProject,
 	addJsonRequest,
 	activeTree,
 	duplicateJob,
@@ -132,7 +126,7 @@ const Index = ({
 	duplicateId,
 	duplicatePending,
 	settings,
-	updateProjectRequest,
+	updateProject,
 	project,
 	users,
 	all,
@@ -150,25 +144,21 @@ const Index = ({
 	updatingCustomer,
 	createdEvidence,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
-	const [customerDialog, setCustomerDialog] = React.useState(false);
-	const [adressDialog, setAdressDialog] = React.useState(false);
-
+	const [alertDialog, setAlertDialog] = React.useState(false);
 	const formik = useFormik({
 		initialValues: project,
 		enableReinitialize: true,
 		validationSchema: Yup.object({}),
 		onSubmit: (values: Project) => {
-			updateProjectRequest(
-				updateProjectWithoutLoadingEntity({
-					...values,
-					ConstructionDate: moment(formik.values.ConstructionDate).isValid()
-						? moment(formik.values.ConstructionDate).format()
-						: null,
-					QuotationDate: moment(formik.values.QuotationDate).isValid()
-						? moment(formik.values.QuotationDate).format()
-						: null,
-				})
-			);
+			updateProject({
+				...values,
+				ConstructionDate: moment(formik.values.ConstructionDate).isValid()
+					? moment(formik.values.ConstructionDate).format()
+					: null,
+				QuotationDate: moment(formik.values.QuotationDate).isValid()
+					? moment(formik.values.QuotationDate).format()
+					: null,
+			});
 		},
 	});
 
@@ -177,18 +167,6 @@ const Index = ({
 			Company: data,
 			Redirect: false,
 		});
-	};
-
-	const handleSync = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-		const id = formik.values.Id;
-		selectedProjectRequest(getSelectedProjectTreeFetch(id, activeTree));
-		getFiles(getProjectFilesAction(id));
-		getUsers({
-			PageSize: 25,
-			Page: 0,
-			Sort: null,
-		});
-		getLogs(getProjectLog(id));
 	};
 
 	const equal = (var1: Project, var2: Project, location?: any): boolean => {
@@ -212,120 +190,159 @@ const Index = ({
 		return false;
 	};
 
+	const leavingGuard = (callback) => {
+		if (equal(formik.values, project)) {
+			callback && callback();
+			return;
+		}
+		globalCallback = callback;
+		setAlertDialog(true);
+	};
+
+	const leave = () => {
+		if (globalCallback) {
+			globalCallback();
+			setAlertDialog(false);
+		}
+	};
+
+	const saveAndLeave = () => {
+		if (globalCallback) {
+			updateProject({
+				...formik.values,
+				ConstructionDate: moment(formik.values.ConstructionDate).isValid()
+					? moment(formik.values.ConstructionDate).format()
+					: null,
+				QuotationDate: moment(formik.values.QuotationDate).isValid()
+					? moment(formik.values.QuotationDate).format()
+					: null,
+				callback: globalCallback,
+			});
+			setAlertDialog(false);
+		}
+	};
+
 	return (
-		<MainTreeContent>
-			<Form onSubmit={formik.handleSubmit}>
-				<RouteLeavingGuard
-					when={!equal(formik.values, project)}
-					shouldBlockNavigation={(location) => {
-						if (!equal(formik.values, project, location)) {
-							return true;
-						}
-						return false;
-					}}
-					formik={formik}
-					update={updateProjectRequest}
-					setSelectedKeys={setSelectedKeys}
-					type={TreeType.PROJECT}
-				/>
-				<TreeScreen>
-					<TreeContent>
-						<GridRow columns={2}>
-							<GridItem fill>
-								<ContentCard fullSize>
-									<FormikRow
-										formik={formik}
-										name={lastPathMember(ProjectProxy.Name).path}
-										title={t(translationPath(lang.common.projectName))}
-										type={Input.TEXT}
-									/>
-									<FormikRow
-										formik={formik}
-										name={lastPathMember(ProjectProxy.Description).path}
-										title={t(translationPath(lang.common.description))}
-										type={Input.TEXT}
-									/>
-									<FormikRow
-										formik={formik}
-										name={lastPathMember(ProjectProxy.Notes).path}
-										title={t(translationPath(lang.common.notes))}
-										type={Input.TEXT}
-									/>
-									<FormikRow
-										formik={formik}
-										name={lastPathMember(ProjectProxy.CustomerId).path}
-										title={t(translationPath(lang.common.customer))}
-										type={Input.CUSTOMER}
-										customers={customers}
-										loading={
-											loadingCustomerAction ||
-											loadingCustomers ||
-											updatingCustomer
-										}
-										createdEvidence={createdEvidence}
-										addCustomer={addCustomer}
-									/>
-									<FormikRow
-										formik={formik}
-										name={lastPathMember(ProjectProxy.Location).path}
-										title={t(translationPath(lang.common.address))}
-										type={Input.ADDRESS_GOOGLE}
-									/>
-									<FormikRow
-										formik={formik}
-										name={lastPathMember(ProjectProxy.AssignedUser).path}
-										title={t(translationPath(lang.common.user))}
-										type={Input.SELECT}
-										options={
-											users
-												? users?.map((value: UserData) => {
-														return {
-															value: value.Username,
-															label: value.Username,
-														};
-												  })
-												: []
-										}
-									/>
-								</ContentCard>
-							</GridItem>
-							<Files
-								project={project}
-								files={files}
-								uploadProjectFile={uploadProjectFile}
-								downloadFile={downloadFile}
-								removeFile={removeFile}
-								filesUploading={filesUploading}
-							/>
-						</GridRow>
-						<GridRow columns={2}>
-							<GridItem fill>
-								<ContentCard fullSize>
-									<FormikRow
-										formik={formik}
-										titleWidth={40}
-										disabled
-										name={lastPathMember(ProjectProxy.TimeOfCreation).path}
-										title={t(
-											translationPath(lang.common.projectTimeOfCreation)
-										)}
-										type={Input.DATE}
-									/>
-									<FormikRow
-										formik={formik}
-										titleWidth={40}
-										name={lastPathMember(ProjectProxy.QuotationDate).path}
-										title={t(translationPath(lang.common.quotationDate))}
-										type={Input.DATE}
-									/>
-									<FormikRow
-										formik={formik}
-										titleWidth={40}
-										name={lastPathMember(ProjectProxy.ConstructionDate).path}
-										title={t(translationPath(lang.common.constructionDate))}
-										type={Input.DATE}
-									/>
-									{/* <FormikRow
+		<>
+			<Header
+				removeProject={removeProject}
+				createTruss={createTruss}
+				project={project}
+				leavingGuard={leavingGuard}
+			/>
+			<MainTreeContent>
+				<Form onSubmit={formik.handleSubmit}>
+					<RouteLeavingGuard
+						when={!equal(formik.values, project)}
+						shouldBlockNavigation={(location) => {
+							if (!equal(formik.values, project, location)) {
+								return true;
+							}
+							return false;
+						}}
+						formik={formik}
+						update={updateProject}
+						setSelectedKeys={setSelectedKeys}
+						type={TreeType.PROJECT}
+					/>
+					<TreeScreen>
+						<TreeContent>
+							<GridRow columns={2}>
+								<GridItem fill>
+									<ContentCard fullSize>
+										<FormikRow
+											formik={formik}
+											name={lastPathMember(ProjectProxy.Name).path}
+											title={t(translationPath(lang.common.projectName))}
+											type={Input.TEXT}
+										/>
+										<FormikRow
+											formik={formik}
+											name={lastPathMember(ProjectProxy.Description).path}
+											title={t(translationPath(lang.common.description))}
+											type={Input.TEXT}
+										/>
+										<FormikRow
+											formik={formik}
+											name={lastPathMember(ProjectProxy.Notes).path}
+											title={t(translationPath(lang.common.notes))}
+											type={Input.TEXT}
+										/>
+										<FormikRow
+											formik={formik}
+											name={lastPathMember(ProjectProxy.CustomerId).path}
+											title={t(translationPath(lang.common.customer))}
+											type={Input.CUSTOMER}
+											customers={customers}
+											loading={
+												loadingCustomerAction ||
+												loadingCustomers ||
+												updatingCustomer
+											}
+											createdEvidence={createdEvidence}
+											addCustomer={addCustomer}
+										/>
+										<FormikRow
+											formik={formik}
+											name={lastPathMember(ProjectProxy.Location).path}
+											title={t(translationPath(lang.common.address))}
+											type={Input.ADDRESS_GOOGLE}
+										/>
+										<FormikRow
+											formik={formik}
+											name={lastPathMember(ProjectProxy.AssignedUser).path}
+											title={t(translationPath(lang.common.user))}
+											type={Input.SELECT}
+											options={
+												users && users?.length > 0
+													? users?.map((value: UserData) => {
+															return {
+																value: value.Username,
+																label: value.Username,
+															};
+													  })
+													: []
+											}
+										/>
+									</ContentCard>
+								</GridItem>
+								<Files
+									project={project}
+									files={files}
+									uploadProjectFile={uploadProjectFile}
+									downloadFile={downloadFile}
+									removeFile={removeFile}
+									filesUploading={filesUploading}
+								/>
+							</GridRow>
+							<GridRow columns={2}>
+								<GridItem fill>
+									<ContentCard fullSize>
+										<FormikRow
+											formik={formik}
+											titleWidth={40}
+											disabled
+											name={lastPathMember(ProjectProxy.TimeOfCreation).path}
+											title={t(
+												translationPath(lang.common.projectTimeOfCreation)
+											)}
+											type={Input.DATE}
+										/>
+										<FormikRow
+											formik={formik}
+											titleWidth={40}
+											name={lastPathMember(ProjectProxy.QuotationDate).path}
+											title={t(translationPath(lang.common.quotationDate))}
+											type={Input.DATE}
+										/>
+										<FormikRow
+											formik={formik}
+											titleWidth={40}
+											name={lastPathMember(ProjectProxy.ConstructionDate).path}
+											title={t(translationPath(lang.common.constructionDate))}
+											type={Input.DATE}
+										/>
+										{/* <FormikRow
 										formik={formik}
 										name={lastPathMember(ProjectProxy.QuotationFinished).path}
 										title={t(translationPath(lang.common.QuotationFinished))}
@@ -339,51 +356,81 @@ const Index = ({
 										title={t(translationPath(lang.common.ConstructionFinished))}
 										type={Input.SWITCH}
 									/> */}
-								</ContentCard>
-							</GridItem>
-							<GridItem fill>
-								<ContentCard fullSize>
-									<Header2>
-										{t(translationPath(lang.common.designPrice))}
-									</Header2>
-									<DataRow title={t(translationPath(lang.common.quotation))}>
-										{formatCurrency(project?.QuotationPrice)}
-									</DataRow>
-									<DataRow title={t(translationPath(lang.common.production))}>
-										{formatCurrency(project?.ProductionPrice)}
-									</DataRow>
-								</ContentCard>
-							</GridItem>
-						</GridRow>
-						<Jobs
-							activeTree={activeTree}
-							project={project}
-							formik={formik}
-							createTruss={createTruss}
-							editTruss={editTruss}
-							addJsonRequest={addJsonRequest}
-							duplicate={duplicateJob}
-							removeJob={removeJob}
-							handleSync={handleSync}
-							history={history}
-							duplicateId={duplicateId}
-							duplicatePending={duplicatePending}
-							setExpandedKeys={setExpandedKeys}
-							setSelectedKeys={setSelectedKeys}
-							createJobFromTrussFile={createJobFromTrussFile}
-							unlockJob={unlockJob}
+									</ContentCard>
+								</GridItem>
+								<GridItem fill>
+									<ContentCard fullSize>
+										<Header2>
+											{t(translationPath(lang.common.designPrice))}
+										</Header2>
+										<DataRow title={t(translationPath(lang.common.quotation))}>
+											{formatCurrency(project?.QuotationPrice)}
+										</DataRow>
+										<DataRow title={t(translationPath(lang.common.production))}>
+											{formatCurrency(project?.ProductionPrice)}
+										</DataRow>
+									</ContentCard>
+								</GridItem>
+							</GridRow>
+							<Jobs
+								activeTree={activeTree}
+								project={project}
+								formik={formik}
+								createTruss={createTruss}
+								editTruss={editTruss}
+								addJsonRequest={addJsonRequest}
+								duplicate={duplicateJob}
+								removeJob={removeJob}
+								history={history}
+								duplicateId={duplicateId}
+								duplicatePending={duplicatePending}
+								setExpandedKeys={setExpandedKeys}
+								setSelectedKeys={setSelectedKeys}
+								createJobFromTrussFile={createJobFromTrussFile}
+								unlockJob={unlockJob}
+								equal={equal}
+								leavingGuard={leavingGuard}
+							/>
+						</TreeContent>
+						{!equal(formik.values, project) && (
+							<TreeButtonsRow>
+								<Button level={1} loading={pending}>
+									{t(translationPath(lang.common.save))}
+								</Button>
+							</TreeButtonsRow>
+						)}
+					</TreeScreen>
+				</Form>
+				<Modal
+					centered
+					visible={alertDialog}
+					onCancel={() => setAlertDialog(false)}
+					cancelText={t(translationPath(lang.common.no))}
+					okText={t(translationPath(lang.common.yes))}
+					footer={[
+						<SButton onClick={leave}>
+							{t(translationPath(lang.common.cancel))}
+						</SButton>,
+						<SButton onClick={saveAndLeave} type="primary">
+							{t(translationPath(lang.common.saveChanges))}
+						</SButton>,
+						,
+					]}
+				>
+					<br />
+					<p>
+						<Alert
+							message={t(translationPath(lang.common.actionWithoutSavingTitle))}
+							description={t(
+								translationPath(lang.common.actionWithoutSavingMessage)
+							)}
+							type="warning"
+							showIcon
 						/>
-					</TreeContent>
-					{!equal(formik.values, project) && (
-						<TreeButtonsRow>
-							<Button level={1} loading={pending}>
-								{t(translationPath(lang.common.save))}
-							</Button>
-						</TreeButtonsRow>
-					)}
-				</TreeScreen>
-			</Form>
-		</MainTreeContent>
+					</p>
+				</Modal>
+			</MainTreeContent>
+		</>
 	);
 };
 

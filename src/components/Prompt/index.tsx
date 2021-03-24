@@ -2,21 +2,17 @@ import lang from '../../translation/lang';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Modal } from 'antd';
+import { JobType, Project, TreeType } from 'src/types/_types';
 import { Location } from 'history';
 import { Prompt, useHistory } from 'react-router-dom';
 import { translationPath } from '../../utils/getPath';
-import { TreeType } from 'src/types/_types';
 import { useTranslation } from 'react-i18next';
-import {
-	updateJobWithoutUpdate,
-	updateProjectWithoutLoadingEntity,
-} from "../../sagas/Fetch/actions";
 interface Props {
 	when?: boolean | undefined;
 	shouldBlockNavigation: (location: Location) => boolean;
 	formik: any;
 	setSelectedKeys: (data: string[]) => void;
-	update: (data: any) => void;
+	update: (data: Project | JobType) => void;
 	type: TreeType;
 }
 const RouteLeavingGuard = ({
@@ -59,18 +55,16 @@ const RouteLeavingGuard = ({
 
 	const saveAndLeave = () => {
 		type === TreeType.PROJECT
-			? update(
-					updateProjectWithoutLoadingEntity({
-						...formik.values,
-						ConstructionDate: moment(formik.values.ConstructionDate).isValid()
-							? moment(formik.values.ConstructionDate).format()
-							: null,
-						QuotationDate: moment(formik.values.QuotationDate).isValid()
-							? moment(formik.values.QuotationDate).format()
-							: null,
-					})
-			  )
-			: update(updateJobWithoutUpdate(formik.values));
+			? update({
+					...formik.values,
+					ConstructionDate: moment(formik.values.ConstructionDate).isValid()
+						? moment(formik.values.ConstructionDate).format()
+						: null,
+					QuotationDate: moment(formik.values.QuotationDate).isValid()
+						? moment(formik.values.QuotationDate).format()
+						: null,
+			  })
+			: update(formik.values);
 		setModalVisible(false);
 		setConfirmedNavigation(true);
 	};

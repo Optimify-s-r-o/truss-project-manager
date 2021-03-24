@@ -197,12 +197,12 @@ const Index = (
 	const checkboxes: Checkbox[] = [
 		{
 			name: "Name",
-			title: t(translationPath(lang.common.name).path),
+			title: t(translationPath(lang.common.truss).path),
 			section: "General",
 		},
 		{
 			name: "JobName",
-			title: t(translationPath(lang.common.job).path),
+			title: t(translationPath(lang.common.jobName).path),
 			section: "General",
 		},
 		{

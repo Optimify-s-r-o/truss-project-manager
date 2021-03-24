@@ -257,7 +257,6 @@ const Index = (
 					<EditJob
 						openTruss={props.editTruss}
 						id={value.Id}
-						handleSync={handleSync}
 						project={value.Project}
 						trussExe={
 							value.TrussType === TrussExe.TRUSS_2D
@@ -284,9 +283,6 @@ const Index = (
 	};
 
 	const [lastRequiredPage, setLastRequiredPage] = React.useState<Page>();
-	const handleSync = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-		props.getJobs({ Page: 0, PageSize: 25, Sort: "" });
-	};
 
 	const tree = props.projectTree
 		? props.projectTree

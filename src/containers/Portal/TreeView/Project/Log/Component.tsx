@@ -2,8 +2,11 @@ import Logs from './Logs';
 import React, { useEffect } from 'react';
 import { Customer } from 'src/containers/Portal/Customer/_types';
 import { CustomersAll } from '../../../Lists/Customers/_types';
+import { DeleteProject } from '../../../Project/_types';
 import { getProjectLog } from '../../../../../sagas/Fetch/actions';
+import { Header } from '../components/Header';
 import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
+import { OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { Project, Settings, TreeType } from '../../../../../types/_types';
 import { ProjectFile, ProjectLog, ProjectLogsRequest } from '../_types';
 import { RouteComponentProps, useParams } from 'react-router-dom';
@@ -29,6 +32,8 @@ export interface StateProps {
 export interface DispatchProps {
 	downloadFile: (data: string) => void;
 	getLogs: (data: ProjectLogsRequest) => void;
+	removeProject: (data: DeleteProject) => void;
+	createTruss: (data: OpenTruss) => void;
 }
 
 export interface JobName {
@@ -37,7 +42,14 @@ export interface JobName {
 const Index = (
 	props: WithTranslation & StateProps & DispatchProps & RouteComponentProps
 ) => {
-	const { logs, downloadFile, getLogs } = props;
+	const {
+		logs,
+		downloadFile,
+		getLogs,
+		createTruss,
+		removeProject,
+		project,
+	} = props;
 	const { id } = useParams<{ id: string }>();
 
 	useEffect(() => {
@@ -47,13 +59,20 @@ const Index = (
 	}, [id]);
 
 	return (
-		<MainTreeContent>
-			<TreeScreen>
-				<TreeContent>
-					<Logs logs={logs} downloadFile={downloadFile} />
-				</TreeContent>
-			</TreeScreen>
-		</MainTreeContent>
+		<>
+			<Header
+				removeProject={removeProject}
+				createTruss={createTruss}
+				project={project}
+			/>
+			<MainTreeContent>
+				<TreeScreen>
+					<TreeContent>
+						<Logs logs={logs} downloadFile={downloadFile} />
+					</TreeContent>
+				</TreeScreen>
+			</MainTreeContent>
+		</>
 	);
 };
 

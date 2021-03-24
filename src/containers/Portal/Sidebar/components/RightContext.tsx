@@ -123,7 +123,7 @@ export const RightContext = ({
 	const removeProjectCall = (id: string) => (
 		_event: React.MouseEvent<HTMLElement, MouseEvent>
 	) => {
-		removeProject(deleteProjectRoute(id, nodeType));
+		removeProject(deleteProjectRoute(id));
 		setIsVisible(false);
 	};
 

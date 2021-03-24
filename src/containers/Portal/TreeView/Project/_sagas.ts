@@ -6,6 +6,7 @@ import { getType } from 'typesafe-actions';
 import { lang, t } from '../../../../translation/i18n';
 import { Method } from '../../../../constants/enum';
 import { notificationAction } from '../../../../components/Toast/_actions';
+import { projectUpdate } from './General/_actions';
 import { Quotations } from '../../Quotations/_types';
 import { quotationSelectionGetAction } from '../../Quotations/_actions';
 import { Status } from '../../../../components/Toast/_types';
@@ -54,6 +55,54 @@ function* calculateProjectQuotationActionSaga(
 		);
 		yield put(calculateProject.failure(err));
 	}
+}
+
+function* updateProjectActionSaga(
+	action: ReturnType<typeof projectUpdate.request>
+): Generator {
+	try {
+		// @ts-ignore
+		const { errorResponseData, response, success, statusText } = yield call(
+			fetchSaga,
+			ApiURL.PROJECTS,
+			Method.PUT,
+			{
+				bodyJSON: action.payload,
+			}
+		);
+
+		if (!success) {
+			yield put(
+				notificationAction({
+					code: Status.ERROR,
+					message: t(
+						translationPath(
+							lang.common[(errorResponseData as Error).ErrorMessage]
+						)
+					),
+				})
+			);
+			yield put(projectUpdate.failure(errorResponseData));
+			return;
+		}
+
+		yield put(projectUpdate.success(response));
+
+		if (action.payload.callback) {
+			action.payload.callback();
+		}
+	} catch (err) {
+		yield put(
+			notificationAction({
+				code: Status.ERROR,
+				message: t(translationPath(lang.common.errorMessage)),
+			})
+		);
+		yield put(projectUpdate.failure(err));
+	}
+}
+export function* watchProjectUpdateAction() {
+	yield takeLatest(getType(projectUpdate.request), updateProjectActionSaga);
 }
 
 export function* watchCalculateProjectQuotationAction() {

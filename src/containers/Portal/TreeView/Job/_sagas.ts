@@ -23,6 +23,7 @@ import {
 	getTrusses,
 	jobImage,
 	jobImageByName,
+	updateSelectedJob,
 } from "./_actions";
 
 function* JobImageSaga(action: ReturnType<typeof jobImage.request>): Generator {
@@ -250,6 +251,55 @@ function* getJobMaterialsActionSaga(
 		);
 		yield put(getJobMaterials.failure(err));
 	}
+}
+
+function* updateJobActionSaga(
+	action: ReturnType<typeof updateSelectedJob.request>
+): Generator {
+	try {
+		// @ts-ignore
+		const { errorResponseData, response, success, statusText } = yield call(
+			fetchSaga,
+			ApiURL.JOBS,
+			Method.PUT,
+			{
+				bodyJSON: action.payload,
+			}
+		);
+
+		if (!success) {
+			yield put(
+				notificationAction({
+					code: Status.ERROR,
+					message: t(
+						translationPath(
+							lang.common[(errorResponseData as Error).ErrorMessage]
+						)
+					),
+				})
+			);
+			yield put(updateSelectedJob.failure(errorResponseData));
+			return;
+		}
+
+		yield put(updateSelectedJob.success(response));
+
+		if (action.payload.callback) {
+			action.payload.callback();
+		}
+	} catch (err) {
+		yield put(
+			notificationAction({
+				code: Status.ERROR,
+				message: t(translationPath(lang.common.errorMessage)),
+			})
+		);
+		yield put(updateSelectedJob.failure(err));
+	}
+}
+
+export function* watchJobUpdateAction() {
+	yield takeLatest(getType(updateSelectedJob.request), updateJobActionSaga);
 }
 
 export function* watchGetJobMaterialsAction() {

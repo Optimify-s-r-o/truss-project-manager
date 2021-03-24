@@ -1,17 +1,13 @@
 import { ActionType, createAction, createAsyncAction } from 'typesafe-actions';
 import { Error } from '../../../../../sagas/_sagas';
+import { IProjectDuplicate, ProjectFileRequest } from '../_types';
 import { Project } from '../../../../../types/_types';
-import {
-	IProjectDuplicate,
-	IProjectUpdate,
-	ProjectFileRequest,
-} from "../_types";
 
 export const projectUpdate = createAsyncAction(
 	"UPDATE_PROJECT_REQUEST",
 	"UPDATE_PROJECT_SUCCESS",
 	"UPDATE_PROJECT_FAILURE"
-)<IProjectUpdate, Project, Error>();
+)<Project, Project, Error>();
 
 export const duplicateJob = createAsyncAction(
 	"DUPLICATE_JOB_REQUEST",

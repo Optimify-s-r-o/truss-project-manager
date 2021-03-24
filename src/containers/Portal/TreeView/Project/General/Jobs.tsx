@@ -64,7 +64,6 @@ export interface OwnProps {
 	addJsonRequest: (data: IAddJsonToProject) => void;
 	duplicate: (data: IProjectDuplicate) => void;
 	removeJob: (data: DeleteJob) => void;
-	handleSync: (_event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 	history: any;
 	duplicateId: string;
 	duplicatePending: boolean;
@@ -72,6 +71,8 @@ export interface OwnProps {
 	setExpandedKeys: (data: string[]) => void;
 	createJobFromTrussFile?: (data: CreateJobFromTrussFile) => void;
 	unlockJob: (data: Unlock) => void;
+	equal: (var1: Project, var2: Project, location?: any) => boolean;
+	leavingGuard: (callback) => void;
 }
 
 const Index = (props: WithTranslation & OwnProps) => {
@@ -83,13 +84,13 @@ const Index = (props: WithTranslation & OwnProps) => {
 		editTruss,
 		duplicate,
 		removeJob,
-		handleSync,
 		duplicateId,
 		duplicatePending,
 		setSelectedKeys,
 		setExpandedKeys,
 		createJobFromTrussFile,
 		unlockJob,
+		leavingGuard,
 	} = props;
 
 	const duplicateProjectJob = (id: string, projectId: string) => {
@@ -267,7 +268,6 @@ const Index = (props: WithTranslation & OwnProps) => {
 												<EditJob
 													openTruss={props.editTruss}
 													id={parent.Id}
-													handleSync={handleSync}
 													project={project}
 													trussExe={
 														parent.TrussType === TrussExe.TRUSS_2D
@@ -276,6 +276,7 @@ const Index = (props: WithTranslation & OwnProps) => {
 													}
 													projectName={project.Name}
 													jobName={value.JobName}
+													leavingGuard={leavingGuard}
 												/>
 												&nbsp;
 												<Clone
@@ -283,7 +284,9 @@ const Index = (props: WithTranslation & OwnProps) => {
 														duplicatePending && duplicateId === parent.Id
 													}
 													clone={() =>
-														duplicateProjectJob(parent.Id, project.Id)
+														leavingGuard(() =>
+															duplicateProjectJob(parent.Id, project.Id)
+														)
 													}
 												/>
 												&nbsp;
@@ -291,7 +294,9 @@ const Index = (props: WithTranslation & OwnProps) => {
 												&nbsp;
 												{!!value?.Lock && (
 													<Lock
-														unlock={() => unlock(project.Name, parent.JobName)}
+														unlock={() =>
+															leavingGuard(unlock(project.Name, parent.JobName))
+														}
 													/>
 												)}
 												&nbsp;
@@ -300,7 +305,9 @@ const Index = (props: WithTranslation & OwnProps) => {
 														name: parent.JobName,
 													})}
 													remove={() =>
-														removeJobCall(parent && parent.Id, project.Id)
+														leavingGuard(() =>
+															removeJobCall(parent && parent.Id, project.Id)
+														)
 													}
 												/>
 											</ActionsColumn>

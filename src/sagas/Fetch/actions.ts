@@ -256,7 +256,7 @@ export const getSettingsAction = () => {
 	};
 };
 
-export const deleteProjectRoute = (id: string, activeTree: TreeType) => {
+export const deleteProjectRoute = (id: string) => {
 	return {
 		action: deleteProject,
 		actionsOnSuccess: [getFiltersSettings()],

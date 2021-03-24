@@ -1,5 +1,4 @@
 import { all, fork } from 'redux-saga/effects';
-import { watchCalculateProjectQuotationAction } from '../containers/Portal/TreeView/Project/_sagas';
 import { watchCloudLogin } from '../containers/Home/Cloud/_sagas';
 import { watchCreateJobFromTrussFileSaga } from './CreateJobFromFile/_sagas.';
 import { watchCreateTruss, watchEditTruss } from './Truss/_sagas';
@@ -88,7 +87,12 @@ import {
 	watchGetJobTrussesAction,
 	watchJobImage,
 	watchJobImageByName,
+	watchJobUpdateAction,
 } from "../containers/Portal/TreeView/Job/_sagas";
+import {
+	watchCalculateProjectQuotationAction,
+	watchProjectUpdateAction,
+} from "../containers/Portal/TreeView/Project/_sagas";
 import {
 	watchCalculateTrussQuotationAction,
 	watchGetTrussesGetAction,
@@ -180,6 +184,8 @@ export const rootSaga = [
 	watchGetTrussMaterialsAction,
 	watchGetJobMaterialsAction,
 	watchGetJobQuotationsAction,
+	watchProjectUpdateAction,
+	watchJobUpdateAction,
 ];
 
 export type SagasType = typeof rootSaga;

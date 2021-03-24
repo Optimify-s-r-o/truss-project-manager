@@ -1,5 +1,6 @@
 import { ActionType, createAction, createAsyncAction } from 'typesafe-actions';
 import { Error } from '../../../../sagas/_sagas';
+import { JobType } from 'src/types/_types';
 import { QuotationCalculate } from '../Project/_types';
 import { Quotations } from '../../Quotations/_types';
 import {
@@ -12,7 +13,6 @@ import {
 	ProjectNameJobName,
 	QuotationsInfo,
 	Unlock,
-	UpdateJobRequest,
 } from "./_types";
 
 export const selectedJob = createAsyncAction(
@@ -49,7 +49,7 @@ export const updateSelectedJob = createAsyncAction(
 	"JOB_UPDATE_REQUEST",
 	"JOB_UPDATE_SUCCESS",
 	"JOB_UPDATE_FAILURE"
-)<UpdateJobRequest, JobRootObject, Error>();
+)<JobType, JobRootObject, Error>();
 
 export const deleteJob = createAsyncAction(
 	"JOB_DELETE_REQUEST",
