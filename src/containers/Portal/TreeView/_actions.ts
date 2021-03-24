@@ -34,6 +34,7 @@ export const treeReset = createAsyncAction(
 
 export const setExpandedKeys = createAction("SET_EXPANDED_KEYS")<string[]>();
 export const setSelectedKeys = createAction("SET_SELECTED_KEYS")<string[]>();
+export const setCopiedJob = createAction("SET_COPIED_JOB")<string>();
 
 export type treeFirstLayerActionType = ActionType<
 	| typeof customerTree
@@ -43,4 +44,5 @@ export type treeFirstLayerActionType = ActionType<
 	| typeof treeReset
 	| typeof setExpandedKeys
 	| typeof setSelectedKeys
+	| typeof setCopiedJob
 >;

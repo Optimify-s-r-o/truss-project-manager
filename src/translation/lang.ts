@@ -209,6 +209,7 @@ export type Lang = Readonly<{
 		file: string;
 		model: string;
 		contactPerson: string;
+		customerHasProject: string;
 	};
 
 	priceLists: {
@@ -261,6 +262,8 @@ export type Lang = Readonly<{
 		showCustomer: string;
 		addToSelection: string;
 		removeFromSelection: string;
+		copyJob: string;
+		pasteJob: string;
 	};
 
 	truss: {

@@ -93,8 +93,8 @@ const Index = (props: WithTranslation & OwnProps) => {
 		leavingGuard,
 	} = props;
 
-	const duplicateProjectJob = (id: string, projectId: string) => {
-		duplicate(duplicateProjectJobAction(id, projectId));
+	const duplicateProjectJob = (id: string) => {
+		duplicate(duplicateProjectJobAction(id));
 	};
 
 	const removeJobCall = (id: string, projectId: string) => {
@@ -284,9 +284,7 @@ const Index = (props: WithTranslation & OwnProps) => {
 														duplicatePending && duplicateId === parent.Id
 													}
 													clone={() =>
-														leavingGuard(() =>
-															duplicateProjectJob(parent.Id, project.Id)
-														)
+														leavingGuard(() => duplicateProjectJob(parent.Id))
 													}
 												/>
 												&nbsp;

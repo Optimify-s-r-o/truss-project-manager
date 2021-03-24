@@ -42,6 +42,7 @@ export enum ApiURL {
 	FILES_CHANGE_ROOTPATH = "/api/v1/files/rootpath",
 	//Jobs
 	JOBS = "/api/jobs",
+	JOB_COPY = "/api/jobs/copy",
 	JOB_FILTER = "/api/jobs/filter",
 	JOB_DUPLICATE = "/api/jobs/duplicate",
 	JOB_FILE = "/api/jobs/trussfile",

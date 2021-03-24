@@ -3,9 +3,9 @@ import { clearNotificationAction } from '../../components/Toast/_actions';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { createTruss, editTruss, OpenTruss } from '../../sagas/Truss/_actions';
-import { DeleteJob, JobRootObject, Unlock } from './TreeView/Job/_types';
 import { deleteProject } from './Project/_actions';
 import { DeleteProject } from './Project/_types';
+import { duplicateJob, setLoading } from './TreeView/Project/General/_actions';
 import {
 	Fetch,
 	Page,
@@ -14,11 +14,9 @@ import {
 	} from '../../types/_types';
 import { getProjectFiles, setProject } from './TreeView/Project/_actions';
 import { priceListsGetAction } from './PriceLists/_actions';
-import { ProjectFileRequest } from './TreeView/Project/_types';
 import { quickSearch } from './FastNavigation/_actions';
 import { QuickSearchRequest } from './FastNavigation/_types';
 import { setCloud } from '../Home/Cloud/_actions';
-import { setLoading } from './TreeView/Project/General/_actions';
 import { settings, settingsFilter, treeType } from './_actions';
 import { setTruss, trussImage } from './TreeView/Truss/_actions';
 import { Truss } from './TreeView/Truss/_types';
@@ -43,14 +41,26 @@ import {
 	getTrusses,
 } from "./SidebarFilter/_actions";
 import {
+	copyJob,
 	deleteJob,
 	jobImage,
 	setJob,
 	unlockJob,
 } from "./TreeView/Job/_actions";
 import {
+	CopyJob,
+	DeleteJob,
+	JobRootObject,
+	Unlock,
+} from "./TreeView/Job/_types";
+import {
+	IProjectDuplicate,
+	ProjectFileRequest,
+} from "./TreeView/Project/_types";
+import {
 	customerTree,
 	jobTree,
+	setCopiedJob,
 	setExpandedKeys,
 	setSelectedKeys,
 	treeReset,
@@ -72,6 +82,7 @@ const mapStateToProps = (state: any) => ({
 	totalRecords: state.TreeFirstLayerReducer.totalRecords,
 	expandedKeys: state.TreeReducer.expandedKeys,
 	selectedKeys: state.TreeReducer.selectedKeys,
+	copiedJob: state.TreeReducer.copiedJob,
 	toast: state.toastReducer.notification,
 	filter: state.SettingsReducer.filter,
 	path: state.router.location.pathname,
@@ -105,6 +116,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	createTruss: (data: OpenTruss) => dispatch(createTruss.request(data)),
 	unlockJob: (data: Unlock) => dispatch(unlockJob.request(data)),
 	clearToast: () => dispatch(clearNotificationAction()),
+	setCopiedJob: (data: string) => dispatch(setCopiedJob(data)),
 	quickSearchRequest: (data: QuickSearchRequest) =>
 		dispatch(quickSearch.request(data)),
 	getUsers: (data: Page) => dispatch(usersAction.request(data)),
@@ -128,6 +140,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	priceListsGetAction: (data: void) =>
 		dispatch(priceListsGetAction.request(data)),
 	setProject: (data: Project) => dispatch(setProject(data)),
+	duplicateJob: (data: IProjectDuplicate) =>
+		dispatch(duplicateJob.request(data)),
+	copyJob: (data: CopyJob) => dispatch(copyJob.request(data)),
 });
 
 export default compose(

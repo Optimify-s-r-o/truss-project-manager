@@ -1,3 +1,4 @@
+import Cookies from 'universal-cookie';
 import { ApiURL } from '../../constants/api';
 import {
 	call,
@@ -41,7 +42,7 @@ function* createTrussSaga(
 		const api = local
 			? process.env.REACT_APP_API_URL_LOCAL
 			: process.env.REACT_APP_BACKEND_API;
-		const token = yield select((state: any) => state.AuthReducer.token);
+		const token = yield new Cookies().get("token");
 
 		let inputPath: any = null;
 		let jobId: string = action.payload.jobId;
@@ -145,7 +146,7 @@ function* editTrussSaga(
 		const api = local
 			? process.env.REACT_APP_API_URL_LOCAL
 			: process.env.REACT_APP_BACKEND_API;
-		const token = yield select((state: any) => state.AuthReducer.token);
+		const token = yield new Cookies().get("token");
 		let inputPath: any = null;
 		let jobId: string = action.payload.jobId;
 

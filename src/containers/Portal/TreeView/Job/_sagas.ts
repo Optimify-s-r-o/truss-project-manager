@@ -18,6 +18,7 @@ import {
 } from "../../../../sagas/_sagas";
 import {
 	calculateJob,
+	copyJob,
 	getJobMaterials,
 	getJobQuotations,
 	getTrusses,
@@ -164,6 +165,49 @@ function* calculateJobQuotationActionSaga(
 	}
 }
 
+function* copyJobActionSaga(
+	action: ReturnType<typeof copyJob.request>
+): Generator {
+	try {
+		// @ts-ignore
+		const { errorResponseData, response, success, statusText } = yield call(
+			fetchSaga,
+			ApiURL.JOB_COPY,
+			Method.POST,
+			{
+				bodyJSON: {
+					ProjectId: action.payload.ProjectId,
+					JobId: action.payload.JobId,
+				},
+			}
+		);
+
+		if (!success) {
+			yield put(
+				notificationAction({
+					code: Status.ERROR,
+					message: t(
+						translationPath(
+							lang.common[(errorResponseData as Error).ErrorMessage]
+						)
+					),
+				})
+			);
+			yield put(calculateJob.failure(errorResponseData));
+			return;
+		}
+		yield put(copyJob.success(response));
+	} catch (err) {
+		yield put(
+			notificationAction({
+				code: Status.ERROR,
+				message: t(translationPath(lang.common.errorMessage)),
+			})
+		);
+		yield put(copyJob.failure(err));
+	}
+}
+
 function* getJobTrussesActionSaga(
 	action: ReturnType<typeof getTrusses.request>
 ): Generator {
@@ -300,6 +344,10 @@ function* updateJobActionSaga(
 
 export function* watchJobUpdateAction() {
 	yield takeLatest(getType(updateSelectedJob.request), updateJobActionSaga);
+}
+
+export function* watchCopyJobAction() {
+	yield takeLatest(getType(copyJob.request), copyJobActionSaga);
 }
 
 export function* watchGetJobMaterialsAction() {

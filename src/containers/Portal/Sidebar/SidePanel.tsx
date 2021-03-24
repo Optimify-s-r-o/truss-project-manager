@@ -1,11 +1,12 @@
 import _ from 'lodash';
 import React, { useEffect } from 'react';
 import SectionsPanel from '../../../components/Optimify/Panel/SectionsPanel';
-import { DeleteJob, Unlock } from '../TreeView/Job/_types';
+import { CopyJob, DeleteJob, Unlock } from '../TreeView/Job/_types';
 import { DeleteProject } from '../Project/_types';
 import { Fetch, Page, TreeType } from '../../../types/_types';
 import { Hub } from '../../../constants/hub';
 import { HubConnection } from '@microsoft/signalr';
+import { IProjectDuplicate } from '../TreeView/Project/_types';
 import { lang } from '../../../translation/i18n';
 import { OpenTruss } from '../../../sagas/Truss/_actions';
 import { Sidebar } from '../Sidebar';
@@ -47,6 +48,10 @@ interface ISidePanel {
 	removeFromSelection: (data: string) => void;
 	addToSelection: (data: string) => void;
 	resetSelectionAction: (data: void) => void;
+	duplicateJob: (data: IProjectDuplicate) => void;
+	setCopiedJob: (data: string) => void;
+	copiedJob: string;
+	copyJob: (data: CopyJob) => void;
 }
 
 export const SidePanel = ({
@@ -77,6 +82,10 @@ export const SidePanel = ({
 	removeFromSelection,
 	addToSelection,
 	resetSelectionAction,
+	duplicateJob,
+	copiedJob,
+	setCopiedJob,
+	copyJob,
 }: ISidePanel) => {
 	const { t } = useTranslation();
 	const [tree, setTree] = React.useState(null);
@@ -208,6 +217,10 @@ export const SidePanel = ({
 					addToSelection={addToSelection}
 					removeFromSelection={removeFromSelection}
 					resetSelectionAction={resetSelectionAction}
+					duplicateJob={duplicateJob}
+					copiedJob={copiedJob}
+					setCopiedJob={setCopiedJob}
+					copyJob={copyJob}
 				/>
 			</SideMenu>
 		</SectionsPanel>

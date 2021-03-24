@@ -209,6 +209,8 @@ const dictionary: Lang = {
 		file: 'Are you sure you want to remove file {{name}}" ?',
 		model: "Are you sure you want to remove the 3d model ?",
 		contactPerson: "Are you sure you want to remove contact person {{name}}",
+		customerHasProject:
+			'Customer "{name}" is assigned to the project. Cannot be deleted.',
 	},
 	priceLists: {
 		default: "Default",
@@ -260,6 +262,8 @@ const dictionary: Lang = {
 		showCustomer: "Show customer",
 		addToSelection: "Add to active selection",
 		removeFromSelection: "Remove from active selection",
+		copyJob: "Copy Job",
+		pasteJob: "Paste the copied job",
 	},
 	truss: {
 		openFailed: "Job could not be started.",

@@ -20,6 +20,7 @@ export type TreeStateType = FetchStateType &
 		isFilterActive: boolean;
 		selectedKeys?: string[];
 		expandedKeys?: string[];
+		copiedJob?: string;
 	}>;
 
 export interface Member {

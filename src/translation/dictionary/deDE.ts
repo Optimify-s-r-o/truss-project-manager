@@ -209,6 +209,8 @@ const dictionary: Lang = {
 		file: 'Möchten Sie Datei {{name}} wirklich entfernen" ?',
 		model: "Sind Sie sicher, dass Sie das 3D-Jobmodell entfernen möchten ?",
 		contactPerson: "Möchten Sie {{name}} wirklich entfernen ?",
+		customerHasProject:
+			'Der Kunde "{name}" ist dem Projekt zugeordnet. Kann nicht gelöscht werden.',
 	},
 	priceLists: {
 		default: "Default",
@@ -260,6 +262,8 @@ const dictionary: Lang = {
 		showCustomer: "Kunden zeigen",
 		addToSelection: "Zur aktiven Auswahl hinzufügen",
 		removeFromSelection: "Aus aktiver Auswahl entfernen",
+		copyJob: "Kopierauftrag",
+		pasteJob: "Kopieren Sie den kopierten Job",
 	},
 	truss: {
 		openFailed: "Job konnte nicht gestartet werden",

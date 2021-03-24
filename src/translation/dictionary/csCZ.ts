@@ -210,6 +210,8 @@ const dictionary: Lang = {
 		file: 'Opravdu chcete odebrat soubor "{{name}}" ?',
 		model: "Opravdu chcete odebrat 3d model ?",
 		contactPerson: 'Opravdu chcete odebrat kontaktni osobu "{{name}}" ?',
+		customerHasProject:
+			'Zákazník "{{name}}" je přiřazen projektu. Nelze odstranit.',
 	},
 	priceLists: {
 		default: "Defaultní",
@@ -261,6 +263,8 @@ const dictionary: Lang = {
 		showCustomer: "Zobrazit zákazníka",
 		addToSelection: "Skrýt ostatní",
 		removeFromSelection: "Skrýt vybrané",
+		copyJob: "Kopírovat úlohu",
+		pasteJob: "Vložit zkopírovanou úlohu",
 	},
 	truss: {
 		openFailed: "Úholu nebylo možné spustit.",

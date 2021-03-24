@@ -4,6 +4,7 @@ import { JobType } from 'src/types/_types';
 import { QuotationCalculate } from '../Project/_types';
 import { Quotations } from '../../Quotations/_types';
 import {
+	CopyJob,
 	DeleteJob,
 	GetTrusses,
 	JobRootObject,
@@ -20,6 +21,12 @@ export const selectedJob = createAsyncAction(
 	"JOB_SUCCESS",
 	"JOB_FAILURE"
 )<JobsSelectedRequest, JobRootObject, Error>();
+
+export const copyJob = createAsyncAction(
+	"COPY_JOB_REQUEST",
+	"COPY_JOB_SUCCESS",
+	"COPY_JOB_FAILURE"
+)<CopyJob, void, Error>();
 
 export const getJobMaterials = createAsyncAction(
 	"GET_JOB_MATERIAL_REQUEST",
@@ -89,4 +96,5 @@ export type selectedJobType = ActionType<
 	| typeof getTrusses
 	| typeof getJobMaterials
 	| typeof getJobQuotations
+	| typeof copyJob
 >;

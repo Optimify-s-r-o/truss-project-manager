@@ -1,16 +1,20 @@
 import { createProxy } from '../../../../utils/getPath';
 import { Customer } from '../../Customer/_types';
+import { Location } from '../../Customer/Create/_types';
+import { Plank } from '../Truss/_types';
 import {
 	Fetch,
 	FetchStateType,
 	JobType,
 	QuotationsSelection,
 	RoofInfo,
-	TrussExe
-	} from '../../../../types/_types';
-import { Location } from '../../Customer/Create/_types';
-import { Plank } from '../Truss/_types';
+	TrussExe,
+} from "../../../../types/_types";
 
+export interface CopyJob {
+	ProjectId: string;
+	JobId: string;
+}
 export interface Load {
 	RoofingLoad: number;
 	CeilingLoad: number;

@@ -1,9 +1,10 @@
 import Icon from '../../../../components/Icon';
 import React from 'react';
-import { DeleteJob, Unlock } from '../../TreeView/Job/_types';
+import { CopyJob, DeleteJob, Unlock } from '../../TreeView/Job/_types';
 import { DeleteProject } from '../../Project/_types';
 import { Divider, Item, SPopConfirm } from '../_styles';
 import { IconWrap, Title } from '../../_styles';
+import { IProjectDuplicate } from '../../TreeView/Project/_types';
 import { lang } from '../../../../translation/i18n';
 import { OpenTruss } from '../../../../sagas/Truss/_actions';
 import { Routes } from '../../../../constants/routes';
@@ -13,8 +14,10 @@ import { unlockJobAction } from 'src/sagas/Fetch/actions';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
+	faCopy,
 	faEdit,
 	faLockOpenAlt,
+	faPaste,
 	faPlusSquare,
 	faTrashAlt,
 	faVoteNay,
@@ -23,6 +26,7 @@ import {
 import {
 	deleteJobRoute,
 	deleteProjectRoute,
+	duplicateProjectJobAction,
 } from "../../../../sagas/Fetch/actions";
 interface IRightContext {
 	isVisible: boolean;
@@ -48,10 +52,14 @@ interface IRightContext {
 	removeFromSelection: (data: string) => void;
 	addToSelection: (data: string) => void;
 	selectedKeys: string[];
+	duplicateJob: (data: IProjectDuplicate) => void;
+	setCopiedJob: (data: string) => void;
+	copiedJob: string;
+	copyJob: (data: CopyJob) => void;
 }
 
 export const RightContext = ({
-	isVisible,
+	duplicateJob,
 	x,
 	y,
 	ref,
@@ -74,6 +82,9 @@ export const RightContext = ({
 	removeFromSelection,
 	addToSelection,
 	selectedKeys,
+	setCopiedJob,
+	copiedJob,
+	copyJob,
 }: IRightContext) => {
 	const history = useHistory();
 	const { t } = useTranslation();
@@ -127,6 +138,21 @@ export const RightContext = ({
 		setIsVisible(false);
 	};
 
+	const paste = (id: string) => {
+		copyJob({ ProjectId: id, JobId: copiedJob });
+		setCopiedJob(null);
+		setIsVisible(false);
+	};
+
+	const copy = (id: string) => {
+		setCopiedJob(id);
+		setIsVisible(false);
+	};
+
+	const duplicate = (id: string) => {
+		duplicateJob(duplicateProjectJobAction(id));
+		setIsVisible(false);
+	};
 	return (
 		<>
 			{nodeType == "Project" && (
@@ -149,6 +175,16 @@ export const RightContext = ({
 							{t(translationPath(lang.contextMenu.newTruss3DJob).path)}
 						</Title>
 					</Item>
+					{!!copiedJob && (
+						<Item onClick={() => paste(nodeId)}>
+							<IconWrap>
+								<Icon icon={faPaste} />
+							</IconWrap>
+							<Title>
+								{t(translationPath(lang.contextMenu.pasteJob).path)}
+							</Title>
+						</Item>
+					)}
 					<ActiveSelection
 						id={nodeId}
 						removeFromSelection={removeFromSelection}
@@ -215,6 +251,7 @@ export const RightContext = ({
 								</Item>
 							</SPopConfirm>
 						))}
+
 					<Item
 						onClick={openEditTruss(nodeId, trussType, projectName, jobName)}
 					>
@@ -224,6 +261,13 @@ export const RightContext = ({
 						<Title>
 							{t(translationPath(lang.contextMenu.openJobInTruss).path)}
 						</Title>
+					</Item>
+					<Divider />
+					<Item onClick={() => copy(nodeId)}>
+						<IconWrap>
+							<Icon icon={faCopy} />
+						</IconWrap>
+						<Title>{t(translationPath(lang.contextMenu.copyJob).path)}</Title>
 					</Item>
 					<ActiveSelection
 						id={nodeId}
@@ -236,6 +280,13 @@ export const RightContext = ({
 						selectedKeys={selectedKeys}
 						setIsVisible={setIsVisible}
 					/>
+					<Divider />
+					<Item onClick={() => duplicate(nodeId)}>
+						<IconWrap>
+							<Icon icon={faCopy} />
+						</IconWrap>
+						<Title>{t(translationPath(lang.common.duplicate).path)}</Title>
+					</Item>
 					<Divider />
 					<SPopConfirm
 						id={"popConfirmId"}

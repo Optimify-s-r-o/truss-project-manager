@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { ActiveActions } from './components/ActiveActions';
 import { Bar, ContextMenu } from './_styles';
+import { CopyJob, DeleteJob, Unlock } from '../TreeView/Job/_types';
 import { createTree } from './_services';
-import { DeleteJob, Unlock } from '../TreeView/Job/_types';
 import { DeleteProject } from '../Project/_types';
 import { Events } from './components/Events';
 import { Fetch, Page, TreeType } from '../../../types/_types';
 import { Hub } from '../../../constants/hub';
 import { HubConnection } from '@microsoft/signalr';
+import { IProjectDuplicate } from '../TreeView/Project/_types';
 import { isElectron } from '../../../utils/electron';
 import { OpenTruss } from '../../../sagas/Truss/_actions';
 import { RightContext } from './components/RightContext';
@@ -45,6 +46,10 @@ interface Sidebar {
 	removeFromSelection: (data: string) => void;
 	addToSelection: (data: string) => void;
 	resetSelectionAction: (data: void) => void;
+	duplicateJob: (data: IProjectDuplicate) => void;
+	setCopiedJob: (data: string) => void;
+	copiedJob: string;
+	copyJob: (data: CopyJob) => void;
 }
 
 export const Sidebar = ({
@@ -53,8 +58,8 @@ export const Sidebar = ({
 	getProjects,
 	getJobs,
 	currentPage,
-	totalPages,
-	totalRecords,
+	copiedJob,
+	setCopiedJob,
 	connect,
 	selectedKeys,
 	expandedKeys,
@@ -76,6 +81,8 @@ export const Sidebar = ({
 	removeFromSelection,
 	addToSelection,
 	resetSelectionAction,
+	duplicateJob,
+	copyJob,
 }: Sidebar) => {
 	const { t } = useTranslation();
 	const [y, setY] = useState(0);
@@ -258,6 +265,10 @@ export const Sidebar = ({
 						addToSelection={addToSelection}
 						removeFromSelection={removeFromSelection}
 						selectedKeys={selectedKeys}
+						duplicateJob={duplicateJob}
+						copiedJob={copiedJob}
+						setCopiedJob={setCopiedJob}
+						copyJob={copyJob}
 					/>
 				</ContextMenu>
 			)}

@@ -1,7 +1,6 @@
 import ExternalTable from '../../../../components/Optimify/Table/ExternalTable';
 import Moment from 'react-moment';
 import React, { useEffect } from 'react';
-import { CreateCustomer, Delete, Edit } from '../../../../components/Button';
 import { Customer, CustomerProxy } from '../../Customer/_types';
 import { CustomersAllFilterRequest, DeleteRequest } from './_types';
 import { FilterSettings, Page, TreeType } from '../../../../types/_types';
@@ -9,6 +8,11 @@ import { lastPathMember, translationPath } from '../../../../utils/getPath';
 import { Main } from './_styles';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 import { Routes } from '../../../../constants/routes';
+import {
+	CreateCustomer,
+	DeleteCustomer,
+	Edit,
+} from "../../../../components/Button";
 import {
 	CardEndTableWrapper,
 	ContentCard,
@@ -207,15 +211,15 @@ const Index = ({
 										return value;
 									},
 									(value: Customer, key: number, parent: Customer) => {
+										console.log(value);
 										return (
 											<div>
 												<Edit edit={() => navigate(value)} />
 												&nbsp;
-												<Delete
-													title={t(translationPath(lang.remove.customer), {
-														name: value?.Name,
-													})}
+												<DeleteCustomer
 													remove={remove(value.Id)}
+													hasProject={value.ProjectCount > 0}
+													name={value?.Name}
 												/>
 											</div>
 										);
