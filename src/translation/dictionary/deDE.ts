@@ -417,6 +417,8 @@ const dictionary: Lang = {
 			"Darf nicht die folgenden Zeichen enthalten: (,), $",
 		NoFinishedQuotationExists:
 			"Mindestens ein Job muss ein ausgefülltes Angebot haben.",
+		JobNameTaken : "Job namen schon existiert in ausgewähltem Projekt",
+		CannotDeleteCustomerInUse : "Kunden mit Projects können nicht gelöscht werden",
 		FailedToCreateFile: "Die Datei konnte nicht erstellt werden.",
 		PreviousSectionMissing: "Der vorherige Abschnitt fehlt.",
 		AtLeastOneSectionRequired:

@@ -414,6 +414,8 @@ const dictionary: Lang = {
 		CannotContainValueCharacter: "Nesmí obsahovat následující znaky: (,),$",
 		NoFinishedQuotationExists:
 			"Alespoň jedna úloha musí mít dokončenou cenovou nabídku.",
+		JobNameTaken : "Projekt již úlohu s tímto jménem obsahuje",
+		CannotDeleteCustomerInUse : "Nelze odstranit zákazníka s přiřazenými projekty",
 		FailedToCreateFile: "Soubor se nepovedlo vytvořit.",
 		PreviousSectionMissing: "Předešlá sekce chybí.",
 		AtLeastOneSectionRequired: "Zadejte alespoň jednu sekci.",

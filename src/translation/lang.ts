@@ -502,6 +502,8 @@ export type Lang = Readonly<{
 		DuplicateEntity: string;
 		UsernameExists: string;
 		InvalidSelection: string;
+		JobNameTaken : string;
+		CannotDeleteCustomerInUse : string; 
 		InvalidJson: string;
 		EntityNotFound: string;
 		NameAlreadyExists: string;
