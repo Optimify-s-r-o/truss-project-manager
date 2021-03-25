@@ -1,11 +1,16 @@
 import styled from 'styled-components';
-import { ContentSpaceBetween } from '../../../constants/globalStyles';
 import { Link } from 'react-router-dom';
+import {
+	ContentRow,
+	ContentSpaceBetween,
+} from "../../../constants/globalStyles";
 
 export const Header = styled(ContentSpaceBetween)`
 	flex-shrink: 0;
 	background: ${(props) => props.theme.colors.background.menu};
 	color: ${(props) => props.theme.colors.primaryText.default};
+	border-bottom: 1px solid
+		${(props) => props.theme.colors.background.secondaryMenu};
 `;
 
 export const Start = styled.div`
@@ -41,6 +46,10 @@ export const LinkSpanIcon = styled.span`
 	cursor: pointer;
 `;
 
+export const FastSearch = styled(ContentRow)`
+	margin-left: 14px;
+	background: ${(props) => props.theme.colors.forms.select};
+`;
 export const InputElement = styled.input`
 	border: none;
 	font-weight: 400;
@@ -70,7 +79,8 @@ export const ButtonSearch = styled.button`
 	cursor: pointer;
 	padding: 7px;
 	background-color: transparent;
-
+	border-right: 1px solid
+		${(props) => props.theme.colors.background.secondaryMenu};
 	svg {
 		color: ${(props) => props.theme.colors.secondaryText.default};
 	}

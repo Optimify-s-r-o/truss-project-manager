@@ -154,6 +154,15 @@ const  createWindow =()=> {
     }
   });
 
+  ipcMain.on("ELECTRON_APP_GET_PATH", (event, arg) => {
+  return event.sender.send("ELECTRON_APP_GET_PATH",
+    {
+      downloads: app.getPath('downloads'),
+      documents: app.getPath('documents')
+    }
+    )
+  });
+
   ipcMain.on("truss3DExePath", (event, arg) => {
     logInfo("truss3DExePath");
     const path = store.get("truss3DExePath");
@@ -178,6 +187,7 @@ const  createWindow =()=> {
 }
 
 app.on('ready', ()=>  {
+  
   createWindow();
 });
 

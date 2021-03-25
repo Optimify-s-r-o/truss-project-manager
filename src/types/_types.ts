@@ -135,8 +135,13 @@ export type SettingsType = Readonly<{
 	settings: Settings;
 	filter: FilterSettings;
 	activeTree: TreeType;
+	folders: Folder;
 }>;
 
+export type Folder = {
+	downloads: string;
+	documents: string;
+};
 export interface Countries {
 	Id: string;
 	ThreeLettersIsoName: string;
@@ -373,6 +378,7 @@ export interface Job {
 	Price: number;
 	TrussType: TrussExe;
 	Lock: string;
+	Url: string;
 }
 
 export interface Id {

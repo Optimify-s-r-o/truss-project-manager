@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Button } from '../../../components/Optimify/Button';
 import { Container, Headline } from './_styles';
 import { Credentials } from './_types';
+import { Folder } from 'src/types/_types';
 import { Form } from '../../../constants/globalStyles';
 import { Input } from '../../../constants/enum';
 import { isElectron } from '../../../utils/electron';
@@ -14,6 +15,7 @@ import { Routes } from '../../../constants/routes';
 import { translationPath } from '../../../utils/getPath';
 import { useFormik } from 'formik';
 import {
+	ELECTRON_APP_GET_PATH,
 	ELECTRON_STORE_GET,
 	ELECTRON_STORE_SET,
 } from "src/constants/ipcConstants";
@@ -34,6 +36,7 @@ export interface StateProps {
 
 export interface DispatchProps {
 	login: (data: Credentials) => void;
+	setFolders: (data: Folder) => void;
 }
 
 const Component = (
@@ -43,7 +46,7 @@ const Component = (
 		WithTranslation &
 		RouteComponentProps
 ) => {
-	const { login, pending } = props;
+	const { login, pending, setFolders } = props;
 
 	const initialValues: Credentials = {
 		username: "",
@@ -91,6 +94,12 @@ const Component = (
 					username: text?.username,
 					password: text?.password,
 				});
+			});
+
+			electron.ipcRenderer.send(ELECTRON_APP_GET_PATH);
+			electron.ipcRenderer.on(ELECTRON_APP_GET_PATH, (event, text) => {
+				console.log(text);
+				setFolders(text);
 			});
 		}
 	}, []);

@@ -364,8 +364,10 @@ const dictionary: Lang = {
 		passwordMatch: "Die Passwörter die du eingegeben hast, passen nicht",
 	},
 	common: {
-		copyingJob: "Der Job wird heruntergeladen.",
-		jobCopied: "Der Job wurde erfolgreich heruntergeladen.",
+		downloadingJob: "Der Job wird heruntergeladen.",
+		jobDownloaded: "Der Job wurde erfolgreich heruntergeladen.",
+		copyingJob: "Der Job wird kopiert.",
+		jobCopied: "Der Job wurde erfolgreich kopiert.",
 		CustomerExists: "Kunde existiert bereits.",
 		statistics: "Statistiken",
 		designPrice: "Preis je nach Design",
@@ -417,8 +419,9 @@ const dictionary: Lang = {
 			"Darf nicht die folgenden Zeichen enthalten: (,), $",
 		NoFinishedQuotationExists:
 			"Mindestens ein Job muss ein ausgefülltes Angebot haben.",
-		JobNameTaken : "Job namen schon existiert in ausgewähltem Projekt",
-		CannotDeleteCustomerInUse : "Kunden mit Projects können nicht gelöscht werden",
+		JobNameTaken: "Job namen schon existiert in ausgewähltem Projekt",
+		CannotDeleteCustomerInUse:
+			"Kunden mit Projects können nicht gelöscht werden",
 		FailedToCreateFile: "Die Datei konnte nicht erstellt werden.",
 		PreviousSectionMissing: "Der vorherige Abschnitt fehlt.",
 		AtLeastOneSectionRequired:
@@ -662,7 +665,7 @@ const dictionary: Lang = {
 		cityName: "Stadt",
 		close: "Schließen",
 		cloud: "Cloud-Umgebung",
-		collapse: "Erweitern",
+		collapse: "Ordner reduzieren",
 		columnSelection: "Spaltenauswahl",
 		Company: "Juristische Person",
 		companyName: "Name der Firma",

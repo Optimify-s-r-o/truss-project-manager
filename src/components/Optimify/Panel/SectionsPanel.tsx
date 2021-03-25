@@ -1,10 +1,13 @@
+import lang from 'src/translation/lang';
 import React from 'react';
 import ResizablePanel, { ResizablePanelProps } from './ResizablePanel';
 import styled from 'styled-components';
+import { faLayerGroup } from '@fortawesome/pro-duotone-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Tooltip } from 'antd';
-
+import { translationPath } from 'src/utils/getPath';
+import { useTranslation } from 'react-i18next';
 interface Section {
 	icon: IconProp;
 	tooltip: string | React.ReactNode;
@@ -19,10 +22,12 @@ interface OwnProps {
 	hideThreshold?: number;
 	header?: IconProp;
 	activeFilter?: boolean;
+	setExpandedKeys?: (data: string[]) => void;
 }
 
 const SectionsPanel = (props: OwnProps & ResizablePanelProps) => {
-	const { sections, ...resizablePanelProps } = props;
+	const { t } = useTranslation();
+	const { sections, setExpandedKeys, ...resizablePanelProps } = props;
 	const direction = props.direction ? props.direction : "right";
 	const [isHidden, setHidden] = React.useState<boolean>(
 		props.defaultHidden ? props.defaultHidden : false
@@ -43,6 +48,9 @@ const SectionsPanel = (props: OwnProps & ResizablePanelProps) => {
 		if (props.hideThreshold && sizeOnCursor < props.hideThreshold) return true;
 	};
 
+	const collapse = () => {
+		setExpandedKeys([]);
+	};
 	return (
 		<Wrapper direction={direction} activeFilter={props.activeFilter}>
 			{sections && (
@@ -57,6 +65,16 @@ const SectionsPanel = (props: OwnProps & ResizablePanelProps) => {
 							<HeaderDivider direction={direction} />
 						</>
 					)}
+					<SectionWrapperCollapse onClick={() => collapse()}>
+						<Icon>
+							<Tooltip
+								title={t(translationPath(lang.common.collapse).path)}
+								placement={"right"}
+							>
+								<FontAwesomeIcon icon={faLayerGroup} />
+							</Tooltip>
+						</Icon>
+					</SectionWrapperCollapse>
 					{sections?.map((section, key) => {
 						return (
 							<SectionWrapper
@@ -148,6 +166,7 @@ const Sections = styled.div`
 		props.direction === "down" || props.direction === "up" ? "48px" : "100%"};
 
 	background-color: ${(props) => props.theme.colors.background.secondaryMenu};
+	box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 `;
 
 const HeaderWrapper = styled.div`
@@ -175,7 +194,7 @@ const SectionWrapper = styled.div`
 	position: relative;
 
 	width: 48px;
-	height: 48px;
+	height: 44px;
 
 	${(props) => `
     border-${
@@ -227,6 +246,8 @@ const Icon = styled.div`
 	justify-content: center;
 	align-items: center;
 
+	cursor: pointer;
+
 	${(props) =>
 		props.direction === "right"
 			? `right: 0;`
@@ -242,4 +263,12 @@ const Icon = styled.div`
 
 const ContentWrapper = styled.div`
 	display: ${(props) => (props.isHidden ? "none" : "block")};
+	margin-left: 5px;
+`;
+
+const SectionWrapperCollapse = styled(SectionWrapper)`
+	height: 25px;
+	padding-bottom: 45px;
+	border-bottom: 3px solid ${(props) => props.theme.colors.background.darker};
+	margin-bottom: 0;
 `;

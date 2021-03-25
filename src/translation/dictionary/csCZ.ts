@@ -366,8 +366,10 @@ const dictionary: Lang = {
 		passwordMatch: "Zadaná hesla se neshodují",
 	},
 	common: {
-		copyingJob: "Úloha se právě stahuje.",
-		jobCopied: "Úloha byla úspěšně stažena.",
+		downloadingJob: "Úloha se právě stahuje.",
+		jobDownloaded: "Úloha byla úspěšně stažena.",
+		copyingJob: "Úloha se právě kopíruje.",
+		jobCopied: "Úloha byla úspěšně zkopírována.",
 		CustomerExists: "Zákazník již existuje.",
 		statistics: "Statistika",
 		designPrice: "Cena dle návrhu",
@@ -414,8 +416,9 @@ const dictionary: Lang = {
 		CannotContainValueCharacter: "Nesmí obsahovat následující znaky: (,),$",
 		NoFinishedQuotationExists:
 			"Alespoň jedna úloha musí mít dokončenou cenovou nabídku.",
-		JobNameTaken : "Projekt již úlohu s tímto jménem obsahuje",
-		CannotDeleteCustomerInUse : "Nelze odstranit zákazníka s přiřazenými projekty",
+		JobNameTaken: "Projekt úlohu s tímto jménem již obsahuje",
+		CannotDeleteCustomerInUse:
+			"Nelze odstranit zákazníka s přiřazenými projekty",
 		FailedToCreateFile: "Soubor se nepovedlo vytvořit.",
 		PreviousSectionMissing: "Předešlá sekce chybí.",
 		AtLeastOneSectionRequired: "Zadejte alespoň jednu sekci.",
@@ -640,7 +643,7 @@ const dictionary: Lang = {
 		cityName: "Město",
 		close: "Zavřít",
 		cloud: "Cloudové prostředí",
-		collapse: "Rozbalit",
+		collapse: "Sbalit strom",
 		columnSelection: "Výběr sloupců",
 		Company: "Právnická osoba",
 		companyName: "Firma",

@@ -19,6 +19,7 @@ import {
 import {
 	calculateJob,
 	copyJob,
+	downloadJob,
 	getJobMaterials,
 	getJobQuotations,
 	getTrusses,
@@ -64,6 +65,79 @@ function* JobImageSaga(action: ReturnType<typeof jobImage.request>): Generator {
 		);
 		yield put(clearNotificationAction());
 		yield put(jobImage.failure(err));
+	}
+}
+
+function* downloadJobActionSaga(
+	action: ReturnType<typeof downloadJob.request>
+): Generator {
+	try {
+		// @ts-ignore
+		const { errorResponseData, response, success, statusText } = yield call(
+			fetchSaga,
+			ApiURL.JOBS + `/${action.payload.Id}/download-link`,
+			"GET"
+		);
+		if (!success) {
+			yield put(
+				notificationAction({
+					code: Status.ERROR,
+					message: t(
+						translationPath(
+							lang.common[(errorResponseData as Error).ErrorMessage]
+						)
+					),
+				})
+			);
+
+			yield put(downloadJob.failure(errorResponseData));
+			yield put(clearNotificationAction());
+			return;
+		}
+
+		fetch(response.Url, {
+			method: Method.GET,
+		})
+			.then((response) => response.blob())
+			.then((blob) => {
+				try {
+					const fs = window.require("fs");
+					const reader = new FileReader();
+					reader.onloadend = () => {
+						fs.writeFile(
+							action.payload.Path,
+							new Uint8Array(reader.result as any),
+							(err) => {
+								if (err) {
+									alert("An error ocurred creating the file " + err.message);
+								} else {
+									console.log("Job saved");
+								}
+							}
+						);
+					};
+					reader.readAsArrayBuffer(blob);
+				} catch (e) {
+					alert("Failed to save the file !");
+				}
+			});
+		yield put(
+			notificationAction({
+				code: Status.SUCCESS,
+				message: t(translationPath(lang.common.jobDownloaded)),
+			})
+		);
+		yield put(downloadJob.success(response));
+		yield put(clearNotificationAction());
+	} catch (err) {
+		yield put(
+			notificationAction({
+				code: Status.ERROR,
+				message: t(translationPath(lang.common.errorMessage)),
+			})
+		);
+		yield put(clearNotificationAction());
+		yield put(downloadJob.failure(err));
 	}
 }
 
@@ -382,4 +456,7 @@ export function* watchCalculateJobQuotationAction() {
 		getType(calculateJob.request),
 		calculateJobQuotationActionSaga
 	);
+}
+export function* watchDownloadJobAction() {
+	yield takeLatest(getType(downloadJob.request), downloadJobActionSaga);
 }

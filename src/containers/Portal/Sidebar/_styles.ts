@@ -38,6 +38,8 @@ export const IconGroup = styled.div`
 export const Bar = styled.div<{
 	isFilterActive?: boolean;
 }>`
+	border-right: 1px solid
+		${(props) => props.theme.colors.background.secondaryMenu};
 	background-color: ${(props) => props.theme.colors.background.content};
 	overflow-y: auto;
 	overflow-x: hidden;

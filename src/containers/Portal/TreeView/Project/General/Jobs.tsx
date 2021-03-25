@@ -5,14 +5,13 @@ import Moment from 'react-moment';
 import NewJob from './components/NewJob';
 import { CreateJobFromFile } from '../../../../../sagas/CreateJobFromFile';
 import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
-import { DeleteJob, Unlock } from '../../Job/_types';
+import { DeleteJob, RequestDownloadLink, Unlock } from '../../Job/_types';
 import { formatCurrency } from 'src/utils/currencyFormat';
 import { get } from 'lodash';
 import { getPath, translationPath } from '../../../../../utils/getPath';
 import { IAddJsonToProject } from './File/_types';
 import { Input } from '../../../../../constants/enum';
 import { IProjectDuplicate } from '../_types';
-import { isElectron } from '../../../../../utils/electron';
 import { NameColumn, StatusBox, VerticalScroll } from './_styles';
 import { OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { Routes } from '../../../../../constants/routes';
@@ -50,6 +49,7 @@ import {
 	withTranslation,
 } from "../../../../../translation/i18n";
 import {
+	Folder,
 	Job,
 	Project,
 	ProjectProxy,
@@ -75,6 +75,8 @@ export interface OwnProps {
 	unlockJob: (data: Unlock) => void;
 	equal: (var1: Project, var2: Project, location?: any) => boolean;
 	leavingGuard: (callback) => void;
+	folders: Folder;
+	downloadJob: (data: RequestDownloadLink) => void;
 }
 
 const Index = (props: WithTranslation & OwnProps) => {
@@ -93,6 +95,8 @@ const Index = (props: WithTranslation & OwnProps) => {
 		createJobFromTrussFile,
 		unlockJob,
 		leavingGuard,
+		folders,
+		downloadJob,
 	} = props;
 
 	const duplicateProjectJob = (id: string) => {
@@ -124,25 +128,23 @@ const Index = (props: WithTranslation & OwnProps) => {
 		unlockJob(unlockJobAction(project, job));
 	};
 
-	const download = (id: string) => {
-		if (isElectron()) {
-			let options = {
-				title: "Truss Project Manager",
-				defaultPath: `C:\\${name}`,
-				buttonLabel: "Save",
-			};
-			const { remote } = window.require("electron");
-			const { app } = require("electron");
-
-			console.log(app.getPath("home"));
-
-			const WIN = remote.getCurrentWindow();
-			remote.dialog.showSaveDialog(WIN, options).then((result) => {
-				console.log(result.filePath);
-				if (result.filePath) {
-				}
-			});
-		}
+	const download = (id: string, name: string) => {
+		let options = {
+			title: "Truss Project Manager",
+			defaultPath:
+				folders && folders?.downloads
+					? folders?.downloads + `\\${name}.tr3`
+					: `C:\\${name}.tr3`,
+			buttonLabel: "Save",
+		};
+		const { remote } = window.require("electron");
+		const WIN = remote.getCurrentWindow();
+		remote.dialog.showSaveDialog(WIN, options).then((result) => {
+			console.log(result.filePath);
+			if (result.filePath && id) {
+				downloadJob({ Id: id, Path: result.filePath });
+			}
+		});
 	};
 
 	return (
@@ -325,7 +327,9 @@ const Index = (props: WithTranslation & OwnProps) => {
 													</>
 												)}
 												&nbsp;
-												<Download download={() => download(parent.Id)} />
+												<Download
+													download={() => download(parent.Id, parent.JobName)}
+												/>
 												&nbsp;
 												<Delete
 													title={t(translationPath(lang.remove.job), {

@@ -83,6 +83,7 @@ import {
 import {
 	watchCalculateJobQuotationAction,
 	watchCopyJobAction,
+	watchDownloadJobAction,
 	watchGetJobMaterialsAction,
 	watchGetJobQuotationsAction,
 	watchGetJobTrussesAction,
@@ -188,6 +189,7 @@ export const rootSaga = [
 	watchProjectUpdateAction,
 	watchJobUpdateAction,
 	watchCopyJobAction,
+	watchDownloadJobAction,
 ];
 
 export type SagasType = typeof rootSaga;

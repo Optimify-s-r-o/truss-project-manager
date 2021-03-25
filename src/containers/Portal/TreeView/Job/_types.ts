@@ -15,6 +15,14 @@ export interface CopyJob {
 	ProjectId: string;
 	JobId: string;
 }
+
+export interface RequestDownloadLink {
+	Id: string;
+	Path: string;
+}
+export interface DownloadLink {
+	Url: string;
+}
 export interface Load {
 	RoofingLoad: number;
 	CeilingLoad: number;

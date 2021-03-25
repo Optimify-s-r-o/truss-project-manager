@@ -6,6 +6,7 @@ import { Quotations } from '../../Quotations/_types';
 import {
 	CopyJob,
 	DeleteJob,
+	DownloadLink,
 	GetTrusses,
 	JobRootObject,
 	JobsSelectedRequest,
@@ -13,6 +14,7 @@ import {
 	Materials,
 	ProjectNameJobName,
 	QuotationsInfo,
+	RequestDownloadLink,
 	Unlock,
 } from "./_types";
 
@@ -27,6 +29,12 @@ export const copyJob = createAsyncAction(
 	"COPY_JOB_SUCCESS",
 	"COPY_JOB_FAILURE"
 )<CopyJob, void, Error>();
+
+export const downloadJob = createAsyncAction(
+	"DOWNLOAD_JOB_REQUEST",
+	"DOWNLOAD_JOB_SUCCESS",
+	"DOWNLOAD_JOB_FAILURE"
+)<RequestDownloadLink, DownloadLink, Error>();
 
 export const getJobMaterials = createAsyncAction(
 	"GET_JOB_MATERIAL_REQUEST",
@@ -97,4 +105,5 @@ export type selectedJobType = ActionType<
 	| typeof getJobMaterials
 	| typeof getJobQuotations
 	| typeof copyJob
+	| typeof downloadJob
 >;

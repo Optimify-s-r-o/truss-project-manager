@@ -12,7 +12,7 @@ import { CreateCustomer } from '../../../Customer/_types';
 import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
 import { Customer } from 'src/containers/Portal/Customer/_types';
 import { CustomersAll } from '../../../Lists/Customers/_types';
-import { DeleteJob, Unlock } from '../../Job/_types';
+import { DeleteJob, RequestDownloadLink, Unlock } from '../../Job/_types';
 import { DeleteProject } from '../../../Project/_types';
 import { FileRequest } from '../../../../../sagas/DownloadFile/_actions';
 import { Files } from './Files';
@@ -41,6 +41,7 @@ import {
 } from "../../../../../translation/i18n";
 import {
 	Evidence,
+	Folder,
 	Page,
 	Project,
 	ProjectProxy,
@@ -81,6 +82,7 @@ export interface StateProps {
 	loadingCustomers: boolean;
 	createdEvidence: Evidence;
 	updatingCustomer: boolean;
+	folders: Folder;
 }
 
 export interface DispatchProps {
@@ -104,6 +106,7 @@ export interface DispatchProps {
 	unlockJob: (data: Unlock) => void;
 	createCustomerAction: (data: CreateCustomer) => void;
 	removeProject: (data: DeleteProject) => void;
+	downloadJob: (data: RequestDownloadLink) => void;
 }
 let globalCallback = null;
 export interface JobName {
@@ -134,7 +137,7 @@ const Index = ({
 	pending,
 	setSelectedKeys,
 	setExpandedKeys,
-	selectedKeys,
+	downloadJob,
 	createJobFromTrussFile,
 	unlockJob,
 	createCustomerAction,
@@ -143,6 +146,7 @@ const Index = ({
 	loadingCustomers,
 	updatingCustomer,
 	createdEvidence,
+	folders,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const [alertDialog, setAlertDialog] = React.useState(false);
 	const formik = useFormik({
@@ -313,6 +317,7 @@ const Index = ({
 									downloadFile={downloadFile}
 									removeFile={removeFile}
 									filesUploading={filesUploading}
+									folders={folders}
 								/>
 							</GridRow>
 							<GridRow columns={2}>
@@ -390,6 +395,8 @@ const Index = ({
 								unlockJob={unlockJob}
 								equal={equal}
 								leavingGuard={leavingGuard}
+								folders={folders}
+								downloadJob={downloadJob}
 							/>
 						</TreeContent>
 						{!equal(formik.values, project) && (

@@ -124,7 +124,7 @@ export const makeUrl = (
 // checks if content-type is application/json and if so, parses it
 // because response.json() fails when there is no body in response
 // e.g. 200 success response without body
-const parseResponse = (response: Response) => {
+export const parseResponse = (response: Response) => {
 	const contentType = response.headers.get("content-type");
 	if (contentType && contentType.indexOf("application/json") !== -1) {
 		return response.json();

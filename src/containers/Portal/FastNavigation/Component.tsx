@@ -26,6 +26,7 @@ import {
 import {
 	ButtonSearch,
 	Divider,
+	FastSearch,
 	Filter,
 	Header,
 	InputElement,
@@ -245,14 +246,16 @@ export const IconMenu = ({
 					</Tooltip>
 				</LinkSpanIcon>
 				<Divider />
-				<InputElement
-					onChange={onChange}
-					placeholder={t(translationPath(lang.common.find))}
-					value={searchedText}
-				/>
-				<ButtonSearch onClick={search}>
-					<FontAwesomeIcon color="#d9d9d9" icon={faSearch} />
-				</ButtonSearch>
+				<FastSearch>
+					<ButtonSearch onClick={search}>
+						<FontAwesomeIcon color="#d9d9d9" icon={faSearch} />
+					</ButtonSearch>
+					<InputElement
+						onChange={onChange}
+						placeholder={t(translationPath(lang.common.find))}
+						value={searchedText}
+					/>
+				</FastSearch>
 			</Start>
 			<Filter onClick={() => setFilter(!filter)}>
 				<Tooltip

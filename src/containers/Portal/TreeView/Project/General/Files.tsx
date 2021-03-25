@@ -3,10 +3,10 @@ import File, { FileEnum } from './File';
 import Moment from 'react-moment';
 import { Delete, Download, Open } from '../../../../../components/Button';
 import { fixed } from '../../../../../utils/formating';
+import { Folder, Project, ProjectProxy } from '../../../../../types/_types';
 import { get } from 'lodash';
 import { getPath, translationPath } from '../../../../../utils/getPath';
 import { lang, t } from '../../../../../translation/i18n';
-import { Project, ProjectProxy } from '../../../../../types/_types';
 import { Span } from './File/index';
 import { useDropzone } from 'react-dropzone';
 import {
@@ -43,6 +43,7 @@ export interface IFile {
 	project: Project;
 	files: ProjectFile;
 	filesUploading: boolean;
+	folders: Folder;
 }
 
 export const Files = ({
@@ -52,6 +53,7 @@ export const Files = ({
 	uploadProjectFile,
 	project,
 	filesUploading,
+	folders,
 }: IFile) => {
 	const [myFiles, setMyFiles] = React.useState([]);
 
@@ -92,9 +94,13 @@ export const Files = ({
 	};
 
 	const download = (fileId: string, name: string, extension: string) => {
+		console.log(download);
 		let options = {
 			title: "Truss Project Manager",
-			defaultPath: `C:\\${name}`,
+			defaultPath:
+				folders && folders?.downloads
+					? folders?.downloads + `\\${name}`
+					: `C:\\${name}`,
 			buttonLabel: "Save",
 			filters: extension,
 		};

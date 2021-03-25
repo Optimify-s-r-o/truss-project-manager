@@ -186,6 +186,7 @@ export const SidePanel = ({
 				},
 			]}
 			hideThreshold={100}
+			setExpandedKeys={setExpandedKeys}
 		>
 			<SideMenu>
 				<Sidebar

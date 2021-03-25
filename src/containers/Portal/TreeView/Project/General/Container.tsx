@@ -7,8 +7,8 @@ import { createCustomerAction } from '../../../Customer/_actions';
 import { createJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_actions';
 import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
 import { deleteFile, duplicateJob, projectUpdate } from './_actions';
-import { deleteJob, unlockJob } from '../../Job/_actions';
-import { DeleteJob, Unlock } from '../../Job/_types';
+import { deleteJob, downloadJob, unlockJob } from '../../Job/_actions';
+import { DeleteJob, RequestDownloadLink, Unlock } from '../../Job/_types';
 import { deleteProject } from '../../../Project/_actions';
 import { DeleteProject } from '../../../Project/_types';
 import { getCustomers } from '../../../SidebarFilter/_actions';
@@ -68,11 +68,14 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	createCustomerAction: (data: CreateCustomer) =>
 		dispatch(createCustomerAction.request(data)),
 	removeProject: (data: DeleteProject) => dispatch(deleteProject.request(data)),
+	downloadJob: (data: RequestDownloadLink) =>
+		dispatch(downloadJob.request(data)),
 });
 
 const mapStateToProps = (state: any) => ({
 	all: state.CustomersReducer.all,
 	activeTree: state.SettingsReducer.activeTree,
+	folders: state.SettingsReducer.folders,
 	project: state.ProjectViewReducer.project,
 	logs: state.ProjectViewReducer.logs,
 	duplicatePending: state.ProjectViewReducer.duplicatePending,

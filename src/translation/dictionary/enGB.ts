@@ -363,8 +363,10 @@ const dictionary: Lang = {
 		passwordMatch: "The passwords you entered did not match.",
 	},
 	common: {
-		copyingJob: "The job is being downloaded.",
-		jobCopied: "The job was sccessfully downloaded.",
+		downloadingJob: "The job is being downloaded.",
+		jobDownloaded: "The job was successfully downloaded.",
+		copyingJob: "The job is being copied.",
+		jobCopied: "The job was sccessfully copied.",
 		CustomerExists: "Customer already exists.",
 		statistics: "Statistics",
 		designPrice: "Design price",
@@ -414,8 +416,9 @@ const dictionary: Lang = {
 		CannotContainValueCharacter:
 			"Must not contain the following characters: (,), $",
 		NoFinishedQuotationExists: "At least one job must have a completed quote",
-		JobNameTaken : "Job with this name already exists in selected project",
-		CannotDeleteCustomerInUse : "Customer with assigned projects cannot be deleted",
+		JobNameTaken: "Job with this name already exists in selected project",
+		CannotDeleteCustomerInUse:
+			"Customer with assigned projects cannot be deleted",
 		FailedToCreateFile: "The file could not be created.",
 		PreviousSectionMissing: "The previous section is missing.",
 		AtLeastOneSectionRequired: "Enter at least one section.",
@@ -646,7 +649,7 @@ const dictionary: Lang = {
 		cityName: "City",
 		close: "Close",
 		cloud: "Cloud",
-		collapse: "Collapse",
+		collapse: "Collapse tree",
 		columnSelection: "Column selection",
 		Company: "Company",
 		companyName: "Name of the company",

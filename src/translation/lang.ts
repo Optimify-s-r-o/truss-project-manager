@@ -362,6 +362,8 @@ export type Lang = Readonly<{
 	};
 
 	common: {
+		downloadingJob: string;
+		jobDownloaded: string;
 		copyingJob: string;
 		jobCopied: string;
 		CustomerExists: string;
@@ -502,8 +504,8 @@ export type Lang = Readonly<{
 		DuplicateEntity: string;
 		UsernameExists: string;
 		InvalidSelection: string;
-		JobNameTaken : string;
-		CannotDeleteCustomerInUse : string; 
+		JobNameTaken: string;
+		CannotDeleteCustomerInUse: string;
 		InvalidJson: string;
 		EntityNotFound: string;
 		NameAlreadyExists: string;
