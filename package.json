@@ -82,7 +82,7 @@
     "local": "concurrently -k \"npm run start:local\" \"npm:electron\"",
     "dev": "concurrently -k \"npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "release": "npm run build:prod && electron-builder build --win -p never",
+    "release": "npm run build:prod && electron-builder build --win -p always",
     "release:dev": "npm run build:dev && electron-builder build --win -p always"
   },
   "eslintConfig": {
