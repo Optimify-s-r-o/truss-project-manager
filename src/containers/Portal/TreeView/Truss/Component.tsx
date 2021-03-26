@@ -1,6 +1,7 @@
 import Loading from '../../../../components/Optimify/Loading';
 import Material from './Material/Container';
 import Navigation from '../../../../components/NavigationLink';
+import ProtectedRoute from '../../../../components/ProtectedRoute';
 import Quotations from './Quotations/Container';
 import React from 'react';
 import Summary from './General/Container';
@@ -19,7 +20,6 @@ import {
 	faMoneyBillWave,
 } from "@fortawesome/pro-solid-svg-icons";
 import {
-	Route,
 	RouteComponentProps,
 	Switch,
 	useLocation,
@@ -127,29 +127,22 @@ const Component = ({
 						/>
 					</PageHeader>
 					<Switch>
-						<Route
+						<ProtectedRoute
 							path={Routes.TREE_TRUSS_SUMMARY}
 							exact
 							component={Summary}
-							routerState={location.pathname}
 						/>
-						<Route
+						<ProtectedRoute
 							path={Routes.TREE_TRUSS_MATERIAL}
 							exact
 							component={Material}
-							routerState={location.pathname}
 						/>
-						<Route
+						<ProtectedRoute
 							path={Routes.TREE_TRUSS_QUOTATIONS}
 							exact
 							component={Quotations}
-							routerState={location.pathname}
 						/>
-						<Route
-							path={Routes.TREE_TRUSS}
-							component={Summary}
-							routerState={location.pathname}
-						/>
+						<ProtectedRoute path={Routes.TREE_TRUSS} component={Summary} />
 					</Switch>
 				</Loading>
 			</MainTree>

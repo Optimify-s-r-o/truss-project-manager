@@ -1,6 +1,7 @@
 import General from './General/Container';
 import Loading from '../../../../components/Optimify/Loading';
 import Log from './Log/Container';
+import ProtectedRoute from '../../../../components/ProtectedRoute';
 import Quotations from './Quotations/Container';
 import React from 'react';
 import { DeleteProject } from '../../Project/_types';
@@ -14,7 +15,6 @@ import { Routes } from '../../../../constants/routes';
 import { SelectedProjectsRequest } from '../Projects/_types';
 import { translationPath } from '../../../../utils/getPath';
 import {
-	Route,
 	RouteComponentProps,
 	Switch,
 	useLocation,
@@ -88,18 +88,25 @@ const Index = ({
 					margin
 				>
 					<Switch>
-						<Route
+						<ProtectedRoute
 							exact
 							path={Routes.TREE_PROJECT_GENERAL}
 							component={General}
 						/>
-						<Route exact path={Routes.TREE_PROJECT_LOG} component={Log} />
-						<Route exact path={Routes.TREE_PROJECT} component={General} />
-						<Route
+						<ProtectedRoute
+							exact
+							path={Routes.TREE_PROJECT_LOG}
+							component={Log}
+						/>
+						<ProtectedRoute
+							exact
+							path={Routes.TREE_PROJECT}
+							component={General}
+						/>
+						<ProtectedRoute
 							path={Routes.TREE_PROJECT_QUOTATIONS}
 							exact
 							component={Quotations}
-							routerState={location.pathname}
 						/>
 					</Switch>
 				</Loading>

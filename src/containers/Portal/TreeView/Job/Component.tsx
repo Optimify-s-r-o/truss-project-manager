@@ -1,6 +1,7 @@
 import General from './General/Container';
 import Loading from '../../../../components/Optimify/Loading';
 import Material from './Material/Container';
+import ProtectedRoute from '../../../../components/ProtectedRoute';
 import Quotations from './Quotations/Container';
 import React from 'react';
 import Trusses from './Trusses/Container';
@@ -12,7 +13,6 @@ import { OpenTruss } from '../../../../sagas/Truss/_actions';
 import { Routes } from '../../../../constants/routes';
 import { translationPath } from '../../../../utils/getPath';
 import {
-	Route,
 	RouteComponentProps,
 	Switch,
 	useLocation,
@@ -77,42 +77,32 @@ const Index = ({
 					margin
 				>
 					<Switch>
-						<Route
+						<ProtectedRoute
 							exact
 							path={Routes.TREE_JOB_MATERIAL}
 							component={Material}
-							routerState={location.pathname}
 						/>
-						<Route
+						<ProtectedRoute
 							exact
 							path={Routes.TREE_JOB_GENERAL}
 							component={General}
-							routerState={location.pathname}
 						/>
-						<Route
+						<ProtectedRoute
 							path={Routes.TREE_JOB_QUOTATIONS}
 							exact
 							component={Quotations}
-							routerState={location.pathname}
 						/>
-						<Route
+						<ProtectedRoute
 							path={Routes.TREE_JOB_TRUSSES}
 							exact
 							component={Trusses}
-							routerState={location.pathname}
 						/>
-						<Route
+						<ProtectedRoute
 							path={Routes.TREE_JOB_MODEL_VIEWER}
 							exact
 							component={Viewer}
-							routerState={location.pathname}
 						/>
-						<Route
-							exact
-							path={Routes.TREE_JOB}
-							component={General}
-							routerState={location.pathname}
-						/>
+						<ProtectedRoute exact path={Routes.TREE_JOB} component={General} />
 					</Switch>
 				</Loading>
 			</MainTree>
