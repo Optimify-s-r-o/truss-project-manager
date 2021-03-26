@@ -14,7 +14,8 @@ interface OwnProps {
 const Component = (props: OwnProps) => {
 	const { exact, component, path } = props;
 	const token = new Cookies().get("token");
-	if (!token && process.env.NODE_ENV != "development") {
+	console.log(token);
+	if (process.env.NODE_ENV != "development") {
 		return <Redirect to={Routes.HOME} />;
 	}
 
