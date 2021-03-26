@@ -1,6 +1,6 @@
 import Cookies from 'universal-cookie';
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 import { Routes } from '../constants/routes';
 interface OwnProps {
@@ -15,9 +15,9 @@ const Component = (props: OwnProps) => {
 	const { exact, component, path } = props;
 	const token = new Cookies().get("token");
 	console.log(token);
-	if (process.env.NODE_ENV != "development") {
-		return <Redirect to={Routes.HOME} />;
-	}
+	// if (process.env.NODE_ENV != "development") {
+	// 	return <Redirect to={Routes.HOME} />;
+	// }
 
 	return <Route path={path} component={component} exact={exact} />;
 };
