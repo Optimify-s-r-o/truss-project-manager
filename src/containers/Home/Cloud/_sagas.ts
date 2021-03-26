@@ -9,7 +9,6 @@ import { push } from 'connected-react-router';
 import { Routes } from '../../../constants/routes';
 import { Status } from '../../../components/Toast/_types';
 import { translationPath } from '../../../utils/getPath';
-import { usersAction } from 'src/containers/Portal/Accounts/_actions';
 import {
 	clearNotificationAction,
 	notificationAction,
@@ -46,11 +45,6 @@ function* cloudLoginActionSaga(
 		}
 		yield put(login.success(response));
 		yield new Cookies().set("token", response.Token);
-		yield put(
-			usersAction.request({
-				Paginate: false,
-			})
-		);
 		yield put(push(Routes.PORTAL));
 	} catch (err) {
 		yield put(
