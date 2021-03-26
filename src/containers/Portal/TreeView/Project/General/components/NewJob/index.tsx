@@ -52,7 +52,6 @@ const Index: FC<WithTranslation & OwnProps> = ({
 
 	const openNewTruss = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 		if (leavingGuard) {
-			console.log("zde?");
 			leavingGuard(() =>
 				openTruss({
 					projectId: projectId,
@@ -62,7 +61,6 @@ const Index: FC<WithTranslation & OwnProps> = ({
 				})
 			);
 		} else {
-			console.log("proc");
 			openTruss({
 				projectId: projectId,
 				jobName: projectName,
