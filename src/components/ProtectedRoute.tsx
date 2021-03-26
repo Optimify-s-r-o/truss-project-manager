@@ -1,8 +1,9 @@
-import Cookies from 'universal-cookie';
 import React from 'react';
+import { Redirect, RouteComponentProps } from 'react-router';
+import { RootStateType } from '../reducers/index';
 import { Route } from 'react-router-dom';
-import { RouteComponentProps } from 'react-router';
 import { Routes } from '../constants/routes';
+import { useSelector } from 'react-redux';
 interface OwnProps {
 	path: Routes;
 	component:
@@ -13,11 +14,11 @@ interface OwnProps {
 
 const Component = (props: OwnProps) => {
 	const { exact, component, path } = props;
-	const token = new Cookies().get("token");
-	console.log(token);
-	// if (process.env.NODE_ENV != "development") {
-	// 	return <Redirect to={Routes.HOME} />;
-	// }
+	const token = useSelector((state: RootStateType) => state.AuthReducer.token);
+
+	if (!token) {
+		return <Redirect to={Routes.HOME} />;
+	}
 
 	return <Route path={path} component={component} exact={exact} />;
 };

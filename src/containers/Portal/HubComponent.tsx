@@ -1,9 +1,10 @@
-import Cookies from 'universal-cookie';
 import React, { useEffect } from 'react';
 import { Hub, HubApi } from '../../constants/hub';
 import { JobRootObject } from './TreeView/Job/_types';
 import { Project, TreeType } from '../../types/_types';
+import { RootStateType } from '../../reducers/index';
 import { Truss } from './TreeView/Truss/_types';
+import { useSelector } from 'react-redux';
 import {
 	HubConnection,
 	HubConnectionBuilder,
@@ -52,7 +53,8 @@ export const HubComponent = ({
 	getTruss,
 	setLoading,
 }: HubComponent) => {
-	const token = new Cookies().get("token");
+	const token = useSelector((state: RootStateType) => state.AuthReducer.token);
+
 	const getUrl = () => {
 		return process.env.REACT_APP_BACKEND_API;
 	};

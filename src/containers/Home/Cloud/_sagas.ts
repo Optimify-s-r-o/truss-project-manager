@@ -1,4 +1,3 @@
-import Cookies from 'universal-cookie';
 import { ApiURL } from '../../../constants/api';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { Error, fetchSaga } from '../../../sagas/_sagas';
@@ -44,7 +43,6 @@ function* cloudLoginActionSaga(
 			return;
 		}
 		yield put(login.success(response));
-		yield new Cookies().set("token", response.Token);
 		yield put(push(Routes.PORTAL));
 	} catch (err) {
 		yield put(

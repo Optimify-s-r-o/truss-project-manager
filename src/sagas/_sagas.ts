@@ -1,6 +1,5 @@
-import Cookies from 'universal-cookie';
 import { ApiURL } from '../constants/api';
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import { getLanguage, lang, t } from '../translation/i18n';
 import { notificationAction } from '../components/Toast/_actions';
 import { push } from 'connected-react-router';
@@ -155,7 +154,7 @@ export function* fetchSaga(
 	let fetchData: FetchSagaReponseType;
 
 	try {
-		const token = new Cookies().get("token");
+		const token = yield select((state: any) => state.AuthReducer.token);
 		const requestParams = yield call(createRequestParams, {
 			bodyFormData,
 			bodyJSON,

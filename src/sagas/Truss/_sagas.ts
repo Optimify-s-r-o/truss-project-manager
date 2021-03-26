@@ -1,4 +1,3 @@
-import Cookies from 'universal-cookie';
 import { ApiURL } from '../../constants/api';
 import {
 	call,
@@ -12,10 +11,12 @@ import { getType } from 'typesafe-actions';
 import { lang, t } from '../../translation/i18n';
 import { Method } from '../../constants/enum';
 import { notificationAction } from '../../components/Toast/_actions';
+import { RootStateType } from '../../reducers/index';
 import { Status } from '../../components/Toast/_types';
 import { translationPath } from '../../utils/getPath';
 import { TrussExe } from '../../types/_types';
 import { trussFileExist } from './utils';
+import { useSelector } from 'react-redux';
 
 function* createTrussSaga(
 	action: ReturnType<typeof createTruss.request>
@@ -42,7 +43,9 @@ function* createTrussSaga(
 		const api = local
 			? process.env.REACT_APP_API_URL_LOCAL
 			: process.env.REACT_APP_BACKEND_API;
-		const token = yield new Cookies().get("token");
+		const token = useSelector(
+			(state: RootStateType) => state.AuthReducer.token
+		);
 
 		let inputPath: any = null;
 		let jobId: string = action.payload.jobId;
@@ -146,7 +149,9 @@ function* editTrussSaga(
 		const api = local
 			? process.env.REACT_APP_API_URL_LOCAL
 			: process.env.REACT_APP_BACKEND_API;
-		const token = yield new Cookies().get("token");
+		const token = useSelector(
+			(state: RootStateType) => state.AuthReducer.token
+		);
 		let inputPath: any = null;
 		let jobId: string = action.payload.jobId;
 
