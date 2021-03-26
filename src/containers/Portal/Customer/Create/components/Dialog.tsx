@@ -29,7 +29,7 @@ export const Modal = ({
 		setIsModalVisible(false);
 		contactFormik.resetForm();
 	};
-
+	console.log(contactFormik);
 	return (
 		<SModal
 			title={t(translationPath(lang.common.contactPerson).path)}
@@ -42,19 +42,25 @@ export const Modal = ({
 			<Form onSubmit={contactFormik.handleSubmit}>
 				<FormikRow
 					formik={contactFormik}
-					name="Name"
-					title={t(translationPath(lang.common.fullName).path)}
+					name="Forename"
+					title={t(translationPath(lang.common.forename).path)}
 					type={Input.TEXT}
 				/>
 				<FormikRow
 					formik={contactFormik}
-					name="Phone"
+					name="Surname"
+					title={t(translationPath(lang.common.surname).path)}
+					type={Input.TEXT}
+				/>
+				<FormikRow
+					formik={contactFormik}
+					name="Contact.Phone"
 					title={t(translationPath(lang.common.phone).path)}
 					type={Input.PHONE}
 				/>
 				<FormikRow
 					formik={contactFormik}
-					name="Email"
+					name="Contact.Email"
 					title={t(translationPath(lang.common.email).path)}
 					type={Input.TEXT}
 				/>

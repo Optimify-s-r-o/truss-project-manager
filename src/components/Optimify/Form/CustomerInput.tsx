@@ -112,7 +112,7 @@ export const CustomerInput = ({
 			e.target.className !== "" &&
 			e.target.className !== "ant-btn ant-btn-link"
 		) {
-			ref.current.blur();
+			// ref.current.blur();
 			setOpen(!open);
 		}
 	};
@@ -120,8 +120,6 @@ export const CustomerInput = ({
 	return (
 		<Blur ref={el}>
 			<SSelect
-				ref={ref}
-				allowClear
 				showSearch
 				onClick={(e) => handleClose(e)}
 				style={{ width: "100%" }}

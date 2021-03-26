@@ -17,7 +17,7 @@ export interface Customer {
 	Name?: string;
 	Note?: string;
 	Address?: Location;
-	Contacts?: Contact[];
+	ContactPersons?: Contact[];
 }
 
 export const CustomerProxy = createProxy<Customer>();

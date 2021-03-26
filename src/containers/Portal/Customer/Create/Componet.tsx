@@ -117,7 +117,7 @@ const Index = ({
 						Company: "",
 						Forename: "",
 						Surname: "",
-						DateOfCreation: "",
+						DateOfCreation: new Date(),
 						ProjectCount: "",
 						FinishedQuotationCount: "",
 						FinishedProductionCount: "",
@@ -155,10 +155,14 @@ const Index = ({
 		enableReinitialize: true,
 		onSubmit: (values: Customer) => {
 			if (customer && id) {
-				updateCustomerAction({ ...values, Contacts: contacts });
+				updateCustomerAction({ ...values, ContactPersons: contacts });
 				return;
 			}
-			createCustomerAction({ ...values, Contacts: contacts, Redirect: true });
+			createCustomerAction({
+				...values,
+				ContactPersons: contacts,
+				Redirect: true,
+			});
 		},
 	});
 
@@ -177,7 +181,7 @@ const Index = ({
 		};
 	}, []);
 	React.useEffect(() => {
-		setContacts(customer?.Contacts || []);
+		setContacts(customer?.ContactPersons || []);
 	}, [customer]);
 
 	React.useEffect(() => {
@@ -194,13 +198,16 @@ const Index = ({
 	const contactFormik = useFormik({
 		initialValues: {
 			Id: guid(),
-			Name: "",
+			Forename: "",
+			Surname: "",
 			Description: "",
-			Email: "",
-			Phone: "",
+			Contact: {
+				Email: "",
+				Phone: "",
+			},
 		},
 		validationSchema: Yup.object({
-			Name: Yup.string()
+			Surname: Yup.string()
 				.min(1, t(translationPath(lang.validation.min).path, { count: 1 }))
 				.max(200, t(translationPath(lang.validation.max).path, { count: 200 }))
 				.required(t(translationPath(lang.validation.required).path)),
@@ -226,10 +233,13 @@ const Index = ({
 	const addContactPerson = () => {
 		contactFormik.setValues({
 			Id: guid(),
-			Name: "",
+			Forename: "",
+			Surname: "",
 			Description: "",
-			Email: "",
-			Phone: "",
+			Contact: {
+				Email: "",
+				Phone: "",
+			},
 		});
 		setEditedPerson(null);
 		setIsModalVisible(true);
@@ -248,13 +258,17 @@ const Index = ({
 	React.useEffect(() => {
 		contactFormik.setValues({
 			Id: guid(),
-			Name: "",
+			Forename: "",
+			Surname: "",
 			Description: "",
-			Email: "",
-			Phone: "",
+			Contact: {
+				Email: "",
+				Phone: "",
+			},
 		});
 	}, []);
-
+	console.log(customer);
+	console.log(contacts);
 	return (
 		<MainTree>
 			<Loading
@@ -345,6 +359,7 @@ const Index = ({
 											<FormikRow
 												formik={formik}
 												name={lastPathMember(CustomerProxy.DateOfCreation).path}
+												disabled
 												title={t(
 													translationPath(
 														lang.common.customerDateOfCreationFilter
@@ -366,6 +381,7 @@ const Index = ({
 												<ScrollableTable
 													headers={[
 														t(translationPath(lang.common.forename).path),
+														t(translationPath(lang.common.surname).path),
 														t(translationPath(lang.common.email).path),
 														t(translationPath(lang.common.phone).path),
 														t(translationPath(lang.common.actions).path),
@@ -376,9 +392,10 @@ const Index = ({
 															? contacts?.map(
 																	(value: Contact, index: number) => {
 																		return [
-																			value.Name,
-																			value.Email,
-																			value.Phone,
+																			value.Forename,
+																			value.Surname,
+																			value.Contact.Email,
+																			value.Contact.Phone,
 																			index,
 																			value,
 																		];
@@ -387,6 +404,9 @@ const Index = ({
 															: []
 													}
 													renderers={[
+														(value: any, key: number, parent: Contact) => {
+															return value;
+														},
 														(value: any, key: number, parent: Contact) => {
 															return value;
 														},
@@ -406,7 +426,7 @@ const Index = ({
 																		title={t(
 																			translationPath(lang.remove.contactPerson)
 																				.path,
-																			{ name: parent.Name }
+																			{ name: parent.Forename + parent.Surname }
 																		)}
 																	/>
 																</div>

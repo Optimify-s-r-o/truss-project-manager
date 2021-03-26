@@ -321,10 +321,13 @@ export interface Prices {
 
 export interface Contact {
 	Id: string;
-	Name: string;
+	Forename: string;
+	Surname: string;
 	Description: string;
-	Email: string;
-	Phone: string;
+	Contact: {
+		Email: string;
+		Phone: string;
+	};
 }
 
 export interface Company {
