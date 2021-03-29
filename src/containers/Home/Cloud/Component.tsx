@@ -98,7 +98,6 @@ const Component = (
 
 			electron.ipcRenderer.send(ELECTRON_APP_GET_PATH);
 			electron.ipcRenderer.on(ELECTRON_APP_GET_PATH, (event, text) => {
-				console.log(text);
 				setFolders(text);
 			});
 		}

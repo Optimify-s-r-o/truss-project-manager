@@ -1,20 +1,22 @@
+import KeyboardEventHandler from 'react-keyboard-event-handler';
+import lang from 'src/translation/lang';
 import onClickOutside from 'react-onclickoutside';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import {
-	Button,
-	Divider,
-	Input,
-	Select,
-	Spin
-	} from 'antd';
+import { Button } from 'antd';
+import { ContentRow } from 'src/constants/globalStyles';
+import { Customer } from 'src/containers/Portal/Customer/_types';
 import { CustomersAll } from 'src/containers/Portal/Lists/Customers/_types';
-import { Evidence } from '../../../types/_types';
-import { lang } from '../../../translation/i18n';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { LineOutlined, PlusOutlined } from '@ant-design/icons';
 import { translationPath } from '../../../utils/getPath';
 import { useTranslation } from 'react-i18next';
-const { Option } = Select;
+import {
+	faChevronDown,
+	faChevronUp,
+	faTimes,
+} from "@fortawesome/pro-light-svg-icons";
 
 interface ICustomerInput {
 	formik: any;
@@ -22,10 +24,11 @@ interface ICustomerInput {
 	name: string;
 	addCustomer: (data: string) => void;
 	loading: boolean;
-	createdEvidence?: Evidence;
+	newCustomer?: Customer;
 }
+
 export const CustomerInput = ({
-	createdEvidence,
+	newCustomer,
 	formik,
 	customers,
 	name,
@@ -33,184 +36,330 @@ export const CustomerInput = ({
 	loading,
 }: ICustomerInput) => {
 	const { t } = useTranslation();
-	const [newCustomer, setNewCustomer] = useState("");
-	const [customersState, setCustomersState] = useState([]);
-	const [open, setOpen] = useState(false);
-	const [currentCustomer, setCurrentCustomer] = useState(null);
-	const el = useRef(null);
-	const ref = useRef(null);
+	const wrapperRef = useRef(null);
+	const customerInput = useRef(null);
+	const createCustomerInput = useRef(null);
+	const createCustomerButton = useRef(null);
+	const dropDownContent = useRef(null);
+	const [focused, setFocused] = useState(false);
+	const [newCustomerState, setNewCustomerState] = useState("");
+	const [currentCustomer, setCurrentCustomer] = useState("");
+
+	useEffect(() => {
+		if (newCustomer) {
+			formik.setValues({ ...formik.values, CustomerId: newCustomer.Id });
+		}
+	}, [newCustomer]);
+
+	useEffect(() => {
+		function handleClickOutside(event) {
+			if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+				dropDownContent.current.style.display = "none";
+			}
+		}
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [wrapperRef]);
+
+	useEffect(() => {
+		function handleEnter(event) {
+			if (event.keyCode === 13) {
+				event.preventDefault();
+				createCustomerButton.current.click();
+			}
+		}
+
+		function selectAll(ev) {
+			var key = ev.which || ev.keyCode;
+			var ctrl = ev.ctrlKey ? ev.ctrlKey : key === 17 ? true : false;
+			if ((key == 65 || key == 97) && ctrl) {
+				if (customerInput.current === document.activeElement) {
+					customerInput.current.select();
+				}
+			} else if (key === 13) {
+				ev.preventDefault();
+			}
+		}
+
+		customerInput &&
+			customerInput.current.addEventListener("keydown", selectAll, false);
+		createCustomerInput &&
+			createCustomerInput.current.addEventListener("keyup", handleEnter);
+	}, []);
 
 	useEffect(() => {
 		if (formik.values && formik.values[name]) {
 			setCurrentCustomer(formik.values[name]);
-		} else {
-			setCurrentCustomer(null);
 		}
 	}, [formik.values]);
 
-	useEffect(() => {}, [customers]);
-
-	useEffect(() => {
-		if (createdEvidence) {
-			setTimeout(function () {
-				handleSelectChange(createdEvidence?.Id);
-			}, 1500);
-		}
-	}, [createdEvidence]);
-
-	useEffect(() => {
-		setCustomersState(customers);
-	}, [customers]);
-
-	React.useEffect(() => {
-		const handleClickOutside = (event) => {
-			if (el && el.current && !el.current.contains(event.target)) {
-				if (
-					event.target.className !== "ant-input" &&
-					event.target.className !== "" &&
-					event.target.className !== "ant-select-selection-item" &&
-					event.target.className !== "ant-select-item-option-content" &&
-					event.target.className !== "ant-btn ant-btn-link"
-				) {
-					setOpen(false);
-				}
-			}
-		};
-		document.addEventListener("mousedown", handleClickOutside);
-
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
-		};
-	}, [open]);
-
-	const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setNewCustomer(event.target.value);
-	};
-
-	const addItem = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-		if (newCustomer.length > 0) {
-			addCustomer(newCustomer);
-			setOpen(false);
+	const createCustomer = () => {
+		if (newCustomerState.length > 0) {
+			addCustomer(newCustomerState);
+			formik.setValues({ ...formik.values, Customer: newCustomerState });
+			dropDownContent.current.style.display = "none";
+			setFocused(false);
 		}
 	};
 
-	const handleSelectChange = (data: string) => {
-		if (data) {
-			setCurrentCustomer(data);
-			formik.setFieldValue(name, data);
-			setNewCustomer("");
-		}
+	const handleRemoveCustomer = () => {
+		setCurrentCustomer("");
+		formik.setValues({ ...formik.values, CustomerId: null, Customer: "" });
 	};
 
-	const antIcon = (
-		<LoadingOutlined style={{ fontSize: 15, marginRight: 5 }} spin />
-	);
+	const handleFocus = () => {
+		setFocused(true);
+		dropDownContent.current.style.display = "block";
+	};
+
+	const handleBlur = (e) => {
+		setFocused(false);
+		customerInput.current.blur();
+	};
 
 	const handleClose = (e) => {
-		if (
-			e.target.className !== "ant-input" &&
-			e.target.className !== "" &&
-			e.target.className !== "ant-btn ant-btn-link"
-		) {
-			// ref.current.blur();
-			setOpen(!open);
-		}
+		setFocused(false);
+		customerInput.current.blur();
+		dropDownContent.current.style.display = "none";
 	};
 
+	const handleSelect = (name: string, id: string) => () => {
+		formik.setValues({ ...formik.values, CustomerId: id, Customer: name });
+		dropDownContent.current.style.display = "none";
+		setFocused(false);
+	};
+
+	const handleNewCustomerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setNewCustomerState(e.target.value);
+	};
+
+	const handleCustomerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setCurrentCustomer(e.target.value);
+	};
+
+	const selectAll = () => {
+		customerInput.current.select();
+	};
 	return (
-		<Blur ref={el}>
-			<SSelect
-				showSearch
-				onClick={(e) => handleClose(e)}
-				style={{ width: "100%" }}
-				value={currentCustomer}
-				open={open}
-				onChange={handleSelectChange}
-				loading={loading}
-				placeholder={t(translationPath(lang.placeholder.customerInput).path)}
-				filterOption={(input, option) =>
-					option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-				}
-				dropdownRender={(menu) => (
-					<div>
-						{menu}
-						<Divider style={{ margin: "4px 0" }} />
-						<div style={{ display: "flex", flexWrap: "nowrap", padding: 8 }}>
-							<Input
-								style={{ flex: "auto" }}
-								value={newCustomer}
-								onChange={onNameChange}
-							/>
-							<Button type="link" onClick={addItem} disabled={loading}>
-								{loading ? <Spin indicator={antIcon} /> : <PlusOutlined />}{" "}
-								{t(translationPath(lang.common.add).path)}
-							</Button>
-						</div>
-					</div>
+		<DropDown ref={wrapperRef}>
+			<Row>
+				<KeyboardEventHandler
+					handleKeys={["ctrl+a"]}
+					onKeyEvent={(key, e) => selectAll()}
+				/>
+				<Input
+					type={"text"}
+					name={name}
+					value={currentCustomer}
+					onFocus={handleFocus}
+					onBlur={handleBlur}
+					onChange={handleCustomerChange}
+					ref={customerInput}
+					placeholder={t(translationPath(lang.customer.placeholder).path)}
+				/>
+
+				<DropDownContent ref={dropDownContent}>
+					<CustomerList>
+						{customers
+							?.filter((e) =>
+								e?.Name?.toLowerCase().includes(currentCustomer?.toLowerCase())
+							)
+							?.map((customer: CustomersAll, key: number) => {
+								return (
+									<DropDownItem
+										key={key}
+										isSelected={
+											formik.values && formik.values[name] === customer.Name
+										}
+										onClick={handleSelect(customer?.Name, customer?.Id)}
+									>
+										{customer.Name}
+									</DropDownItem>
+								);
+							})}
+					</CustomerList>
+					<NewCustomer>
+						<NewCustomerInput
+							ref={createCustomerInput}
+							type="text"
+							placeholder={t(translationPath(lang.customer.newCustomer).path)}
+							onChange={handleNewCustomerChange}
+							value={newCustomerState}
+						/>
+						<Create
+							ref={createCustomerButton}
+							type="primary"
+							size="small"
+							onClick={createCustomer}
+							icon={<PlusOutlined />}
+						>
+							{t(translationPath(lang.customer.add).path)}
+						</Create>
+					</NewCustomer>
+				</DropDownContent>
+				<Delete icon={faTimes as IconProp} onClick={handleRemoveCustomer} />
+				<Line />
+				{focused ? (
+					<Close icon={faChevronUp as IconProp} onClick={handleClose} />
+				) : (
+					<Open icon={faChevronDown as IconProp} onClick={handleFocus} />
 				)}
-			>
-				{customersState?.map((item: CustomersAll) => (
-					<SOption key={item.Id} value={item.Id}>
-						{item.Name}
-					</SOption>
-				))}
-			</SSelect>
-		</Blur>
+			</Row>
+		</DropDown>
 	);
 };
 
 export default onClickOutside(CustomerInput);
 
-export const Blur = styled.div`
-	width: 100%;
-	.ant-select-dropdown {
-		background-color: ${(props) =>
-			props.theme.colors.background.content} !important;
-	}
-	.ant-select-selection-item {
-		background-color: ${(props) =>
-			props.theme.colors.background.content} !important;
-	}
-	.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
-		background-color: ${(props) =>
-			props.theme.colors.background.content} !important;
-	}
+const Line = styled(LineOutlined)`
+	transform: rotate(90deg);
 `;
 
-const SSelect = styled(Select)`
-	padding: 0;
-	box-shadow: none !important;
-	.anticon svg {
-		background-color: ${(props) => props.theme.colors.background.content};
+const Delete = styled(FontAwesomeIcon)`
+	cursor: pointer;
+`;
+
+const Open = styled(FontAwesomeIcon)`
+	cursor: pointer;
+`;
+
+const Close = styled(FontAwesomeIcon)`
+	cursor: pointer;
+`;
+
+const Row = styled(ContentRow)`
+	svg {
 		color: ${(props) => props.theme.colors.forms.border};
 	}
+`;
 
-	.ant-select-selector {
-		box-shadow: none !important;
+const DropDownContent = styled.div`
+	display: none;
+	position: absolute;
+	top: 45px;
+	width: 100%;
 
-		background-color: ${(props) => props.theme.colors.background.content};
-		color: ${(props) => props.theme.colors.contentText};
-		padding: 0 !important;
-		border-bottom: 1px solid ${(props) => props.theme.colors.forms.border} !important;
-		font-size: 16px !important;
-		transition: all 0.2s ease-out;
+	background-color: ${(props) => props.theme.colors.background.content};
+	box-shadow: ${(props) => props.theme.boxShadow};
+	color: ${(props) => props.theme.colors.contentText};
 
-		&::placeholder {
-			color: ${(props) => props.theme.colors.secondaryText.default};
-			font-size: 0.8em !important;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+`;
+
+const CustomerList = styled.div`
+	max-height: 300px;
+	overflow: auto;
+`;
+
+const Input = styled.input`
+	width: 100%;
+
+	cursor: pointer;
+
+	border: none;
+
+	padding: 7px 0;
+
+	&:focus {
+		/* border-bottom: 1px solid
+			${(props) =>
+			props.disabled
+				? props.theme.colors.forms.border
+				: props.theme.colors.primary.default}; */
+
+		${Open} {
+			background: red;
+			display: none;
 		}
 
-		&:hover {
-			border-bottom-color: ${(props) =>
-				props.theme.colors.primary.default} !important;
+		${Close} {
+			display: block;
 		}
+	}
 
-		.ant-input {
-			background-color: ${(props) => props.theme.colors.background.content};
-		}
+	&:first-child {
+		border-radius: 3px 3px 0 0;
+	}
+
+	&:last-child {
+		border-radius: 0px 0px 3px 3px;
+	}
+
+	&::placeholder {
+		color: #bfbfbf;
+		font-size: 0.9rem;
 	}
 `;
 
-export const SOption = styled(Option)`
-	z-index: 9999999;
+const DropDown = styled.div`
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px solid ${(props) => props.theme.colors.forms.border};
+	transition: all 0.2s ease-out;
+	div:first-child {
+		border-radius: 3px 3px 0 0;
+	}
+
+	div:last-child {
+		border-radius: 0 0 3px 3px;
+	}
+`;
+
+const DropDownItem = styled.div<{ isSelected: boolean }>`
+	cursor: pointer;
+	padding: 9px;
+
+	background-color: ${(props) =>
+		props.isSelected
+			? props.theme.colors.primary.default
+			: props.theme.colors.background.content};
+
+	color: ${(props) =>
+		props.isSelected ? props.theme.colors.background.content : "inherit"};
+
+	&:hover {
+		background-color: ${(props) =>
+			props.isSelected
+				? props.theme.colors.primary.hover
+				: "rgba(23, 120, 94, 0.12)"};
+		color: ${(props) =>
+			props.isSelected ? props.theme.colors.background.content : "inherit"};
+	}
+`;
+
+const NewCustomerInput = styled.input`
+	width: 100%;
+
+	cursor: pointer;
+
+	border: none;
+	border-bottom: 1px solid ${(props) => props.theme.colors.forms.border};
+
+	padding: 7px 0;
+
+	&::placeholder {
+		color: #bfbfbf;
+		font-size: 0.9rem;
+	}
+`;
+
+const NewCustomer = styled(ContentRow)`
+	padding: 7px 3px 7px 10px;
+	border-top: 1px solid
+		${(props) => props.theme.colors.background.secondaryMenu};
+`;
+
+const Create = styled(Button)`
+	margin-left: 10px;
+	margin-right: 4px;
+
+	svg {
+		background: ${(props) => props.theme.colors.primary.default};
+		color: ${(props) => props.theme.colors.background.content};
+	}
 `;

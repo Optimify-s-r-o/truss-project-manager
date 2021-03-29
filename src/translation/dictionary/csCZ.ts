@@ -1,6 +1,11 @@
 import { Lang } from '../lang';
 
 const dictionary: Lang = {
+	customer: {
+		placeholder: "Zadejte zákazníka",
+		newCustomer: "Nový zákazník",
+		add: "Přidat",
+	},
 	placeholder: {
 		dateInput: "Vyberte datum",
 		addressInput: "Zadejte adresu",

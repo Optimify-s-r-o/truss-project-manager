@@ -80,7 +80,6 @@ export default ({
 			getTrussQuotations(id);
 		}
 	}, [id]);
-	console.log(quotationsInfo);
 	useEffect(() => {
 		quotationListGetAction({ Type: QuotationType.TRUSS });
 	}, []);

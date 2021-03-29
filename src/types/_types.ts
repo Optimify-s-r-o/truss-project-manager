@@ -363,6 +363,7 @@ export type CustomerStateType = FetchStateType &
 	Readonly<{
 		customer: Customer;
 		ares: Customer;
+		newCustomer: Customer;
 		aresPending: boolean;
 		customers: Data<Customer>;
 		customersSimplified: Data<CustomerSimplified>;

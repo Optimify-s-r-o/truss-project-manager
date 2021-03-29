@@ -23,7 +23,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	project: state.ProjectReducer.project,
 	projectPending: state.ProjectReducer.pending,
 	customersPending: state.CustomersReducer.pending,
-	createdEvidence: state.CustomerReducer.createdEvidence,
+	newCustomer: state.CustomerReducer.newCustomer,
 	updatingCustomer: state.CustomerReducer.updatingCustomer,
 	customers: state.FilterReducer.customers?.Data,
 	loadingCustomers: state.FilterReducer.pending,

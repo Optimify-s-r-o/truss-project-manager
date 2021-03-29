@@ -8,12 +8,6 @@ import { Button } from '../../../components/Optimify/Button';
 import { CreateCustomer, Customer } from '../Customer/_types';
 import { createfromJson, CreateInEvidence, ProjectRequest } from './_types';
 import { CustomersAll } from '../Lists/Customers/_types';
-import {
-	Evidence,
-	Page,
-	ProjectProxy,
-	Settings
-	} from '../../../types/_types';
 import { faFolderPlus } from '@fortawesome/pro-light-svg-icons';
 import { Files } from './Files';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,6 +15,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Input } from '../../../constants/enum';
 import { isElectron } from '../../../utils/electron';
 import { lastPathMember, translationPath } from '../../../utils/getPath';
+import { Page, ProjectProxy, Settings } from '../../../types/_types';
 import { RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { UserData } from '../Accounts/_types';
@@ -60,7 +55,7 @@ export interface StateProps {
 	username?: string;
 	loadingCustomerAction: boolean;
 	loadingCustomers: boolean;
-	createdEvidence: Evidence;
+	newCustomer: Customer;
 	updatingCustomer: boolean;
 }
 
@@ -155,6 +150,15 @@ const Index = (
 		props.createCustomerAction({
 			Company: data,
 			Redirect: false,
+			Address: {
+				Country: "",
+				CountryId: "",
+				RegionName: "",
+				CityName: "",
+				StreetName: "",
+				Zip: "",
+				PlaceNumber: "",
+			},
 		});
 	};
 
@@ -244,12 +248,12 @@ const Index = (
 										/>
 										<FormikRow
 											formik={formik}
-											name={lastPathMember(ProjectProxy.CustomerId).path}
+											name={lastPathMember(ProjectProxy.Customer).path}
 											title={t(translationPath(lang.common.customer))}
 											type={Input.CUSTOMER}
 											customers={props.customers}
 											addCustomer={addCustomer}
-											createdEvidence={props.createdEvidence}
+											newCustomer={props.newCustomer}
 											loading={
 												props.loadingCustomerAction ||
 												props.loadingCustomers ||

@@ -90,7 +90,7 @@ const mapStateToProps = (state: any) => ({
 	filesUploading: state.ProjectViewReducer.filesUploading,
 	loadingCustomers: state.FilterReducer.pending,
 	loadingCustomerAction: state.CustomerReducer.pending,
-	createdEvidence: state.CustomerReducer.createdEvidence,
+	newCustomer: state.CustomerReducer.newCustomer,
 	updatingCustomer: state.CustomerReducer.updatingCustomer,
 });
 

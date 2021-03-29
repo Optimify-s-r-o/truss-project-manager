@@ -40,7 +40,6 @@ import {
 	withTranslation,
 } from "../../../../../translation/i18n";
 import {
-	Evidence,
 	Folder,
 	Page,
 	Project,
@@ -80,7 +79,7 @@ export interface StateProps {
 	filesUploading: boolean;
 	loadingCustomerAction: boolean;
 	loadingCustomers: boolean;
-	createdEvidence: Evidence;
+	newCustomer: Customer;
 	updatingCustomer: boolean;
 	folders: Folder;
 }
@@ -145,7 +144,7 @@ const Index = ({
 	loadingCustomerAction,
 	loadingCustomers,
 	updatingCustomer,
-	createdEvidence,
+	newCustomer,
 	folders,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const [alertDialog, setAlertDialog] = React.useState(false);
@@ -170,6 +169,15 @@ const Index = ({
 		createCustomerAction({
 			Company: data,
 			Redirect: false,
+			Address: {
+				Country: "",
+				CountryId: "",
+				RegionName: "",
+				CityName: "",
+				StreetName: "",
+				Zip: "",
+				PlaceNumber: "",
+			},
 		});
 	};
 
@@ -274,7 +282,7 @@ const Index = ({
 										/>
 										<FormikRow
 											formik={formik}
-											name={lastPathMember(ProjectProxy.CustomerId).path}
+											name={lastPathMember(ProjectProxy.Customer).path}
 											title={t(translationPath(lang.common.customer))}
 											type={Input.CUSTOMER}
 											customers={customers}
@@ -283,7 +291,7 @@ const Index = ({
 												loadingCustomers ||
 												updatingCustomer
 											}
-											createdEvidence={createdEvidence}
+											newCustomer={newCustomer}
 											addCustomer={addCustomer}
 										/>
 										<FormikRow

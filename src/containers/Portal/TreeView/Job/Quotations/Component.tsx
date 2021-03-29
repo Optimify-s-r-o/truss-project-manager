@@ -98,7 +98,6 @@ export default ({
 			getJobQuotations(id);
 		}
 	}, [id]);
-	console.log(quotationsInfo);
 	useEffect(() => {
 		if (quotationList) {
 			const defaultId = quotationsInfo?.DefaultQuotationTemplateId

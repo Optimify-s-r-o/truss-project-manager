@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { FieldInputProps } from 'formik';
 
@@ -22,6 +22,22 @@ interface BaseInlineInputProps extends BasicInlineInputProps {
 
 export const BaseInlineInput = (props: BaseInlineInputProps) => {
 	const [isFocused, setFocused] = React.useState(false);
+	const input = useRef(null);
+
+	useEffect(() => {
+		function selectAll(ev) {
+			var key = ev.which || ev.keyCode;
+			var ctrl = ev.ctrlKey ? ev.ctrlKey : key === 17 ? true : false;
+			if ((key == 65 || key == 97) && ctrl) {
+				if (input.current === document.activeElement) {
+					input.current.select();
+				}
+			} else if (key === 13) {
+				ev.preventDefault();
+			}
+		}
+		input && input.current.addEventListener("keydown", selectAll, false);
+	}, [input]);
 
 	const handleFilter = (newValue: string) => {
 		if (newValue.length > 0 && props.filter) {
@@ -40,6 +56,7 @@ export const BaseInlineInput = (props: BaseInlineInputProps) => {
 	return (
 		<BaseInlineInputWrapper isFocused={isFocused}>
 			<BaseInlineInputElement
+				ref={input}
 				onFocus={() => setFocused(true)}
 				name={props.name}
 				{...props}

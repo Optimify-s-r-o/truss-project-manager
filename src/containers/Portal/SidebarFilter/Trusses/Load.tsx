@@ -18,7 +18,6 @@ export interface OwnProps {
 
 const Index = (props: OwnProps & WithTranslation) => {
 	const { formik, filter } = props;
-	console.log(formik.values);
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.load))}

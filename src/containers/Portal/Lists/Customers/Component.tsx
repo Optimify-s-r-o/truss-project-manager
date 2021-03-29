@@ -211,7 +211,6 @@ const Index = ({
 										return value;
 									},
 									(value: Customer, key: number, parent: Customer) => {
-										console.log(value);
 										return (
 											<div>
 												<Edit edit={() => navigate(value)} />

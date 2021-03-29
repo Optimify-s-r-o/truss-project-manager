@@ -2,10 +2,11 @@ import * as React from 'react';
 import ErrorMessage from './ErrorMessage';
 import FormikInput from './FormikInput';
 import { ContentColumn } from '../../../constants/globalStyles';
-import { Evidence, Settings } from '../../../types/_types';
+import { Customer } from 'src/containers/Portal/Customer/_types';
 import { Input } from '../../../constants/enum';
 import { Row, Title, Value } from './FormRow';
 import { SelectDirection } from './Select';
+import { Settings } from '../../../types/_types';
 
 interface FormRowProps {
 	title?: string;
@@ -28,12 +29,12 @@ interface FormRowProps {
 	customers?: any[];
 	addCustomer?: (data: string) => void;
 	loading?: boolean;
-	createdEvidence?: Evidence;
+	newCustomer?: Customer;
 }
 
 const FormikRow = (props: FormRowProps) => {
 	const {
-		createdEvidence,
+		newCustomer,
 		formik,
 		format,
 		hideGuide,
@@ -94,7 +95,7 @@ const FormikRow = (props: FormRowProps) => {
 						addCustomer={addCustomer}
 						customers={customers}
 						loading={loading}
-						createdEvidence={createdEvidence}
+						newCustomer={newCustomer}
 					/>
 					{children && children}
 				</Value>

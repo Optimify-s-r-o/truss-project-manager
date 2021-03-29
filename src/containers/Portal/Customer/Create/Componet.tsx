@@ -138,9 +138,6 @@ const Index = ({
 				"Company",
 				t(translationPath(lang.validation.companyOrSurnameRequired).path),
 				(value) => {
-					console.log(formik.values.Surname === "");
-					console.log(formik.values.Company === "");
-					console.log(!!!value || !!!formik.values.Surname);
 					return formik.values.Surname != "" || formik.values.Company != "";
 				}
 			),
@@ -267,8 +264,7 @@ const Index = ({
 			},
 		});
 	}, []);
-	console.log(customer);
-	console.log(contacts);
+
 	return (
 		<MainTree>
 			<Loading

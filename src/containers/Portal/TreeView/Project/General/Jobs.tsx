@@ -140,7 +140,6 @@ const Index = (props: WithTranslation & OwnProps) => {
 		const { remote } = window.require("electron");
 		const WIN = remote.getCurrentWindow();
 		remote.dialog.showSaveDialog(WIN, options).then((result) => {
-			console.log(result.filePath);
 			if (result.filePath && id) {
 				downloadJob({ Id: id, Path: result.filePath });
 			}

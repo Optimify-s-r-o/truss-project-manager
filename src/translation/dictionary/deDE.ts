@@ -1,6 +1,11 @@
 import { Lang } from '../lang';
 
 const dictionary: Lang = {
+	customer: {
+		placeholder: "Kunde eingeben",
+		newCustomer: "Neukunde",
+		add: "Hinzufügen",
+	},
 	placeholder: {
 		dateInput: "Datum auswählen",
 		addressInput: "Adresse eingeben",

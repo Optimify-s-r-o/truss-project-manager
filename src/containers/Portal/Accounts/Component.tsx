@@ -80,7 +80,7 @@ export const Component = ({
 	const removeUser = (username: string) => {
 		deleteUserCall(username);
 	};
-	console.log(users);
+
 	return (
 		<Content>
 			<ContentCard>

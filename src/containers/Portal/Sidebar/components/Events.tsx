@@ -193,7 +193,7 @@ export const Events = ({
 		}
 		if (!isExpanded()) {
 			const node = getSelected(tree);
-			if (!node.nextNode && node.parent) {
+			if (!node?.nextNode && node?.parent) {
 				handleChange(node.parent);
 			} else if (node.nextNode) {
 				handleChange(node.nextNode);
@@ -280,10 +280,10 @@ export const Events = ({
 				handleKeys={["shift+down"]}
 				onKeyEvent={(key, e) => shiftDown()}
 			/>
-			<KeyboardEventHandler
+			{/* <KeyboardEventHandler
 				handleKeys={["ctrl+a"]}
 				onKeyEvent={(key, e) => selectAll()}
-			/>
+			/> */}
 			<KeyboardEventHandler
 				handleKeys={["ctrl+p"]}
 				onKeyEvent={(key, e) => history.push(Routes.FILTER_PROJECT)}

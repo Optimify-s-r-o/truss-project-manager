@@ -94,7 +94,6 @@ export const Files = ({
 	};
 
 	const download = (fileId: string, name: string, extension: string) => {
-		console.log(download);
 		let options = {
 			title: "Truss Project Manager",
 			defaultPath:
@@ -107,7 +106,6 @@ export const Files = ({
 		const { remote } = window.require("electron");
 		const WIN = remote.getCurrentWindow();
 		remote.dialog.showSaveDialog(WIN, options).then((result) => {
-			console.log(result.filePath);
 			if (result.filePath) {
 				downloadFile({
 					id: fileId,

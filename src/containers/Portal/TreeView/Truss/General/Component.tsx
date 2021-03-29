@@ -47,7 +47,7 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 			}
 		}
 	}, [image && props.truss]);
-	console.log(props.truss);
+
 	return (
 		<MainTreeContent>
 			<TreeScreen>

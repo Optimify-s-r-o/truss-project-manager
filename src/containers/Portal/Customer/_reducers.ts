@@ -16,6 +16,7 @@ const initialState: CustomerStateType = {
 	error: null,
 	pending: false,
 	customer: null,
+	newCustomer: null,
 	ares: null,
 	customersSimplified: null,
 	customers: null,
@@ -66,13 +67,19 @@ export default (
 				pending: false,
 				customersSimplified: action.payload,
 			};
-		case getType(createCustomerAction.success):
 		case getType(updateCustomerAction.success):
 		case getType(deleteCustomerAction.success):
 			return {
 				...state,
 				error: null,
 				pending: false,
+			};
+		case getType(createCustomerAction.success):
+			return {
+				...state,
+				error: null,
+				pending: false,
+				newCustomer: action.payload,
 			};
 		case getType(getAllCustomersSimplifiedAction.failure):
 		case getType(getCustomerByIdAction.failure):

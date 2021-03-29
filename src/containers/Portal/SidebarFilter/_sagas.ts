@@ -170,7 +170,6 @@ function* filterEntitiesActionSaga(
 		}
 
 		yield put(filterEntities.success(response));
-		console.log(action.payload.location);
 		if (action.payload?.location?.pathname === Routes.FILTER_PROJECT) {
 			yield put(
 				getProjects.request({

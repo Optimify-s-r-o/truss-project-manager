@@ -1,9 +1,9 @@
 import * as React from 'react';
 import DateInput from './DateInput';
 import { AddressInput } from './AddressInput';
+import { Customer } from 'src/containers/Portal/Customer/_types';
 import { CustomerInput } from './CustomerInput';
 import { EmailInput } from './EmailInput';
-import { Evidence, Settings } from '../../../types/_types';
 import { FormikSwitch } from './FormikSwitch';
 import { get } from 'lodash';
 import { getLabel, getValue } from '../../../utils/country';
@@ -11,6 +11,7 @@ import { Input } from '../../../constants/enum';
 import { NumericInput } from './NumericInput';
 import { PasswordInput } from './PasswordInput';
 import { PhoneNumber } from './PhoneNumber';
+import { Settings } from '../../../types/_types';
 import { TextInput } from './TextInput';
 import { ValueType } from 'react-select';
 import {
@@ -35,7 +36,7 @@ interface FormRowProps {
 	customers?: any[];
 	addCustomer?: (data: string) => void;
 	loading?: boolean;
-	createdEvidence?: Evidence;
+	newCustomer?: Customer;
 }
 
 const FormikInput = (props: FormRowProps) => {
@@ -55,7 +56,7 @@ const FormikInput = (props: FormRowProps) => {
 		addCustomer,
 		customers,
 		loading,
-		createdEvidence,
+		newCustomer,
 	} = props;
 
 	const hasNumber = (myString: string) => {
@@ -71,7 +72,7 @@ const FormikInput = (props: FormRowProps) => {
 					addCustomer={addCustomer}
 					customers={customers}
 					loading={loading}
-					createdEvidence={createdEvidence}
+					newCustomer={newCustomer}
 				/>
 			);
 		case Input.SWITCH:
