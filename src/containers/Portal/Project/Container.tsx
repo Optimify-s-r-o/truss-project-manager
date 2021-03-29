@@ -5,15 +5,12 @@ import { CreateCustomer } from '../Customer/_types';
 import { createCustomerAction } from '../Customer/_actions';
 import { createfromJson, ProjectRequest } from './_types';
 import { createProject, createProjectWithJson } from './_actions';
-import { getCustomers } from '../SidebarFilter/_actions';
-import { Page } from '../../../types/_types';
 import { withRouter } from 'react-router-dom';
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	saveProject: (data: ProjectRequest) => dispatch(createProject.request(data)),
 	saveProjectFromJson: (data: createfromJson) =>
 		dispatch(createProjectWithJson.request(data)),
-	getCustomers: (data: Page) => dispatch(getCustomers.request(data)),
 	createCustomerAction: (data: CreateCustomer) =>
 		dispatch(createCustomerAction.request(data)),
 });

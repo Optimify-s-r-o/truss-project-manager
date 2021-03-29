@@ -90,6 +90,7 @@ export default (
 			return {
 				...state,
 				error: action.payload.ErrorMessage,
+				aresPending: false,
 				pending: false,
 			};
 		default:

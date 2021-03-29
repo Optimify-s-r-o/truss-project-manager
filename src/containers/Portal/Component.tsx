@@ -218,7 +218,7 @@ const Index = ({
 		}
 	}, [toast]);
 	React.useEffect(() => {
-		getCustomers({ Page: 0, PageSize: 25, Sort: "" });
+		getCustomers({ Paginate: false });
 		settingsCall({
 			action: settings,
 			method: Method.GET,

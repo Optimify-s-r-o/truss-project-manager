@@ -9,7 +9,7 @@ import { deleteProjectRoute } from '../../../../sagas/Fetch/actions';
 import { HubComponent } from './HubComponent';
 import { MainTree } from '../../_styles';
 import { OpenTruss } from '../../../../sagas/Truss/_actions';
-import { Page, Project, TreeType } from '../../../../types/_types';
+import { Project, TreeType } from '../../../../types/_types';
 import { ProjectFile, ProjectFileRequest } from './_types';
 import { Routes } from '../../../../constants/routes';
 import { SelectedProjectsRequest } from '../Projects/_types';
@@ -43,7 +43,6 @@ export interface StateProps {
 export interface DispatchProps {
 	selectedProjectRequest: (data: SelectedProjectsRequest) => void;
 	getFiles: (data: ProjectFileRequest) => void;
-	getCustomers: (data: Page) => void;
 	removeProject: (data: DeleteProject) => void;
 	createTruss: (data: OpenTruss) => void;
 	setProject: (data: Project) => void;

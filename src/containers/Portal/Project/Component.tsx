@@ -15,7 +15,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Input } from '../../../constants/enum';
 import { isElectron } from '../../../utils/electron';
 import { lastPathMember, translationPath } from '../../../utils/getPath';
-import { Page, ProjectProxy, Settings } from '../../../types/_types';
+import { ProjectProxy, Settings } from '../../../types/_types';
 import { RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { UserData } from '../Accounts/_types';
@@ -61,7 +61,6 @@ export interface StateProps {
 
 export interface DispatchProps {
 	saveProject: (data: ProjectRequest) => void;
-	getCustomers: (data: Page) => void;
 	saveProjectFromJson: (data: createfromJson) => void;
 	createInEvidenceAction: (data: CreateInEvidence) => void;
 	createCustomerAction: (data: CreateCustomer) => void;

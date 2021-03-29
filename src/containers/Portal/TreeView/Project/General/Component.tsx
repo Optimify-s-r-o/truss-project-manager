@@ -97,7 +97,6 @@ export interface DispatchProps {
 	uploadProjectFile: (data: ProjectUploadFileRequest) => void;
 	selectedProjectRequest: (data: SelectedProjectsRequest) => void;
 	getUsers: (data: Page) => void;
-	getCustomers: (data: Page) => void;
 	getLogs: (data: ProjectLogsRequest) => void;
 	setSelectedKeys: (data: string[]) => void;
 	setExpandedKeys: (data: string[]) => void;

@@ -11,7 +11,6 @@ import { deleteJob, downloadJob, unlockJob } from '../../Job/_actions';
 import { DeleteJob, RequestDownloadLink, Unlock } from '../../Job/_types';
 import { deleteProject } from '../../../Project/_actions';
 import { DeleteProject } from '../../../Project/_types';
-import { getCustomers } from '../../../SidebarFilter/_actions';
 import { IAddJsonToProject } from './File/_types';
 import { Page, Project } from '../../../../../types/_types';
 import { SelectedProjectsRequest } from '../../Projects/_types';
@@ -58,7 +57,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	selectedProjectRequest: (data: SelectedProjectsRequest) =>
 		dispatch(getSelectedProject.request(data)),
 	getUsers: (data: Page) => dispatch(usersAction.request(data)),
-	getCustomers: (data: Page) => dispatch(getCustomers.request(data)),
 	getLogs: (data: ProjectLogsRequest) => dispatch(getProjectLogs.request(data)),
 	createJobFromTrussFile: (data: CreateJobFromTrussFile) =>
 		dispatch(createJobFromTrussFile.request(data)),
