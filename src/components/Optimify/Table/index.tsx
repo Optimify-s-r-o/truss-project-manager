@@ -30,6 +30,7 @@ interface TableProps {
 	onSort?: (sortOptions: SortOptions[], sortOrder: number[]) => void;
 	initialSort?: SortOptions[];
 	initialSortOrder?: number[];
+	filterContent?: string[];
 }
 
 interface ScrollableProps {
@@ -59,7 +60,6 @@ export const Table = (props: TableProps) => {
 	const [headers, setHeaders] = React.useState<Array<string> | undefined>(
 		props.headers
 	);
-
 	React.useEffect(() => {
 		let newSort = getDefaultSort();
 		let newSortOrder: any[] = [];
@@ -152,7 +152,16 @@ export const Table = (props: TableProps) => {
 					))}
 				</TableRow>
 			</TableHead>
+
 			<TableBody>
+				{props.filterContent && props.filterContent.length > 0 && (
+					<TableFilter>
+						{props.filterContent?.map((value, key) => {
+							return <TableFilterHeading key={key}>{value}</TableFilterHeading>;
+						})}
+					</TableFilter>
+				)}
+
 				{props.data &&
 					[...props.data]
 						.sort((a, b) => {
@@ -378,5 +387,29 @@ const Sort = styled.div<{ active: boolean }>`
 
 	svg {
 		color: #119c08;
+	}
+`;
+
+const TableFilter = styled.tr`
+	font-size: 0.8em;
+`;
+
+const TableFilterHeading = styled.td`
+	text-align: center;
+	padding: ${(props) =>
+		props.tableStyle === TABLE_STYLE_CONDENSED ? "0" : "0"};
+	min-width: 100px;
+	border-bottom: 1px solid
+		${(props) => props.theme.colors.background.primary.active};
+	&:not(:last-child) {
+		border-right: 1px solid
+			${(props) => props.theme.colors.background.primary.active};
+	}
+
+	padding: 4px 2px;
+	${Scrollable} & {
+		position: sticky;
+		top: 0;
+		z-index: 99;
 	}
 `;

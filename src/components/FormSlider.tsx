@@ -2,7 +2,7 @@ import * as React from 'react';
 import FormikBox from './Optimify/Form/FormikCheckbox';
 import styled from 'styled-components';
 import { fixed } from '../utils/formating';
-import { getStep } from '../containers/Portal/Lists/_service';
+import { getStep } from '../containers/Portal/Lists/_services';
 import { Slider } from 'antd';
 import { WithTranslation, withTranslation } from '../translation/i18n';
 import {

@@ -1,9 +1,13 @@
-import Checkbox from './Checkbox';
+import CheckboxComponent from './Checkbox';
 import ExternalTable from '../../../../components/Optimify/Table/ExternalTable';
 import Moment from 'react-moment';
 import React from 'react';
+import { Checkbox } from '../Jobs/Component';
+import { FilterContentType, FilterProxy } from '../../SidebarFilter/_types';
 import { FilterProjectRequest } from '../../SidebarFilter/Projects/_types';
 import { formatCurrency } from 'src/utils/currencyFormat';
+import { getFilterActiveContent } from '../_services';
+import { getPath, translationPath } from '../../../../utils/getPath';
 import { insert } from '../../../../utils/helpers';
 import { lang } from '../../../../translation/i18n';
 import { Main } from '../../SidebarFilter/Jobs/_styles';
@@ -11,7 +15,6 @@ import { OpenTruss } from '../../../../sagas/Truss/_actions';
 import { RouteComponentProps } from 'react-router';
 import { Routes } from '../../../../constants/routes';
 import { StyledDiv } from '../../Sidebar/_styles';
-import { translationPath } from '../../../../utils/getPath';
 import { UserData } from '../../Accounts/_types';
 import { useTranslation } from 'react-i18next';
 import {
@@ -72,18 +75,11 @@ interface DispatchProps {
 	push: any;
 }
 
-export interface Checkbox {
-	name: string;
-	title: string;
-	position?: number;
-	section: string;
-}
 const Index = (
 	props: OwnProps & StateProps & DispatchProps & RouteComponentProps
 ) => {
 	const {
-		activeTree,
-		users,
+		activeFilterContent,
 		getUsers,
 		pageSize,
 		firstRecordOnPage,
@@ -92,8 +88,6 @@ const Index = (
 		totalPages,
 		totalRecords,
 		setSelectedKeys,
-		token,
-		local,
 		recordsBeforeFilter,
 		isFiltered,
 		settings,
@@ -144,16 +138,20 @@ const Index = (
 			name: "Name",
 			title: t(translationPath(lang.common.projectName).path),
 			section: "General",
+			filter: getPath(FilterProxy.Projects.NameFilter.Name),
+			filterType: FilterContentType.TEXT,
 		},
 		{
 			name: "Description",
 			title: t(translationPath(lang.common.description).path),
 			section: "General",
+			filter: null,
 		},
 		{
 			name: "Customer",
 			title: t(translationPath(lang.common.customer).path),
 			section: "General",
+			filter: null,
 		},
 		{
 			name: "Currency",
@@ -164,47 +162,62 @@ const Index = (
 			name: "QuotationPrice",
 			title: t(translationPath(lang.common.quotation).path),
 			section: "Calculation",
+			filter: getPath(FilterProxy.Projects.QuotationPriceFilter),
+			filterType: FilterContentType.RANGE,
 		},
 		{
 			name: "ProductionPrice",
 			title: t(translationPath(lang.common.production).path),
 			section: "Calculation",
+			filter: getPath(FilterProxy.Projects.ProductionPriceFilter),
+			filterType: FilterContentType.RANGE,
 		},
 		{
 			name: "State",
 			title: t(translationPath(lang.common.projectState).path),
 			section: "General",
+			filter: getPath(FilterProxy.Projects.ProjectStateFilter.ProjectStates),
+			filterType: FilterContentType.ARRAY,
 		},
 		{
 			name: "TimeOfCreation",
 			title: t(translationPath(lang.common.projectTimeOfCreation).path),
 			section: "Date",
+			filter: getPath(FilterProxy.Projects.DateOfCreationFilter),
+			filterType: FilterContentType.DATE,
 		},
 		{
 			name: "ConstructionDate",
 			title: t(translationPath(lang.common.constructionDate).path),
 			section: "Date",
+			filter: getPath(FilterProxy.Projects.ConstructionDateFilter),
+			filterType: FilterContentType.DATE,
 		},
 		{
 			name: "QuotationDate",
 			title: t(translationPath(lang.common.quotationDate).path),
 			section: "Date",
+			filter: getPath(FilterProxy.Projects.QuotationDateFilter),
+			filterType: FilterContentType.DATE,
 		},
 
 		{
 			name: "DateOfLastUpdate",
 			title: t(translationPath(lang.common.dateOfLastUpdate).path),
 			section: "Date",
+			filter: null,
 		},
 		{
 			name: "AssignedUser",
 			title: t(translationPath(lang.common.user).path),
 			section: "General",
+			filter: null,
 		},
 		{
 			name: "Location",
 			title: t(translationPath(lang.common.address).path),
 			section: "General",
+			filter: null,
 		},
 	];
 
@@ -287,7 +300,7 @@ const Index = (
 								{t(translationPath(lang.common.projectList).path)}
 							</Header1>
 							<ContentInline>
-								<Checkbox
+								<CheckboxComponent
 									changeChecked={changeChecked}
 									checked={checked}
 									checkboxes={checkboxes.map((c, i) => {
@@ -323,6 +336,11 @@ const Index = (
 								)}
 								sortable={checked.map((value: Checkbox, index: number) => true)}
 								columnNames={checked.map((value: Checkbox) => value.name)}
+								filterContent={getFilterActiveContent(
+									checked,
+									checkboxes,
+									activeFilterContent
+								)}
 								onPageRequired={(requiredPage: Page) => {
 									props.getProjects(requiredPage);
 								}}

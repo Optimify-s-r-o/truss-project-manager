@@ -139,3 +139,10 @@ export interface Slider {
 	IncludeNotSet: boolean;
 	Active: boolean;
 }
+
+export enum FilterContentType {
+	TEXT,
+	DATE,
+	ARRAY,
+	RANGE,
+}

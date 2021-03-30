@@ -4,8 +4,11 @@ import EditJob from '../../TreeView/Project/General/components/EditJob';
 import ExternalTable from '../../../../components/Optimify/Table/ExternalTable';
 import Moment from 'react-moment';
 import sort from 'fast-sort';
+import { FilterContentType, FilterProxy } from '../../SidebarFilter/_types';
 import { FilterRequest } from '../components/_types';
 import { formatCurrency } from 'src/utils/currencyFormat';
+import { getFilterActiveContent } from '../_services';
+import { getPath, translationPath } from '../../../../utils/getPath';
 import { Job } from '../../TreeView/_types';
 import { lang, WithTranslation } from '../../../../translation/i18n';
 import { Main } from '../../SidebarFilter/Jobs/_styles';
@@ -14,7 +17,6 @@ import { Phase } from '../../../../components/Phase';
 import { RouteComponentProps } from 'react-router';
 import { Routes } from '../../../../constants/routes';
 import { StyledDiv } from '../../Sidebar/_styles';
-import { translationPath } from '../../../../utils/getPath';
 import { UserData } from '../../Accounts/_types';
 import { useTranslation } from 'react-i18next';
 import {
@@ -74,6 +76,9 @@ export interface Checkbox {
 	title: string;
 	position?: number;
 	section: string;
+	filter?: any | null;
+	filterType?: FilterContentType;
+	round?: boolean;
 }
 
 const Index = (
@@ -107,7 +112,7 @@ const Index = (
 		"PricePerSquareMeter",
 		"Open",
 	];
-	console.log(activeFilterContent);
+
 	React.useEffect(() => {
 		props.getJobs({ Page: 0, PageSize: 25, Sort: "" });
 		getUsers({ Paginate: false });
@@ -142,72 +147,89 @@ const Index = (
 			name: "JobName",
 			title: t(translationPath(lang.common.jobName).path),
 			section: "General",
+			filter: getPath(FilterProxy.Jobs.NameFilter.Name),
+			filterType: FilterContentType.TEXT,
 		},
 		{
 			name: "Project",
 			title: t(translationPath(lang.common.projectName).path),
 			section: "General",
+			filter: getPath(FilterProxy.Projects.NameFilter.Name),
+			filterType: FilterContentType.TEXT,
 		},
 		{
 			name: "Price",
 			title: t(translationPath(lang.common.designPrice).path),
 			section: "Calculation",
+			filter: getPath(FilterProxy.Jobs.PriceFilter),
+			filterType: FilterContentType.RANGE,
 		},
 		{
 			name: "PricePerSquareMeter",
 			title: t(translationPath(lang.common.pricePerSquareMeter).path),
 			section: "Calculation",
+			filter: getPath(FilterProxy.Jobs.PricePerSquareMeterFilter),
+			filterType: FilterContentType.RANGE,
 		},
 		{
 			name: "LastChange",
 			title: t(translationPath(lang.common.jobDateOfLastUpdate).path),
 			section: "General",
+			filter: getPath(FilterProxy.Jobs.DateOfLastUpdateFilter),
+			filterType: FilterContentType.DATE,
 		},
 		{
 			name: "CustomerName",
 			title: t(translationPath(lang.common.customer).path),
 			section: "General",
+			filter: null,
 		},
 		{
 			name: "Type",
 			title: t(translationPath(lang.common.jobType).path),
 			section: "General",
+			filter: getPath(FilterProxy.Jobs.JobTypeFilter.JobTypes),
+			filterType: FilterContentType.ARRAY,
 		},
 		{
 			name: "State",
 			title: t(translationPath(lang.common.jobState).path),
 			section: "General",
+			filter: getPath(FilterProxy.Jobs.JobStateFilter.JobStates),
+			filterType: FilterContentType.ARRAY,
 		},
 		{
 			name: "Open",
 			title: t(translationPath(lang.common.editJob).path),
 			section: "General",
+			filter: null,
 		},
 		{
 			name: "CoveredArea",
 			title: t(translationPath(lang.common.roofArea).path),
 			section: "TechnicalParameters",
+			filter: getPath(FilterProxy.Jobs.CoveredAreaFilter),
+			filterType: FilterContentType.RANGE,
 		},
 		{
 			name: "HipLength",
 			title: t(translationPath(lang.common.hipLength).path),
 			section: "TechnicalParameters",
+			filter: getPath(FilterProxy.Jobs.HipLengthFilter),
+			filterType: FilterContentType.RANGE,
 		},
 		{
 			name: "SnowRegion",
 			title: t(translationPath(lang.common.snowArea).path),
 			section: "Load",
+			filter: null,
 		},
 		{
 			name: "WindRegion",
 			title: t(translationPath(lang.common.windArea).path),
 			section: "Load",
+			filter: null,
 		},
-		// {
-		// 	name: "Altitude",
-		// 	title: t(translationPath(lang.common.altitude).path),
-		// 	section: "Load",
-		// },
 	];
 
 	const [checked, setChecked] = React.useState<Checkbox[]>(
@@ -332,6 +354,11 @@ const Index = (
 									value.name === "Open" ? false : true
 								)}
 								columnNames={checked?.map((value: Checkbox) => value.name)}
+								filterContent={getFilterActiveContent(
+									checked,
+									checkboxes,
+									activeFilterContent
+								)}
 								onPageRequired={(requiredPage: Page) => {
 									props.getJobs(requiredPage);
 								}}

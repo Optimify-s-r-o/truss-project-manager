@@ -1,12 +1,16 @@
 import * as React from 'react';
 import CheckBox from '../../../../components/Optimify/Form/CheckBox';
 import Collapsible from 'react-collapsible';
-import { Checkbox as CheckboxJob } from '../Jobs/Component';
-import { Checkbox as CheckboxProject } from '../Projects/Component';
-import { Checkbox as CheckboxTruss } from '../Trusses/Component';
+import { Checkbox } from '../Jobs/Component';
 import { faChevronDown } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { translationPath } from '../../../../utils/getPath';
+import {
+	lang,
+	t,
+	WithTranslation,
+	withTranslation,
+} from "../../../../translation/i18n";
 import {
 	ColumnSelectorActive,
 	ColumnSelectorButton,
@@ -15,19 +19,11 @@ import {
 	ColumnSelectorHeader,
 	ColumnSelectorWrapper,
 } from "./_styles";
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation,
-} from "../../../../translation/i18n";
 
 interface OwnProps {
-	checkboxes: CheckboxJob[] | CheckboxProject[] | CheckboxTruss[];
-	checked: CheckboxJob[] | CheckboxProject[] | CheckboxTruss[];
-	changeChecked: (
-		newItem: CheckboxJob | CheckboxProject | CheckboxTruss
-	) => void;
+	checkboxes: Checkbox[];
+	checked: Checkbox[];
+	changeChecked: (newItem: Checkbox) => void;
 }
 
 const ColumnSelector = (props: OwnProps & WithTranslation) => {
@@ -48,7 +44,7 @@ const ColumnSelector = (props: OwnProps & WithTranslation) => {
 		};
 	}, [visible]);
 
-	const isChecked = (it: CheckboxJob | CheckboxProject | CheckboxTruss) => {
+	const isChecked = (it: Checkbox) => {
 		const present = props.checked.find((item) => item.name === it.name);
 		if (present) {
 			return true;
@@ -56,22 +52,20 @@ const ColumnSelector = (props: OwnProps & WithTranslation) => {
 		return false;
 	};
 
-	const handleChange = (
-		newItem: CheckboxJob | CheckboxProject | CheckboxTruss
-	) => (_event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (newItem: Checkbox) => (
+		_event: React.ChangeEvent<HTMLInputElement>
+	) => {
 		props.changeChecked(newItem);
 	};
 
 	let sections = {};
-	props.checkboxes.forEach(
-		(checkbox: CheckboxJob | CheckboxProject | CheckboxTruss) => {
-			if (!sections.hasOwnProperty(checkbox.section)) {
-				sections[checkbox.section] = [];
-			}
-
-			sections[checkbox.section].push(checkbox);
+	props.checkboxes.forEach((checkbox: Checkbox) => {
+		if (!sections.hasOwnProperty(checkbox.section)) {
+			sections[checkbox.section] = [];
 		}
-	);
+
+		sections[checkbox.section].push(checkbox);
+	});
 
 	return (
 		<ColumnSelectorWrapper ref={ref}>
@@ -122,22 +116,17 @@ const ColumnSelector = (props: OwnProps & WithTranslation) => {
 							}
 						>
 							<ColumnSelectorContent>
-								{sections[sectionKey].map(
-									(
-										checkbox: CheckboxJob | CheckboxProject | CheckboxTruss,
-										key: number
-									) => {
-										return (
-											<CheckBox
-												checked={isChecked(checkbox)}
-												handleChange={handleChange(checkbox)}
-												label={checkbox.title}
-												name=""
-												key={key}
-											/>
-										);
-									}
-								)}
+								{sections[sectionKey].map((checkbox: Checkbox, key: number) => {
+									return (
+										<CheckBox
+											checked={isChecked(checkbox)}
+											handleChange={handleChange(checkbox)}
+											label={checkbox.title}
+											name=""
+											key={key}
+										/>
+									);
+								})}
 							</ColumnSelectorContent>
 						</Collapsible>
 					);

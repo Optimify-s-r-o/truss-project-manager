@@ -15,6 +15,7 @@ interface OwnProps {
 	sortable?: Array<boolean>;
 	defaultPageSize?: number;
 	columnNames: string[];
+	filterContent?: string[];
 	onPageRequired: (requiredPage: Page) => void;
 	pageSize: number;
 	firstRecordOnPage: number;
@@ -41,6 +42,7 @@ const ExternalTable = (props: OwnProps) => {
 		totalPages,
 		totalRecords,
 		isLoading,
+		filterContent,
 	} = props;
 
 	const [selectedPageSize, setSelectedPageSize] = React.useState(
@@ -101,6 +103,7 @@ const ExternalTable = (props: OwnProps) => {
 					onSort={onSort}
 					initialSort={sort}
 					initialSortOrder={sortOrder}
+					filterContent={filterContent}
 				/>
 				<HorizontalLine />
 				<Pagination
