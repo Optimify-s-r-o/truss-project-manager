@@ -98,7 +98,7 @@ const dictionary: Lang = {
 			Roofing_Load: "Krytina",
 			Ceiling_Load: "Podhled",
 			Snow_Region: "Sněhová oblast",
-			Snow_Load: "SNíh",
+			Snow_Load: "Sníh",
 			Wind_Region: "Větrná oblast",
 			Wind_Load: "Vítr",
 		},

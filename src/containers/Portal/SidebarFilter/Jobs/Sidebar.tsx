@@ -1,9 +1,8 @@
 import * as React from 'react';
 import DateRange from './DateRange';
 import General from './General';
-import Geography from './Geography';
+import Load from './Load';
 import Price from './Price';
-import Roof from './Roof';
 import TechnicalParameters from './TechnicalParameters';
 import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
@@ -43,8 +42,7 @@ const Index = ({
 			<Grow>
 				<General formik={formik} filter={filter} users={users} />
 				<Price formik={formik} filter={filter} />
-				<Geography formik={formik} filter={filter} />
-				<Roof formik={formik} filter={filter} />
+				<Load formik={formik} filter={filter} />
 				<TechnicalParameters formik={formik} filter={filter} />
 				<DateRange formik={formik} filter={filter} />
 			</Grow>

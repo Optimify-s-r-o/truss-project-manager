@@ -44,6 +44,7 @@ export interface StateProps {
 	pageSize: string | null;
 	recordsBeforeFilter: string | null;
 	isFiltered: boolean;
+	activeFilterContent: any;
 }
 
 export interface DispatchProps {
@@ -53,7 +54,7 @@ export interface DispatchProps {
 }
 
 const Index = ({
-	activeTree,
+	activeFilterContent,
 	deleteCustomer,
 	filter,
 	filterCustomers,
@@ -88,7 +89,7 @@ const Index = ({
 			},
 		});
 	};
-
+	console.log(activeFilterContent);
 	const navigate = (customer: Customer) => {
 		history.push(Routes.EDIT_CUSTOMER_LINK + customer.Id);
 	};

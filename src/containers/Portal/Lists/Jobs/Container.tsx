@@ -28,6 +28,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	users: state.UserReducer.users,
 	local: state.AuthReducer.local,
 	token: state.AuthReducer.token,
+	activeFilterContent: state.FilterReducer.activeFilterContent,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

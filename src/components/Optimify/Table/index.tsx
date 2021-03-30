@@ -2,14 +2,17 @@ import * as React from 'react';
 import styled from 'styled-components';
 import useResizeAware from 'react-resize-aware';
 import { device } from '../../../constants/theme';
-import { faSort, faSortDown, faSortUp } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import {
+	faSortAmountDownAlt,
+	faSortAmountUp,
+} from "@fortawesome/pro-duotone-svg-icons";
 
 export enum SortOptions {
 	Default,
-	Desc,
 	Asc,
+	Desc,
 }
 
 export enum SortType {
@@ -69,28 +72,42 @@ export const Table = (props: TableProps) => {
 					headerKeysMapping[key] = props.headers.indexOf(header);
 				}
 			});
-
 			sortOrder.forEach((oldHeaderKey: number, order: number) => {
-				if (
-					headerKeysMapping[oldHeaderKey] &&
-					typeof headerKeysMapping[oldHeaderKey] !== "undefined"
-				)
+				if (typeof headerKeysMapping[oldHeaderKey] !== "undefined")
 					newSortOrder[order] = headerKeysMapping[oldHeaderKey];
 			});
-			newSortOrder = newSortOrder.filter(Boolean);
 
 			if (
 				JSON.stringify(newSort) !== JSON.stringify(sort) &&
 				JSON.stringify(newSortOrder) !== JSON.stringify(sortOrder)
 			)
 				props.onSort && props.onSort(newSort, newSortOrder);
-
 			setSort(newSort);
 			setSortOrder(newSortOrder);
 		}
 
 		setHeaders(props.headers);
 	}, [props.headers]);
+
+	const handleSort = (key: number, sortOption: SortOptions) => (
+		e: React.MouseEvent<HTMLElement, MouseEvent>
+	) => {
+		const newSort = [...sort];
+		newSort[key] = newSort[key] === sortOption ? 0 : sortOption;
+		setSort(newSort);
+
+		let newSortOrder = [...sortOrder];
+
+		if (!newSortOrder.includes(key) && newSort[key] !== SortOptions.Default)
+			newSortOrder.push(key);
+		else if (newSortOrder.includes(key) && newSort[key] === SortOptions.Default)
+			newSortOrder = newSortOrder.filter((val) => val !== key);
+		setSortOrder(newSortOrder);
+
+		if (props.sortType === SortType.External) {
+			props.onSort && props.onSort(newSort, newSortOrder);
+		}
+	};
 
 	return (
 		<TableElement>
@@ -101,52 +118,36 @@ export const Table = (props: TableProps) => {
 							key={key}
 							tableStyle={props.style ? props.style : TABLE_STYLE_DEFAULT}
 						>
-							{header}
-							{props.sortable &&
-								sort &&
-								key in sort &&
-								typeof sort[key] != "undefined" && (
-									<SortButton
-										type="button"
-										onClick={() => {
-											let newSort = [...sort];
-											newSort[key] !== 2 ? newSort[key]++ : (newSort[key] = 0);
-											setSort(newSort);
-
-											let newSortOrder = [...sortOrder];
-											if (
-												!newSortOrder.includes(key) &&
-												newSort[key] !== SortOptions.Default
-											)
-												newSortOrder.push(key);
-											else if (
-												newSortOrder.includes(key) &&
-												newSort[key] === SortOptions.Default
-											)
-												newSortOrder = newSortOrder.filter(
-													(val) => val !== key
-												);
-											setSortOrder(newSortOrder);
-
-											if (props.sortType === SortType.External)
-												props.onSort && props.onSort(newSort, newSortOrder);
-										}}
-									>
-										{sort[key] === SortOptions.Default ? (
-											<FontAwesomeIcon icon={faSort as IconProp} />
-										) : sort[key] === SortOptions.Asc ? (
-											<SortWrapper>
-												<FontAwesomeIcon icon={faSortUp as IconProp} />{" "}
-												<SortOrder>{sortOrder.indexOf(key) + 1}</SortOrder>
-											</SortWrapper>
-										) : (
-											<SortWrapper>
-												<FontAwesomeIcon icon={faSortDown as IconProp} />{" "}
-												<SortOrder>{sortOrder.indexOf(key) + 1}</SortOrder>
-											</SortWrapper>
-										)}
-									</SortButton>
-								)}
+							<Header>
+								<HeaderColumn>{header}</HeaderColumn>
+								{props.sortable &&
+									sort &&
+									key in sort &&
+									typeof sort[key] != "undefined" && (
+										<SortColumn>
+											<Sort
+												onClick={handleSort(key, 1)}
+												active={sort[key] === SortOptions.Asc}
+											>
+												<FontAwesomeIcon
+													icon={faSortAmountDownAlt as IconProp}
+												/>
+												{sort[key] === SortOptions.Asc && (
+													<SortOrder>{sortOrder.indexOf(key) + 1}</SortOrder>
+												)}
+											</Sort>
+											<Sort
+												onClick={handleSort(key, 2)}
+												active={sort[key] === SortOptions.Desc}
+											>
+												<FontAwesomeIcon icon={faSortAmountUp as IconProp} />
+												{sort[key] === SortOptions.Desc && (
+													<SortOrder>{sortOrder.indexOf(key) + 1}</SortOrder>
+												)}
+											</Sort>
+										</SortColumn>
+									)}
+							</Header>
 						</TableHeading>
 					))}
 				</TableRow>
@@ -194,7 +195,7 @@ export const Table = (props: TableProps) => {
 												)
 											);
 									  })
-									: "TODO object"}
+									: {}}
 							</TableRow>
 						))}
 			</TableBody>
@@ -249,10 +250,16 @@ const TableElement = styled.table`
 
 const TableHead = styled.thead``;
 
+const Header = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+`;
+
 const TableHeading = styled.th`
 	padding: ${(props) =>
-		props.tableStyle === TABLE_STYLE_CONDENSED ? "2px 8px" : "8px 0px 8px 8px"};
-
+		props.tableStyle === TABLE_STYLE_CONDENSED ? "0" : "0"};
+	min-width: 100px;
 	background-color: ${(props) => props.theme.colors.background.table.heading};
 	box-shadow: 0 1px 0 0 ${(props) => props.theme.colors.primary.default};
 
@@ -281,11 +288,7 @@ const SortWrapper = styled.div`
 `;
 
 const SortOrder = styled.span`
-	position: absolute;
-
-	top: 4px;
-	bottom: 4px;
-	right: -10px;
+	padding-left: 2px;
 
 	line-height: 10px;
 
@@ -336,4 +339,44 @@ const ActionsColumnEl = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+`;
+
+const HeaderColumn = styled.div`
+	width: 100%;
+	padding: 8px 8px 2px 8px;
+	white-space: nowrap;
+`;
+
+const SortColumn = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	border-top: 1px solid
+		${(props) => props.theme.colors.background.primary.active};
+`;
+
+const Sort = styled.div<{ active: boolean }>`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+
+	cursor: pointer;
+	padding: 2px 0;
+
+	background-color: ${(props) =>
+		props.active
+			? props.theme.colors.background.content
+			: props.theme.colors.background.table.headingSort};
+
+	&:hover {
+		background-color: ${(props) => props.theme.colors.background.content};
+	}
+
+	svg {
+		color: #119c08;
+	}
 `;

@@ -40,6 +40,7 @@ export type FilterType = FetchStateType &
 		projects: Data<Project>;
 		jobs: Data<JobType>;
 		trusses: Data<Truss>;
+		activeFilterContent: any;
 	}>;
 
 export type FilteredData = PaginationDto & {

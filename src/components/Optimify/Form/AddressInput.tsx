@@ -194,7 +194,7 @@ export const AddressInput = ({ formik, name }: IAddressInput) => {
 	return (
 		<>
 			<Span onClick={() => showModal()}>
-				<span>
+				<Address>
 					{formik.values &&
 					formik.values[name] &&
 					setAddress(formik.values[name]) ? (
@@ -204,7 +204,7 @@ export const AddressInput = ({ formik, name }: IAddressInput) => {
 							{t(translationPath(lang.placeholder.addressInput).path)}
 						</Placeholder>
 					)}
-				</span>
+				</Address>
 			</Span>
 			<SModal
 				title={t(translationPath(lang.common.address).path)}
@@ -272,6 +272,13 @@ export const AddressInput = ({ formik, name }: IAddressInput) => {
 	);
 };
 
+const Address = styled.div`
+	overflow: hidden;
+	display: inline-block;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+`;
+
 const TextField = styled.input`
 	width: 100%;
 	height: 32px;
@@ -295,7 +302,7 @@ const TextField = styled.input`
 	}
 `;
 
-const Span = styled.span`
+const Span = styled.div`
 	display: flex;
 	align-items: center;
 

@@ -39,6 +39,7 @@ import {
 	getJobs,
 	getProjects,
 	getTrusses,
+	setActiveFilterContent,
 } from "./SidebarFilter/_actions";
 import {
 	copyJob,
@@ -89,6 +90,7 @@ const mapStateToProps = (state: any) => ({
 	users: state.UserReducer.users?.Data,
 	trussPending: state.TrussesReducer.trussPending,
 	jobPending: state.FilterReducer.pending,
+	activeFilterContent: state.FilterReducer.activeFilterContent,
 	projectPending: state.FilterReducer.projectPending,
 	customerPending: state.CustomersReducer.customerPending,
 	treeHub: state.HubReducer.tree,
@@ -143,6 +145,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	duplicateJob: (data: IProjectDuplicate) =>
 		dispatch(duplicateJob.request(data)),
 	copyJob: (data: CopyJob) => dispatch(copyJob.request(data)),
+	setActiveFilterContent: (data: any) => dispatch(setActiveFilterContent(data)),
 });
 
 export default compose(

@@ -1,4 +1,4 @@
-import { ActionType, createAsyncAction } from 'typesafe-actions';
+import { ActionType, createAction, createAsyncAction } from 'typesafe-actions';
 import { CustomersAll } from '../Lists/Customers/_types';
 import {
 	Data,
@@ -40,10 +40,15 @@ export const getTrusses = createAsyncAction(
 	"FILTERED_TRUSSES_FAILURE"
 )<Page, Data<Truss>, Error>();
 
+export const setActiveFilterContent = createAction(
+	"@FILTER/SET_ACTIVE_FILTER_CONTENT"
+)<any>();
+
 export type FilterActionType = ActionType<
 	| typeof filterEntities
 	| typeof getCustomers
 	| typeof getProjects
 	| typeof getJobs
 	| typeof getTrusses
+	| typeof setActiveFilterContent
 >;

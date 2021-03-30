@@ -43,6 +43,7 @@ export interface Theme {
 			};
 			table: {
 				heading: string;
+				headingSort: string;
 			};
 		};
 		quotation: {
@@ -152,6 +153,7 @@ export const lightTheme: Theme = {
 			},
 			table: {
 				heading: "#c5ddd7",
+				headingSort: "#c5ddd7",
 			},
 		},
 		quotation: {
@@ -265,6 +267,7 @@ export const darkTheme: Theme = {
 			},
 			table: {
 				heading: "#1a614e",
+				headingSort: "#292929",
 			},
 		},
 		quotation: {

@@ -30,6 +30,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	local: state.AuthReducer.local,
 	token: state.AuthReducer.token,
 	settings: state.SettingsReducer.settings,
+	activeFilterContent: state.FilterReducer.activeFilterContent,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

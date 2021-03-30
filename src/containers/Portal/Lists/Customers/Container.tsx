@@ -29,6 +29,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	pageSize: state.FilterReducer.customers?.PageSize,
 	path: state.router.location.pathname,
 	pending: state.FilterReducer.pending,
+	activeFilterContent: state.FilterReducer.activeFilterContent,
 });
 
 export default compose(

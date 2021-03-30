@@ -78,6 +78,7 @@ export interface StateProps {
 	customerPending: boolean;
 	treeHub: any;
 	copiedJob: string;
+	activeFilterContent: string;
 }
 
 export interface DispatchProps {
@@ -123,6 +124,7 @@ export interface DispatchProps {
 	duplicateJob: (data: IProjectDuplicate) => void;
 	setCopiedJob: (data: string) => void;
 	copyJob: (data: CopyJob) => void;
+	setActiveFilterContent: (data: any) => void;
 }
 
 const Index = ({
@@ -180,6 +182,8 @@ const Index = ({
 	setLoading,
 	duplicateJob,
 	copyJob,
+	setActiveFilterContent,
+	activeFilterContent,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { addToast } = useToasts();
 	const [treePending, setTreePending] = React.useState(true);
@@ -190,7 +194,6 @@ const Index = ({
 	const [activeTree, setActiveTree] = React.useState<TreeType>(
 		TreeType.PROJECT
 	);
-	const [activeFilterContent, setActiveFilterContent] = useState(null);
 	const [active, setActive] = useState(false);
 
 	React.useEffect(() => {}, [mode]);

@@ -26,6 +26,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	trussTree: state.TreeReducer.trussTree,
 	local: state.AuthReducer.local,
 	token: state.AuthReducer.token,
+	activeFilterContent: state.FilterReducer.activeFilterContent,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

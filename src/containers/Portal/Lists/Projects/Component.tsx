@@ -60,6 +60,7 @@ export interface StateProps {
 	recordsBeforeFilter: string | null;
 	isFiltered: boolean;
 	settings: Settings;
+	activeFilterContent: any;
 }
 
 interface DispatchProps {

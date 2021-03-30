@@ -56,6 +56,7 @@ export interface StateProps {
 	token: string;
 	isFiltered: boolean;
 	recordsBeforeFilter: number;
+	activeFilterContent: any;
 }
 
 interface DispatchProps {

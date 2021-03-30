@@ -216,6 +216,9 @@ export default onClickOutside(CustomerInput);
 
 const Line = styled(LineOutlined)`
 	transform: rotate(90deg);
+	svg {
+		background-color: ${(props) => props.theme.colors.background.content};
+	}
 `;
 
 const Delete = styled(FontAwesomeIcon)`
@@ -258,6 +261,7 @@ const CustomerList = styled.div`
 
 const Input = styled.input`
 	width: 100%;
+	background-color: ${(props) => props.theme.colors.background.content};
 
 	cursor: pointer;
 
@@ -334,6 +338,7 @@ const DropDownItem = styled.div<{ isSelected: boolean }>`
 
 const NewCustomerInput = styled.input`
 	width: 100%;
+	background-color: ${(props) => props.theme.colors.background.content};
 
 	cursor: pointer;
 
@@ -360,6 +365,6 @@ const Create = styled(Button)`
 
 	svg {
 		background: ${(props) => props.theme.colors.primary.default};
-		color: ${(props) => props.theme.colors.background.content};
+		color: ${(props) => props.theme.colors.secondaryText.white};
 	}
 `;

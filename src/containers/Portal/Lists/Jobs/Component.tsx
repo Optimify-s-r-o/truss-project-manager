@@ -35,9 +35,6 @@ import {
 	TreeType,
 	TrussExe,
 } from "../../../../types/_types";
-const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
-
-interface OwnProps {}
 
 export interface StateProps {
 	firstRecordOnPage: number | null;
@@ -60,6 +57,7 @@ export interface StateProps {
 	token: string;
 	recordsBeforeFilter: string;
 	isFiltered: boolean;
+	activeFilterContent: any;
 }
 
 interface DispatchProps {
@@ -79,16 +77,10 @@ export interface Checkbox {
 }
 
 const Index = (
-	props: OwnProps &
-		StateProps &
-		DispatchProps &
-		WithTranslation &
-		RouteComponentProps
+	props: StateProps & DispatchProps & WithTranslation & RouteComponentProps
 ) => {
 	const {
-		activeTree,
 		pageSize,
-		users,
 		getUsers,
 		firstRecordOnPage,
 		lastRecordOnPage,
@@ -97,8 +89,7 @@ const Index = (
 		totalRecords,
 		setSelectedKeys,
 		setExpandedKeys,
-		local,
-		token,
+		activeFilterContent,
 		isFiltered,
 		recordsBeforeFilter,
 	} = props;
@@ -116,7 +107,7 @@ const Index = (
 		"PricePerSquareMeter",
 		"Open",
 	];
-
+	console.log(activeFilterContent);
 	React.useEffect(() => {
 		props.getJobs({ Page: 0, PageSize: 25, Sort: "" });
 		getUsers({ Paginate: false });
@@ -282,17 +273,7 @@ const Index = (
 		}
 	};
 
-	const [lastRequiredPage, setLastRequiredPage] = React.useState<Page>();
-
-	const tree = props.projectTree
-		? props.projectTree
-		: props.jobTree
-		? props.jobTree
-		: props.trussTree
-		? props.trussTree
-		: props.customerTree
-		? props.customerTree
-		: null;
+	console.log(props.jobs);
 
 	return (
 		<ContentInline>

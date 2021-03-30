@@ -7,6 +7,7 @@ import {
 	getJobs,
 	getProjects,
 	getTrusses,
+	setActiveFilterContent,
 } from "./_actions";
 
 const initialState: FilterType = {
@@ -16,6 +17,7 @@ const initialState: FilterType = {
 	customers: null,
 	error: null,
 	pending: false,
+	activeFilterContent: null,
 };
 
 export default (
@@ -23,6 +25,11 @@ export default (
 	action: FilterActionType
 ): FilterType => {
 	switch (action.type) {
+		case getType(setActiveFilterContent):
+			return {
+				...state,
+				activeFilterContent: action.payload,
+			};
 		case getType(getCustomers.request):
 		case getType(getProjects.request):
 		case getType(getJobs.request):
