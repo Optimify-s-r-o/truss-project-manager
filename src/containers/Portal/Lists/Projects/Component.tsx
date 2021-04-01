@@ -8,7 +8,6 @@ import { FilterProjectRequest } from '../../SidebarFilter/Projects/_types';
 import { formatCurrency } from 'src/utils/currencyFormat';
 import { getFilterActiveContent } from '../_services';
 import { getPath, translationPath } from '../../../../utils/getPath';
-import { insert } from '../../../../utils/helpers';
 import { lang } from '../../../../translation/i18n';
 import { Main } from '../../SidebarFilter/Jobs/_styles';
 import { OpenTruss } from '../../../../sagas/Truss/_actions';
@@ -122,7 +121,7 @@ const Index = (
 		if (hasDuplicates) {
 			newCheckboxes = checked.filter((item) => item.name !== newItem.name);
 		} else {
-			newCheckboxes = insert(checked, newItem.position, newItem);
+			newCheckboxes = [...checked, newItem];
 		}
 		putHeaderSettings({
 			Param: TreeType.PROJECT,
@@ -287,7 +286,7 @@ const Index = (
 		: props.customerTree
 		? props.customerTree
 		: null;
-
+	console.log(checked);
 	return (
 		<ContentInline>
 			<Main>

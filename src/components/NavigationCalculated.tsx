@@ -62,7 +62,7 @@ const Navigation = ({
 export default Navigation;
 
 const Title = styled.div`
-	padding: 8px 4px 16px 16px;
+	padding: 8px 4px 6px 16px;
 	color: ${(props) => props.theme.colors.primaryText.default};
 `;
 
@@ -126,7 +126,7 @@ const NavigationWrapper = styled.div<{
 	justify-content: ${(props) => (props.justify ? props.justify : "flex-start")};
 	align-items: flex-end;
 
-	padding: 0 40px;
+	padding: 10px 50px;
 
 	> a {
 		text-decoration: none;

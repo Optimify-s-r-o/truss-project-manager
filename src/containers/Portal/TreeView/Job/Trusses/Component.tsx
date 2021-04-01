@@ -190,31 +190,31 @@ const Index = ({
 												title={t(translationPath(lang.templates.template))}
 												titleWidth={40}
 											>
-												<div>
-													<SSelect
-														optionFilterProp="children"
-														filterOption={(input, option) =>
-															option.children
-																.toLowerCase()
-																.indexOf(input.toLowerCase()) >= 0
-														}
-														className="trusses"
-														placeholder={t(
-															translationPath(lang.templates.templates)
-														)}
-														onChange={handleTemplateChange}
-														value={selectedTemplate}
-													>
-														{trusses?.Quotations?.map(
-															(p: QuotationsSelection, i: number) => (
-																<Option key={i} value={p.TemplateId}>
-																	{p.Title}
-																</Option>
-															)
-														)}
-													</SSelect>
-												</div>
+												<SSelect
+													optionFilterProp="children"
+													filterOption={(input, option) =>
+														option.children
+															.toLowerCase()
+															.indexOf(input.toLowerCase()) >= 0
+													}
+													className="trusses"
+													placeholder={t(
+														translationPath(lang.templates.templates)
+													)}
+													onChange={handleTemplateChange}
+													value={selectedTemplate}
+												>
+													{trusses?.Quotations?.map(
+														(p: QuotationsSelection, i: number) => (
+															<Option key={i} value={p.TemplateId}>
+																{p.Title}
+															</Option>
+														)
+													)}
+												</SSelect>
 											</FormRow>
+											<br />
+											<br />
 											<Data
 												title={t(translationPath(lang.common.name))}
 												data={trusses?.Name}
@@ -314,15 +314,13 @@ export default withTranslation()(Index);
 const SSelect = styled(Select)`
 	.ant-select-selector {
 		background-color: ${(props) =>
-			props.theme.colors.background.menu} !important;
+			props.theme.colors.background.content} !important;
 		color: ${(props) => props.theme.colors.secondaryText.default} !important;
-	}
-
-	.ant-select-arrow {
-		margin-top: 1px;
+		border-bottom: 1px solid ${(props) => props.theme.colors.forms.border};
+		box-shadow: none !important;
 	}
 
 	.anticon svg {
-		background-color: ${(props) => props.theme.colors.background.menu};
+		background-color: ${(props) => props.theme.colors.background.content};
 	}
 `;

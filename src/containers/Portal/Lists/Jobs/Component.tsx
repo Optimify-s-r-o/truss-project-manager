@@ -3,7 +3,6 @@ import EditJob from '../../TreeView/Project/General/components/EditJob';
 import ExternalTable from '../../../../components/Optimify/Table/ExternalTable';
 import Moment from 'react-moment';
 import React, { useEffect } from 'react';
-import sort from 'fast-sort';
 import { FilterContentType, FilterProxy } from '../../SidebarFilter/_types';
 import { FilterRequest } from '../components/_types';
 import { formatCurrency } from 'src/utils/currencyFormat';
@@ -127,16 +126,13 @@ const Index = (
 		);
 	}, [initHeaders]);
 
-	console.log(checked);
 	const changeChecked = (newItem: Checkbox) => {
 		const hasDuplicates = checked?.find((item) => item.name === newItem.name);
 		let newCheckboxes = [];
 		if (hasDuplicates) {
 			newCheckboxes = checked.filter((item) => item.name !== newItem.name);
 		} else {
-			newCheckboxes = sort([...checked, newItem]).asc(
-				(u: Checkbox) => u.position
-			);
+			newCheckboxes = [...checked, newItem];
 		}
 		putHeaderSettings({
 			Param: TreeType.JOB,

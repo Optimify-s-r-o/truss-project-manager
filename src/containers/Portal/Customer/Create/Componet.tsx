@@ -9,19 +9,6 @@ import {
 	Upload
 	} from '../../../../components/Button';
 import { Button } from '../../../../components/Optimify/Button';
-import { Contact, Page } from '../../../../types/_types';
-import { CreateCustomer, Customer, CustomerProxy } from '../_types';
-import { faSuitcase } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Input } from '../../../../constants/enum';
-import { lang, WithTranslation } from '../../../../translation/i18n';
-import { lastPathMember, translationPath } from '../../../../utils/getPath';
-import { Modal } from './components/Dialog';
-import { RouteComponentProps, useParams } from 'react-router-dom';
-import { ScrollableTable } from '../../../../components/Optimify/Table';
-import { useFormik } from 'formik';
-import { useTranslation } from 'react-i18next';
 import {
 	CardEndTableWrapper,
 	ContentCard,
@@ -33,15 +20,28 @@ import {
 	PageHeader,
 	PageTitle,
 	TitleName,
-	TitleSection,
-} from "../../../../constants/globalStyles";
+	TitleSection
+	} from '../../../../constants/globalStyles';
+import { Contact, Page } from '../../../../types/_types';
+import { CreateCustomer, Customer, CustomerProxy } from '../_types';
+import { faSuitcase } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { Input } from '../../../../constants/enum';
+import { lang, WithTranslation } from '../../../../translation/i18n';
+import { lastPathMember, translationPath } from '../../../../utils/getPath';
 import {
 	MainTree,
 	MainTreeContent,
 	TreeButtonsRow,
 	TreeContent,
-	TreeScreen,
-} from "../../_styles";
+	TreeScreen
+	} from '../../_styles';
+import { Modal } from './components/Dialog';
+import { RouteComponentProps, useParams } from 'react-router-dom';
+import { ScrollableTable } from '../../../../components/Optimify/Table';
+import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 
 export interface StateProps {
 	customer: Customer;
@@ -170,7 +170,6 @@ const Index = ({
 	React.useEffect(() => {
 		setContacts([]);
 		return () => {
-			console.log("clearuje");
 			clearCustomerAction();
 		};
 	}, []);
@@ -264,7 +263,7 @@ const Index = ({
 			},
 		});
 	}, []);
-	console.log(formik.values);
+	
 	return (
 		<MainTree>
 			<Loading

@@ -23,6 +23,10 @@ const CheckBox = (props: IOwnProps) => {
 		}
 	}, [props.value]);
 
+	useEffect(() => {
+		setChecked(checked);
+	}, [checked]);
+
 	return (
 		<Content>
 			<Label>

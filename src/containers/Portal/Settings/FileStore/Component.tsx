@@ -72,11 +72,9 @@ export const Component = ({
 			electron.ipcRenderer.send("truss2DExePath");
 			const fs = electron.remote.require("fs");
 			electron.ipcRenderer.on("truss3DExePath", (event, text) => {
-				console.log(text);
 				setTruss3DExe(text);
 			});
 			electron.ipcRenderer.on("truss2DExePath", (event, text) => {
-				console.log(text);
 				setTruss2DExe(text);
 			});
 		}

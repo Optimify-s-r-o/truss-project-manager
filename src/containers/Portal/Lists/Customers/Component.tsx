@@ -99,7 +99,7 @@ const Index = ({
 			},
 		});
 	};
-	console.log(activeFilterContent);
+
 	const navigate = (customer: Customer) => {
 		history.push(Routes.EDIT_CUSTOMER_LINK + customer.Id);
 	};

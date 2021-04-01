@@ -7,7 +7,6 @@ import { fixed } from '../../../../utils/formating';
 import { formatCurrency } from 'src/utils/currencyFormat';
 import { getFilterActiveContent } from '../_services';
 import { getPath, translationPath } from '../../../../utils/getPath';
-import { insert } from '../../../../utils/helpers';
 import { Main } from '../../SidebarFilter/Jobs/_styles';
 import { PutHeaderSettings } from '../_types';
 import { RouteComponentProps } from 'react-router';
@@ -118,7 +117,7 @@ const Index = (
 		if (hasDuplicates) {
 			newCheckboxes = checked.filter((item) => item.name !== newItem.name);
 		} else {
-			newCheckboxes = insert(checked, newItem.position, newItem);
+			newCheckboxes = [...checked, newItem];
 		}
 		putHeaderSettings({
 			Param: TreeType.TRUSS,

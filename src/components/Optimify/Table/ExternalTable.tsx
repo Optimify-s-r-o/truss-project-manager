@@ -80,8 +80,7 @@ const ExternalTable = (props: OwnProps) => {
 				Sort: sortString,
 			});
 	};
-	console.log(sort);
-	console.log(sortOrder);
+
 	return (
 		<>
 			<HorizontalLine />
