@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import BottomLink from '../components/BottomLink';
 import FormikRow from '../../../components/Optimify/Form/FormikRow';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 import styled from 'styled-components';
 import { Button } from '../../../components/Optimify/Button';
 import { Container, Headline } from './_styles';
@@ -108,6 +109,10 @@ const Component = (
 			<Container>
 				<Headline> {t(translationPath(lang.common.loginCloud))}</Headline>
 				<Form onSubmit={formik.handleSubmit}>
+					<KeyboardEventHandler
+						handleKeys={["enter"]}
+						onKeyEvent={(key, e) => formik.handleSubmit()}
+					/>
 					<FormikRow
 						formik={formik}
 						name="username"

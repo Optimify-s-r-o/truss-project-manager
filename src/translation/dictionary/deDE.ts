@@ -498,6 +498,7 @@ const dictionary: Lang = {
 		FrameStructure: "Rahmenkonstruktion",
 		checkboxSectionGeneral: "Im Allgemeinen",
 		checkboxSectionDate: "Termine",
+		checkboxSectionStatistics: "Statistik",
 		checkboxSectionCalculation: "Berechnung",
 		checkboxSectionDimensions: "Maße",
 		checkboxSectionLoad: "Belastung",

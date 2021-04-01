@@ -480,6 +480,7 @@ export type Lang = Readonly<{
 		FrameStructure: string;
 		checkboxSectionGeneral: string;
 		checkboxSectionDate: string;
+		checkboxSectionStatistics: string;
 		checkboxSectionCalculation: string;
 		checkboxSectionDimensions: string;
 		checkboxSectionLoad: string;

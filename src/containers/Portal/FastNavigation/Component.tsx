@@ -21,7 +21,7 @@ import {
 	faFolderPlus,
 	faFolderTree,
 	faHomeLgAlt,
-	faMountain,
+	faMountains,
 } from "@fortawesome/pro-duotone-svg-icons";
 import {
 	ButtonSearch,
@@ -211,7 +211,7 @@ export const IconMenu = ({
 					>
 						<div>
 							<FontAwesomeIcon
-								icon={faMountain}
+								icon={faMountains}
 								style={{ fontSize: 16 }}
 								color={"#c1c132"}
 							/>

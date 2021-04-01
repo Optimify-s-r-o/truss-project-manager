@@ -491,6 +491,7 @@ const dictionary: Lang = {
 		FrameStructure: "Rámová konstrukce",
 		checkboxSectionGeneral: "Obecné",
 		checkboxSectionDate: "Datumy",
+		checkboxSectionStatistics: "Statistika",
 		checkboxSectionCalculation: "Kalkulace",
 		checkboxSectionDimensions: "Rozměry",
 		checkboxSectionLoad: "Zatížení",

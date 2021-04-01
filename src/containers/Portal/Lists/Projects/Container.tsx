@@ -19,7 +19,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	recordsBeforeFilter: state.FilterReducer.projects?.RecordsBeforeFilter,
 	jobs: state.FilterReducer.jobs?.Data,
 	pageSize: state.FilterReducer.projects?.PageSize,
-	project: state.FilterReducer.projects?.Data,
+	projects: state.FilterReducer.projects?.Data,
 	path: state.router.location.pathname,
 	pending: state.FilterReducer.pending,
 	filter: state.SettingsReducer.filter,

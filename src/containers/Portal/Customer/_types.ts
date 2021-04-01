@@ -14,6 +14,7 @@ export interface Customer {
 	ProjectCount?: number;
 	FinishedQuotationCount?: number;
 	FinishedProductionCount?: number;
+	ProductionsPerQuotations?: number;
 	Name?: string;
 	Note?: string;
 	Address?: Location;
