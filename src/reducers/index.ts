@@ -15,6 +15,7 @@ import UserReducer from '../containers/Portal/Accounts/_reducers';
 import { AuthReducer } from '../containers/Home/_reducers';
 import { combineReducers } from 'redux';
 import { connectRouter, RouterActionType } from 'connected-react-router';
+import { HeaderSettingsReducer } from '../containers/Portal/Lists/_reducers';
 import { History } from 'history';
 import { HubReducer } from './hubReducer/_reducers';
 import { OrganizationReducer } from '../containers/Portal/Settings/Organization/_reducers';
@@ -57,6 +58,7 @@ const createRootReducer = (history: History) =>
 		ViewerReducer,
 		PriceListsReducer,
 		HubReducer,
+		HeaderSettingsReducer,
 	});
 
 export default createRootReducer;

@@ -115,15 +115,9 @@ export const CustomerInput = ({
 		dropDownContent.current.style.display = "block";
 	};
 
-	const handleBlur = (e) => {
-		setFocused(false);
-		customerInput.current.blur();
-	};
-
 	const handleClose = (e) => {
-		setFocused(false);
-		customerInput.current.blur();
 		dropDownContent.current.style.display = "none";
+		setFocused(false);
 	};
 
 	const handleSelect = (name: string, id: string) => () => {
@@ -155,7 +149,6 @@ export const CustomerInput = ({
 					name={name}
 					value={currentCustomer}
 					onFocus={handleFocus}
-					onBlur={handleBlur}
 					onChange={handleCustomerChange}
 					ref={customerInput}
 					placeholder={t(translationPath(lang.customer.placeholder).path)}

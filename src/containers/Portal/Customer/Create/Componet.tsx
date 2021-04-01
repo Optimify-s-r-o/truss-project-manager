@@ -106,50 +106,48 @@ const Index = ({
 	const { t } = useTranslation();
 
 	const formik = useFormik({
-		initialValues:
-			customer && id
-				? customer
-				: {
-						Id: "",
-						Name: "",
-						Crn: "",
-						VatRegNo: "",
-						Company: "",
-						Forename: "",
-						Surname: "",
-						DateOfCreation: new Date(),
-						ProjectCount: "",
-						FinishedQuotationCount: "",
-						FinishedProductionCount: "",
-						Note: "",
-						Address: {
-							Country: "",
-							CountryId: "",
-							RegionName: "",
-							CityName: "",
-							StreetName: "",
-							Zip: "",
-							PlaceNumber: "",
-						},
-						Contacts: [],
-				  },
+		initialValues: {
+			Id: "",
+			Name: "",
+			Crn: "",
+			VatRegNo: "",
+			Company: "",
+			Forename: "",
+			Surname: "",
+			Email: "",
+			PhoneNumber: "",
+			DateOfCreation: new Date(),
+			ProjectCount: 0,
+			FinishedQuotationCount: 0,
+			FinishedProductionCount: 0,
+			Note: "",
+			Address: {
+				Country: "",
+				CountryId: "",
+				RegionName: "",
+				CityName: "",
+				StreetName: "",
+				Zip: "",
+				PlaceNumber: "",
+			},
+			ContactPersons: [],
+		},
 		validationSchema: Yup.object({
 			Company: Yup.string().test(
 				"Company",
 				t(translationPath(lang.validation.companyOrSurnameRequired).path),
 				(value) => {
-					return formik.values.Surname != "" || formik.values.Company != "";
+					return formik.values?.Surname != "" || formik.values?.Company != "";
 				}
 			),
 			Surname: Yup.string().test(
 				"Surname",
 				t(translationPath(lang.validation.companyOrSurnameRequired).path),
 				(value) => {
-					return formik.values.Surname != "" || formik.values.Company != "";
+					return formik.values?.Surname != "" || formik.values?.Company != "";
 				}
 			),
 		}),
-		enableReinitialize: true,
 		onSubmit: (values: Customer) => {
 			if (customer && id) {
 				updateCustomerAction({ ...values, ContactPersons: contacts });
@@ -164,21 +162,23 @@ const Index = ({
 	});
 
 	React.useEffect(() => {
-		console.log(id);
 		if (id) {
 			getCustomerByIdAction(id);
-		} else {
-			formik.resetForm();
 		}
 	}, [id]);
 
 	React.useEffect(() => {
+		setContacts([]);
 		return () => {
+			console.log("clearuje");
 			clearCustomerAction();
 		};
 	}, []);
 	React.useEffect(() => {
-		setContacts(customer?.ContactPersons || []);
+		if (customer) {
+			formik.setValues(customer);
+			setContacts(customer?.ContactPersons || []);
+		}
 	}, [customer]);
 
 	React.useEffect(() => {
@@ -264,7 +264,7 @@ const Index = ({
 			},
 		});
 	}, []);
-
+	console.log(formik.values);
 	return (
 		<MainTree>
 			<Loading

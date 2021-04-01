@@ -6,6 +6,7 @@ import { CustomersAllFilterRequest, DeleteRequest } from './_types';
 import { FilterSettings, Page, TreeType } from '../../../../types/_types';
 import { lastPathMember, translationPath } from '../../../../utils/getPath';
 import { Main } from './_styles';
+import { PutHeaderSettings } from '../_types';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 import { Routes } from '../../../../constants/routes';
 import {
@@ -45,12 +46,17 @@ export interface StateProps {
 	recordsBeforeFilter: string | null;
 	isFiltered: boolean;
 	activeFilterContent: any;
+	initSort: number[];
+	initSortOrder: number[];
+	initHeaders: string[];
 }
 
 export interface DispatchProps {
 	getCustomers: (data: Page) => void;
 	filterCustomers: (data: CustomersAllFilterRequest) => void;
 	deleteCustomer: (data: DeleteRequest) => void;
+	putHeaderSettings: (data: PutHeaderSettings) => void;
+	getHeaderSettings: (data: string) => void;
 }
 
 const Index = ({
@@ -70,11 +76,15 @@ const Index = ({
 	pageSize,
 	isFiltered,
 	recordsBeforeFilter,
+	initSort,
+	initSortOrder,
+	getHeaderSettings,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const history = useHistory();
 
 	useEffect(() => {
 		getCustomers({ Page: 0, PageSize: 25, Sort: "", Paginate: true });
+		getHeaderSettings(TreeType.CUSTOMER);
 	}, []);
 
 	const remove = (id: string) => (
@@ -131,6 +141,8 @@ const Index = ({
 
 						<CardEndTableWrapper>
 							<ExternalTable
+								initSort={initSort}
+								initSortOrder={initSortOrder}
 								columnNames={columns}
 								onPageRequired={(requiredPage: Page) => {
 									getCustomers(requiredPage);

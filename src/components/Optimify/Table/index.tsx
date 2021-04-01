@@ -108,7 +108,8 @@ export const Table = (props: TableProps) => {
 			props.onSort && props.onSort(newSort, newSortOrder);
 		}
 	};
-
+	console.log(sort);
+	console.log(sortOrder);
 	return (
 		<TableElement>
 			<TableHead>

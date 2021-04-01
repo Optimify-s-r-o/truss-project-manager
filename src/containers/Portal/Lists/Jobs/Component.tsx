@@ -1,8 +1,8 @@
-import * as React from 'react';
 import Checkbox from './Checkbox';
 import EditJob from '../../TreeView/Project/General/components/EditJob';
 import ExternalTable from '../../../../components/Optimify/Table/ExternalTable';
 import Moment from 'react-moment';
+import React, { useEffect } from 'react';
 import sort from 'fast-sort';
 import { FilterContentType, FilterProxy } from '../../SidebarFilter/_types';
 import { FilterRequest } from '../components/_types';
@@ -14,6 +14,7 @@ import { lang, WithTranslation } from '../../../../translation/i18n';
 import { Main } from '../../SidebarFilter/Jobs/_styles';
 import { OpenTruss } from '../../../../sagas/Truss/_actions';
 import { Phase } from '../../../../components/Phase';
+import { PutHeaderSettings } from '../_types';
 import { RouteComponentProps } from 'react-router';
 import { Routes } from '../../../../constants/routes';
 import { StyledDiv } from '../../Sidebar/_styles';
@@ -60,6 +61,9 @@ export interface StateProps {
 	recordsBeforeFilter: string;
 	isFiltered: boolean;
 	activeFilterContent: any;
+	initSort: number[];
+	initSortOrder: number[];
+	initHeaders: string[];
 }
 
 interface DispatchProps {
@@ -69,6 +73,8 @@ interface DispatchProps {
 	getUsers: (data: Page) => void;
 	setSelectedKeys: (data: string[]) => void;
 	setExpandedKeys: (data: string[]) => void;
+	putHeaderSettings: (data: PutHeaderSettings) => void;
+	getHeaderSettings: (data: string) => void;
 }
 
 export interface Checkbox {
@@ -97,34 +103,46 @@ const Index = (
 		activeFilterContent,
 		isFiltered,
 		recordsBeforeFilter,
+		initHeaders,
+		initSort,
+		initSortOrder,
+		getHeaderSettings,
+		putHeaderSettings,
 	} = props;
 	const { t } = useTranslation();
-
-	const defaultChecked = [
-		"JobName",
-		"Project",
-		"Customer",
-		"Type",
-		"State",
-		"Status",
-		"LastChange",
-		"Price",
-		"PricePerSquareMeter",
-		"Open",
-	];
-
+	const [checked, setChecked] = React.useState<Checkbox[]>([]);
 	React.useEffect(() => {
 		props.getJobs({ Page: 0, PageSize: 25, Sort: "" });
 		getUsers({ Paginate: false });
+		getHeaderSettings(TreeType.JOB);
 	}, []);
 
+	useEffect(() => {
+		setChecked(
+			checkboxes
+				.map((c, i) => {
+					return { ...c, position: i };
+				})
+				.filter((item) => initHeaders?.includes(item.name))
+		);
+	}, [initHeaders]);
+
+	console.log(checked);
 	const changeChecked = (newItem: Checkbox) => {
-		const hasDuplicates = checked.find((item) => item.name === newItem.name);
+		const hasDuplicates = checked?.find((item) => item.name === newItem.name);
+		let newCheckboxes = [];
 		if (hasDuplicates) {
-			setChecked(checked.filter((item) => item.name !== newItem.name));
+			newCheckboxes = checked.filter((item) => item.name !== newItem.name);
 		} else {
-			setChecked(sort([...checked, newItem]).asc((u: Checkbox) => u.position));
+			newCheckboxes = sort([...checked, newItem]).asc(
+				(u: Checkbox) => u.position
+			);
 		}
+		putHeaderSettings({
+			Param: TreeType.JOB,
+			Headers: newCheckboxes.map((e) => e.name),
+		});
+		setChecked(newCheckboxes);
 	};
 
 	const route = (value: JobType, item: Checkbox) => (
@@ -232,14 +250,6 @@ const Index = (
 		},
 	];
 
-	const [checked, setChecked] = React.useState<Checkbox[]>(
-		checkboxes
-			.map((c, i) => {
-				return { ...c, position: i };
-			})
-			.filter((item) => defaultChecked.includes(item.name))
-	);
-
 	const getValue = (value: JobType, item: Checkbox) => {
 		switch (item.name) {
 			case "JobName":
@@ -294,8 +304,6 @@ const Index = (
 				return value[item.name];
 		}
 	};
-
-	console.log(props.jobs);
 
 	return (
 		<ContentInline>
@@ -369,6 +377,8 @@ const Index = (
 								totalPages={totalPages}
 								totalRecords={totalRecords}
 								isLoading={props.pending}
+								initSort={initSort}
+								initSortOrder={initSortOrder}
 							/>
 						</CardMiddleTableWrapper>
 					</ContentCard>

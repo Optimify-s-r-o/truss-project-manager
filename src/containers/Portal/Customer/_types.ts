@@ -10,7 +10,7 @@ export interface Customer {
 	PhoneNumber?: string;
 	CountryCode?: string;
 	Email?: string;
-	DateOfCreation?: string;
+	DateOfCreation?: string | Date;
 	ProjectCount?: number;
 	FinishedQuotationCount?: number;
 	FinishedProductionCount?: number;

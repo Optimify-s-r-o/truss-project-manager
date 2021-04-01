@@ -1,9 +1,11 @@
 import Component, { StateProps } from './Component';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { getHeaderSettings, putHeaderSettings } from '../_action';
 import { getProjects } from '../../SidebarFilter/_actions';
 import { Page } from '../../../../types/_types';
 import { push } from 'connected-react-router';
+import { PutHeaderSettings } from '../_types';
 import { setSelectedKeys } from '../../TreeView/_actions';
 import { usersAction } from '../../Accounts/_actions';
 
@@ -31,12 +33,19 @@ const mapStateToProps = (state: any): StateProps => ({
 	token: state.AuthReducer.token,
 	settings: state.SettingsReducer.settings,
 	activeFilterContent: state.FilterReducer.activeFilterContent,
+	initSort: state.HeaderSettingsReducer.sort,
+	initSortOrder: state.HeaderSettingsReducer.sortOrder,
+	initHeaders: state.HeaderSettingsReducer.headers,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	getProjects: (data: Page) => dispatch(getProjects.request(data)),
 	getUsers: (data: Page) => dispatch(usersAction.request(data)),
 	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
+	putHeaderSettings: (data: PutHeaderSettings) =>
+		dispatch(putHeaderSettings.request(data)),
+	getHeaderSettings: (data: string) =>
+		dispatch(getHeaderSettings.request(data)),
 	push,
 });
 

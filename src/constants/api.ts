@@ -65,6 +65,7 @@ export enum ApiURL {
 	QUICK_SEARCH = "/api/selections/quicksearch",
 	//Settings
 	SETTINGS_FILTER = "/api/settings/filters",
+	SETTINGS_HEADERS = "/api/settings/header",
 	SETTINGS = "/api/settings",
 	//TREE
 	CUSTOMER_TREE = "/api/trees/customer",

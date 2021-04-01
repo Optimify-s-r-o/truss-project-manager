@@ -1,8 +1,10 @@
 import Component, { StateProps } from './Component';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { getHeaderSettings, putHeaderSettings } from '../_action';
 import { getTrusses } from '../../SidebarFilter/_actions';
 import { Page } from '../../../../types/_types';
+import { PutHeaderSettings } from '../_types';
 import { setExpandedKeys, setSelectedKeys } from '../../TreeView/_actions';
 import { usersAction } from '../../Accounts/_actions';
 
@@ -27,6 +29,9 @@ const mapStateToProps = (state: any): StateProps => ({
 	local: state.AuthReducer.local,
 	token: state.AuthReducer.token,
 	activeFilterContent: state.FilterReducer.activeFilterContent,
+	initSort: state.HeaderSettingsReducer.sort,
+	initSortOrder: state.HeaderSettingsReducer.sortOrder,
+	initHeaders: state.HeaderSettingsReducer.headers,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -34,6 +39,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	getUsers: (data: Page) => dispatch(usersAction.request(data)),
 	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
 	setExpandedKeys: (data: string[]) => dispatch(setExpandedKeys(data)),
+	putHeaderSettings: (data: PutHeaderSettings) =>
+		dispatch(putHeaderSettings.request(data)),
+	getHeaderSettings: (data: string) =>
+		dispatch(getHeaderSettings.request(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Component);

@@ -24,6 +24,8 @@ interface OwnProps {
 	totalPages: number;
 	totalRecords: number;
 	isLoading?: boolean;
+	initSortOrder?: number[];
+	initSort?: number[];
 }
 
 const ExternalTable = (props: OwnProps) => {
@@ -43,6 +45,8 @@ const ExternalTable = (props: OwnProps) => {
 		totalRecords,
 		isLoading,
 		filterContent,
+		initSort,
+		initSortOrder,
 	} = props;
 
 	const [selectedPageSize, setSelectedPageSize] = React.useState(
@@ -51,8 +55,8 @@ const ExternalTable = (props: OwnProps) => {
 	const [sortString, setSortString] = React.useState<string | null | undefined>(
 		null
 	);
-	const [sort, setSort] = React.useState<SortOptions[]>();
-	const [sortOrder, setSortOrder] = React.useState<number[]>();
+	const [sort, setSort] = React.useState<number[]>(initSort);
+	const [sortOrder, setSortOrder] = React.useState<number[]>(initSortOrder);
 	const { t } = useTranslation();
 
 	const onSort = (sortOptions: SortOptions[], sortOrder: number[]) => {
@@ -76,7 +80,8 @@ const ExternalTable = (props: OwnProps) => {
 				Sort: sortString,
 			});
 	};
-
+	console.log(sort);
+	console.log(sortOrder);
 	return (
 		<>
 			<HorizontalLine />

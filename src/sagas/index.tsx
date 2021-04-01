@@ -17,6 +17,10 @@ import {
 	watchUpdateCustomerAction,
 } from "../containers/Portal/Customer/_sagas";
 import {
+	watchGetHeadersSettingsAction,
+	watchPutHeadersSettingsAction,
+} from "../containers/Portal/Lists/_sagas";
+import {
 	watchAddItemToPriceListPostAction,
 	watchCreateEmptyPriceListPostAction,
 	watchGetPriceListByIdAction,
@@ -190,6 +194,8 @@ export const rootSaga = [
 	watchJobUpdateAction,
 	watchCopyJobAction,
 	watchDownloadJobAction,
+	watchPutHeadersSettingsAction,
+	watchGetHeadersSettingsAction,
 ];
 
 export type SagasType = typeof rootSaga;

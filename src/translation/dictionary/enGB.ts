@@ -2,7 +2,7 @@ import { Lang } from '../lang';
 
 const dictionary: Lang = {
 	customer: {
-		placeholder: "Enter customer",
+		placeholder: "Find customer",
 		newCustomer: "New Customer",
 		add: "Add",
 	},

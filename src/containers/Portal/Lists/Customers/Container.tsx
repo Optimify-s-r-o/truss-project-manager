@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { CustomersAllFilterRequest, DeleteRequest } from './_types';
 import { deleteCustomer } from './_actions';
 import { filterEntities, getCustomers } from '../../SidebarFilter/_actions';
+import { getHeaderSettings, putHeaderSettings } from '../_action';
 import { Page } from '../../../../types/_types';
+import { PutHeaderSettings } from '../_types';
 import { withRouter } from 'react-router-dom';
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
@@ -13,6 +15,10 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 		dispatch(filterEntities.request(data)),
 	deleteCustomer: (data: DeleteRequest) =>
 		dispatch(deleteCustomer.request(data)),
+	putHeaderSettings: (data: PutHeaderSettings) =>
+		dispatch(putHeaderSettings.request(data)),
+	getHeaderSettings: (data: string) =>
+		dispatch(getHeaderSettings.request(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({
@@ -30,6 +36,9 @@ const mapStateToProps = (state: any): StateProps => ({
 	path: state.router.location.pathname,
 	pending: state.FilterReducer.pending,
 	activeFilterContent: state.FilterReducer.activeFilterContent,
+	initSort: state.HeaderSettingsReducer.sort,
+	initSortOrder: state.HeaderSettingsReducer.sortOrder,
+	initHeaders: state.HeaderSettingsReducer.header,
 });
 
 export default compose(
