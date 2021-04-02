@@ -62,7 +62,7 @@ export interface StateProps {
 	pending: boolean;
 	router: any;
 	pathname: string;
-
+	activeFilter: boolean;
 	currentPage: number;
 	totalPages: number;
 	totalRecords: number;
@@ -125,9 +125,11 @@ export interface DispatchProps {
 	setCopiedJob: (data: string) => void;
 	copyJob: (data: CopyJob) => void;
 	setActiveFilterContent: (data: any) => void;
+	setActive: (data: boolean) => void;
 }
 
 const Index = ({
+	activeFilter,
 	copiedJob,
 	setCopiedJob,
 	removeFromSelection,
@@ -184,17 +186,16 @@ const Index = ({
 	copyJob,
 	setActiveFilterContent,
 	activeFilterContent,
+	setActive,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { addToast } = useToasts();
 	const [treePending, setTreePending] = React.useState(true);
 	const [selectedPageSize, setSelectedPageSize] = React.useState(25);
 	const [connect, setHubConnection] = useState<HubConnection>();
 	const [mode, setTheme] = React.useState<"light" | "dark">("light");
-	const [activeFilter, setActiveFilter] = React.useState<boolean>(false);
 	const [activeTree, setActiveTree] = React.useState<TreeType>(
 		TreeType.PROJECT
 	);
-	const [active, setActive] = useState(false);
 
 	React.useEffect(() => {}, [mode]);
 
@@ -284,7 +285,7 @@ const Index = ({
 		>
 			<KeyboardEventHandler
 				handleKeys={["f8"]}
-				onKeyEvent={(key, e) => setActiveFilter(!activeFilter)}
+				onKeyEvent={(key, e) => setActive(!activeFilter)}
 			/>
 			<ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
 				<GlobalStyles />
@@ -295,7 +296,7 @@ const Index = ({
 							setTheme={setTheme}
 							mode={mode}
 							connect={connect}
-							setActiveFilter={setActiveFilter}
+							setActiveFilter={setActive}
 							selectedKeys={selectedKeys}
 							selectedPageSize={selectedPageSize}
 							setSelectedPageSize={setSelectedPageSize}
@@ -303,10 +304,10 @@ const Index = ({
 						/>
 						<IconMenu
 							quickSearchRequest={quickSearchRequest}
-							setFilter={setActiveFilter}
+							setFilter={setActive}
 							filter={activeFilter}
 							connect={connect}
-							setActiveFilter={setActiveFilter}
+							setActiveFilter={setActive}
 							selectedKeys={selectedKeys}
 							selectedPageSize={selectedPageSize}
 						/>
@@ -357,7 +358,7 @@ const Index = ({
 								getUsers={getUsers}
 								connect={connect}
 								activeFilterContent={activeFilterContent}
-								active={active}
+								active={activeFilter}
 								pending={pending}
 								projectPending={projectPending}
 								jobPending={jobPending}

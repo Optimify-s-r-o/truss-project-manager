@@ -17,6 +17,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 interface Table {
+	activeFilter?: boolean;
 	setSelectedKeys: (data: string[]) => void;
 	setExpandedKeys: (data: string[]) => void;
 	editTruss: (data: OpenTruss) => void;
@@ -37,6 +38,7 @@ interface Table {
 }
 
 export const JobTable = ({
+	activeFilter,
 	setSelectedKeys,
 	setExpandedKeys,
 	editTruss,
@@ -171,6 +173,7 @@ export const JobTable = ({
 				isLoading={pending}
 				initSort={initSort}
 				initSortOrder={initSortOrder}
+				activeFilter={activeFilter}
 			/>
 		</CardMiddleTableWrapper>
 	);

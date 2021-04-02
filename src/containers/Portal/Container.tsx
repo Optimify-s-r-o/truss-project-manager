@@ -1,33 +1,23 @@
-import Component from './Component';
-import { clearNotificationAction } from '../../components/Toast/_actions';
-import { compose, Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { createTruss, editTruss, OpenTruss } from '../../sagas/Truss/_actions';
-import { deleteProject } from './Project/_actions';
-import { DeleteProject } from './Project/_types';
-import { duplicateJob, setLoading } from './TreeView/Project/General/_actions';
-import {
-	Fetch,
-	Page,
-	Project,
-	TreeType
-	} from '../../types/_types';
-import { getProjectFiles, setProject } from './TreeView/Project/_actions';
-import { priceListsGetAction } from './PriceLists/_actions';
-import { quickSearch } from './FastNavigation/_actions';
-import { QuickSearchRequest } from './FastNavigation/_types';
-import { setCloud } from '../Home/Cloud/_actions';
-import { settings, settingsFilter, treeType } from './_actions';
-import { setTruss, trussImage } from './TreeView/Truss/_actions';
-import { Truss } from './TreeView/Truss/_types';
-import { usersAction } from './Accounts/_actions';
-import { withRouter } from 'react-router';
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import { compose, Dispatch } from "redux";
+import { clearNotificationAction } from "../../components/Toast/_actions";
 import {
 	setHubJob,
 	setHubProject,
 	setHubTree,
 	setHubTruss,
 } from "../../reducers/hubReducer/_actions";
+import { createTruss, editTruss, OpenTruss } from "../../sagas/Truss/_actions";
+import { Fetch, Page, Project, TreeType } from "../../types/_types";
+import { setCloud } from "../Home/Cloud/_actions";
+import { usersAction } from "./Accounts/_actions";
+import Component from "./Component";
+import { quickSearch } from "./FastNavigation/_actions";
+import { QuickSearchRequest } from "./FastNavigation/_types";
+import { priceListsGetAction } from "./PriceLists/_actions";
+import { deleteProject } from "./Project/_actions";
+import { DeleteProject } from "./Project/_types";
 import {
 	addToSelectionAction,
 	removeFromSelectionAction,
@@ -39,6 +29,7 @@ import {
 	getJobs,
 	getProjects,
 	getTrusses,
+	setActive,
 	setActiveFilterContent,
 } from "./SidebarFilter/_actions";
 import {
@@ -54,10 +45,14 @@ import {
 	JobRootObject,
 	Unlock,
 } from "./TreeView/Job/_types";
+import { duplicateJob, setLoading } from "./TreeView/Project/General/_actions";
+import { getProjectFiles, setProject } from "./TreeView/Project/_actions";
 import {
 	IProjectDuplicate,
 	ProjectFileRequest,
 } from "./TreeView/Project/_types";
+import { setTruss, trussImage } from "./TreeView/Truss/_actions";
+import { Truss } from "./TreeView/Truss/_types";
 import {
 	customerTree,
 	jobTree,
@@ -67,6 +62,7 @@ import {
 	treeReset,
 	trussTree,
 } from "./TreeView/_actions";
+import { settings, settingsFilter, treeType } from "./_actions";
 
 const mapStateToProps = (state: any) => ({
 	activeTree: state.SettingsReducer.activeTree,
@@ -94,6 +90,7 @@ const mapStateToProps = (state: any) => ({
 	projectPending: state.FilterReducer.projectPending,
 	customerPending: state.CustomersReducer.customerPending,
 	treeHub: state.HubReducer.tree,
+	activeFilter: state.FilterReducer.activeFilter,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -146,6 +143,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 		dispatch(duplicateJob.request(data)),
 	copyJob: (data: CopyJob) => dispatch(copyJob.request(data)),
 	setActiveFilterContent: (data: any) => dispatch(setActiveFilterContent(data)),
+	setActive: (data: boolean) => dispatch(setActive(data)),
 });
 
 export default compose(

@@ -32,6 +32,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	initSort: state.HeaderSettingsReducer.sort,
 	initSortOrder: state.HeaderSettingsReducer.sortOrder,
 	initHeaders: state.HeaderSettingsReducer.headers,
+	activeFilter: state.FilterReducer.activeFilter,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

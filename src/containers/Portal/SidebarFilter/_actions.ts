@@ -44,6 +44,8 @@ export const setActiveFilterContent = createAction(
 	"@FILTER/SET_ACTIVE_FILTER_CONTENT"
 )<any>();
 
+export const setActive = createAction("@FILTER/SET_ACTIVE_FILTER")<boolean>();
+
 export type FilterActionType = ActionType<
 	| typeof filterEntities
 	| typeof getCustomers
@@ -51,4 +53,5 @@ export type FilterActionType = ActionType<
 	| typeof getJobs
 	| typeof getTrusses
 	| typeof setActiveFilterContent
+	| typeof setActive
 >;

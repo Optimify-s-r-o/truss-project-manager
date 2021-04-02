@@ -28,6 +28,7 @@ import {
 } from "../../../../types/_types";
 
 export interface StateProps {
+	activeFilter: boolean;
 	firstRecordOnPage: number | null;
 	lastRecordOnPage: number | null;
 	currentPage: number | null;
@@ -76,6 +77,7 @@ export interface Checkbox {
 }
 
 const Index = ({
+	activeFilter,
 	pageSize,
 	getUsers,
 	firstRecordOnPage,
@@ -103,7 +105,7 @@ const Index = ({
 	const [columns, setColumns] = React.useState<Checkbox[]>([]);
 
 	useEffect(() => {
-		getJobs({ Page: 0, PageSize: 25, Sort: "" });
+		getJobs({ Page: 0, PageSize: 25 });
 		getUsers({ Paginate: false });
 		getHeaderSettings(TreeType.JOB);
 	}, []);
@@ -149,6 +151,7 @@ const Index = ({
 							totalRecords={totalRecords}
 							pending={pending}
 							pageSize={pageSize}
+							activeFilter={activeFilter}
 						/>
 					</ContentCard>
 				</ContentFilter>

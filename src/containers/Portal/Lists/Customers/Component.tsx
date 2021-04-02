@@ -1,26 +1,26 @@
 import React, { useEffect } from 'react';
 import { Checkbox } from '../Jobs/Component';
+import {
+	ContentCard,
+	ContentFilter,
+	ContentInline,
+	SAlert
+	} from '../../../../constants/globalStyles';
 import { Customer } from '../../Customer/_types';
 import { CustomerColumnSelector } from './components/ColumnSelector';
 import { CustomersAllFilterRequest, DeleteRequest } from './_types';
 import { CustomerTable } from './components/Table';
 import { FilterSettings, Page, TreeType } from '../../../../types/_types';
-import { Main } from './_styles';
-import { PutHeaderSettings } from '../_types';
-import { RouteComponentProps } from 'react-router-dom';
-import { translationPath } from '../../../../utils/getPath';
-import {
-	ContentCard,
-	ContentFilter,
-	ContentInline,
-	SAlert,
-} from "../../../../constants/globalStyles";
 import {
 	lang,
 	t,
 	WithTranslation,
-	withTranslation,
-} from "../../../../translation/i18n";
+	withTranslation
+	} from '../../../../translation/i18n';
+import { Main } from './_styles';
+import { PutHeaderSettings } from '../_types';
+import { RouteComponentProps } from 'react-router-dom';
+import { translationPath } from '../../../../utils/getPath';
 export interface StateProps {
 	activeTree: TreeType;
 	filter: FilterSettings;
@@ -39,6 +39,7 @@ export interface StateProps {
 	initSort: number[];
 	initSortOrder: number[];
 	initHeaders: string[];
+	activeFilter: boolean;
 }
 
 export interface DispatchProps {
@@ -50,6 +51,7 @@ export interface DispatchProps {
 }
 
 const Index = ({
+	activeFilter,
 	activeFilterContent,
 	initHeaders,
 	deleteCustomer,
@@ -119,6 +121,7 @@ const Index = ({
 							totalRecords={totalRecords}
 							pending={pending}
 							pageSize={pageSize}
+							activeFilter={activeFilter}
 						/>
 					</ContentCard>
 				</ContentFilter>

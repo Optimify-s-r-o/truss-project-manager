@@ -9,6 +9,7 @@ import { translationPath } from '../../../utils/getPath';
 import { useTranslation } from 'react-i18next';
 
 interface OwnProps {
+	activeFilter?: boolean;
 	headers?: Array<string>;
 	data: Array<any>;
 	renderers: Array<(value: any, key?: number, parent?: any) => any>;
@@ -30,6 +31,7 @@ interface OwnProps {
 
 const ExternalTable = (props: OwnProps) => {
 	const {
+		activeFilter,
 		headers,
 		data,
 		renderers,
@@ -115,6 +117,7 @@ const ExternalTable = (props: OwnProps) => {
 					initialSort={sort}
 					initialSortOrder={sortOrder}
 					filterContent={filterContent}
+					activeFilter={activeFilter}
 				/>
 				<HorizontalLine />
 				<Pagination

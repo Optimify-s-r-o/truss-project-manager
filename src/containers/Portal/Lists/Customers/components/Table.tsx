@@ -14,6 +14,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 interface Table {
+	activeFilter: boolean;
 	checked: Checkbox[];
 	customers: Customer[];
 	activeFilterContent: any;
@@ -32,6 +33,7 @@ interface Table {
 }
 
 export const CustomerTable = ({
+	activeFilter,
 	deleteCustomer,
 	checked,
 	customers,
@@ -136,6 +138,7 @@ export const CustomerTable = ({
 				isLoading={pending}
 				initSort={initSort}
 				initSortOrder={initSortOrder}
+				activeFilter={activeFilter}
 			/>
 		</CardMiddleTableWrapper>
 	);

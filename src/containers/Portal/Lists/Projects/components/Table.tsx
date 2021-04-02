@@ -14,6 +14,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 interface Table {
+	activeFilter: boolean;
 	setSelectedKeys: (data: string[]) => void;
 	checked: Checkbox[];
 	projects: Project[];
@@ -32,6 +33,7 @@ interface Table {
 }
 
 export const ProjectTable = ({
+	activeFilter,
 	setSelectedKeys,
 	checked,
 	getProjects,
@@ -139,6 +141,7 @@ export const ProjectTable = ({
 				isLoading={pending}
 				initSort={initSort}
 				initSortOrder={initSortOrder}
+				activeFilter={activeFilter}
 			/>
 		</CardMiddleTableWrapper>
 	);

@@ -21,6 +21,7 @@ export enum SortType {
 }
 
 interface TableProps {
+	activeFilter?: boolean;
 	data?: Array<any>;
 	renderers: Array<(value: any, key: number, parent: any) => any>;
 	headers?: Array<string>;
@@ -154,13 +155,17 @@ export const Table = (props: TableProps) => {
 			</TableHead>
 
 			<TableBody>
-				{props.filterContent && props.filterContent.length > 0 && (
-					<TableFilter>
-						{props.filterContent?.map((value, key) => {
-							return <TableFilterHeading key={key}>{value}</TableFilterHeading>;
-						})}
-					</TableFilter>
-				)}
+				{props.activeFilter &&
+					props.filterContent &&
+					props.filterContent.length > 0 && (
+						<TableFilter>
+							{props.filterContent?.map((value, key) => {
+								return (
+									<TableFilterHeading key={key}>{value}</TableFilterHeading>
+								);
+							})}
+						</TableFilter>
+					)}
 
 				{props.data &&
 					[...props.data]

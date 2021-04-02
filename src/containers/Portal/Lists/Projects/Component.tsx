@@ -32,6 +32,7 @@ const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
 interface OwnProps {}
 
 export interface StateProps {
+	activeFilter: boolean;
 	firstRecordOnPage: number | null;
 	lastRecordOnPage: number | null;
 	currentPage: number | null;
@@ -71,6 +72,7 @@ interface DispatchProps {
 }
 
 const Index = ({
+	activeFilter,
 	activeFilterContent,
 	getUsers,
 	pageSize,
@@ -100,7 +102,6 @@ const Index = ({
 		getProjects({
 			PageSize: 25,
 			Page: 0,
-			Sort: null,
 		});
 		getUsers({
 			Paginate: false,
@@ -147,6 +148,7 @@ const Index = ({
 							totalRecords={totalRecords}
 							pending={pending}
 							pageSize={pageSize}
+							activeFilter={activeFilter}
 						/>
 					</ContentCard>
 				</ContentFilter>

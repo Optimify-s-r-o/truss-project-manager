@@ -1,14 +1,14 @@
 import { AddressFilter, ProjectStateFilter } from './Projects/_types';
 import { CompanyNameFilter } from './Customer/_types';
 import { createProxy } from '../../../utils/getPath';
-import { CustomersAll } from './../Lists/Customers/_types';
-import { JobType, Project } from './../../../types/_types';
 import {
-	Data,
-	FetchStateType,
-	PaginationDto,
-	Truss,
-} from "../../../types/_types";
+	CrnFilter,
+	DateSlider,
+	FirstNameFilter,
+	LastNameFilter,
+	VatNumberFilter
+	} from '../Lists/Customers/_types';
+import { CustomersAll } from './../Lists/Customers/_types';
 import {
 	CustomerTypeFilter,
 	DateOfCreationFilter,
@@ -18,21 +18,21 @@ import {
 	NameFilter,
 	SnowAreaFilter,
 	UserFilter,
-	WindAreaFilter,
-} from "../Lists/components/_types";
+	WindAreaFilter
+	} from '../Lists/components/_types';
 import {
-	CrnFilter,
-	DateSlider,
-	FirstNameFilter,
-	LastNameFilter,
-	VatNumberFilter,
-} from "../Lists/Customers/_types";
+	Data,
+	FetchStateType,
+	PaginationDto,
+	Truss
+	} from '../../../types/_types';
 import {
 	InputFilter,
 	KindsFilter,
 	StatusFilter,
-	TypeFilter,
-} from "./Trusses/_types";
+	TypeFilter
+	} from './Trusses/_types';
+import { JobType, Project } from './../../../types/_types';
 
 export type FilterType = FetchStateType &
 	Readonly<{
@@ -41,6 +41,7 @@ export type FilterType = FetchStateType &
 		jobs: Data<JobType>;
 		trusses: Data<Truss>;
 		activeFilterContent: any;
+		activeFilter: boolean;
 	}>;
 
 export type FilteredData = PaginationDto & {

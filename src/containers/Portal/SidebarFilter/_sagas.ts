@@ -175,7 +175,6 @@ function* filterEntitiesActionSaga(
 				getProjects.request({
 					PageSize: 25,
 					Page: 0,
-					Sort: null,
 				})
 			);
 		} else if (action.payload?.location?.pathname === Routes.FILTER_JOB) {
@@ -183,7 +182,6 @@ function* filterEntitiesActionSaga(
 				getJobs.request({
 					PageSize: 25,
 					Page: 0,
-					Sort: null,
 				})
 			);
 		} else if (action.payload?.location?.pathname === Routes.FILTER_TRUSS) {
@@ -191,7 +189,6 @@ function* filterEntitiesActionSaga(
 				getTrusses.request({
 					PageSize: 25,
 					Page: 0,
-					Sort: null,
 				})
 			);
 		} else if (action.payload?.location?.pathname === Routes.CUSTOMER_ALL) {
@@ -199,7 +196,6 @@ function* filterEntitiesActionSaga(
 				getCustomers.request({
 					PageSize: 25,
 					Page: 0,
-					Sort: null,
 				})
 			);
 		}

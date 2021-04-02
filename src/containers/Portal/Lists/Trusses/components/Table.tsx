@@ -14,6 +14,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 interface Table {
+	activeFilter: boolean;
 	setSelectedKeys: (data: string[]) => void;
 	setExpandedKeys: (data: string[]) => void;
 	checked: Checkbox[];
@@ -33,6 +34,7 @@ interface Table {
 }
 
 export const TrussTable = ({
+	activeFilter,
 	setSelectedKeys,
 	setExpandedKeys,
 	checked,
@@ -163,6 +165,7 @@ export const TrussTable = ({
 				isLoading={pending}
 				initSort={initSort}
 				initSortOrder={initSortOrder}
+				activeFilter={activeFilter}
 			/>
 		</CardMiddleTableWrapper>
 	);

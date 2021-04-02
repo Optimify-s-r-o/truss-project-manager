@@ -39,6 +39,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	initSort: state.HeaderSettingsReducer.sort,
 	initSortOrder: state.HeaderSettingsReducer.sortOrder,
 	initHeaders: state.HeaderSettingsReducer.header,
+	activeFilter: state.FilterReducer.activeFilter,
 });
 
 export default compose(
