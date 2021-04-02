@@ -38,7 +38,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	activeFilterContent: state.FilterReducer.activeFilterContent,
 	initSort: state.HeaderSettingsReducer.sort,
 	initSortOrder: state.HeaderSettingsReducer.sortOrder,
-	initHeaders: state.HeaderSettingsReducer.header,
+	initHeaders: state.HeaderSettingsReducer.headers,
 	activeFilter: state.FilterReducer.activeFilter,
 });
 

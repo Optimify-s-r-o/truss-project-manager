@@ -20,12 +20,15 @@ export const HeaderSettingsReducer = (
 ): HeaderSettingsStateType => {
 	switch (action.type) {
 		case getType(getHeaderSettings.request):
-		case getType(putHeaderSettings.request):
 			return {
 				...initialState,
 				pending: true,
 			};
-
+		case getType(putHeaderSettings.request):
+			return {
+				...state,
+				pending: true,
+			};
 		case getType(getHeaderSettings.success):
 			return {
 				...state,

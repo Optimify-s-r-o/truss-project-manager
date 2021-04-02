@@ -1,26 +1,26 @@
 import React, { useEffect } from 'react';
 import { Checkbox } from '../Jobs/Component';
-import {
-	ContentCard,
-	ContentFilter,
-	ContentInline,
-	SAlert
-	} from '../../../../constants/globalStyles';
 import { Customer } from '../../Customer/_types';
 import { CustomerColumnSelector } from './components/ColumnSelector';
 import { CustomersAllFilterRequest, DeleteRequest } from './_types';
 import { CustomerTable } from './components/Table';
 import { FilterSettings, Page, TreeType } from '../../../../types/_types';
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation
-	} from '../../../../translation/i18n';
 import { Main } from './_styles';
 import { PutHeaderSettings } from '../_types';
 import { RouteComponentProps } from 'react-router-dom';
 import { translationPath } from '../../../../utils/getPath';
+import {
+	ContentCard,
+	ContentFilter,
+	ContentInline,
+	SAlert,
+} from "../../../../constants/globalStyles";
+import {
+	lang,
+	t,
+	WithTranslation,
+	withTranslation,
+} from "../../../../translation/i18n";
 export interface StateProps {
 	activeTree: TreeType;
 	filter: FilterSettings;
@@ -81,7 +81,7 @@ const Index = ({
 		getCustomers({ Page: 0, PageSize: 25, Sort: "", Paginate: true });
 		getHeaderSettings(TreeType.CUSTOMER);
 	}, []);
-
+	console.log(initHeaders);
 	return (
 		<ContentInline>
 			<Main>

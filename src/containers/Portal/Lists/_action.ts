@@ -9,7 +9,7 @@ export const getHeaderSettings = createAsyncAction(
 )<string, HeaderSettings, Error>();
 
 export const putHeaderSettings = createAsyncAction(
-	"PU_HEADER_SETTING_REQUEST",
+	"PUT_HEADER_SETTING_REQUEST",
 	"PUT_HEADER_SETTING_SUCCESS",
 	"PUT_HEADER_SETTING_FAILURE"
 )<PutHeaderSettings, HeaderSettings, Error>();

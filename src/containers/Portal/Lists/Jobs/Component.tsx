@@ -1,23 +1,14 @@
-import React, { useEffect } from 'react';
-import { FilterContentType } from '../../SidebarFilter/_types';
-import { FilterRequest } from '../components/_types';
-import { Job } from '../../TreeView/_types';
-import { JobColumnSelector } from './components/ColumnSelector';
-import { JobTable } from './components/Table';
-import { lang, WithTranslation } from '../../../../translation/i18n';
-import { Main } from '../../SidebarFilter/Jobs/_styles';
-import { OpenTruss } from '../../../../sagas/Truss/_actions';
-import { PutHeaderSettings } from '../_types';
-import { RouteComponentProps } from 'react-router';
-import { translationPath } from '../../../../utils/getPath';
-import { UserData } from '../../Accounts/_types';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { RouteComponentProps } from "react-router";
 import {
 	ContentCard,
 	ContentFilter,
 	ContentInline,
 	SAlert,
 } from "../../../../constants/globalStyles";
+import { OpenTruss } from "../../../../sagas/Truss/_actions";
+import { lang, WithTranslation } from "../../../../translation/i18n";
 import {
 	Data,
 	FilterSettings,
@@ -26,6 +17,15 @@ import {
 	Tree,
 	TreeType,
 } from "../../../../types/_types";
+import { translationPath } from "../../../../utils/getPath";
+import { UserData } from "../../Accounts/_types";
+import { Main } from "../../SidebarFilter/Jobs/_styles";
+import { FilterContentType } from "../../SidebarFilter/_types";
+import { Job } from "../../TreeView/_types";
+import { FilterRequest } from "../components/_types";
+import { PutHeaderSettings } from "../_types";
+import { JobColumnSelector } from "./components/ColumnSelector";
+import { JobTable } from "./components/Table";
 
 export interface StateProps {
 	activeFilter: boolean;
@@ -109,7 +109,7 @@ const Index = ({
 		getUsers({ Paginate: false });
 		getHeaderSettings(TreeType.JOB);
 	}, []);
-
+	console.log(initHeaders);
 	return (
 		<ContentInline>
 			<Main>
