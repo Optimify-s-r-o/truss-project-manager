@@ -162,7 +162,6 @@ export const Sidebar = ({
 				onPageRequired({
 					PageSize: selectedPageSize,
 					Page: 0,
-					Sort: null,
 				});
 		}
 	}, [selectedPageSize]);

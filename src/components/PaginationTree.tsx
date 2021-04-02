@@ -42,7 +42,6 @@ const PaginationTree = (props: OwnProps) => {
 						onPageRequired({
 							PageSize: pageSize,
 							Page: 0,
-							Sort: null,
 						});
 					}}
 					disabled={currentPage <= 1}
@@ -55,7 +54,6 @@ const PaginationTree = (props: OwnProps) => {
 						onPageRequired({
 							PageSize: pageSize,
 							Page: currentPage - 2,
-							Sort: null,
 						});
 					}}
 					disabled={currentPage <= 1}
@@ -71,7 +69,6 @@ const PaginationTree = (props: OwnProps) => {
 						onPageRequired({
 							PageSize: pageSize,
 							Page: currentPage,
-							Sort: null,
 						});
 					}}
 					disabled={currentPage >= totalPages}
@@ -84,7 +81,6 @@ const PaginationTree = (props: OwnProps) => {
 						onPageRequired({
 							PageSize: pageSize,
 							Page: totalPages - 1,
-							Sort: null,
 						});
 					}}
 					disabled={currentPage >= totalPages}

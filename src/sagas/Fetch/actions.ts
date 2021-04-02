@@ -1,20 +1,13 @@
 import { addJsonToProject } from '../../containers/Portal/TreeView/Project/General/File/_actions';
 import { ApiURL } from '../../constants/api';
-import {
-	CustomerEnum,
-	EnumBody,
-	JobType,
-	Project,
-	TreeType
-	} from '../../types/_types';
-import { CustomersEvidenceFilter, CustomersLegalFilter, CustomersPersonFilter } from '../../containers/Portal/Lists/Customers/_types';
-import {
-	customerTree,
-	jobTree,
-	projectTree,
-	treeReset,
-	trussTree
-	} from '../../containers/Portal/TreeView/_actions';
+import { deleteProject } from '../../containers/Portal/Project/_actions';
+import { getProjects } from './../../containers/Portal/SidebarFilter/_actions';
+import { getUserByUsername } from '../../containers/Portal/Accounts/_actions';
+import { Method } from '../../constants/enum';
+import { ProjectNameJobName } from '../../containers/Portal/TreeView/Job/_types';
+import { Routes } from '../../constants/routes';
+import { settings, settingsFilter } from '../../containers/Portal/_actions';
+import { treeReset } from '../../containers/Portal/TreeView/_actions';
 import {
 	deleteCustomer,
 	filterCustomersEvidence,
@@ -22,28 +15,37 @@ import {
 	filterCustomersPerson,
 	getCustomersEvidence,
 	getCustomersLegal,
-	getCustomersPerson
-	} from '../../containers/Portal/Lists/Customers/_actions';
-import { deleteFile, duplicateJob, projectUpdate } from '../../containers/Portal/TreeView/Project/General/_actions';
+	getCustomersPerson,
+} from "../../containers/Portal/Lists/Customers/_actions";
+import {
+	CustomersEvidenceFilter,
+	CustomersLegalFilter,
+	CustomersPersonFilter,
+} from "../../containers/Portal/Lists/Customers/_types";
 import {
 	deleteJob,
 	selectedJob,
 	unlockJob,
-	updateSelectedJob
-	} from '../../containers/Portal/TreeView/Job/_actions';
-import { deleteProject } from '../../containers/Portal/Project/_actions';
+	updateSelectedJob,
+} from "../../containers/Portal/TreeView/Job/_actions";
+import {
+	deleteFile,
+	duplicateJob,
+	projectUpdate,
+} from "../../containers/Portal/TreeView/Project/General/_actions";
 import {
 	getProjectFiles,
 	getProjectLogs,
 	getSelectedProject,
-	uploadProjectFile
-	} from '../../containers/Portal/TreeView/Project/_actions';
-import { getProjects } from './../../containers/Portal/SidebarFilter/_actions';
-import { getUserByUsername } from '../../containers/Portal/Accounts/_actions';
-import { Method } from '../../constants/enum';
-import { ProjectNameJobName } from '../../containers/Portal/TreeView/Job/_types';
-import { Routes } from '../../constants/routes';
-import { settings, settingsFilter } from '../../containers/Portal/_actions';
+	uploadProjectFile,
+} from "../../containers/Portal/TreeView/Project/_actions";
+import {
+	CustomerEnum,
+	EnumBody,
+	JobType,
+	Project,
+	TreeType,
+} from "../../types/_types";
 
 export const duplicateJobAction = (id: string, activeTree: TreeType) => {
 	return {
@@ -285,41 +287,11 @@ export const getUserByUsernameCall = (username: string) => {
 	};
 };
 
-export const getProjectTree = () => {
-	return {
-		action: projectTree,
-		method: Method.GET,
-		param: {
-			PageSize: 25,
-			Page: 0,
-			Sort: null,
-		},
-		url: ApiURL.PROJECT_TREE,
-	};
-};
-
 export const resetTreeAction = (activeTree: TreeType) => {
 	return {
 		action: treeReset,
 		method: Method.POST,
 		url: ApiURL.TREE_RESET,
-	};
-};
-
-export const getProjectsAction = (query: object) => {
-	let param = query;
-	if (!param) {
-		param = {
-			PageSize: 25,
-			Page: 0,
-			Sort: null,
-		};
-	}
-	return {
-		action: getProjects,
-		url: ApiURL.PROJECTS,
-		method: Method.GET,
-		param: param,
 	};
 };
 
@@ -329,45 +301,6 @@ export const getProjectsCall = (query: object, activeTree: TreeType) => {
 		url: ApiURL.PROJECTS,
 		method: Method.GET,
 		param: query,
-	};
-};
-
-export const getJobTree = () => {
-	return {
-		action: jobTree,
-		method: Method.GET,
-		param: {
-			PageSize: 25,
-			Page: 0,
-			Sort: null,
-		},
-		url: ApiURL.JOB_TREE,
-	};
-};
-
-export const getCustomerTree = () => {
-	return {
-		action: customerTree,
-		method: Method.GET,
-		param: {
-			PageSize: 25,
-			Page: 0,
-			Sort: null,
-		},
-		url: ApiURL.CUSTOMER_TREE,
-	};
-};
-
-export const getTrussTree = () => {
-	return {
-		action: trussTree,
-		method: Method.GET,
-		param: {
-			PageSize: 25,
-			Page: 0,
-			Sort: null,
-		},
-		url: ApiURL.TRUSS_TREE,
 	};
 };
 

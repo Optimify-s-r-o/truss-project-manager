@@ -55,16 +55,15 @@ export const ActiveActions = ({
 
 	const resetLists = () => {
 		if (activeTree === TreeType.CUSTOMER) {
-			getCustomers({ Page: 0, PageSize: 25, Sort: "" });
+			getCustomers({ Page: 0, PageSize: 25 });
 		} else if (activeTree === TreeType.JOB) {
-			getJobs({ Page: 0, PageSize: 25, Sort: "" });
+			getJobs({ Page: 0, PageSize: 25 });
 		} else if (activeTree === TreeType.TRUSS) {
-			getTrusses({ Page: 0, PageSize: 25, Sort: "" });
+			getTrusses({ Page: 0, PageSize: 25 });
 		} else if (activeTree === TreeType.PROJECT) {
 			getProjects({
 				Page: 0,
 				PageSize: 25,
-				Sort: null,
 			});
 		}
 	};

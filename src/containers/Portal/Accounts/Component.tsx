@@ -72,7 +72,6 @@ export const Component = ({
 		getUsers({
 			PageSize: 25,
 			Page: 0,
-			Sort: null,
 			Paginate: true,
 		});
 	}, []);
