@@ -1,7 +1,7 @@
 import lang from '../../../translation/lang';
 import Loading from '../Loading';
 import Pagination from './Pagination';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Page } from '../../../types/_types';
 import { ScrollableTable, SortOptions, SortType } from '.';
@@ -60,6 +60,11 @@ const ExternalTable = (props: OwnProps) => {
 	const [sort, setSort] = React.useState<number[]>(initSort);
 	const [sortOrder, setSortOrder] = React.useState<number[]>(initSortOrder);
 	const { t } = useTranslation();
+
+	useEffect(() => {
+		setSort(initSort);
+		setSortOrder(initSortOrder);
+	}, [initSort, initSortOrder]);
 
 	const onSort = (sortOptions: SortOptions[], sortOrder: number[]) => {
 		onSortHelper(columnNames, sortOptions, sortOrder, (sortString) => {

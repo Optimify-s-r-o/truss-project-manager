@@ -29,7 +29,7 @@ export const HeaderSettingsReducer = (
 		case getType(getHeaderSettings.success):
 			return {
 				...state,
-				sort: action.payload.Sort,
+				sort: action.payload.Sorts,
 				sortOrder: action.payload.SortOrder,
 				headers: action.payload.Headers,
 				pending: false,

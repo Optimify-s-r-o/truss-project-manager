@@ -1,7 +1,7 @@
 import { FetchStateType } from '../../../types/_types';
 
 export interface HeaderSettings {
-	Sort: number[];
+	Sorts: number[];
 	SortOrder: number[];
 	Headers: string[];
 }

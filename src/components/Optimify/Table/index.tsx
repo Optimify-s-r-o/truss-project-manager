@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useResizeAware from 'react-resize-aware';
 import { device } from '../../../constants/theme';
@@ -61,34 +61,12 @@ export const Table = (props: TableProps) => {
 	const [headers, setHeaders] = React.useState<Array<string> | undefined>(
 		props.headers
 	);
-	React.useEffect(() => {
-		let newSort = getDefaultSort();
-		let newSortOrder: any[] = [];
-		let headerKeysMapping: any[] = [];
 
-		if (typeof newSort !== "undefined") {
-			headers?.forEach((header: string, key: number) => {
-				if (props.headers?.includes(header)) {
-					newSort[props.headers.indexOf(header)] = sort[key];
-					headerKeysMapping[key] = props.headers.indexOf(header);
-				}
-			});
-			sortOrder.forEach((oldHeaderKey: number, order: number) => {
-				if (typeof headerKeysMapping[oldHeaderKey] !== "undefined")
-					newSortOrder[order] = headerKeysMapping[oldHeaderKey];
-			});
-
-			if (
-				JSON.stringify(newSort) !== JSON.stringify(sort) &&
-				JSON.stringify(newSortOrder) !== JSON.stringify(sortOrder)
-			)
-				props.onSort && props.onSort(newSort, newSortOrder);
-			setSort(newSort);
-			setSortOrder(newSortOrder);
-		}
-
+	useEffect(() => {
+		setSort(props.initialSort);
+		setSortOrder(props.initialSortOrder);
 		setHeaders(props.headers);
-	}, [props.headers]);
+	}, [props.initialSort, props.initialSortOrder, props.headers]);
 
 	const handleSort = (key: number, sortOption: SortOptions) => (
 		e: React.MouseEvent<HTMLElement, MouseEvent>
