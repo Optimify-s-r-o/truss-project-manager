@@ -16,4 +16,5 @@ export type HeaderSettingsStateType = FetchStateType &
 		sort: number[];
 		sortOrder: number[];
 		headers: string[];
+		disabled: string[];
 	}>;

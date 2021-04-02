@@ -1045,6 +1045,8 @@ const dictionary: Lang = {
 			role: "Role",
 		},
 		tooltip: {
+			columnSelectorDisabled:
+				"Sloupec není možné odebrat kvůli aplikaci řazení.",
 			allRecords: "Všechny záznamy",
 			addressFilter: "Pouze bez zadané adresy",
 			projectUserFilter: "Pouze bez zodpovědné osoby",

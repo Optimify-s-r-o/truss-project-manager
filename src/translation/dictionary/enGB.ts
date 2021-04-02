@@ -1052,6 +1052,8 @@ const dictionary: Lang = {
 			role: "Role",
 		},
 		tooltip: {
+			columnSelectorDisabled:
+				"The column cannot be removed due to a sort application.",
 			allRecords: "All records",
 			addressFilter: "Only without the address entered",
 			projectUserFilter: "Only without a responsible person",

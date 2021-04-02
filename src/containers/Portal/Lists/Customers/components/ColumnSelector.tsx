@@ -36,15 +36,6 @@ export const CustomerColumnSelector = ({
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		console.log(initHeaders);
-		console.log(checkboxes);
-		console.log(
-			checkboxes
-				.map((c, i) => {
-					return { ...c, position: i };
-				})
-				.filter((item) => initHeaders?.includes(item.name))
-		);
 		setChecked(
 			checkboxes
 				.map((c, i) => {
@@ -56,7 +47,6 @@ export const CustomerColumnSelector = ({
 	}, [initHeaders]);
 
 	const changeChecked = (newItem: Checkbox) => {
-		console.log(checked);
 		const hasDuplicates = checked?.find((item) => item.name === newItem.name);
 		let newCheckboxes = [];
 		if (hasDuplicates) {
@@ -68,7 +58,7 @@ export const CustomerColumnSelector = ({
 			Param: TreeType.CUSTOMER,
 			Headers: newCheckboxes.map((e) => e.name),
 		});
-		console.log(newCheckboxes);
+
 		setChecked(newCheckboxes);
 	};
 

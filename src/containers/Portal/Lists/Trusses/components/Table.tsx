@@ -125,6 +125,7 @@ export const TrussTable = ({
 		<CardMiddleTableWrapper>
 			<ExternalTable
 				headers={checked?.map((value: Checkbox, index: number) => value.title)}
+				names={checked?.map((value: Checkbox, index: number) => value.name)}
 				data={
 					trusses
 						? trusses?.map((value: Truss, index: number) => [

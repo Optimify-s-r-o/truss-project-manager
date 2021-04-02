@@ -81,7 +81,7 @@ const Index = ({
 		getCustomers({ Page: 0, PageSize: 25, Sort: "", Paginate: true });
 		getHeaderSettings(TreeType.CUSTOMER);
 	}, []);
-	console.log(initHeaders);
+
 	return (
 		<ContentInline>
 			<Main>

@@ -98,6 +98,7 @@ export const CustomerTable = ({
 		<CardMiddleTableWrapper>
 			<ExternalTable
 				headers={checked?.map((value: Checkbox, index: number) => value.title)}
+				names={checked?.map((value: Checkbox, index: number) => value.name)}
 				data={
 					customers
 						? customers.map((value: Customer, index: number) => [

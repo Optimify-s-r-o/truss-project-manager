@@ -4,6 +4,8 @@ import useResizeAware from 'react-resize-aware';
 import { device } from '../../../constants/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { setDisabledColumnSelector } from '../../../containers/Portal/Lists/_action';
+import { useDispatch } from 'react-redux';
 import {
 	faSortAmountDownAlt,
 	faSortAmountUp,
@@ -32,6 +34,7 @@ interface TableProps {
 	initialSort?: SortOptions[];
 	initialSortOrder?: number[];
 	filterContent?: string[];
+	names?: string[];
 }
 
 interface ScrollableProps {
@@ -42,6 +45,8 @@ export const TABLE_STYLE_DEFAULT = "default";
 export const TABLE_STYLE_CONDENSED = "condensed";
 
 export const Table = (props: TableProps) => {
+	const dispatch = useDispatch();
+
 	const getDefaultSort = () => {
 		let defaultSort;
 		if (props.sortable && props.headers?.length) {
@@ -63,10 +68,22 @@ export const Table = (props: TableProps) => {
 	);
 
 	useEffect(() => {
-		setSort(props.initialSort);
-		setSortOrder(props.initialSortOrder);
+		if (props.initialSort && props.initialSortOrder && props.names) {
+			setSort(props.initialSort);
+			setSortOrder(props.initialSortOrder);
+			dispatch(
+				setDisabledColumnSelector(
+					props.names?.map((value: string, key: number) => {
+						if (props.initialSort && props.initialSort[key] !== 0) {
+							return value;
+						}
+						return;
+					})
+				)
+			);
+		}
 		setHeaders(props.headers);
-	}, [props.initialSort, props.initialSortOrder, props.headers]);
+	}, [props.initialSort, props.initialSortOrder, props.headers, props.names]);
 
 	const handleSort = (key: number, sortOption: SortOptions) => (
 		e: React.MouseEvent<HTMLElement, MouseEvent>
@@ -82,7 +99,16 @@ export const Table = (props: TableProps) => {
 		else if (newSortOrder.includes(key) && newSort[key] === SortOptions.Default)
 			newSortOrder = newSortOrder.filter((val) => val !== key);
 		setSortOrder(newSortOrder);
-
+		dispatch(
+			setDisabledColumnSelector(
+				props.names.map((value: string, key: number) => {
+					if (newSort && newSort[key] === 0) {
+						return value;
+					}
+					return;
+				})
+			)
+		);
 		if (props.sortType === SortType.External) {
 			props.onSort && props.onSort(newSort, newSortOrder);
 		}

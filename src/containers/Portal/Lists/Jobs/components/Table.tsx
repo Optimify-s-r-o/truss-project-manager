@@ -133,6 +133,7 @@ export const JobTable = ({
 		<CardMiddleTableWrapper>
 			<ExternalTable
 				headers={checked?.map((value: Checkbox, index: number) => value.title)}
+				names={checked?.map((value: Checkbox, index: number) => value.name)}
 				data={
 					jobs
 						? jobs.map((value: JobType, index: number) => [

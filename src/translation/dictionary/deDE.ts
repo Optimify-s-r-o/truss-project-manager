@@ -1079,6 +1079,8 @@ const dictionary: Lang = {
 			role: "Rolle",
 		},
 		tooltip: {
+			columnSelectorDisabled:
+				"Die Spalte kann aufgrund einer Sortieranwendung nicht entfernt werden.",
 			allRecords: "Alle Datensätze",
 			addressFilter: "Nur ohne die eingegebene Adresse",
 			projectUserFilter: "Nur ohne verantwortliche Person",

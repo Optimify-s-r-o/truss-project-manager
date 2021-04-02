@@ -4,6 +4,7 @@ import {
 	getHeaderSettings,
 	HeaderSettingsType,
 	putHeaderSettings,
+	setDisabledColumnSelector,
 } from "./_action";
 
 const initialState: HeaderSettingsStateType = {
@@ -12,6 +13,7 @@ const initialState: HeaderSettingsStateType = {
 	sort: [],
 	sortOrder: [],
 	headers: [],
+	disabled: [],
 };
 
 export const HeaderSettingsReducer = (
@@ -19,6 +21,11 @@ export const HeaderSettingsReducer = (
 	action: HeaderSettingsType
 ): HeaderSettingsStateType => {
 	switch (action.type) {
+		case getType(setDisabledColumnSelector):
+			return {
+				...state,
+				disabled: action.payload,
+			};
 		case getType(getHeaderSettings.request):
 			return {
 				...initialState,

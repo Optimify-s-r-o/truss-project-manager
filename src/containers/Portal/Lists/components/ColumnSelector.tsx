@@ -4,7 +4,9 @@ import Collapsible from 'react-collapsible';
 import { Checkbox } from '../Jobs/Component';
 import { faChevronDown } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { RootStateType } from '../../../../reducers/index';
 import { translationPath } from '../../../../utils/getPath';
+import { useSelector } from 'react-redux';
 import {
 	lang,
 	t,
@@ -29,6 +31,7 @@ interface OwnProps {
 const ColumnSelector = (props: OwnProps & WithTranslation) => {
 	const [visible, setVisible] = React.useState(false);
 	const [openSections, setOpenSections] = React.useState<Array<string>>([]);
+	const state = useSelector((state: RootStateType) => state);
 	const ref = React.useRef(null);
 
 	React.useEffect(() => {
@@ -124,6 +127,9 @@ const ColumnSelector = (props: OwnProps & WithTranslation) => {
 											label={checkbox.title}
 											name=""
 											key={key}
+											disabled={state.HeaderSettingsReducer.disabled.includes(
+												checkbox.name
+											)}
 										/>
 									);
 								})}

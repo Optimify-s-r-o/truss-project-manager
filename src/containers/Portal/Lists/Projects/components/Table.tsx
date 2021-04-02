@@ -101,6 +101,7 @@ export const ProjectTable = ({
 		<CardMiddleTableWrapper>
 			<ExternalTable
 				headers={checked?.map((value: Checkbox, index: number) => value.title)}
+				names={checked?.map((value: Checkbox, index: number) => value.name)}
 				data={
 					projects
 						? projects.map((value: Project, index: number) => [

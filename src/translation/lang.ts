@@ -1038,6 +1038,7 @@ export type Lang = Readonly<{
 			role: string;
 		};
 		tooltip: {
+			columnSelectorDisabled: string;
 			allRecords: string;
 			addressFilter: string;
 			projectUserFilter: string;
