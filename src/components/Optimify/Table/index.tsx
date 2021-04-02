@@ -388,7 +388,7 @@ const TableFilterHeading = styled.td`
 		border-right: 1px solid
 			${(props) => props.theme.colors.background.primary.active};
 	}
-
+	height: 20px;
 	padding: 4px 2px;
 	${Scrollable} & {
 		position: sticky;
