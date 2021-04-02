@@ -52,6 +52,7 @@ const CheckBox = ({
 				<Tooltip
 					title={t(translationPath(lang.common.tooltip.columnSelectorDisabled))}
 					placement={"right"}
+					disabled={disabled}
 				>
 					<ContentRow>
 						<StyledBox checked={isChecked} disabled={disabled}>

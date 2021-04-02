@@ -167,13 +167,15 @@ export const Sidebar = ({
 	}, [selectedPageSize]);
 
 	const onPageRequired = (requiredPage: Page) => {
-		connect.invoke(
-			Hub.RequestNewTree,
-			activeTree,
-			requiredPage.Page,
-			requiredPage.PageSize,
-			requiredPage.Sort
-		);
+		if (connect) {
+			connect.invoke(
+				Hub.RequestNewTree,
+				activeTree,
+				requiredPage.Page,
+				requiredPage.PageSize,
+				requiredPage.Sort
+			);
+		}
 	};
 
 	const ref = React.useRef(null);

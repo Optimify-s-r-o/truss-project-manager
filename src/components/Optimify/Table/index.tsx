@@ -69,21 +69,42 @@ export const Table = (props: TableProps) => {
 
 	useEffect(() => {
 		if (props.initialSort && props.initialSortOrder && props.names) {
-			setSort(props.initialSort);
 			setSortOrder(props.initialSortOrder);
-			dispatch(
-				setDisabledColumnSelector(
-					props.names?.map((value: string, key: number) => {
-						if (props.initialSort && props.initialSort[key] !== 0) {
-							return value;
-						}
-						return;
-					})
-				)
-			);
+			setSort(props.initialSort);
 		}
+	}, [props.initialSort, props.initialSortOrder]);
+
+	useEffect(() => {
+		if (
+			props.initialSort &&
+			props.names &&
+			props.initialSort.length != props.names.length
+		) {
+			console.log(props.initialSort);
+			let temp = props.initialSort;
+			temp.length = props.names?.length;
+			temp = temp.fill(0, props.initialSort.length - 1, props.names?.length);
+			setSort(temp);
+		}
+		console.log(props.names);
+		dispatch(
+			setDisabledColumnSelector(
+				props.names?.map((value: string, key: number) => {
+					if (
+						props.initialSort &&
+						(props.initialSort[key] === 1 || props.initialSort[key] === 2)
+					) {
+						return value;
+					}
+					return;
+				})
+			)
+		);
+	}, [props.names]);
+
+	useEffect(() => {
 		setHeaders(props.headers);
-	}, [props.initialSort, props.initialSortOrder, props.headers, props.names]);
+	}, [props.headers]);
 
 	const handleSort = (key: number, sortOption: SortOptions) => (
 		e: React.MouseEvent<HTMLElement, MouseEvent>

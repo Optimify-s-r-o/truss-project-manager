@@ -81,7 +81,7 @@ const ColumnSelector = (props: OwnProps & WithTranslation) => {
 				{t(translationPath(lang.common.columnSelection))}
 			</ColumnSelectorButton>
 			<ColumnSelectorCheckboxes visible={visible}>
-				{Object.keys(sections).map((sectionKey) => {
+				{Object.keys(sections).map((sectionKey, key) => {
 					const checkboxesInSection = Object.keys(sections[sectionKey]).length;
 
 					let activeCheckboxes = 0;
@@ -91,6 +91,7 @@ const ColumnSelector = (props: OwnProps & WithTranslation) => {
 
 					return (
 						<Collapsible
+							key={key}
 							onOpening={() => setOpenSections([...openSections, sectionKey])}
 							onClosing={() =>
 								setOpenSections(
@@ -119,20 +120,22 @@ const ColumnSelector = (props: OwnProps & WithTranslation) => {
 							}
 						>
 							<ColumnSelectorContent>
-								{sections[sectionKey].map((checkbox: Checkbox, key: number) => {
-									return (
-										<CheckBox
-											checked={isChecked(checkbox)}
-											handleChange={handleChange(checkbox)}
-											label={checkbox.title}
-											name=""
-											key={key}
-											disabled={state.HeaderSettingsReducer.disabled.includes(
-												checkbox.name
-											)}
-										/>
-									);
-								})}
+								{sections[sectionKey].map(
+									(checkbox: Checkbox, index: number) => {
+										return (
+											<CheckBox
+												checked={isChecked(checkbox)}
+												handleChange={handleChange(checkbox)}
+												label={checkbox.title}
+												name=""
+												key={index}
+												disabled={state.HeaderSettingsReducer.disabled?.includes(
+													checkbox.name
+												)}
+											/>
+										);
+									}
+								)}
 							</ColumnSelectorContent>
 						</Collapsible>
 					);
