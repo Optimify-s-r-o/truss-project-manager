@@ -1,23 +1,38 @@
-import { connect } from "react-redux";
-import { withRouter } from "react-router";
-import { compose, Dispatch } from "redux";
-import { clearNotificationAction } from "../../components/Toast/_actions";
+import Component from './Component';
+import { clearNotificationAction } from '../../components/Toast/_actions';
+import { compose, Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { deleteProject } from './Project/_actions';
+import { DeleteProject } from './Project/_types';
+import { duplicateJob, setLoading } from './TreeView/Project/General/_actions';
+import {
+	Fetch,
+	Page,
+	Project,
+	TreeType
+	} from '../../types/_types';
+import { getProjectFiles, setProject } from './TreeView/Project/_actions';
+import { priceListsGetAction } from './PriceLists/_actions';
+import { quickSearch } from './FastNavigation/_actions';
+import { QuickSearchRequest } from './FastNavigation/_types';
+import { setCloud } from '../Home/Cloud/_actions';
+import { settings, settingsFilter, treeType } from './_actions';
+import { setTruss, trussImage } from './TreeView/Truss/_actions';
+import { Truss } from './TreeView/Truss/_types';
+import { usersAction } from './Accounts/_actions';
+import { withRouter } from 'react-router';
 import {
 	setHubJob,
 	setHubProject,
 	setHubTree,
 	setHubTruss,
 } from "../../reducers/hubReducer/_actions";
-import { createTruss, editTruss, OpenTruss } from "../../sagas/Truss/_actions";
-import { Fetch, Page, Project, TreeType } from "../../types/_types";
-import { setCloud } from "../Home/Cloud/_actions";
-import { usersAction } from "./Accounts/_actions";
-import Component from "./Component";
-import { quickSearch } from "./FastNavigation/_actions";
-import { QuickSearchRequest } from "./FastNavigation/_types";
-import { priceListsGetAction } from "./PriceLists/_actions";
-import { deleteProject } from "./Project/_actions";
-import { DeleteProject } from "./Project/_types";
+import {
+	createTruss,
+	EditTruss,
+	editTruss,
+	OpenTruss,
+} from "../../sagas/Truss/_actions";
 import {
 	addToSelectionAction,
 	removeFromSelectionAction,
@@ -45,14 +60,10 @@ import {
 	JobRootObject,
 	Unlock,
 } from "./TreeView/Job/_types";
-import { duplicateJob, setLoading } from "./TreeView/Project/General/_actions";
-import { getProjectFiles, setProject } from "./TreeView/Project/_actions";
 import {
 	IProjectDuplicate,
 	ProjectFileRequest,
 } from "./TreeView/Project/_types";
-import { setTruss, trussImage } from "./TreeView/Truss/_actions";
-import { Truss } from "./TreeView/Truss/_types";
 import {
 	customerTree,
 	jobTree,
@@ -62,7 +73,6 @@ import {
 	treeReset,
 	trussTree,
 } from "./TreeView/_actions";
-import { settings, settingsFilter, treeType } from "./_actions";
 
 const mapStateToProps = (state: any) => ({
 	activeTree: state.SettingsReducer.activeTree,
@@ -111,7 +121,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	treeReset: (data: Fetch) => dispatch(treeReset.request(data)),
 	removeJob: (data: DeleteJob) => dispatch(deleteJob.request(data)),
 	removeProject: (data: DeleteProject) => dispatch(deleteProject.request(data)),
-	editTruss: (data: OpenTruss) => dispatch(editTruss.request(data)),
+	editTruss: (data: EditTruss) => dispatch(editTruss.request(data)),
 	createTruss: (data: OpenTruss) => dispatch(createTruss.request(data)),
 	unlockJob: (data: Unlock) => dispatch(unlockJob.request(data)),
 	clearToast: () => dispatch(clearNotificationAction()),

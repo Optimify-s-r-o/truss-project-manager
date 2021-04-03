@@ -7,6 +7,7 @@ import RouteLeavingGuard from '../../../../../components/Prompt';
 import { Alert, Button as SButton, Modal } from 'antd';
 import { Button } from '../../../../../components/Optimify/Button';
 import { DeleteJob, JobProxy, Unlock } from '../_types';
+import { EditTruss } from '../../../../../sagas/Truss/_actions';
 import { fixed } from '../../../../../utils/formating';
 import { formatCurrency } from 'src/utils/currencyFormat';
 import { get } from 'lodash';
@@ -14,7 +15,6 @@ import { getPath, translationPath } from '../../../../../utils/getPath';
 import { Header } from '../components/Header';
 import { Input } from '../../../../../constants/enum';
 import { JobType, Settings, TreeType } from '../../../../../types/_types';
-import { OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { RightColumn } from './_styles';
 import { RouteComponentProps } from 'react-router-dom';
 import { UnitType } from '../../../../../components/Data/Unit';
@@ -56,7 +56,7 @@ export interface DisptachProps {
 	setSelectedKeys: (data: string[]) => void;
 	removeJob: (data: DeleteJob) => void;
 	unlockJob: (data: Unlock) => void;
-	editTruss: (data: OpenTruss) => void;
+	editTruss: (data: EditTruss) => void;
 }
 
 let globalCallback = null;

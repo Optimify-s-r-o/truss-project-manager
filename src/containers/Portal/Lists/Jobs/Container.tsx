@@ -1,7 +1,7 @@
 import Component, { StateProps } from './Component';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { editTruss, OpenTruss } from '../../../../sagas/Truss/_actions';
+import { EditTruss, editTruss } from '../../../../sagas/Truss/_actions';
 import { getHeaderSettings, putHeaderSettings } from '../_action';
 import { getJobs } from '../../SidebarFilter/_actions';
 import { Page } from '../../../../types/_types';
@@ -39,7 +39,7 @@ const mapStateToProps = (state: any): StateProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	getJobs: (data: Page) => dispatch(getJobs.request(data)),
-	editTruss: (data: OpenTruss) => dispatch(editTruss.request(data)),
+	editTruss: (data: EditTruss) => dispatch(editTruss.request(data)),
 	getUsers: (data: Page) => dispatch(usersAction.request(data)),
 	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
 	setExpandedKeys: (data: string[]) => dispatch(setExpandedKeys(data)),

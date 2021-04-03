@@ -3,7 +3,7 @@ import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { deleteJob, getTrusses, unlockJob } from '../_actions';
 import { DeleteJob, GetTrusses, Unlock } from '../_types';
-import { editTruss, OpenTruss } from '../../../../../sagas/Truss/_actions';
+import { EditTruss, editTruss } from '../../../../../sagas/Truss/_actions';
 import { setExpandedKeys, setSelectedKeys } from '../../_actions';
 import { withRouter } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
 	setExpandedKeys: (data: string[]) => dispatch(setExpandedKeys(data)),
 	removeJob: (data: DeleteJob) => dispatch(deleteJob.request(data)),
-	editTruss: (data: OpenTruss) => dispatch(editTruss.request(data)),
+	editTruss: (data: EditTruss) => dispatch(editTruss.request(data)),
 	unlockJob: (data: Unlock) => dispatch(unlockJob.request(data)),
 });
 

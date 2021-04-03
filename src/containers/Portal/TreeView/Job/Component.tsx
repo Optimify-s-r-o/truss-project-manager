@@ -6,31 +6,30 @@ import Quotations from './Quotations/Container';
 import React from 'react';
 import Trusses from './Trusses/Container';
 import Viewer from './Viewer/Container';
-import { HubComponent } from './HubComponent';
-import { JobType, TreeType } from '../../../../types/_types';
-import { MainTree } from '../../_styles';
-import { OpenTruss } from '../../../../sagas/Truss/_actions';
-import { Routes } from '../../../../constants/routes';
-import { translationPath } from '../../../../utils/getPath';
-import {
-	RouteComponentProps,
-	Switch,
-	useLocation,
-	useParams,
-} from "react-router-dom";
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation,
-} from "../../../../translation/i18n";
 import {
 	DeleteJob,
 	JobRootObject,
 	JobsSelectedRequest,
 	ProjectNameJobName,
-	Unlock,
-} from "./_types";
+	Unlock
+	} from './_types';
+import { HubComponent } from './HubComponent';
+import { JobType, TreeType } from '../../../../types/_types';
+import {
+	lang,
+	t,
+	WithTranslation,
+	withTranslation
+	} from '../../../../translation/i18n';
+import { MainTree } from '../../_styles';
+import {
+	RouteComponentProps,
+	Switch,
+	useLocation,
+	useParams
+	} from 'react-router-dom';
+import { Routes } from '../../../../constants/routes';
+import { translationPath } from '../../../../utils/getPath';
 const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
 export interface StateProps {
 	activeTree: TreeType;
@@ -47,7 +46,6 @@ export interface DispatchProps {
 	jobRequest: (data: JobsSelectedRequest) => void;
 	getJobImage: (data: string) => void;
 	removeJob: (data: DeleteJob) => void;
-	editTruss: (data: OpenTruss) => void;
 	jobImageByName: (data: ProjectNameJobName) => void;
 	setJob: (data: JobRootObject) => void;
 	unlockJob: (data: Unlock) => void;
@@ -56,13 +54,7 @@ export interface DispatchProps {
 
 const Index = ({
 	jobHub,
-	setJob,
-	job,
-	removeJob,
-	getJobImage,
-	editTruss,
 	setLoading,
-	unlockJob,
 	loadingPage,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const { id } = useParams<{ id: string; type?: string }>();

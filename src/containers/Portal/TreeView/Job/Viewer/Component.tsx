@@ -3,11 +3,11 @@ import Loading from '../../../../../components/Optimify/Loading';
 import React, { useEffect } from 'react';
 import { ActionSection } from '../../../../../components/Quotations';
 import { DeleteJob, Unlock } from '../_types';
+import { EditTruss } from '../../../../../sagas/Truss/_actions';
 import { Empty } from 'antd';
 import { File } from './components/File';
 import { Header } from '../components/Header';
 import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
-import { OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { Table } from './components/Table';
 import { translationPath } from '../../../../../utils/getPath';
 import { useParams } from 'react-router-dom';
@@ -34,7 +34,7 @@ export interface DispatchProps {
 	clearModels: (data: void) => void;
 	removeJob: (data: DeleteJob) => void;
 	unlockJob: (data: Unlock) => void;
-	editTruss: (data: OpenTruss) => void;
+	editTruss: (data: EditTruss) => void;
 }
 
 export default ({

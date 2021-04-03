@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { EditTruss } from '../../../../sagas/Truss/_actions';
 import { FilterContentType } from '../../SidebarFilter/_types';
 import { FilterRequest } from '../components/_types';
 import { Job } from '../../TreeView/_types';
@@ -6,7 +7,6 @@ import { JobColumnSelector } from './components/ColumnSelector';
 import { JobTable } from './components/Table';
 import { lang, WithTranslation } from '../../../../translation/i18n';
 import { Main } from '../../SidebarFilter/Jobs/_styles';
-import { OpenTruss } from '../../../../sagas/Truss/_actions';
 import { PutHeaderSettings } from '../_types';
 import { RouteComponentProps } from 'react-router';
 import { translationPath } from '../../../../utils/getPath';
@@ -58,7 +58,7 @@ export interface StateProps {
 interface DispatchProps {
 	getJobs: (data: Page) => void;
 	jobFilterRequest: (data: FilterRequest) => void;
-	editTruss: (data: OpenTruss) => void;
+	editTruss: (data: EditTruss) => void;
 	getUsers: (data: Page) => void;
 	setSelectedKeys: (data: string[]) => void;
 	setExpandedKeys: (data: string[]) => void;

@@ -2,13 +2,13 @@ import lang from '../../../../../translation/lang';
 import Loading from '../../../../../components/Optimify/Loading';
 import Navigation from '../../../../../components/NavigationCalculated';
 import React, { useEffect, useState } from 'react';
+import { EditTruss } from '../../../../../sagas/Truss/_actions';
 import { Empty, Popconfirm } from 'antd';
 import { faServer, faSync } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Header } from '../components/Header';
 import { JobType } from 'src/types/_types';
 import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
-import { OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { PriceList } from '../../../PriceLists/_types';
 import { QuotationCalculate } from '../../Project/_types';
 import { QuotationColumn } from '../../../../../constants/globalStyles';
@@ -60,7 +60,7 @@ export interface DispatchProps {
 	getJobQuotations: (data: string) => void;
 	removeJob: (data: DeleteJob) => void;
 	unlockJob: (data: Unlock) => void;
-	editTruss: (data: OpenTruss) => void;
+	editTruss: (data: EditTruss) => void;
 }
 
 export default ({

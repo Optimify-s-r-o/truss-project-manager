@@ -11,6 +11,7 @@ import {
 	JobTrusses,
 	Unlock
 	} from '../_types';
+import { EditTruss } from '../../../../../sagas/Truss/_actions';
 import { faMountains } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatCurrency } from 'src/utils/currencyFormat';
@@ -19,7 +20,6 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { IconTableCell } from './_styles';
 import { JobType, QuotationsSelection } from '../../../../../types/_types';
 import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
-import { OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { RouteComponentProps, useHistory, useParams } from 'react-router-dom';
 import { Routes } from '../../../../../constants/routes';
 import { Select } from 'antd';
@@ -59,7 +59,7 @@ export interface DispatchProps {
 	setExpandedKeys: (data: string[]) => void;
 	removeJob: (data: DeleteJob) => void;
 	unlockJob: (data: Unlock) => void;
-	editTruss: (data: OpenTruss) => void;
+	editTruss: (data: EditTruss) => void;
 }
 
 const Index = ({

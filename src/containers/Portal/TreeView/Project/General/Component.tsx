@@ -14,6 +14,7 @@ import { Customer } from 'src/containers/Portal/Customer/_types';
 import { CustomersAll } from '../../../Lists/Customers/_types';
 import { DeleteJob, RequestDownloadLink, Unlock } from '../../Job/_types';
 import { DeleteProject } from '../../../Project/_types';
+import { EditTruss, OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { FileRequest } from '../../../../../sagas/DownloadFile/_actions';
 import { Files } from './Files';
 import { formatCurrency } from 'src/utils/currencyFormat';
@@ -21,7 +22,6 @@ import { Header } from '../components/Header';
 import { IAddJsonToProject } from './File/_types';
 import { Input } from '../../../../../constants/enum';
 import { lastPathMember, translationPath } from '../../../../../utils/getPath';
-import { OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { RouteComponentProps } from 'react-router-dom';
 import { SelectedProjectsRequest } from '../../Projects/_types';
 import { useFormik } from 'formik';
@@ -87,7 +87,7 @@ export interface StateProps {
 export interface DispatchProps {
 	updateProject: (data: Project) => void;
 	addJsonRequest: (data: IAddJsonToProject) => void;
-	editTruss: (data: OpenTruss) => void;
+	editTruss: (data: EditTruss) => void;
 	createTruss: (data: OpenTruss) => void;
 	duplicateJob: (data: IProjectDuplicate) => void;
 	removeJob: (data: DeleteJob) => void;

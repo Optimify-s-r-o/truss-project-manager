@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import Tooltip from '../../../../../../../components/Optimify/Tooltip';
 import { ContentRow } from 'src/constants/globalStyles';
+import { EditTruss } from '../../../../../../../sagas/Truss/_actions';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from 'src/components/Icon';
 import { isElectron } from '../../../../../../../utils/electron';
 import { Open } from '../../_styles';
-import { OpenTruss } from '../../../../../../../sagas/Truss/_actions';
 import { translationPath } from '../../../../../../../utils/getPath';
 import {
 	lang,
@@ -21,7 +21,7 @@ import {
 } from "../../../../../../../types/_types";
 
 export interface OwnProps {
-	openTruss: (data: OpenTruss) => void;
+	openTruss: (data: EditTruss) => void;
 	leavingGuard?: (callback) => void;
 	id: string;
 	title?: string;

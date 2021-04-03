@@ -37,10 +37,7 @@ function* createTrussSaga(
 			return;
 		}
 
-		const local = yield select((state: any) => state.AuthReducer.local);
-		const api = local
-			? process.env.REACT_APP_API_URL_LOCAL
-			: process.env.REACT_APP_BACKEND_API;
+		const api = process.env.REACT_APP_BACKEND_API;
 		const token = yield select((state: any) => state.AuthReducer.token);
 
 		let inputPath: any = null;
@@ -123,45 +120,31 @@ function* createTrussSaga(
 function* editTrussSaga(
 	action: ReturnType<typeof editTruss.request>
 ): Generator {
-	var temp = window.require("temp"),
-		fs = window.require("fs"),
-		path = window.require("path"),
-		toBuffer = window.require("blob-to-buffer"),
-		exec = window.require("child_process").exec;
+	if (!trussFileExist(action.payload.trussExe)) {
+		yield put(
+			notificationAction({
+				code: Status.WARNING,
+				message: t(translationPath(lang.truss.trussFileNotExist)),
+			})
+		);
+		return;
+	}
 
 	try {
-		//Truss file not exists or is not executable file
-		if (!trussFileExist(action.payload.trussExe)) {
-			yield put(
-				notificationAction({
-					code: Status.WARNING,
-					message: t(translationPath(lang.truss.trussFileNotExist)),
-				})
-			);
-			return;
-		}
-
-		const local = yield select((state: any) => state.AuthReducer.local);
-		const api = local
-			? process.env.REACT_APP_API_URL_LOCAL
-			: process.env.REACT_APP_BACKEND_API;
-		const token = yield select((state: any) => state.AuthReducer.token);
-		let inputPath: any = null;
-		let jobId: string = action.payload.jobId;
-
 		yield put(
 			notificationAction({
 				code: Status.INFO,
 				message: t(translationPath(lang.truss.downloadingTrussFile)),
 			})
 		);
+
 		// @ts-ignore
 		const { errorResponseData, response, success } = yield call(
 			fetchSaga,
-			ApiURL.JOB_FILE,
+			ApiURL.JOB_DOWNLOAD_LINK,
 			Method.POST,
 			{
-				paramObject: { id: action.payload.jobId },
+				bodyJSON: { Id: action.payload.jobId },
 			}
 		);
 
@@ -179,45 +162,73 @@ function* editTrussSaga(
 			return;
 		}
 
-		yield put(
-			notificationAction({
-				code: Status.INFO,
-				message: t(translationPath(lang.truss.opening)),
-			})
+		const documents = yield select(
+			(state: any) => state.SettingsReducer.folders.documents
 		);
 
-		yield temp.mkdir("trussEdit", (_err, dirPath) => {
-			inputPath =
-				action.payload.fileType === TrussExe.TRUSS_2D
-					? path.join(dirPath, `${action.payload.jobName}.tr2`)
-					: path.join(dirPath, `${action.payload.jobName}.tr3`);
-			toBuffer(response, function (err, buffer) {
-				if (err) {
-					throw err;
-				}
-				fs.writeFile(inputPath, buffer, function (err, data) {
-					if (err) {
-						throw err;
-					}
-					const command = `"${action.payload.trussExe}" "${inputPath}" -e "${OpenTrussOption.EDITJOB}" -url "${api}" -job "${jobId}" -token "${token}"`;
-					console.log(command);
-					exec(command, (err, stdout, _stderr) => {
-						if (err) {
-							console.log(err);
-							put(
-								notificationAction({
-									code: Status.ERROR,
-									message: t(translationPath(lang.truss.exeFailedToOpen)),
-								})
-							);
-							return;
-						}
-						console.log(stdout);
-					});
-				});
-			});
-		});
+		const token = yield select((state: any) => state.AuthReducer.token);
+		const trussPath = `${documents}/Truss Project Manager/${action.payload.projectName}/${action.payload.jobName}.tr3`;
 
+		const trussResponse: any = yield call(fetch, response.Url);
+		console.log(trussResponse);
+
+		if (trussResponse.ok) {
+			const blob: any = yield call([trussResponse, trussResponse.blob]);
+			yield put(
+				notificationAction({
+					code: Status.INFO,
+					message: t(translationPath(lang.truss.opening)),
+				})
+			);
+			try {
+				const fs = window.require("fs");
+				const reader = new FileReader();
+				reader.onloadend = () => {
+					fs.mkdir(
+						`${documents}/Truss Project Manager/${action.payload.projectName}/`,
+						{ recursive: true },
+						(err) => {
+							if (err) throw err;
+							fs.writeFile(
+								trussPath,
+								new Uint8Array(reader.result as any),
+								(err) => {
+									if (err) {
+										alert("An error ocurred creating the file " + err.message);
+									} else {
+										const command = `"${action.payload.trussExe}" "${trussPath}" -e "${OpenTrussOption.EDITJOB}" -url "${process.env.REACT_APP_BACKEND_API}" -job "${action.payload.jobId}" -token "${token}"`;
+										console.log(command);
+										const exec = window.require("child_process").exec;
+										exec(command, (err, stdout, _stderr) => {
+											if (err) {
+												notificationAction({
+													code: Status.ERROR,
+													message: t(
+														translationPath(lang.truss.exeFailedToOpen)
+													),
+												});
+												return;
+											}
+											console.log(stdout);
+										});
+									}
+								}
+							);
+						}
+					);
+				};
+				reader.readAsArrayBuffer(blob);
+			} catch (e) {
+				console.log(e);
+				yield put(
+					notificationAction({
+						code: Status.ERROR,
+						message: t(translationPath(lang.truss.openFailed)),
+					})
+				);
+			}
+			return;
+		}
 		yield put(editTruss.success());
 	} catch (error) {
 		yield put(

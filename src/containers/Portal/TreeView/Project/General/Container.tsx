@@ -23,6 +23,7 @@ import {
 } from "../../../../../sagas/DownloadFile/_actions";
 import {
 	createTruss,
+	EditTruss,
 	editTruss,
 	OpenTruss,
 } from "../../../../../sagas/Truss/_actions";
@@ -44,7 +45,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	addJsonRequest: (data: IAddJsonToProject) =>
 		dispatch(addJsonToProject.request(data)),
 	createTruss: (data: OpenTruss) => dispatch(createTruss.request(data)),
-	editTruss: (data: OpenTruss) => dispatch(editTruss.request(data)),
+	editTruss: (data: EditTruss) => dispatch(editTruss.request(data)),
 	duplicateJob: (data: IProjectDuplicate) =>
 		dispatch(duplicateJob.request(data)),
 	removeJob: (data: DeleteJob) => dispatch(deleteJob.request(data)),

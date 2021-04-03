@@ -46,6 +46,7 @@ export enum ApiURL {
 	JOB_FILTER = "/api/jobs/filter",
 	JOB_DUPLICATE = "/api/jobs/duplicate",
 	JOB_FILE = "/api/jobs/trussfile",
+	JOB_DOWNLOAD_LINK = "/api/jobs/download-link",
 	JOB_IMAGE = "/api/jobs/schema",
 	//Projects
 	PROJECTS = "/api/projects",

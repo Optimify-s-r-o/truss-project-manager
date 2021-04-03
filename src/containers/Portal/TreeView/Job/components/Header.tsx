@@ -2,6 +2,7 @@ import EditJob from '../../Project/General/components/EditJob';
 import Navigation from '../../../../../components/NavigationLink';
 import { Delete, Lock } from '../../../../../components/Button';
 import { DeleteJob, JobProxy, Unlock } from '../_types';
+import { EditTruss } from '../../../../../sagas/Truss/_actions';
 import { faCube } from '@fortawesome/pro-duotone-svg-icons';
 import { faHomeLgAlt, faMountains } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +11,6 @@ import { getPath, translationPath } from '../../../../../utils/getPath';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { JobType } from '../../../../../types/_types';
 import { lang } from '../../../../../translation/i18n';
-import { OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { Phase } from '../../../../../components/Phase';
 import { Routes } from '../../../../../constants/routes';
 import { useLocation, useParams } from 'react-router-dom';
@@ -37,7 +37,7 @@ export interface JobHeader {
 	removeJob: (data: DeleteJob) => void;
 	unlockJob: (data: Unlock) => void;
 	leavingGuard?: (callback) => void;
-	editTruss: (data: OpenTruss) => void;
+	editTruss: (data: EditTruss) => void;
 }
 
 export const Header = ({

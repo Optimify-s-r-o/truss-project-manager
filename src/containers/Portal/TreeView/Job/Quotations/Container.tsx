@@ -2,7 +2,7 @@ import Component, { DispatchProps, StateProps } from './Component';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { DeleteJob, JobsSelectedRequest, Unlock } from '../_types';
-import { editTruss, OpenTruss } from '../../../../../sagas/Truss/_actions';
+import { EditTruss, editTruss } from '../../../../../sagas/Truss/_actions';
 import { QuotationCalculate } from '../../Project/_types';
 import { withRouter } from 'react-router-dom';
 import {
@@ -50,7 +50,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 		dispatch(quotationListGetAction.request(data)),
 	getJobQuotations: (data: string) => dispatch(getJobQuotations.request(data)),
 	removeJob: (data: DeleteJob) => dispatch(deleteJob.request(data)),
-	editTruss: (data: OpenTruss) => dispatch(editTruss.request(data)),
+	editTruss: (data: EditTruss) => dispatch(editTruss.request(data)),
 	unlockJob: (data: Unlock) => dispatch(unlockJob.request(data)),
 });
 

@@ -6,6 +6,7 @@ import NewJob from './components/NewJob';
 import { CreateJobFromFile } from '../../../../../sagas/CreateJobFromFile';
 import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
 import { DeleteJob, RequestDownloadLink, Unlock } from '../../Job/_types';
+import { EditTruss, OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { formatCurrency } from 'src/utils/currencyFormat';
 import { get } from 'lodash';
 import { getPath, translationPath } from '../../../../../utils/getPath';
@@ -13,7 +14,6 @@ import { IAddJsonToProject } from './File/_types';
 import { Input } from '../../../../../constants/enum';
 import { IProjectDuplicate } from '../_types';
 import { NameColumn, StatusBox, VerticalScroll } from './_styles';
-import { OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { Routes } from '../../../../../constants/routes';
 import {
 	Clone,
@@ -61,7 +61,7 @@ export interface OwnProps {
 	activeTree: TreeType;
 	project: Project;
 	formik: any;
-	editTruss: (data: OpenTruss) => void;
+	editTruss: (data: EditTruss) => void;
 	createTruss: (data: OpenTruss) => void;
 	addJsonRequest: (data: IAddJsonToProject) => void;
 	duplicate: (data: IProjectDuplicate) => void;

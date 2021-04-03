@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Export from '../../../../../components/Export';
 import Loading from '../../../../../components/Optimify/Loading';
+import { EditTruss } from '../../../../../sagas/Truss/_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Header } from '../components/Header';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -8,7 +9,6 @@ import { IconTableCell } from './_styles';
 import { JobType } from 'src/types/_types';
 import { lastPathMember, translationPath } from '../../../../../utils/getPath';
 import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
-import { OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { Plate, PlateProxy } from '../../Truss/_types';
 import { RouteComponentProps, useParams } from 'react-router-dom';
 import {
@@ -55,7 +55,7 @@ export interface DispatchProps {
 	getJobMaterials: (data: string) => void;
 	removeJob: (data: DeleteJob) => void;
 	unlockJob: (data: Unlock) => void;
-	editTruss: (data: OpenTruss) => void;
+	editTruss: (data: EditTruss) => void;
 }
 
 const Index = ({
