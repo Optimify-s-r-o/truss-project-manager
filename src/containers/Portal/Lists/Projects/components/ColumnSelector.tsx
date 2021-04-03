@@ -5,7 +5,10 @@ import { FilterContentType, FilterProxy } from '../../../SidebarFilter/_types';
 import { getPath, translationPath } from '../../../../../utils/getPath';
 import { lang } from '../../../../../translation/i18n';
 import { PutHeaderSettings } from '../../_types';
+import { RootStateType } from '../../../../../reducers/index';
+import { setSort, setSortOrder } from '../../_action';
 import { TreeType } from '../../../../../types/_types';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
 	ContentInline,
@@ -29,6 +32,10 @@ export const ProjectColumnSelector = ({
 	setColumns,
 }: ColumnSelector) => {
 	const { t } = useTranslation();
+	const dispatch = useDispatch();
+	const state = useSelector(
+		(state: RootStateType) => state.HeaderSettingsReducer
+	);
 
 	useEffect(() => {
 		setChecked(
@@ -42,12 +49,25 @@ export const ProjectColumnSelector = ({
 	}, [initHeaders]);
 
 	const changeChecked = (newItem: Checkbox) => {
-		const hasDuplicates = checked?.find((item) => item.name === newItem.name);
+		const index = checked?.findIndex((item) => item.name === newItem.name);
 		let newCheckboxes = [];
-		if (hasDuplicates) {
+		if (index !== -1) {
 			newCheckboxes = checked.filter((item) => item.name !== newItem.name);
+			let temp = state.sort;
+			temp.splice(index, 1);
+			const newStateOrder = state.sortOrder.map(
+				(value: number, key: number) => {
+					if (value > index) {
+						return value - 1;
+					}
+					return value;
+				}
+			);
+			dispatch(setSortOrder(newStateOrder));
+			dispatch(setSort(temp));
 		} else {
 			newCheckboxes = [...checked, newItem];
+			dispatch(setSort([...state.sort, 0]));
 		}
 		putHeaderSettings({
 			Param: TreeType.PROJECT,

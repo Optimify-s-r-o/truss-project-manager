@@ -1,14 +1,15 @@
-import lang from '../../../translation/lang';
-import Loading from '../Loading';
+import lang from '../../translation/lang';
+import Loading from '../Optimify/Loading';
 import Pagination from './Pagination';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Page } from '../../../types/_types';
+import { Page } from '../../types/_types';
 import { ScrollableTable, SortOptions, SortType } from '.';
-import { translationPath } from '../../../utils/getPath';
+import { translationPath } from '../../utils/getPath';
 import { useTranslation } from 'react-i18next';
 
 interface OwnProps {
+	activeFilter?: boolean;
 	headers?: Array<string>;
 	data: Array<any>;
 	renderers: Array<(value: any, key?: number, parent?: any) => any>;
@@ -26,10 +27,12 @@ interface OwnProps {
 	isLoading?: boolean;
 	initSortOrder?: number[];
 	initSort?: number[];
+	names?: string[];
 }
 
 const ExternalTable = (props: OwnProps) => {
 	const {
+		activeFilter,
 		headers,
 		data,
 		renderers,
@@ -47,6 +50,7 @@ const ExternalTable = (props: OwnProps) => {
 		filterContent,
 		initSort,
 		initSortOrder,
+		names,
 	} = props;
 
 	const [selectedPageSize, setSelectedPageSize] = React.useState(
@@ -120,6 +124,8 @@ const ExternalTable = (props: OwnProps) => {
 					initialSort={sort}
 					initialSortOrder={sortOrder}
 					filterContent={filterContent}
+					activeFilter={activeFilter}
+					names={names}
 				/>
 				<HorizontalLine />
 				<Pagination

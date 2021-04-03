@@ -1,4 +1,4 @@
-import ExternalTable from '../../../../../components/Optimify/Table/ExternalTable';
+import ExternalTable from '../../../../../components/Table/ExternalTable';
 import React from 'react';
 import { CardMiddleTableWrapper } from '../../../../../constants/globalStyles';
 import { Checkbox } from '../../Jobs/Component';

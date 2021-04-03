@@ -1,4 +1,4 @@
-import ExternalTable from '../../../../../components/Optimify/Table/ExternalTable';
+import ExternalTable from '../../../../../components/Table/ExternalTable';
 import Moment from 'react-moment';
 import React from 'react';
 import { CardMiddleTableWrapper } from '../../../../../constants/globalStyles';

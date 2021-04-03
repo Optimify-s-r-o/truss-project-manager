@@ -18,8 +18,14 @@ export const setDisabledColumnSelector = createAction(
 	"SET_DISABLED_COLUMN_SELECTOR"
 )<string[]>();
 
+export const setSort = createAction("SET_SORT")<number[]>();
+
+export const setSortOrder = createAction("SET_SORT_ORDER")<number[]>();
+
 export type HeaderSettingsType = ActionType<
 	| typeof putHeaderSettings
 	| typeof getHeaderSettings
 	| typeof setDisabledColumnSelector
+	| typeof setSort
+	| typeof setSortOrder
 >;

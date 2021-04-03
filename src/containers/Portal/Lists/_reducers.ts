@@ -5,6 +5,8 @@ import {
 	HeaderSettingsType,
 	putHeaderSettings,
 	setDisabledColumnSelector,
+	setSort,
+	setSortOrder,
 } from "./_action";
 
 const initialState: HeaderSettingsStateType = {
@@ -26,9 +28,23 @@ export const HeaderSettingsReducer = (
 				...state,
 				disabled: action.payload,
 			};
+		case getType(setSort):
+			return {
+				...state,
+				sort: action.payload,
+			};
+		case getType(setSortOrder):
+			return {
+				...state,
+				sortOrder: action.payload,
+			};
 		case getType(getHeaderSettings.request):
 			return {
 				...initialState,
+				sort: [],
+				sortOrder: [],
+				headers: null,
+				disabled: null,
 				pending: true,
 			};
 		case getType(putHeaderSettings.request):

@@ -1,13 +1,20 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useResizeAware from 'react-resize-aware';
-import { device } from '../../../constants/theme';
+import { device } from '../../constants/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { RootStateType } from '../../reducers/index';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	faSortAmountDownAlt,
 	faSortAmountUp,
 } from "@fortawesome/pro-duotone-svg-icons";
+import {
+	setDisabledColumnSelector,
+	setSort,
+	setSortOrder,
+} from "../../containers/Portal/Lists/_action";
 
 export enum SortOptions {
 	Default,
@@ -21,6 +28,7 @@ export enum SortType {
 }
 
 interface TableProps {
+	activeFilter?: boolean;
 	data?: Array<any>;
 	renderers: Array<(value: any, key: number, parent: any) => any>;
 	headers?: Array<string>;
@@ -31,6 +39,7 @@ interface TableProps {
 	initialSort?: SortOptions[];
 	initialSortOrder?: number[];
 	filterContent?: string[];
+	names?: string[];
 }
 
 interface ScrollableProps {
@@ -41,69 +50,47 @@ export const TABLE_STYLE_DEFAULT = "default";
 export const TABLE_STYLE_CONDENSED = "condensed";
 
 export const Table = (props: TableProps) => {
-	const getDefaultSort = () => {
-		let defaultSort;
-		if (props.sortable && props.headers?.length) {
-			defaultSort = [];
-			for (let i = 0; i < props.headers?.length; i++)
-				if (props.sortable[i]) defaultSort[i] = SortOptions.Default;
+	const dispatch = useDispatch();
+	const state = useSelector(
+		(state: RootStateType) => state.HeaderSettingsReducer
+	);
+
+	useEffect(() => {
+		if (props.initialSort && props.initialSortOrder) {
+			dispatch(
+				setDisabledColumnSelector(
+					props.names.filter((value: string, key: number) => {
+						if (props.initialSort[key] == 1 || props.initialSort[key] == 2)
+							return value;
+					})
+				)
+			);
 		}
-		return defaultSort;
-	};
-
-	const [sort, setSort] = React.useState<Array<SortOptions>>(
-		props.initialSort ? props.initialSort : getDefaultSort()
-	);
-	const [sortOrder, setSortOrder] = React.useState<Array<number>>(
-		props.initialSortOrder ? props.initialSortOrder : []
-	);
-	const [headers, setHeaders] = React.useState<Array<string> | undefined>(
-		props.headers
-	);
-	React.useEffect(() => {
-		let newSort = getDefaultSort();
-		let newSortOrder: any[] = [];
-		let headerKeysMapping: any[] = [];
-
-		if (typeof newSort !== "undefined") {
-			headers?.forEach((header: string, key: number) => {
-				if (props.headers?.includes(header)) {
-					newSort[props.headers.indexOf(header)] = sort[key];
-					headerKeysMapping[key] = props.headers.indexOf(header);
-				}
-			});
-			sortOrder.forEach((oldHeaderKey: number, order: number) => {
-				if (typeof headerKeysMapping[oldHeaderKey] !== "undefined")
-					newSortOrder[order] = headerKeysMapping[oldHeaderKey];
-			});
-
-			if (
-				JSON.stringify(newSort) !== JSON.stringify(sort) &&
-				JSON.stringify(newSortOrder) !== JSON.stringify(sortOrder)
-			)
-				props.onSort && props.onSort(newSort, newSortOrder);
-			setSort(newSort);
-			setSortOrder(newSortOrder);
-		}
-
-		setHeaders(props.headers);
-	}, [props.headers]);
+	}, [props.initialSort, props.initialSortOrder]);
 
 	const handleSort = (key: number, sortOption: SortOptions) => (
 		e: React.MouseEvent<HTMLElement, MouseEvent>
 	) => {
-		const newSort = [...sort];
+		const newSort = [...state.sort];
 		newSort[key] = newSort[key] === sortOption ? 0 : sortOption;
-		setSort(newSort);
+		dispatch(setSort(newSort));
+		if (props.names) {
+			dispatch(
+				setDisabledColumnSelector(
+					props.names?.filter((value: string, key: number) => {
+						if (newSort[key] == 1 || newSort[key] == 2) return value;
+					})
+				)
+			);
+		}
 
-		let newSortOrder = [...sortOrder];
+		let newSortOrder = [...state.sortOrder];
 
 		if (!newSortOrder.includes(key) && newSort[key] !== SortOptions.Default)
 			newSortOrder.push(key);
 		else if (newSortOrder.includes(key) && newSort[key] === SortOptions.Default)
 			newSortOrder = newSortOrder.filter((val) => val !== key);
-		setSortOrder(newSortOrder);
-
+		dispatch(setSortOrder(newSortOrder));
 		if (props.sortType === SortType.External) {
 			props.onSort && props.onSort(newSort, newSortOrder);
 		}
@@ -113,36 +100,40 @@ export const Table = (props: TableProps) => {
 		<TableElement>
 			<TableHead>
 				<TableRow>
-					{headers?.map((header: string, key: any) => (
+					{props.headers?.map((header: string, key: any) => (
 						<TableHeading
 							key={key}
 							tableStyle={props.style ? props.style : TABLE_STYLE_DEFAULT}
 						>
 							<Header>
 								<HeaderColumn>{header}</HeaderColumn>
-								{props.sortable &&
-									sort &&
-									key in sort &&
-									typeof sort[key] != "undefined" && (
+								{props.sortable[key] &&
+									state.sort &&
+									key in state?.sort &&
+									typeof state?.sort[key] != "undefined" && (
 										<SortColumn>
 											<Sort
 												onClick={handleSort(key, 1)}
-												active={sort[key] === SortOptions.Asc}
+												active={state?.sort[key] === SortOptions.Asc}
 											>
 												<FontAwesomeIcon
 													icon={faSortAmountDownAlt as IconProp}
 												/>
-												{sort[key] === SortOptions.Asc && (
-													<SortOrder>{sortOrder.indexOf(key) + 1}</SortOrder>
+												{state?.sort[key] === SortOptions.Asc && (
+													<SortOrder>
+														{state.sortOrder.indexOf(key) + 1}
+													</SortOrder>
 												)}
 											</Sort>
 											<Sort
 												onClick={handleSort(key, 2)}
-												active={sort[key] === SortOptions.Desc}
+												active={state.sort[key] === SortOptions.Desc}
 											>
 												<FontAwesomeIcon icon={faSortAmountUp as IconProp} />
-												{sort[key] === SortOptions.Desc && (
-													<SortOrder>{sortOrder.indexOf(key) + 1}</SortOrder>
+												{state.sort[key] === SortOptions.Desc && (
+													<SortOrder>
+														{state.sortOrder.indexOf(key) + 1}
+													</SortOrder>
 												)}
 											</Sort>
 										</SortColumn>
@@ -154,13 +145,17 @@ export const Table = (props: TableProps) => {
 			</TableHead>
 
 			<TableBody>
-				{props.filterContent && props.filterContent.length > 0 && (
-					<TableFilter>
-						{props.filterContent?.map((value, key) => {
-							return <TableFilterHeading key={key}>{value}</TableFilterHeading>;
-						})}
-					</TableFilter>
-				)}
+				{props.activeFilter &&
+					props.filterContent &&
+					props.filterContent.length > 0 && (
+						<TableFilter>
+							{props.filterContent?.map((value, key) => {
+								return (
+									<TableFilterHeading key={key}>{value}</TableFilterHeading>
+								);
+							})}
+						</TableFilter>
+					)}
 
 				{props.data &&
 					[...props.data]
@@ -168,12 +163,12 @@ export const Table = (props: TableProps) => {
 							if (!props.sortable || props.sortType === SortType.External)
 								return 0;
 
-							for (let i = 0; i < sortOrder.length; i++) {
-								let column = sortOrder[i];
-								if (sort[column] === SortOptions.Desc) {
+							for (let i = 0; i < state.sortOrder.length; i++) {
+								let column = state.sortOrder[i];
+								if (state.sort[column] === SortOptions.Desc) {
 									if (a[column] < b[column]) return 1;
 									else if (a[column] > b[column]) return -1;
-								} else if (sort[column] === SortOptions.Asc) {
+								} else if (state.sort[column] === SortOptions.Asc) {
 									if (a[column] > b[column]) return 1;
 									else if (a[column] < b[column]) return -1;
 								}
@@ -405,7 +400,7 @@ const TableFilterHeading = styled.td`
 		border-right: 1px solid
 			${(props) => props.theme.colors.background.primary.active};
 	}
-
+	height: 20px;
 	padding: 4px 2px;
 	${Scrollable} & {
 		position: sticky;
