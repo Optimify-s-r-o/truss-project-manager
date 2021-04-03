@@ -145,14 +145,20 @@ export const PriceListEditor = ({
 									</PLTr>
 								);
 							})}
+							<PLTr>
+								<PLName></PLName>
+								<PLQuantity></PLQuantity>
+								<PLPrice></PLPrice>
+								<PLPrice></PLPrice>
+								<PLActions>
+									<AddSectionButton onClick={() => addItem()}>
+										<FontAwesomeIcon icon={faPlusCircle} color={"green"} />{" "}
+										{t(translationPath(lang.priceLists.addItem).path)}
+									</AddSectionButton>
+								</PLActions>
+							</PLTr>
 						</PLTableBody>
 					</PLTable>
-					<RowEnd>
-						<AddSectionButton onClick={() => addItem()}>
-							<FontAwesomeIcon icon={faPlusCircle} color={"green"} />{" "}
-							{t(translationPath(lang.priceLists.addItem).path)}
-						</AddSectionButton>
-					</RowEnd>
 				</PLGrid>
 			</GridRow>
 		</>
@@ -278,8 +284,8 @@ const RemoveItemButton = styled.button`
 	transition: all 0.2s ease-out;
 
 	svg {
-		margin-right: 4px;
-
+		margin-right: 8px;
+		font-size: 1.1rem;
 		color: #e03838;
 	}
 
@@ -289,25 +295,18 @@ const RemoveItemButton = styled.button`
 `;
 
 const AddSectionButton = styled.button`
-	margin: 0.25rem 1rem;
-	padding: 0.5rem 1rem;
-
 	background: transparent;
 	border: none;
 	border-radius: 3px;
 	color: green;
-
+	font-size: 0.9em;
 	cursor: pointer;
 	transition: all 0.2s ease-out;
 
 	svg {
 		margin: 0 0.5rem -2px 0;
 
-		font-size: 1.25rem;
-	}
-
-	&:hover {
-		box-shadow: ${(props) => props.theme.boxShadowHalf};
+		font-size: 1.1rem;
 	}
 `;
 

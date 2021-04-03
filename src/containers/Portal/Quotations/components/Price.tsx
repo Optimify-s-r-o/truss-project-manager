@@ -255,6 +255,7 @@ const Label = styled.label`
 
 const Wrapper = styled(ContentRow)`
 	width: 100%;
+	margin-bottom: 8px;
 `;
 
 const Input = styled.input<{ width?: number }>`

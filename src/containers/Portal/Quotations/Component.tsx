@@ -194,7 +194,7 @@ const Index = ({
 									option.children.toLowerCase().indexOf(input.toLowerCase()) >=
 									0
 								}
-								style={{ width: "300px", marginLeft: 10, marginTop: 10 }}
+								style={{ width: "300px", marginLeft: 10 }}
 								placeholder={t(translationPath(lang.templates.template))}
 								onChange={handleQuotationTypeChange}
 								value={typeParam}
