@@ -77,6 +77,7 @@ export const HubComponent = ({
 			try {
 				await connect.start();
 				connect.invoke(Hub.RequestNewTree, TreeType.PROJECT, 0, 25, "");
+				console.log("request filters");
 				connect.invoke(Hub.RequestFilters);
 			} catch (err) {
 				console.log(err);
