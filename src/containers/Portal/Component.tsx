@@ -266,6 +266,7 @@ const Index = ({
 	return (
 		<HubComponent
 			setHubConnection={setHubConnection}
+			filterSettingsCall={filterSettingsCall}
 			connect={connect}
 			setActiveTree={setActiveTree}
 			setActive={setActive}

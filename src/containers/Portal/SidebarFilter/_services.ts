@@ -182,6 +182,14 @@ export const getJobsFilters = (filter: FilterSettings): JobsFilter => {
 			...activation,
 			WindAreas: [],
 		},
+		WindFilter: getObject(
+			get(filter, getPath(FilterSettingsProxy.Job.WindFrom)),
+			get(filter, getPath(FilterSettingsProxy.Job.WindTo))
+		),
+		SnowFilter: getObject(
+			get(filter, getPath(FilterSettingsProxy.Job.SnowFrom)),
+			get(filter, getPath(FilterSettingsProxy.Job.SnowTo))
+		),
 		AltitudeFilter: getObject(
 			get(filter, getPath(FilterSettingsProxy.Job.AltitudeTo)),
 			get(filter, getPath(FilterSettingsProxy.Job.AltitudeTo))

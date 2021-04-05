@@ -127,14 +127,14 @@ export const JobColumnSelector = ({
 		{
 			name: "Price",
 			title: t(translationPath(lang.common.designPrice).path),
-			section: "Calculation",
+			section: "DesignPrice",
 			filter: getPath(FilterProxy.Jobs.PriceFilter),
 			filterType: FilterContentType.RANGE,
 		},
 		{
 			name: "PricePerSquareMeter",
 			title: t(translationPath(lang.common.pricePerSquareMeter).path),
-			section: "Calculation",
+			section: "DesignPrice",
 			filter: getPath(FilterProxy.Jobs.PricePerSquareMeterFilter),
 			filterType: FilterContentType.RANGE,
 		},
@@ -157,13 +157,25 @@ export const JobColumnSelector = ({
 			name: "SnowRegion",
 			title: t(translationPath(lang.common.snowArea).path),
 			section: "Load",
-			filter: null,
+			filterType: FilterContentType.ARRAY,
 		},
 		{
 			name: "WindRegion",
 			title: t(translationPath(lang.common.windArea).path),
 			section: "Load",
-			filter: null,
+			filterType: FilterContentType.ARRAY,
+		},
+		{
+			name: "WindLoad",
+			title: t(translationPath(lang.common.windLoad).path),
+			section: "Load",
+			filterType: FilterContentType.RANGE,
+		},
+		{
+			name: "SnowLoad",
+			title: t(translationPath(lang.common.snowLoad).path),
+			section: "Load",
+			filterType: FilterContentType.RANGE,
 		},
 	];
 

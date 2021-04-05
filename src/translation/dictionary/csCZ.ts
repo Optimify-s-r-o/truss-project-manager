@@ -493,6 +493,7 @@ const dictionary: Lang = {
 		checkboxSectionDate: "Datumy",
 		checkboxSectionStatistics: "Statistika",
 		checkboxSectionCalculation: "Kalkulace",
+		checkboxSectionDesignPrice: "Cena dle návrhu",
 		checkboxSectionDimensions: "Rozměry",
 		checkboxSectionLoad: "Zatížení",
 		checkboxSectionWeight: "Hmotnost",

@@ -232,6 +232,18 @@ export const Active = ({ active, formik, activeFilterContent }: IActive) => {
 				includeNotSet={formik.values?.Jobs?.WindAreaFilter?.IncludeNotSet}
 				type={TreeType.JOB}
 			/>
+			<SliderRange
+				title={t(translationPath(lang.common.snowLoad).path)}
+				value={formik.values?.Jobs?.SnowFilter}
+				show={formik.values?.Jobs?.SnowFilter?.Active}
+				type={TreeType.JOB}
+			/>
+			<SliderRange
+				title={t(translationPath(lang.common.windLoad).path)}
+				value={formik.values?.Jobs?.WindFilter}
+				show={formik.values?.Jobs?.WindFilter?.Active}
+				type={TreeType.JOB}
+			/>
 			<Row
 				title={t(translationPath(lang.common.ceilingName).path)}
 				value={formik.values?.Jobs?.CeilingNameFilter?.Name}

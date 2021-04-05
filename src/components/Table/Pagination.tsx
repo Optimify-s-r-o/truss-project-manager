@@ -59,7 +59,7 @@ const Pagination = (props: OwnProps) => {
 							onPageRequired({
 								PageSize: pageSize,
 								Page: 0,
-								Sort: sort,
+								...(sort && { Sort: sort }),
 							});
 						}}
 					>
@@ -77,7 +77,7 @@ const Pagination = (props: OwnProps) => {
 							onPageRequired({
 								PageSize: pageSize,
 								Page: currentPage - 2,
-								Sort: sort,
+								...(sort && { Sort: sort }),
 							});
 						}}
 					>
@@ -95,7 +95,7 @@ const Pagination = (props: OwnProps) => {
 							onPageRequired({
 								PageSize: pageSize,
 								Page: currentPage,
-								Sort: sort,
+								...(sort && { Sort: sort }),
 							});
 						}}
 					>
@@ -117,7 +117,7 @@ const Pagination = (props: OwnProps) => {
 							onPageRequired({
 								PageSize: pageSize,
 								Page: totalPages - 1,
-								Sort: sort,
+								...(sort && { Sort: sort }),
 							});
 						}}
 					>

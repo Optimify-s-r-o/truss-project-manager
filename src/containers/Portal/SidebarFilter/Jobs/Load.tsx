@@ -35,6 +35,8 @@ const Index = (props: OwnProps & WithTranslation) => {
 			filters={[
 				lastPathMember(FilterProxy.Jobs.AltitudeFilter).path,
 				lastPathMember(FilterProxy.Jobs.CentresFilter).path,
+				lastPathMember(FilterProxy.Jobs.WindFilter).path,
+				lastPathMember(FilterProxy.Jobs.SnowFilter).path,
 			]}
 			checkboxes={[
 				getPath(FilterSettingsProxy.Job.WindAreas),
@@ -50,12 +52,20 @@ const Index = (props: OwnProps & WithTranslation) => {
 					from: getPath(FilterSettingsProxy.Truss.CentresFrom),
 					to: getPath(FilterSettingsProxy.Truss.CentresTo),
 				},
+				{
+					from: getPath(FilterSettingsProxy.Job.WindFrom),
+					to: getPath(FilterSettingsProxy.Job.WindTo),
+				},
+				{
+					from: getPath(FilterSettingsProxy.Job.SnowFrom),
+					to: getPath(FilterSettingsProxy.Job.SnowTo),
+				},
 			]}
 		>
 			<EmptyFilter
 				filter={filter}
 				type="Job"
-				names={["Altitude", "Centres"]}
+				names={["Altitude", "Centres", "Snow", "Wind"]}
 				array={["WindAreas", "SnowAreas"]}
 			>
 				<FormSlider
@@ -99,6 +109,24 @@ const Index = (props: OwnProps & WithTranslation) => {
 					path={getPath(FilterProxy.Jobs.WindAreaFilter)}
 					title={t(translationPath(lang.common.windArea))}
 					value={formik.values?.Jobs?.WindAreaFilter?.WindAreas}
+				/>
+				<FormSlider
+					label={t(translationPath(lang.common.snowLoad))}
+					name={getPath(FilterProxy.Jobs.SnowFilter)}
+					formik={formik}
+					from={formik?.values?.Jobs.SnowFilter?.From}
+					to={formik?.values?.Jobs.SnowFilter?.To}
+					settingsFrom={filter?.Job?.SnowFrom}
+					settingsTo={filter?.Job?.SnowTo}
+				/>
+				<FormSlider
+					label={t(translationPath(lang.common.windLoad))}
+					name={getPath(FilterProxy.Jobs.WindFilter)}
+					formik={formik}
+					from={formik?.values?.Jobs.WindFilter?.From}
+					to={formik?.values?.Jobs.WindFilter?.To}
+					settingsFrom={filter?.Job?.WindFrom}
+					settingsTo={filter?.Job?.WindTo}
 				/>
 			</EmptyFilter>
 		</FilterSection>

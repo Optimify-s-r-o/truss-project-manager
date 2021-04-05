@@ -500,6 +500,7 @@ const dictionary: Lang = {
 		checkboxSectionDate: "Termine",
 		checkboxSectionStatistics: "Statistik",
 		checkboxSectionCalculation: "Berechnung",
+		checkboxSectionDesignPrice: "Preis je nach Design",
 		checkboxSectionDimensions: "Maße",
 		checkboxSectionLoad: "Belastung",
 		checkboxSectionWeight: "Masse",

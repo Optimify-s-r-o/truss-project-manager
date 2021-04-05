@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
+import { ApiURL } from '../../constants/api';
+import { Fetch, Project, TreeType } from '../../types/_types';
 import { Hub, HubApi } from '../../constants/hub';
 import { JobRootObject } from './TreeView/Job/_types';
-import { Project, TreeType } from '../../types/_types';
+import { Method } from '../../constants/enum';
 import { RootStateType } from '../../reducers/index';
+import { settingsFilter } from './_actions';
 import { Truss } from './TreeView/Truss/_types';
 import { useSelector } from 'react-redux';
 import {
@@ -32,6 +35,7 @@ export interface HubComponent {
 	setTruss: (data: Truss) => void;
 	getTruss: (id: string) => void;
 	setLoading: (data: boolean) => void;
+	filterSettingsCall: (data: Fetch) => void;
 }
 
 export const HubComponent = ({
@@ -52,6 +56,7 @@ export const HubComponent = ({
 	setTruss,
 	getTruss,
 	setLoading,
+	filterSettingsCall,
 }: HubComponent) => {
 	const token = useSelector((state: RootStateType) => state.AuthReducer.token);
 
@@ -127,6 +132,11 @@ export const HubComponent = ({
 				await connect.start();
 				connect.on(Hub.JobChanged, () => {
 					connect.invoke(Hub.RequestJob);
+					filterSettingsCall({
+						action: settingsFilter,
+						method: Method.GET,
+						url: ApiURL.SETTINGS_FILTER,
+					});
 				});
 				connect.on(Hub.JobIdChanged, (id) => {
 					connect?.invoke(Hub.OpenJob, id);

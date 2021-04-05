@@ -120,6 +120,8 @@ export const JobTable = ({
 				return value.RoofInfo[item.name];
 			case "SnowRegion":
 			case "WindRegion":
+			case "SnowLoad":
+			case "WindLoad":
 				return value.Load[item.name];
 			default:
 				if (!value[item.name]) {
@@ -128,7 +130,7 @@ export const JobTable = ({
 				return value[item.name];
 		}
 	};
-
+	console.log(getFilterActiveContent(checked, columns, activeFilterContent));
 	return (
 		<CardMiddleTableWrapper>
 			<ExternalTable

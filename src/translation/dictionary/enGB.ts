@@ -494,6 +494,7 @@ const dictionary: Lang = {
 		checkboxSectionDate: "Dates",
 		checkboxSectionStatistics: "Statistics",
 		checkboxSectionCalculation: "Calculation",
+		checkboxSectionDesignPrice: "Design price",
 		checkboxSectionDimensions: "Dimensions",
 		checkboxSectionLoad: "Load",
 		checkboxSectionWeight: "Weight",

@@ -298,7 +298,11 @@ export interface JobFilter {
 	AltitudeFrom: number;
 	AltitudeTo: number;
 	SnowAreas: string[];
+	SnowFrom: number;
+	SnowTo: number;
 	WindAreas: string[];
+	WindFrom: number;
+	WindTo: number;
 	CoveredAreaFrom: number;
 	CoveredAreaTo: number;
 	RidgeLengthFrom: number;
