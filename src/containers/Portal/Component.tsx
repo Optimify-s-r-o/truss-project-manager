@@ -63,6 +63,7 @@ export interface StateProps {
 	router: any;
 	pathname: string;
 	activeFilter: boolean;
+	filterPending: boolean;
 	currentPage: number;
 	totalPages: number;
 	totalRecords: number;
@@ -166,7 +167,7 @@ const Index = ({
 	getTrusses,
 	getProjects,
 	getJobs,
-	pending,
+	filterPending,
 	setHubTree,
 	setHubProject,
 	setHubJob,
@@ -360,7 +361,7 @@ const Index = ({
 								connect={connect}
 								activeFilterContent={activeFilterContent}
 								active={activeFilter}
-								pending={pending}
+								pending={filterPending}
 								projectPending={projectPending}
 								jobPending={jobPending}
 								trussPending={trussPending}

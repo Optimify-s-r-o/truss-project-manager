@@ -72,8 +72,8 @@ const Index = (props: OwnProps & WithTranslation) => {
 					label={t(translationPath(lang.common.altitude))}
 					name={getPath(FilterProxy.Jobs.AltitudeFilter)}
 					formik={formik}
-					from={formik?.values?.AltitudeFilter?.From}
-					to={formik?.values?.AltitudeFilter?.To}
+					from={formik?.values?.Jobs?.AltitudeFilter?.From}
+					to={formik?.values?.Jobs?.AltitudeFilter?.To}
 					settingsFrom={filter?.Job?.AltitudeFrom}
 					settingsTo={filter?.Job?.AltitudeTo}
 				/>
@@ -114,8 +114,8 @@ const Index = (props: OwnProps & WithTranslation) => {
 					label={t(translationPath(lang.common.snowLoad))}
 					name={getPath(FilterProxy.Jobs.SnowFilter)}
 					formik={formik}
-					from={formik?.values?.Jobs.SnowFilter?.From}
-					to={formik?.values?.Jobs.SnowFilter?.To}
+					from={formik?.values?.Jobs?.SnowFilter?.From}
+					to={formik?.values?.Jobs?.SnowFilter?.To}
 					settingsFrom={filter?.Job?.SnowFrom}
 					settingsTo={filter?.Job?.SnowTo}
 				/>
@@ -123,8 +123,8 @@ const Index = (props: OwnProps & WithTranslation) => {
 					label={t(translationPath(lang.common.windLoad))}
 					name={getPath(FilterProxy.Jobs.WindFilter)}
 					formik={formik}
-					from={formik?.values?.Jobs.WindFilter?.From}
-					to={formik?.values?.Jobs.WindFilter?.To}
+					from={formik?.values?.Jobs?.WindFilter?.From}
+					to={formik?.values?.Jobs?.WindFilter?.To}
 					settingsFrom={filter?.Job?.WindFrom}
 					settingsTo={filter?.Job?.WindTo}
 				/>

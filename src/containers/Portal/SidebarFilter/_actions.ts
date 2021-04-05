@@ -41,7 +41,7 @@ export const getTrusses = createAsyncAction(
 )<Page, Data<Truss>, Error>();
 
 export const setActiveFilterContent = createAction(
-	"@FILTER/SET_ACTIVE_FILTER_CONTENT"
+	"@FILTER/SET_FILTER_CONTENT"
 )<any>();
 
 export const setActive = createAction("@FILTER/SET_ACTIVE_FILTER")<boolean>();

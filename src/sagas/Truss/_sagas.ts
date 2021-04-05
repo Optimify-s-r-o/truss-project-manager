@@ -170,7 +170,6 @@ function* editTrussSaga(
 		const trussPath = `${documents}/Truss Project Manager/${action.payload.projectName}/${action.payload.jobName}.tr3`;
 
 		const trussResponse: any = yield call(fetch, response.Url);
-		console.log(trussResponse);
 
 		if (trussResponse.ok) {
 			const blob: any = yield call([trussResponse, trussResponse.blob]);

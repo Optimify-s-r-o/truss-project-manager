@@ -68,6 +68,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 							max={settingsTo}
 							step={step ? step : getStep(settingsFrom, settingsTo)}
 						/>
+
 						<SpaceBetweenFullWidth>
 							<span>{fixed(from, round ? round : round === 0 ? 0 : 2)}</span>
 							<span>{fixed(to, round ? round : round === 0 ? 0 : 2)}</span>

@@ -20,6 +20,7 @@ const initialState: FilterType = {
 	pending: false,
 	activeFilterContent: null,
 	activeFilter: false,
+	filterPending: false,
 };
 
 export default (
@@ -72,12 +73,12 @@ export default (
 		case getType(filterEntities.request):
 			return {
 				...state,
-				pending: true,
+				filterPending: true,
 			};
 		case getType(filterEntities.success):
 			return {
 				...state,
-				pending: false,
+				filterPending: false,
 			};
 		case getType(getCustomers.failure):
 		case getType(getProjects.failure):
@@ -87,6 +88,7 @@ export default (
 			return {
 				...state,
 				pending: false,
+				filterPending: false,
 				error: action.payload.ErrorMessage,
 			};
 

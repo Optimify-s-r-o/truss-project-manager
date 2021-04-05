@@ -98,7 +98,6 @@ export const Filter = ({
 
 	const invokeTreeHub = async (tree: TreeType) => {
 		try {
-			console.log("RequestNewTree");
 			connect.invoke(Hub.RequestNewTree, tree, 0, 25, "");
 		} catch (err) {
 			console.log(err);
@@ -165,6 +164,7 @@ export const Filter = ({
 							formik={formik}
 							active={active}
 							activeFilterContent={activeFilterContent}
+							activeFilter={activeFilter}
 							activeTree={activeTree}
 							pending={pending}
 							filter={filter}

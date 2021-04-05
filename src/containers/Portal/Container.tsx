@@ -81,6 +81,7 @@ const mapStateToProps = (state: any) => ({
 	customerTree: state.TreeFirstLayerReducer.customerTree,
 	jobTree: state.TreeFirstLayerReducer.jobTree,
 	pending: state.FilterReducer.pending,
+	filterPending: state.FilterReducer.filterPending,
 	pathname: state.router.location.pathname,
 	local: state.AuthReducer.local,
 	token: state.AuthReducer.token,

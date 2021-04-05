@@ -16,6 +16,7 @@ export interface OwnProps {
 	formik: any;
 	pending: boolean;
 	active: boolean;
+	activeFilter: boolean;
 	activeFilterContent: any;
 }
 
@@ -27,6 +28,7 @@ export const Submit = (props: OwnProps) => {
 		pending,
 		active,
 		activeFilterContent,
+		activeFilter,
 	} = props;
 	const { t } = useTranslation();
 
@@ -38,6 +40,7 @@ export const Submit = (props: OwnProps) => {
 				activeFilterContent={activeFilterContent}
 				filter={filter}
 				activeTree={activeTree}
+				activeFilter={activeFilter}
 			/>
 			<FilterButton>
 				<Button

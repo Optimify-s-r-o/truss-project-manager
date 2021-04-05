@@ -19,6 +19,16 @@ export const activation = {
 	IncludeNotSet: false,
 };
 
+export const getFilter = (activeFilterContent: any, value: any) => {
+	if (
+		!activeFilterContent ||
+		(!!!activeFilterContent && activeFilterContent?.Active === false)
+	) {
+		return value;
+	}
+	return activeFilterContent;
+};
+
 export const getInitialValues = (
 	activeTree: TreeType,
 	filter: FilterSettings,
@@ -26,72 +36,105 @@ export const getInitialValues = (
 ): Filter => {
 	return {
 		PersistTree: true,
-		Customers: getCustomersFilters(filter),
-		Projects: getProjectsFilters(filter),
-		Jobs: getJobsFilters(filter),
-		Trusses: getTrussesFilters(filter),
+		Customers: getCustomersFilters(filter, activeFilterContent),
+		Projects: getProjectsFilters(filter, activeFilterContent),
+		Jobs: getJobsFilters(filter, activeFilterContent),
+		Trusses: getTrussesFilters(filter, activeFilterContent),
 		ActiveTree: activeTree,
-		...activeFilterContent,
 	};
 };
 
 export const getCustomersFilters = (
-	filter: FilterSettings
+	filter: FilterSettings,
+	activeFilterContent?: any
 ): CustomersFilter => {
 	return {
-		FirstNameFilter: {
-			...activation,
-			FirstName: "",
-		},
-		LastNameFilter: {
+		FirstNameFilter: getFilter(
+			activeFilterContent?.Customers?.FirstNameFilter,
+			{
+				...activation,
+				FirstName: "",
+			}
+		),
+		LastNameFilter: getFilter(activeFilterContent?.Customers?.LastNameFilter, {
 			...activation,
 			LastName: "",
-		},
-		CompanyNameFilter: {
-			...activation,
-			Name: "",
-		},
-		CrnFilter: {
+		}),
+		CompanyNameFilter: getFilter(
+			activeFilterContent?.Customers?.CompanyNameFilter,
+			{
+				...activation,
+				Name: "",
+			}
+		),
+		CrnFilter: getFilter(activeFilterContent?.Customers?.CrnFilter, {
 			...activation,
 			Crn: "",
-		},
-		VatNumberFilter: {
-			...activation,
-			VatNumber: "",
-		},
-		CustomerTypeFilter: {
-			...activation,
-			Customers: [],
-		},
-		AveragePricePerProjectFilter: getObject(
-			get(
-				filter,
-				getPath(FilterSettingsProxy.Customer.AveragePricePerProjectFrom)
-			),
-			get(
-				filter,
-				getPath(FilterSettingsProxy.Customer.AveragePricePerProjectTo)
+		}),
+		VatNumberFilter: getFilter(
+			activeFilterContent?.Customers?.VatNumberFilter,
+			{
+				...activation,
+				VatNumber: "",
+			}
+		),
+		CustomerTypeFilter: getFilter(
+			activeFilterContent?.Customers?.CustomerTypeFilter,
+			{
+				...activation,
+				Customers: [],
+			}
+		),
+		AveragePricePerProjectFilter: getFilter(
+			activeFilterContent?.Customers?.AveragePricePerProjectFilter,
+			getObject(
+				get(
+					filter,
+					getPath(FilterSettingsProxy.Customer.AveragePricePerProjectFrom)
+				),
+				get(
+					filter,
+					getPath(FilterSettingsProxy.Customer.AveragePricePerProjectTo)
+				)
 			)
 		),
-		SumOfProjectPricesFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Customer.SumOfProjectPricesFrom)),
-			get(filter, getPath(FilterSettingsProxy.Customer.SumOfProjectPricesTo))
+		SumOfProjectPricesFilter: getFilter(
+			activeFilterContent?.Customers?.SumOfProjectPricesFilter,
+			getObject(
+				get(
+					filter,
+					getPath(FilterSettingsProxy.Customer.SumOfProjectPricesFrom)
+				),
+				get(filter, getPath(FilterSettingsProxy.Customer.SumOfProjectPricesTo))
+			)
 		),
 
-		NumberOfProjectsFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Customer.NumberOfProjectsFrom)),
-			get(filter, getPath(FilterSettingsProxy.Customer.NumberOfProjectsTo))
+		NumberOfProjectsFilter: getFilter(
+			activeFilterContent?.Customers?.NumberOfProjectsFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Customer.NumberOfProjectsFrom)),
+				get(filter, getPath(FilterSettingsProxy.Customer.NumberOfProjectsTo))
+			)
 		),
-		NumberOfQuotationsFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Customer.NumberOfQuotationsFrom)),
-			get(filter, getPath(FilterSettingsProxy.Customer.NumberOfQuotationsTo))
+		NumberOfQuotationsFilter: getFilter(
+			activeFilterContent?.Customers?.NumberOfQuotationsFilter,
+			getObject(
+				get(
+					filter,
+					getPath(FilterSettingsProxy.Customer.NumberOfQuotationsFrom)
+				),
+				get(filter, getPath(FilterSettingsProxy.Customer.NumberOfQuotationsTo))
+			)
 		),
-		NumberOfProductionsFilter: getObject(
-			get(
-				filter,
-				getPath(FilterSettingsProxy.Customer.NumberOfProductionsFrom)
-			),
-			get(filter, getPath(FilterSettingsProxy.Customer.NumberOfProductionsTo))
+		NumberOfProductionsFilter: getFilter(
+			activeFilterContent?.Customers?.NumberOfProductionsFilter,
+			getObject(
+				get(
+					filter,
+					getPath(FilterSettingsProxy.Customer.NumberOfProductionsFrom)
+				),
+				get(filter, getPath(FilterSettingsProxy.Customer.NumberOfProductionsTo))
+			)
 		),
 		ProductionsPerQuotationsFilter: {
 			...activation,
@@ -106,216 +149,314 @@ export const getCustomersFilters = (
 	};
 };
 
-export const getProjectsFilters = (filter: FilterSettings): ProjectsFilter => {
+export const getProjectsFilters = (
+	filter: FilterSettings,
+	activeFilterContent?: any
+): ProjectsFilter => {
 	return {
-		NameFilter: {
+		NameFilter: getFilter(activeFilterContent?.Projects?.NameFilter, {
 			...activation,
 			Name: "",
 			ExactMatch: false,
-		},
-		UserFilter: {
+		}),
+		UserFilter: getFilter(activeFilterContent?.Projects?.UserFilter, {
 			...activation,
 			Name: "",
-		},
-		AddressFilter: {
+		}),
+		AddressFilter: getFilter(activeFilterContent?.Projects?.AddressFilter, {
 			...activation,
 			Location: "",
-		},
-		ProjectStateFilter: {
-			...activation,
-			ProjectStates: [],
-		},
-		ProductionPriceFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Project.ProductionPriceFrom)),
-			get(filter, getPath(FilterSettingsProxy.Project.ProductionPriceTo))
+		}),
+		ProjectStateFilter: getFilter(
+			activeFilterContent?.Projects?.ProjectStateFilter,
+			{
+				...activation,
+				ProjectStates: [],
+			}
 		),
-		QuotationPriceFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Project.QuotationPriceFrom)),
-			get(filter, getPath(FilterSettingsProxy.Project.QuotationPriceTo))
+		ProductionPriceFilter: getFilter(
+			activeFilterContent?.Projects?.ProductionPriceFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Project.ProductionPriceFrom)),
+				get(filter, getPath(FilterSettingsProxy.Project.ProductionPriceTo))
+			)
 		),
-		ConstructionDateFilter: {
-			...activation,
-			From: null,
-			To: null,
-		},
-		DateOfCreationFilter: {
-			...activation,
-			From: null,
-			To: null,
-		},
-		QuotationDateFilter: {
-			...activation,
-			From: null,
-			To: null,
-		},
+		QuotationPriceFilter: getFilter(
+			activeFilterContent?.Projects?.QuotationPriceFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Project.QuotationPriceFrom)),
+				get(filter, getPath(FilterSettingsProxy.Project.QuotationPriceTo))
+			)
+		),
+		ConstructionDateFilter: getFilter(
+			activeFilterContent?.Projects?.ConstructionDateFilter,
+			{
+				...activation,
+				From: null,
+				To: null,
+			}
+		),
+		DateOfCreationFilter: getFilter(
+			activeFilterContent?.Projects?.DateOfCreationFilter,
+			{
+				...activation,
+				From: null,
+				To: null,
+			}
+		),
+		QuotationDateFilter: getFilter(
+			activeFilterContent?.Projects?.QuotationDateFilter,
+			{
+				...activation,
+				From: null,
+				To: null,
+			}
+		),
 	};
 };
 
-export const getJobsFilters = (filter: FilterSettings): JobsFilter => {
+export const getJobsFilters = (
+	filter: FilterSettings,
+	activeFilterContent?: any
+): JobsFilter => {
 	return {
-		NameFilter: {
+		NameFilter: getFilter(activeFilterContent?.Jobs?.NameFilter, {
 			...activation,
 			Name: "",
 			ExactMatch: false,
-		},
-		JobTypeFilter: {
+		}),
+		JobTypeFilter: getFilter(activeFilterContent?.Jobs?.JobTypeFilter, {
 			...activation,
 			JobTypes: [],
-		},
-		JobStateFilter: {
+		}),
+		JobStateFilter: getFilter(activeFilterContent?.Jobs?.JobStateFilter, {
 			...activation,
 			JobStates: [],
-		},
-		PriceFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Job.PriceFrom)),
-			get(filter, getPath(FilterSettingsProxy.Job.PriceTo))
+		}),
+		PriceFilter: getFilter(
+			activeFilterContent?.Jobs?.PriceFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Job.PriceFrom)),
+				get(filter, getPath(FilterSettingsProxy.Job.PriceTo))
+			)
 		),
-		PricePerSquareMeterFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Job.PricePerSquareMeterFrom)),
-			get(filter, getPath(FilterSettingsProxy.Job.PricePerSquareMeterTo))
+		PricePerSquareMeterFilter: getFilter(
+			activeFilterContent?.Jobs?.PricePerSquareMeterFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Job.PricePerSquareMeterFrom)),
+				get(filter, getPath(FilterSettingsProxy.Job.PricePerSquareMeterTo))
+			)
 		),
-		SnowAreaFilter: {
+		SnowAreaFilter: getFilter(activeFilterContent?.Jobs?.SnowAreaFilter, {
 			...activation,
 			SnowAreas: [],
-		},
-		WindAreaFilter: {
+		}),
+		WindAreaFilter: getFilter(activeFilterContent?.Jobs?.WindAreaFilter, {
 			...activation,
 			WindAreas: [],
-		},
-		WindFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Job.WindFrom)),
-			get(filter, getPath(FilterSettingsProxy.Job.WindTo))
+		}),
+		WindFilter: getFilter(
+			activeFilterContent?.Jobs?.WindFilter,
+			getObject(filter?.Job?.WindFrom, filter?.Job?.WindTo)
 		),
-		SnowFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Job.SnowFrom)),
-			get(filter, getPath(FilterSettingsProxy.Job.SnowTo))
+		SnowFilter: getFilter(
+			activeFilterContent?.Jobs?.SnowFilter,
+			getObject(filter?.Job?.SnowFrom, filter?.Job?.SnowTo)
 		),
-		AltitudeFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Job.AltitudeTo)),
-			get(filter, getPath(FilterSettingsProxy.Job.AltitudeTo))
+		AltitudeFilter: getFilter(
+			activeFilterContent?.Jobs?.AltitudeFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Job.AltitudeTo)),
+				get(filter, getPath(FilterSettingsProxy.Job.AltitudeTo))
+			)
 		),
-		CoveredAreaFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Job.CoveredAreaFrom)),
-			get(filter, getPath(FilterSettingsProxy.Job.CoveredAreaTo))
+		CoveredAreaFilter: getFilter(
+			activeFilterContent?.Jobs?.CoveredAreaFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Job.CoveredAreaFrom)),
+				get(filter, getPath(FilterSettingsProxy.Job.CoveredAreaTo))
+			)
 		),
-		CeilingNameFilter: {
+		CeilingNameFilter: getFilter(activeFilterContent?.Jobs?.CeilingNameFilter, {
 			...activation,
 			Name: "",
 			ExactMatch: false,
-		},
-		CentresFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.CentresFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.CentresTo))
+		}),
+		CentresFilter: getFilter(
+			activeFilterContent?.Jobs?.CentresFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.CentresFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.CentresTo))
+			)
 		),
-		RoofingNameFilter: {
+		RoofingNameFilter: getFilter(activeFilterContent?.Jobs?.RoofingNameFilter, {
 			...activation,
 			Name: "",
 			ExactMatch: false,
-		},
-		HipLengthFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Job.HipLengthFrom)),
-			get(filter, getPath(FilterSettingsProxy.Job.HipLengthTo))
+		}),
+		HipLengthFilter: getFilter(
+			activeFilterContent?.Jobs?.HipLengthFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Job.HipLengthFrom)),
+				get(filter, getPath(FilterSettingsProxy.Job.HipLengthTo))
+			)
 		),
-		RidgeLengthFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Job.RidgeLengthFrom)),
-			get(filter, getPath(FilterSettingsProxy.Job.PriceTo))
+		RidgeLengthFilter: getFilter(
+			activeFilterContent?.Jobs?.RidgeLengthFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Job.RidgeLengthFrom)),
+				get(filter, getPath(FilterSettingsProxy.Job.PriceTo))
+			)
 		),
-		JobDateOfCreationFilter: {
-			...activation,
-			From: null,
-			To: null,
-		},
-		DateOfLastUpdateFilter: {
-			...activation,
-			From: null,
-			To: null,
-		},
+		JobDateOfCreationFilter: getFilter(
+			activeFilterContent?.Jobs?.JobDateOfCreationFilter,
+			{
+				...activation,
+				From: null,
+				To: null,
+			}
+		),
+		DateOfLastUpdateFilter: getFilter(
+			activeFilterContent?.Jobs?.JobDateOfCreationFilter,
+			{
+				...activation,
+				From: null,
+				To: null,
+			}
+		),
 	};
 };
 
-export const getTrussesFilters = (filter: FilterSettings): TrussesFilter => {
+export const getTrussesFilters = (
+	filter: FilterSettings,
+	activeFilterContent?: any
+): TrussesFilter => {
 	return {
-		NameFilter: {
+		NameFilter: getFilter(activeFilterContent?.Trusses?.NameFilter, {
 			...activation,
 			Name: "",
 			ExactMatch: false,
-		},
-		StatusFilter: {
+		}),
+		StatusFilter: getFilter(activeFilterContent?.Trusses?.StatusFilter, {
 			...activation,
 			Statuses: [],
-		},
-		TypeFilter: {
+		}),
+		TypeFilter: getFilter(activeFilterContent?.Trusses?.TypeFilter, {
 			...activation,
-
 			Types: [],
-		},
-		KindsFilter: {
+		}),
+		KindsFilter: getFilter(activeFilterContent?.Trusses?.KindsFilter, {
 			...activation,
 			Kinds: [],
-		},
-		PriceFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.PriceFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.PriceTo))
+		}),
+		PriceFilter: getFilter(
+			activeFilterContent?.Trusses?.PriceFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.PriceFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.PriceTo))
+			)
 		),
-		WindLoadFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.WindLoadFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.WindLoadTo))
+		WindLoadFilter: getFilter(
+			activeFilterContent?.Trusses?.WindLoadFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.WindLoadFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.WindLoadTo))
+			)
 		),
-		SnowLoadFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.SnowLoadFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.SnowLoadTo))
+		SnowLoadFilter: getFilter(
+			activeFilterContent?.Trusses?.SnowLoadFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.SnowLoadFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.SnowLoadTo))
+			)
 		),
-		CeilingLoadFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.CeilingLoadFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.CeilingLoadTo))
+		CeilingLoadFilter: getFilter(
+			activeFilterContent?.Trusses?.CeilingLoadFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.CeilingLoadFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.CeilingLoadTo))
+			)
 		),
-		RoofingLoadFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.RoofingLoadFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.RoofingLoadTo))
+		RoofingLoadFilter: getFilter(
+			activeFilterContent?.Trusses?.RoofingLoadFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.RoofingLoadFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.RoofingLoadTo))
+			)
 		),
-		HeightFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.HeightFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.HeightTo))
+		HeightFilter: getFilter(
+			activeFilterContent?.Trusses?.HeightFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.HeightFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.HeightTo))
+			)
 		),
-		LengthFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.LengthFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.LengthTo))
+		LengthFilter: getFilter(
+			activeFilterContent?.Trusses?.LengthFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.LengthFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.LengthTo))
+			)
 		),
-		SpanFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.SpanFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.SpanTo))
+		SpanFilter: getFilter(
+			activeFilterContent?.Trusses?.SpanFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.SpanFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.SpanTo))
+			)
 		),
-		ThicknessFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.ThicknessFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.ThicknessTo))
+		ThicknessFilter: getFilter(
+			activeFilterContent?.Trusses?.ThicknessFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.ThicknessFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.ThicknessTo))
+			)
 		),
-		WeightFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.WeightFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.WeightTo))
+		WeightFilter: getFilter(
+			activeFilterContent?.Trusses?.WeightFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.WeightFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.WeightTo))
+			)
 		),
-		TransportWeightFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.TransportWeightFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.TransportWeightTo))
+		TransportWeightFilter: getFilter(
+			activeFilterContent?.Trusses?.TransportWeightFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.TransportWeightFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.TransportWeightTo))
+			)
 		),
-		SupportsQuantityFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.SupportsCountFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.SupportsCountTo))
+		SupportsQuantityFilter: getFilter(
+			activeFilterContent?.Trusses?.SupportsQuantityFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.SupportsCountFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.SupportsCountTo))
+			)
 		),
-		MembersCountFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.MembersCountFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.MembersCountTo))
+		MembersCountFilter: getFilter(
+			activeFilterContent?.Trusses?.MembersCountFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.MembersCountFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.MembersCountTo))
+			)
 		),
-		PlatesCountFilter: getObject(
-			filter?.Truss?.PlatesCountFrom,
-			filter?.Truss?.PlatesCountTo
+		PlatesCountFilter: getFilter(
+			activeFilterContent?.Trusses?.PlatesCountFilter,
+			getObject(filter?.Truss?.PlatesCountFrom, filter?.Truss?.PlatesCountTo)
 		),
-		ModelCountFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.ModelCountFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.ModelCountTo))
+		ModelCountFilter: getFilter(
+			activeFilterContent?.Trusses?.ModelCountFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.ModelCountFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.ModelCountTo))
+			)
 		),
-		PliesFilter: getObject(
-			get(filter, getPath(FilterSettingsProxy.Truss.PliesFrom)),
-			get(filter, getPath(FilterSettingsProxy.Truss.PliesTo))
+		PliesFilter: getFilter(
+			activeFilterContent?.Trusses?.PliesFilter,
+			getObject(
+				get(filter, getPath(FilterSettingsProxy.Truss.PliesFrom)),
+				get(filter, getPath(FilterSettingsProxy.Truss.PliesTo))
+			)
 		),
 	};
 };

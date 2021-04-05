@@ -1,8 +1,6 @@
 import * as React from 'react';
-import _ from 'lodash';
 import { Active } from './Active';
 import { FilterSettings, TreeType } from '../../../../types/_types';
-import { getInitialValues } from '../_services';
 import { lang } from '../../../../translation/i18n';
 import { translationPath } from '../../../../utils/getPath';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +11,7 @@ export interface IActiveCommon {
 	activeFilterContent: any;
 	filter: FilterSettings;
 	activeTree: TreeType;
+	activeFilter: boolean;
 }
 
 export const ActiveCommon = ({
@@ -21,10 +20,11 @@ export const ActiveCommon = ({
 	active,
 	filter,
 	activeTree,
+	activeFilter,
 }: IActiveCommon) => {
 	const { t } = useTranslation();
 
-	if (!_.isEqual(getInitialValues(activeTree, filter), formik.values)) {
+	if (activeFilter) {
 		return (
 			<Active
 				formik={formik}

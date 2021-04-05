@@ -130,7 +130,7 @@ export const JobTable = ({
 				return value[item.name];
 		}
 	};
-	console.log(getFilterActiveContent(checked, columns, activeFilterContent));
+	
 	return (
 		<CardMiddleTableWrapper>
 			<ExternalTable

@@ -42,6 +42,7 @@ export type FilterType = FetchStateType &
 		trusses: Data<Truss>;
 		activeFilterContent: any;
 		activeFilter: boolean;
+		filterPending: boolean;
 	}>;
 
 export type FilteredData = PaginationDto & {
