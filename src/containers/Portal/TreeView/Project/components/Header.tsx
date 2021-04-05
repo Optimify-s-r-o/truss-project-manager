@@ -55,7 +55,9 @@ export const Header = ({
 				<TitleSection>
 					<FontAwesomeIcon icon={faFolder as IconProp} color={"#fff"} />
 					<TitleName>{project?.Name}</TitleName>
-					{project?.Phases && <Phase phase={project?.Phases} />}
+					{project?.Phases && (
+						<Phase phase={project?.Phases?.filter((value) => value != "")} />
+					)}
 				</TitleSection>
 				<PageTitleActions>
 					<NewJob

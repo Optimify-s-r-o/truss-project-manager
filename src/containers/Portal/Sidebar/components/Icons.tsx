@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { faBookUser } from '@fortawesome/pro-duotone-svg-icons';
+import { faTools } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { lang } from '../../../../translation/i18n';
 import { SSpan, StatusWrapper } from '../_styles';
@@ -17,10 +18,6 @@ import {
 	faMoneyBillWave,
 	faSuitcase,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-	faExclamationTriangle,
-	faTools,
-} from "@fortawesome/pro-solid-svg-icons";
 
 interface Icons {
 	status: string[];
@@ -54,8 +51,10 @@ export enum Status {
 	ProjectNewlyCreated,
 	ProjectQuotationInProgress,
 	ProjectQuotationFinished,
+	ProjectQuotationAborted,
 	ProjectProductionInProgress,
 	ProjectProductionFinished,
+	ProjectProductionAborted,
 
 	// Customer
 	CustomerInEvidence,
@@ -75,23 +74,21 @@ export const getStatusIcons = (nodeStatus: Status): React.ReactNode => {
 		case Status.TrussSucceeded:
 			icons.push(faCheck);
 			break;
-		case Status.JobQuotationFinished:
-			icons.push(faMoneyBillWave);
-			break;
 		case Status.JobQuotationInProgress:
-			icons.push(faMoneyBillWave);
-			break;
+		case Status.JobQuotationFinished:
 		case Status.JobQuotationAborted:
-			icons.push(faExclamationTriangle);
+		case Status.ProjectQuotationInProgress:
+		case Status.ProjectQuotationFinished:
+		case Status.ProjectQuotationAborted:
+			icons.push(faMoneyBillWave);
 			break;
 		case Status.JobConstructionFinished:
-			icons.push(faCog);
-			break;
+		case Status.ProjectProductionInProgress:
+		case Status.ProjectProductionFinished:
+		case Status.ProjectProductionAborted:
 		case Status.JobConstructionInProgress:
-			icons.push(faCog);
-			break;
 		case Status.JobConstructionAborted:
-			icons.push(faExclamationTriangle);
+			icons.push(faCog);
 			break;
 		case Status.JobTRUSS_3D:
 			icons.push(faArchive);
@@ -104,21 +101,6 @@ export const getStatusIcons = (nodeStatus: Status): React.ReactNode => {
 			break;
 		case Status.ProjectArchivedAndAborted:
 			icons.push(faArchive);
-			break;
-		case Status.ProjectNewlyCreated:
-			icons.push(faArchive);
-			break;
-		case Status.ProjectQuotationInProgress:
-			icons.push(faMoneyBillWave);
-			break;
-		case Status.ProjectQuotationFinished:
-			icons.push(faMoneyBillWave);
-			break;
-		case Status.ProjectProductionInProgress:
-			icons.push(faTools);
-			break;
-		case Status.ProjectProductionFinished:
-			icons.push(faTools);
 			break;
 		case Status.CustomerInEvidence:
 			icons.push(faBookUser);
@@ -163,6 +145,7 @@ export const Icons = ({ id, title, status, lock, lockedByMe }: Icons) => {
 			{status && (
 				<StatusWrapper>
 					{status?.map((i, key) => {
+						console.log(i);
 						return (
 							<Box color={i}>
 								<Tooltip

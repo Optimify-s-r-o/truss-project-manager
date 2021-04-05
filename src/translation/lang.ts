@@ -499,6 +499,8 @@ export type Lang = Readonly<{
 		ConstructionFinished: string;
 		ProductionInProgress: string;
 		ProductionFinished: string;
+		ProductionAborted: string;
+		QuotationAborted: string;
 		Finished: string;
 		InProgress: string;
 		Aborted: string;

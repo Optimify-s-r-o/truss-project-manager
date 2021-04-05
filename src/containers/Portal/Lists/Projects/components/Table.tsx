@@ -75,7 +75,17 @@ export const ProjectTable = ({
 					"x"
 				);
 			case "State":
-				return t(translationPath(lang.common[value[item.name]]).path);
+				const filtered = (value[item.name] as any).filter((value) => {
+					if (value != "") {
+						return value;
+					}
+				});
+				const mapped = filtered
+					.map((value) => {
+						return t(translationPath(lang.common[value]).path);
+					})
+					.join(", ");
+				return mapped;
 			case "QuotationPrice":
 			case "ProductionPrice":
 				return !!value[item.name]
