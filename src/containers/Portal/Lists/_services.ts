@@ -18,7 +18,7 @@ export const getFilterActiveContent = (
 };
 
 export const findColumn = (name: string, all: Checkbox[]) => {
-	return all.find((e) => e.name === name);
+	return all.find((e) => e?.name === name);
 };
 
 export const getFilterContent = (
@@ -26,7 +26,7 @@ export const getFilterContent = (
 	all: Checkbox[],
 	activeFilterContent: any
 ): string => {
-	var column = findColumn(value.name, all);
+	var column = findColumn(value?.name, all);
 	if (column && column.filter) {
 		const value = get(activeFilterContent, column.filter);
 		switch (column.filterType) {

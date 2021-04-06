@@ -58,7 +58,7 @@ const ColumnSelector = ({
 	}, [visible]);
 
 	const isChecked = (it: Checkbox) => {
-		const present = checked.find((item) => item.name === it.name);
+		const present = checked?.find((item) => item?.name === it?.name);
 		if (present) {
 			return true;
 		}

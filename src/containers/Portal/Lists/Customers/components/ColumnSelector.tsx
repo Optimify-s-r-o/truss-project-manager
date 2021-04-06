@@ -45,14 +45,12 @@ export const CustomerColumnSelector = ({
 	);
 
 	useEffect(() => {
-		setChecked(
-			checkboxes
-				.map((c, i) => {
-					return { ...c, position: i };
-				})
-				.filter((item) => initHeaders?.includes(item.name))
-		);
-		setColumns(checkboxes);
+		if (initHeaders) {
+			setChecked(
+				initHeaders?.map((value) => checkboxes.find((i) => i.name == value))
+			);
+			setColumns(checkboxes);
+		}
 	}, [initHeaders]);
 
 	const changeChecked = (newItem: Checkbox) => {

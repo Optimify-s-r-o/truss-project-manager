@@ -82,7 +82,7 @@ export const JobTable = ({
 		history.push(Routes.TREE_LINK_PROJECT + value.ParentProjectId);
 	};
 	const getValue = (value: JobType, item: Checkbox) => {
-		switch (item.name) {
+		switch (item?.name) {
 			case "JobName":
 				return (
 					<StyledDiv onClick={route(value, item)}>{value.JobName}</StyledDiv>
@@ -97,14 +97,14 @@ export const JobTable = ({
 				return value.CustomerName;
 			case "State":
 			case "Type":
-				return t(translationPath(lang.common[value[item.name]]).path);
+				return t(translationPath(lang.common[value[item?.name]]).path);
 			case "Status":
 				return <Phase phase={value.Phase} />;
 			case "LastChange":
-				return <Moment format="DD/MM/YYYY">{value[item.name]}</Moment>;
+				return <Moment format="DD/MM/YYYY">{value[item?.name]}</Moment>;
 			case "Price":
 			case "PricePerSquareMeter":
-				return !!value[item.name] ? formatCurrency(value[item.name]) : "x";
+				return !!value[item?.name] ? formatCurrency(value[item?.name]) : "x";
 
 			case "Open":
 				return (
@@ -124,25 +124,25 @@ export const JobTable = ({
 			case "CoveredArea":
 			case "HipLength":
 			case "Ridge":
-				return value.RoofInfo[item.name];
+				return value.RoofInfo[item?.name];
 			case "SnowRegion":
 			case "WindRegion":
 			case "SnowLoad":
 			case "WindLoad":
-				return value.Load[item.name];
+				return value.Load[item?.name];
 			default:
-				if (!value[item.name]) {
+				if (!value[item?.name]) {
 					return "x";
 				}
-				return value[item.name];
+				return value[item?.name];
 		}
 	};
 
 	return (
 		<CardMiddleTableWrapper>
 			<ExternalTable
-				headers={checked?.map((value: Checkbox, index: number) => value.title)}
-				names={checked?.map((value: Checkbox, index: number) => value.name)}
+				headers={checked?.map((value: Checkbox, index: number) => value?.title)}
+				names={checked?.map((value: Checkbox, index: number) => value?.name)}
 				data={
 					jobs
 						? jobs.map((value: JobType, index: number) => [
@@ -163,9 +163,9 @@ export const JobTable = ({
 					}
 				)}
 				sortable={checked?.map((value: Checkbox, index: number) =>
-					value.name === "Open" ? false : true
+					value?.name === "Open" ? false : true
 				)}
-				columnNames={checked?.map((value: Checkbox) => value.name)}
+				columnNames={checked?.map((value: Checkbox) => value?.name)}
 				filterContent={getFilterActiveContent(
 					checked,
 					columns,

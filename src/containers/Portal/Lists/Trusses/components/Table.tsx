@@ -86,7 +86,7 @@ export const TrussTable = ({
 	};
 
 	const getValue = (value: Truss, item: Checkbox) => {
-		switch (item.name) {
+		switch (item?.name) {
 			case "Name":
 				return (
 					<StyledDiv onClick={routeTruss(value, item)}>{value.Name}</StyledDiv>
@@ -104,35 +104,35 @@ export const TrussTable = ({
 			case "Status":
 			case "Type":
 			case "Kind":
-				return t(translationPath(lang.common[value[item.name]]).path);
+				return t(translationPath(lang.common[value[item?.name]]).path);
 			case "Count":
 			case "Plies":
-				return value[item.name];
+				return value[item?.name];
 			case "Price":
 			case "PriceSum":
 			case "PriceOnPlanks":
 			case "PriceOnArea":
-				return !!value[item.name] ? formatCurrency(value[item.name]) : "x";
+				return !!value[item?.name] ? formatCurrency(value[item?.name]) : "x";
 			case "MembersCount":
 			case "PlatesCount":
 			case "ModelCount":
 			case "SupportsCount":
-				return value[item.name];
+				return value[item?.name];
 			default:
-				if (value[item.name] && typeof value[item.name] == "number") {
-					return fixed(value[item.name], 2);
-				} else if (!value[item.name]) {
+				if (value[item?.name] && typeof value[item?.name] == "number") {
+					return fixed(value[item?.name], 2);
+				} else if (!value[item?.name]) {
 					return "x";
 				}
-				return value[item.name];
+				return value[item?.name];
 		}
 	};
 
 	return (
 		<CardMiddleTableWrapper>
 			<ExternalTable
-				headers={checked?.map((value: Checkbox, index: number) => value.title)}
-				names={checked?.map((value: Checkbox, index: number) => value.name)}
+				headers={checked?.map((value: Checkbox, index: number) => value?.title)}
+				names={checked?.map((value: Checkbox, index: number) => value?.name)}
 				data={
 					trusses
 						? trusses?.map((value: Truss, index: number) => [
@@ -153,9 +153,9 @@ export const TrussTable = ({
 					}
 				)}
 				sortable={checked?.map((value: Checkbox, index: number) =>
-					value.name === "Open" ? false : true
+					value?.name === "Open" ? false : true
 				)}
-				columnNames={checked?.map((value: Checkbox) => value.name)}
+				columnNames={checked?.map((value: Checkbox) => value?.name)}
 				filterContent={getFilterActiveContent(
 					checked,
 					columns,

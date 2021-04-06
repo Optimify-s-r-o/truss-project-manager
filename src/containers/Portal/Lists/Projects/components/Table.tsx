@@ -4,6 +4,7 @@ import React from 'react';
 import { CardMiddleTableWrapper } from '../../../../../constants/globalStyles';
 import { Checkbox } from '../../Jobs/Component';
 import { formatCurrency } from 'src/utils/currencyFormat';
+import { getAddress } from '../../../../../utils/formating';
 import { getFilterActiveContent } from '../../_services';
 import {
 	JobType,
@@ -68,7 +69,7 @@ export const ProjectTable = ({
 	};
 
 	const getValue = (value: Project, item: Checkbox) => {
-		switch (item.name) {
+		switch (item?.name) {
 			case "Name":
 				return <StyledDiv onClick={route(value, item)}>{value.Name}</StyledDiv>;
 			case "QuotationDate":
@@ -77,12 +78,12 @@ export const ProjectTable = ({
 			case "ConstructionDate":
 			case "LastChange":
 				return value[item.name] ? (
-					<Moment format="DD/MM/YYYY">{value[item.name]}</Moment>
+					<Moment format="DD/MM/YYYY">{value[item?.name]}</Moment>
 				) : (
 					"x"
 				);
 			case "State":
-				const filtered = (value[item.name] as any).filter((value) => {
+				const filtered = (value[item?.name] as any).filter((value) => {
 					if (value != "") {
 						return value;
 					}
@@ -95,30 +96,24 @@ export const ProjectTable = ({
 				return mapped;
 			case "QuotationPrice":
 			case "ProductionPrice":
-				return !!value[item.name]
-					? formatCurrency(value[item.name] as number)
+				return !!value[item?.name]
+					? formatCurrency(value[item?.name] as number)
 					: "x";
 			case "Location":
-				return (
-					<span>
-						{value.Location?.CityName}, {value.Location?.StreetName}{" "}
-						{value.Location?.PlaceNumber}
-						{value.Location?.Zip}, {value?.Location?.Country}
-					</span>
-				);
+				return <span>{getAddress(value?.Location)}</span>;
 			default:
-				if (!value[item.name]) {
+				if (!value[item?.name]) {
 					return "x";
 				}
-				return value[item.name];
+				return value[item?.name];
 		}
 	};
 
 	return (
 		<CardMiddleTableWrapper>
 			<ExternalTable
-				headers={checked?.map((value: Checkbox, index: number) => value.title)}
-				names={checked?.map((value: Checkbox, index: number) => value.name)}
+				headers={checked?.map((value: Checkbox, index: number) => value?.title)}
+				names={checked?.map((value: Checkbox, index: number) => value?.name)}
 				data={
 					projects
 						? projects.map((value: Project, index: number) => [
@@ -139,9 +134,9 @@ export const ProjectTable = ({
 					}
 				)}
 				sortable={checked?.map((value: Checkbox, index: number) =>
-					value.name === "Open" ? false : true
+					value?.name === "Open" ? false : true
 				)}
-				columnNames={checked?.map((value: Checkbox) => value.name)}
+				columnNames={checked?.map((value: Checkbox) => value?.name)}
 				filterContent={getFilterActiveContent(
 					checked,
 					columns,

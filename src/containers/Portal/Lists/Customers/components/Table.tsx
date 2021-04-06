@@ -73,9 +73,9 @@ export const CustomerTable = ({
 	};
 
 	const getValue = (value: Customer, item: Checkbox) => {
-		switch (item.name) {
+		switch (item?.name) {
 			case lastPathMember(CustomerProxy.DateOfCreation).path:
-				return <Moment format="DD/MM/YYYY">{value[item.name]}</Moment>;
+				return <Moment format="DD/MM/YYYY">{value[item?.name]}</Moment>;
 			case "Open":
 				return (
 					<div>
@@ -89,18 +89,19 @@ export const CustomerTable = ({
 					</div>
 				);
 			default:
-				if (!value[item.name]) {
+				if (!value[item?.name]) {
 					return "x";
 				}
-				return value[item.name];
+				return value[item?.name];
 		}
 	};
 
+	console.log(checked);
 	return (
 		<CardMiddleTableWrapper>
 			<ExternalTable
-				headers={checked?.map((value: Checkbox, index: number) => value.title)}
-				names={checked?.map((value: Checkbox, index: number) => value.name)}
+				headers={checked?.map((value: Checkbox, index: number) => value?.title)}
+				names={checked?.map((value: Checkbox, index: number) => value?.name)}
 				data={
 					customers
 						? customers.map((value: Customer, index: number) => [
@@ -121,9 +122,9 @@ export const CustomerTable = ({
 					}
 				)}
 				sortable={checked?.map((value: Checkbox, index: number) =>
-					value.name === "Open" ? false : true
+					value?.name === "Open" ? false : true
 				)}
-				columnNames={checked?.map((value: Checkbox) => value.name)}
+				columnNames={checked?.map((value: Checkbox) => value?.name)}
 				filterContent={getFilterActiveContent(
 					checked,
 					columns,
