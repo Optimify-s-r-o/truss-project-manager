@@ -85,6 +85,25 @@ export const ProjectColumnSelector = ({
 			filterType: FilterContentType.TEXT,
 		},
 		{
+			name: "AssignedUser",
+			title: t(translationPath(lang.common.user).path),
+			section: "General",
+			filter: null,
+		},
+		{
+			name: "Location",
+			title: t(translationPath(lang.common.address).path),
+			section: "General",
+			filter: null,
+		},
+		{
+			name: "State",
+			title: t(translationPath(lang.common.projectState).path),
+			section: "General",
+			filter: getPath(FilterProxy.Projects.ProjectStateFilter.ProjectStates),
+			filterType: FilterContentType.ARRAY,
+		},
+		{
 			name: "Description",
 			title: t(translationPath(lang.common.description).path),
 			section: "General",
@@ -94,6 +113,33 @@ export const ProjectColumnSelector = ({
 			name: "Customer",
 			title: t(translationPath(lang.common.customer).path),
 			section: "General",
+			filter: null,
+		},
+		{
+			name: "TimeOfCreation",
+			title: t(translationPath(lang.common.projectTimeOfCreation).path),
+			section: "Date",
+			filter: getPath(FilterProxy.Projects.DateOfCreationFilter),
+			filterType: FilterContentType.DATE,
+		},
+		{
+			name: "QuotationDate",
+			title: t(translationPath(lang.common.quotationDate).path),
+			section: "Date",
+			filter: getPath(FilterProxy.Projects.QuotationDateFilter),
+			filterType: FilterContentType.DATE,
+		},
+		{
+			name: "ConstructionDate",
+			title: t(translationPath(lang.common.constructionDate).path),
+			section: "Date",
+			filter: getPath(FilterProxy.Projects.ConstructionDateFilter),
+			filterType: FilterContentType.DATE,
+		},
+		{
+			name: "DateOfLastUpdate",
+			title: t(translationPath(lang.common.dateOfLastUpdate).path),
+			section: "Date",
 			filter: null,
 		},
 		{
@@ -114,53 +160,6 @@ export const ProjectColumnSelector = ({
 			section: "Calculation",
 			filter: getPath(FilterProxy.Projects.ProductionPriceFilter),
 			filterType: FilterContentType.RANGE,
-		},
-		{
-			name: "State",
-			title: t(translationPath(lang.common.projectState).path),
-			section: "General",
-			filter: getPath(FilterProxy.Projects.ProjectStateFilter.ProjectStates),
-			filterType: FilterContentType.ARRAY,
-		},
-		{
-			name: "TimeOfCreation",
-			title: t(translationPath(lang.common.projectTimeOfCreation).path),
-			section: "Date",
-			filter: getPath(FilterProxy.Projects.DateOfCreationFilter),
-			filterType: FilterContentType.DATE,
-		},
-		{
-			name: "ConstructionDate",
-			title: t(translationPath(lang.common.constructionDate).path),
-			section: "Date",
-			filter: getPath(FilterProxy.Projects.ConstructionDateFilter),
-			filterType: FilterContentType.DATE,
-		},
-		{
-			name: "QuotationDate",
-			title: t(translationPath(lang.common.quotationDate).path),
-			section: "Date",
-			filter: getPath(FilterProxy.Projects.QuotationDateFilter),
-			filterType: FilterContentType.DATE,
-		},
-
-		{
-			name: "DateOfLastUpdate",
-			title: t(translationPath(lang.common.dateOfLastUpdate).path),
-			section: "Date",
-			filter: null,
-		},
-		{
-			name: "AssignedUser",
-			title: t(translationPath(lang.common.user).path),
-			section: "General",
-			filter: null,
-		},
-		{
-			name: "Location",
-			title: t(translationPath(lang.common.address).path),
-			section: "General",
-			filter: null,
 		},
 	];
 

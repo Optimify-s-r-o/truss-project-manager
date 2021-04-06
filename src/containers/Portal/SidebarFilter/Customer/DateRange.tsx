@@ -24,7 +24,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 	const { formik, filter } = props;
 	return (
 		<FilterSection
-			title={t(translationPath(lang.common.customerDateOfCreationFilter))}
+			title={t(translationPath(lang.common.dateOfProcessing))}
 			formik={formik}
 			filters={[getPath(FilterProxy.Customers.CustomerDateOfCreationFilter)]}
 			filter={filter}

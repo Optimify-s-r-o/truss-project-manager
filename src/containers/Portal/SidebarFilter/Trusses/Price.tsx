@@ -21,7 +21,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 
 	return (
 		<FilterSection
-			title={t(translationPath(lang.common.price))}
+			title={t(translationPath(lang.common.checkboxSectionCalculation))}
 			formik={formik}
 			filters={[getPath(FilterProxy.Trusses.PriceFilter)]}
 			filter={filter}

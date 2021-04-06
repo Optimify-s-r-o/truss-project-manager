@@ -145,7 +145,6 @@ export const Icons = ({ id, title, status, lock, lockedByMe }: Icons) => {
 			{status && (
 				<StatusWrapper>
 					{status?.map((i, key) => {
-						console.log(i);
 						return (
 							<Box color={i}>
 								<Tooltip

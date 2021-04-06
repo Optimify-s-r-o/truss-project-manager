@@ -487,6 +487,7 @@ export type Lang = Readonly<{
 		checkboxSectionStatistics: string;
 		checkboxSectionCalculation: string;
 		checkboxSectionDesignPrice: string;
+		checkboxSectionOthers: string;
 		checkboxSectionDimensions: string;
 		checkboxSectionLoad: string;
 		checkboxSectionWeight: string;

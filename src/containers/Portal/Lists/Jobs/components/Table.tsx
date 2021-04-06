@@ -101,6 +101,7 @@ export const JobTable = ({
 			case "Status":
 				return <Phase phase={value.Phase} />;
 			case "LastChange":
+			case "DateOfCreation":
 				return <Moment format="DD/MM/YYYY">{value[item?.name]}</Moment>;
 			case "Price":
 			case "PricePerSquareMeter":

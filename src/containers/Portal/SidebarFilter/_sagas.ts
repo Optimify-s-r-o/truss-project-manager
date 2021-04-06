@@ -113,6 +113,7 @@ function* getTrussesActionSaga(
 	action: ReturnType<typeof getTrusses.request>
 ): Generator {
 	try {
+		console.log(action.payload);
 		// @ts-ignore
 		const { errorResponseData, response, success, statusText } = yield call(
 			fetchSaga,

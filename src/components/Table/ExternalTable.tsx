@@ -82,16 +82,24 @@ const ExternalTable = (props: OwnProps) => {
 			setSortString(sortString);
 			setSort(sortOptions);
 			setSortOrder(sortOrder);
+			console.log({
+				PageSize: selectedPageSize,
+				Page: currentPage - 1,
+				Sort: sortString,
+				RewriteSort: true,
+			});
 			if (sortString) {
 				onPageRequired({
 					PageSize: selectedPageSize,
 					Page: currentPage - 1,
 					Sort: sortString,
+					RewriteSort: true,
 				});
 			} else {
 				onPageRequired({
 					PageSize: selectedPageSize,
 					Page: currentPage - 1,
+					RewriteSort: true,
 				});
 			}
 		});

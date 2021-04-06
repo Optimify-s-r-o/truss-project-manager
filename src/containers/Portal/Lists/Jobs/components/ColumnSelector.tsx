@@ -85,26 +85,6 @@ export const JobColumnSelector = ({
 			filterType: FilterContentType.TEXT,
 		},
 		{
-			name: "Project",
-			title: t(translationPath(lang.common.projectName).path),
-			section: "General",
-			filter: getPath(FilterProxy.Projects.NameFilter.Name),
-			filterType: FilterContentType.TEXT,
-		},
-		{
-			name: "LastChange",
-			title: t(translationPath(lang.common.jobDateOfLastUpdate).path),
-			section: "General",
-			filter: getPath(FilterProxy.Jobs.DateOfLastUpdateFilter),
-			filterType: FilterContentType.DATE,
-		},
-		{
-			name: "CustomerName",
-			title: t(translationPath(lang.common.customer).path),
-			section: "General",
-			filter: null,
-		},
-		{
 			name: "Type",
 			title: t(translationPath(lang.common.jobType).path),
 			section: "General",
@@ -119,6 +99,20 @@ export const JobColumnSelector = ({
 			filterType: FilterContentType.ARRAY,
 		},
 		{
+			name: "Project",
+			title: t(translationPath(lang.common.projectName).path),
+			section: "General",
+			filter: getPath(FilterProxy.Projects.NameFilter.Name),
+			filterType: FilterContentType.TEXT,
+		},
+
+		{
+			name: "CustomerName",
+			title: t(translationPath(lang.common.customer).path),
+			section: "General",
+			filter: null,
+		},
+		{
 			name: "Open",
 			title: t(translationPath(lang.common.editJob).path),
 			section: "General",
@@ -127,30 +121,15 @@ export const JobColumnSelector = ({
 		{
 			name: "Price",
 			title: t(translationPath(lang.common.designPrice).path),
-			section: "DesignPrice",
+			section: "Calculation",
 			filter: getPath(FilterProxy.Jobs.PriceFilter),
 			filterType: FilterContentType.RANGE,
 		},
 		{
 			name: "PricePerSquareMeter",
 			title: t(translationPath(lang.common.pricePerSquareMeter).path),
-			section: "DesignPrice",
+			section: "Calculation",
 			filter: getPath(FilterProxy.Jobs.PricePerSquareMeterFilter),
-			filterType: FilterContentType.RANGE,
-		},
-
-		{
-			name: "CoveredArea",
-			title: t(translationPath(lang.common.roofArea).path),
-			section: "TechnicalParameters",
-			filter: getPath(FilterProxy.Jobs.CoveredAreaFilter),
-			filterType: FilterContentType.RANGE,
-		},
-		{
-			name: "HipLength",
-			title: t(translationPath(lang.common.hipLength).path),
-			section: "TechnicalParameters",
-			filter: getPath(FilterProxy.Jobs.HipLengthFilter),
 			filterType: FilterContentType.RANGE,
 		},
 		{
@@ -166,16 +145,44 @@ export const JobColumnSelector = ({
 			filterType: FilterContentType.ARRAY,
 		},
 		{
+			name: "SnowLoad",
+			title: t(translationPath(lang.common.snowLoad).path),
+			section: "Load",
+			filterType: FilterContentType.RANGE,
+		},
+		{
 			name: "WindLoad",
 			title: t(translationPath(lang.common.windLoad).path),
 			section: "Load",
 			filterType: FilterContentType.RANGE,
 		},
 		{
-			name: "SnowLoad",
-			title: t(translationPath(lang.common.snowLoad).path),
-			section: "Load",
+			name: "HipLength",
+			title: t(translationPath(lang.common.hipLength).path),
+			section: "TechnicalParameters",
+			filter: getPath(FilterProxy.Jobs.HipLengthFilter),
 			filterType: FilterContentType.RANGE,
+		},
+		{
+			name: "CoveredArea",
+			title: t(translationPath(lang.common.roofArea).path),
+			section: "TechnicalParameters",
+			filter: getPath(FilterProxy.Jobs.CoveredAreaFilter),
+			filterType: FilterContentType.RANGE,
+		},
+		{
+			name: "DateOfCreation",
+			title: t(translationPath(lang.common.jobDateOfCreation).path),
+			section: "Date",
+			filter: getPath(FilterProxy.Jobs.JobDateOfCreationFilter),
+			filterType: FilterContentType.DATE,
+		},
+		{
+			name: "LastChange",
+			title: t(translationPath(lang.common.jobDateOfLastUpdate).path),
+			section: "Date",
+			filter: getPath(FilterProxy.Jobs.DateOfLastUpdateFilter),
+			filterType: FilterContentType.DATE,
 		},
 	];
 

@@ -175,7 +175,7 @@ export const lightTheme: Theme = {
 			Succeeded: Colors.GREEN,
 			Finished: Colors.GREEN,
 			InProgress: Colors.YELLOW,
-			Aborted: Colors.RED,
+			Aborted: Colors.GRAY,
 			ArchivedAndRealized: Colors.GREEN,
 			ArchivedAndAborted: Colors.RED,
 			NewlyCreated: Colors.GRAY,
@@ -191,22 +191,22 @@ export const lightTheme: Theme = {
 
 			// Job
 			JobQuotationFinished: Colors.GREEN,
-			JobQuotationInProgress: Colors.GRAY,
-			JobQuotationAborted: Colors.RED,
+			JobQuotationInProgress: Colors.RED,
+			JobQuotationAborted: Colors.GRAY,
 			JobConstructionFinished: Colors.GREEN,
-			JobConstructionInProgress: Colors.GRAY,
-			JobConstructionAborted: Colors.RED,
+			JobConstructionInProgress: Colors.RED,
+			JobConstructionAborted: Colors.GRAY,
 
 			JobTRUSS_3D: Colors.GRAY,
 			JobTRUSS_2D: Colors.GRAY,
 
 			// Project
 			ProjectArchivedAndRealized: Colors.GREEN,
-			ProjectArchivedAndAborted: Colors.RED,
+			ProjectArchivedAndAborted: Colors.GRAY,
 			ProjectNewlyCreated: Colors.GRAY,
-			ProjectQuotationInProgress: Colors.GRAY,
+			ProjectQuotationInProgress: Colors.RED,
 			ProjectQuotationFinished: Colors.GREEN,
-			ProjectProductionInProgress: Colors.GRAY,
+			ProjectProductionInProgress: Colors.RED,
 			ProjectProductionFinished: Colors.GREEN,
 
 			// Customer
@@ -289,9 +289,9 @@ export const darkTheme: Theme = {
 			Succeeded: Colors.GREEN,
 			Finished: Colors.GREEN,
 			InProgress: Colors.YELLOW,
-			Aborted: Colors.RED,
+			Aborted: Colors.GRAY,
 			ArchivedAndRealized: Colors.GREEN,
-			ArchivedAndAborted: Colors.RED,
+			ArchivedAndAborted: Colors.GRAY,
 			NewlyCreated: Colors.GRAY,
 			QuotationInProgress: Colors.YELLOW,
 			QuotationFinished: Colors.GREEN,
@@ -306,17 +306,17 @@ export const darkTheme: Theme = {
 			// Job
 			JobQuotationFinished: Colors.GREEN,
 			JobQuotationInProgress: Colors.GRAY,
-			JobQuotationAborted: Colors.RED,
+			JobQuotationAborted: Colors.GRAY,
 			JobConstructionFinished: Colors.GREEN,
 			JobConstructionInProgress: Colors.GRAY,
-			JobConstructionAborted: Colors.RED,
+			JobConstructionAborted: Colors.GRAY,
 
 			JobTRUSS_3D: Colors.GRAY,
 			JobTRUSS_2D: Colors.GRAY,
 
 			// Project
 			ProjectArchivedAndRealized: Colors.GREEN,
-			ProjectArchivedAndAborted: Colors.RED,
+			ProjectArchivedAndAborted: Colors.GRAY,
 			ProjectNewlyCreated: Colors.GRAY,
 			ProjectQuotationInProgress: Colors.GRAY,
 			ProjectQuotationFinished: Colors.GREEN,

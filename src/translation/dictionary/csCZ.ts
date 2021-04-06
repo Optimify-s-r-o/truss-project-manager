@@ -503,6 +503,7 @@ const dictionary: Lang = {
 		checkboxSectionLoad: "Zatížení",
 		checkboxSectionWeight: "Hmotnost",
 		checkboxSectionConstruction: "Stavba",
+		checkboxSectionOthers: "Další",
 		checkboxSectionTechnicalParameters: "Technická specifikace",
 		activeFilter: "Filtry jsou aktivní",
 		activeSelection: "Skryté prvky:",

@@ -561,6 +561,7 @@ export interface Page {
 	Filtered?: boolean;
 	All?: boolean;
 	Paginate?: boolean;
+	RewriteSort?: boolean;
 	trusses?: any;
 }
 
