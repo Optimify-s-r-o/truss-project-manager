@@ -2,9 +2,9 @@ import CheckboxSelection from '../../components/Checkbox';
 import React, { useEffect } from 'react';
 import { Checkbox } from '../../Jobs/Component';
 import { FilterContentType, FilterProxy } from '../../../SidebarFilter/_types';
+import { FilterType, PutHeaderSettings } from '../../_types';
 import { getPath, translationPath } from '../../../../../utils/getPath';
 import { lang } from '../../../../../translation/i18n';
-import { PutHeaderSettings } from '../../_types';
 import { RootStateType } from '../../../../../reducers/index';
 import { setSort, setSortOrder } from '../../_action';
 import { TreeType } from '../../../../../types/_types';
@@ -174,7 +174,7 @@ export const ProjectColumnSelector = ({
 						return { ...c, position: i };
 					})}
 					resetHeaderSettings={resetHeaderSettings}
-					type={TreeType.PROJECT}
+					type={FilterType.Project}
 				/>
 			</ContentInline>
 		</ContentSpaceBetweenWithPadding>

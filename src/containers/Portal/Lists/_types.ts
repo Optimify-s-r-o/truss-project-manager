@@ -18,3 +18,10 @@ export type HeaderSettingsStateType = FetchStateType &
 		headers: string[];
 		disabled: string[];
 	}>;
+
+export enum FilterType {
+	Project = "project",
+	Job = "job",
+	Truss = "truss",
+	Customer = "customer",
+}

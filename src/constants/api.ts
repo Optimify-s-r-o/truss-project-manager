@@ -67,7 +67,6 @@ export enum ApiURL {
 	//Settings
 	SETTINGS_FILTER = "/api/settings/filters",
 	SETTINGS_HEADERS = "/api/settings/header",
-	SETTINGS_HEADERS_RESET = "/api/settings/header/reset",
 	SETTINGS = "/api/settings",
 	//TREE
 	CUSTOMER_TREE = "/api/trees/customer",

@@ -92,11 +92,8 @@ function* resetHeadersSettingsActionSaga(
 		// @ts-ignore
 		const { errorResponseData, response, success, statusText } = yield call(
 			fetchSaga,
-			ApiURL.SETTINGS_HEADERS_RESET,
-			Method.PUT,
-			{
-				param: action.payload,
-			}
+			ApiURL.SETTINGS_HEADERS + `/${action.payload}/reset`,
+			Method.POST
 		);
 
 		if (!success) {

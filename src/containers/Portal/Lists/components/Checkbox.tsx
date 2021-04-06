@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ColumnSelector from './ColumnSelector';
 import { Checkbox } from '../Jobs/Component';
-import { TreeType } from '../../../../types/_types';
+import { FilterType } from '../_types';
 import { WithTranslation, withTranslation } from '../../../../translation/i18n';
 
 export interface OwnProps {
@@ -9,7 +9,7 @@ export interface OwnProps {
 	checked: Checkbox[];
 	checkboxes: Checkbox[];
 	resetHeaderSettings: (data: string) => void;
-	type: TreeType;
+	type: FilterType;
 }
 
 const Index = ({

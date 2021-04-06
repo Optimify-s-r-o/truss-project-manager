@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { Checkbox } from '../../Jobs/Component';
 import { CustomerProxy } from '../../../Customer/_types';
 import { FilterContentType, FilterProxy } from '../../../SidebarFilter/_types';
+import { FilterType, PutHeaderSettings } from '../../_types';
 import { lang } from '../../../../../translation/i18n';
-import { PutHeaderSettings } from '../../_types';
 import { RootStateType } from '../../../../../reducers/index';
 import { setSort, setSortOrder } from '../../_action';
 import { TreeType } from '../../../../../types/_types';
@@ -180,7 +180,7 @@ export const CustomerColumnSelector = ({
 						return { ...c, position: i };
 					})}
 					resetHeaderSettings={resetHeaderSettings}
-					type={TreeType.CUSTOMER}
+					type={FilterType.Customer}
 				/>
 			</ContentInline>
 		</ContentSpaceBetweenWithPadding>

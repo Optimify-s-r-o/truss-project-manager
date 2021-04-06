@@ -118,6 +118,8 @@ const ExternalTable = (props: OwnProps) => {
 		resetHeaderSettings(type);
 	};
 
+	console.log(filterContent);
+
 	return (
 		<>
 			<HorizontalLine />

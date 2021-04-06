@@ -29,6 +29,7 @@ export const getFilterContent = (
 	var column = findColumn(value?.name, all);
 	if (column && column.filter) {
 		const value = get(activeFilterContent, column.filter);
+		if (!value) return "";
 		switch (column.filterType) {
 			case FilterContentType.ARRAY:
 				return value

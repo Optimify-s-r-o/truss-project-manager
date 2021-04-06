@@ -3,10 +3,10 @@ import CheckBox from '../../../../components/Optimify/Form/CheckBox';
 import Collapsible from 'react-collapsible';
 import { Checkbox } from '../Jobs/Component';
 import { faChevronDown } from '@fortawesome/pro-light-svg-icons';
+import { FilterType } from '../_types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { RootStateType } from '../../../../reducers/index';
 import { translationPath } from '../../../../utils/getPath';
-import { TreeType } from '../../../../types/_types';
 import { useSelector } from 'react-redux';
 import {
 	lang,
@@ -29,7 +29,7 @@ interface OwnProps {
 	checked: Checkbox[];
 	changeChecked: (newItem: Checkbox) => void;
 	resetHeaderSettings: (data: string) => void;
-	type: TreeType;
+	type: FilterType;
 }
 
 const ColumnSelector = ({
@@ -80,8 +80,9 @@ const ColumnSelector = ({
 		sections[checkbox.section].push(checkbox);
 	});
 
-	const resetHeaders = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+	const resetHeaders = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 		resetHeaderSettings(type);
+		setVisible(false);
 	};
 
 	return (
