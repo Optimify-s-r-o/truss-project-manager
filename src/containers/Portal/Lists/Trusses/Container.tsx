@@ -1,12 +1,16 @@
 import Component, { StateProps } from './Component';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { getHeaderSettings, putHeaderSettings } from '../_action';
 import { getTrusses } from '../../SidebarFilter/_actions';
 import { Page } from '../../../../types/_types';
 import { PutHeaderSettings } from '../_types';
 import { setExpandedKeys, setSelectedKeys } from '../../TreeView/_actions';
 import { usersAction } from '../../Accounts/_actions';
+import {
+	getHeaderSettings,
+	putHeaderSettings,
+	resetHeaderSettings,
+} from "../_action";
 
 const mapStateToProps = (state: any): StateProps => ({
 	firstRecordOnPage: state.TrussesReducer.trusses?.FirstRecordOnPage,
@@ -44,6 +48,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 		dispatch(putHeaderSettings.request(data)),
 	getHeaderSettings: (data: string) =>
 		dispatch(getHeaderSettings.request(data)),
+	resetHeaderSettings: (data: string) =>
+		dispatch(resetHeaderSettings.request(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Component);

@@ -19,6 +19,7 @@ import {
 import {
 	watchGetHeadersSettingsAction,
 	watchPutHeadersSettingsAction,
+	watchResetHeadersSettingsAction,
 } from "../containers/Portal/Lists/_sagas";
 import {
 	watchAddItemToPriceListPostAction,
@@ -196,6 +197,7 @@ export const rootSaga = [
 	watchDownloadJobAction,
 	watchPutHeadersSettingsAction,
 	watchGetHeadersSettingsAction,
+	watchResetHeadersSettingsAction,
 ];
 
 export type SagasType = typeof rootSaga;

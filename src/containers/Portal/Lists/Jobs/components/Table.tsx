@@ -7,7 +7,12 @@ import { Checkbox } from '../Component';
 import { EditTruss } from '../../../../../sagas/Truss/_actions';
 import { formatCurrency } from 'src/utils/currencyFormat';
 import { getFilterActiveContent } from '../../_services';
-import { JobType, Page, TrussExe } from '../../../../../types/_types';
+import {
+	JobType,
+	Page,
+	TreeType,
+	TrussExe
+	} from '../../../../../types/_types';
 import { lang } from '../../../../../translation/i18n';
 import { Phase } from '../../../../../components/Phase';
 import { Routes } from '../../../../../constants/routes';
@@ -35,6 +40,7 @@ interface Table {
 	totalRecords: number | null;
 	pending: boolean;
 	pageSize: string | null;
+	resetHeaderSettings: (data: string) => void;
 }
 
 export const JobTable = ({
@@ -56,6 +62,7 @@ export const JobTable = ({
 	totalRecords,
 	pending,
 	pageSize,
+	resetHeaderSettings,
 }: Table) => {
 	const { t } = useTranslation();
 	const history = useHistory();
@@ -130,7 +137,7 @@ export const JobTable = ({
 				return value[item.name];
 		}
 	};
-	
+
 	return (
 		<CardMiddleTableWrapper>
 			<ExternalTable
@@ -177,6 +184,8 @@ export const JobTable = ({
 				initSort={initSort}
 				initSortOrder={initSortOrder}
 				activeFilter={activeFilter}
+				resetHeaderSettings={resetHeaderSettings}
+				type={TreeType.JOB}
 			/>
 		</CardMiddleTableWrapper>
 	);

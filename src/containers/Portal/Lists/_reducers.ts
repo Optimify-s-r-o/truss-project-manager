@@ -4,6 +4,7 @@ import {
 	getHeaderSettings,
 	HeaderSettingsType,
 	putHeaderSettings,
+	resetHeaderSettings,
 	setDisabledColumnSelector,
 	setSort,
 	setSortOrder,
@@ -39,6 +40,7 @@ export const HeaderSettingsReducer = (
 				sortOrder: action.payload,
 			};
 		case getType(getHeaderSettings.request):
+		case getType(resetHeaderSettings.request):
 			return {
 				...initialState,
 				sort: [],
@@ -53,6 +55,7 @@ export const HeaderSettingsReducer = (
 				pending: true,
 			};
 		case getType(getHeaderSettings.success):
+		case getType(resetHeaderSettings.success):
 			return {
 				...state,
 				sort: action.payload.Sorts,
@@ -67,6 +70,7 @@ export const HeaderSettingsReducer = (
 			};
 		case getType(getHeaderSettings.failure):
 		case getType(putHeaderSettings.failure):
+		case getType(resetHeaderSettings.failure):
 			return {
 				...state,
 				error: action.payload.ErrorMessage,

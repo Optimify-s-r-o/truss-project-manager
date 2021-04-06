@@ -7,7 +7,7 @@ import { Customer, CustomerProxy } from '../../../Customer/_types';
 import { DeleteCustomer, Edit } from '../../../../../components/Button';
 import { DeleteRequest } from '../_types';
 import { getFilterActiveContent } from '../../_services';
-import { JobType, Page } from '../../../../../types/_types';
+import { JobType, Page, TreeType } from '../../../../../types/_types';
 import { lastPathMember } from '../../../../../utils/getPath';
 import { Routes } from '../../../../../constants/routes';
 import { useHistory } from 'react-router-dom';
@@ -30,6 +30,7 @@ interface Table {
 	pending: boolean;
 	pageSize: string | null;
 	deleteCustomer: (data: DeleteRequest) => void;
+	resetHeaderSettings: (data: string) => void;
 }
 
 export const CustomerTable = ({
@@ -49,6 +50,7 @@ export const CustomerTable = ({
 	totalRecords,
 	pending,
 	pageSize,
+	resetHeaderSettings,
 }: Table) => {
 	const { t } = useTranslation();
 	const history = useHistory();
@@ -140,6 +142,8 @@ export const CustomerTable = ({
 				initSort={initSort}
 				initSortOrder={initSortOrder}
 				activeFilter={activeFilter}
+				resetHeaderSettings={resetHeaderSettings}
+				type={TreeType.CUSTOMER}
 			/>
 		</CardMiddleTableWrapper>
 	);

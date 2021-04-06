@@ -6,6 +6,7 @@ import { faChevronDown } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { RootStateType } from '../../../../reducers/index';
 import { translationPath } from '../../../../utils/getPath';
+import { TreeType } from '../../../../types/_types';
 import { useSelector } from 'react-redux';
 import {
 	lang,
@@ -20,15 +21,24 @@ import {
 	ColumnSelectorContent,
 	ColumnSelectorHeader,
 	ColumnSelectorWrapper,
+	SetDefault,
 } from "./_styles";
 
 interface OwnProps {
 	checkboxes: Checkbox[];
 	checked: Checkbox[];
 	changeChecked: (newItem: Checkbox) => void;
+	resetHeaderSettings: (data: string) => void;
+	type: TreeType;
 }
 
-const ColumnSelector = (props: OwnProps & WithTranslation) => {
+const ColumnSelector = ({
+	checkboxes,
+	checked,
+	changeChecked,
+	resetHeaderSettings,
+	type,
+}: OwnProps & WithTranslation) => {
 	const [visible, setVisible] = React.useState(false);
 	const [openSections, setOpenSections] = React.useState<Array<string>>([]);
 	const state = useSelector((state: RootStateType) => state);
@@ -48,7 +58,7 @@ const ColumnSelector = (props: OwnProps & WithTranslation) => {
 	}, [visible]);
 
 	const isChecked = (it: Checkbox) => {
-		const present = props.checked.find((item) => item.name === it.name);
+		const present = checked.find((item) => item.name === it.name);
 		if (present) {
 			return true;
 		}
@@ -58,17 +68,21 @@ const ColumnSelector = (props: OwnProps & WithTranslation) => {
 	const handleChange = (newItem: Checkbox) => (
 		_event: React.ChangeEvent<HTMLInputElement>
 	) => {
-		props.changeChecked(newItem);
+		changeChecked(newItem);
 	};
 
 	let sections = {};
-	props.checkboxes.forEach((checkbox: Checkbox) => {
+	checkboxes.forEach((checkbox: Checkbox) => {
 		if (!sections.hasOwnProperty(checkbox.section)) {
 			sections[checkbox.section] = [];
 		}
 
 		sections[checkbox.section].push(checkbox);
 	});
+
+	const resetHeaders = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+		resetHeaderSettings(type);
+	};
 
 	return (
 		<ColumnSelectorWrapper ref={ref}>
@@ -81,6 +95,9 @@ const ColumnSelector = (props: OwnProps & WithTranslation) => {
 				{t(translationPath(lang.common.columnSelection))}
 			</ColumnSelectorButton>
 			<ColumnSelectorCheckboxes visible={visible}>
+				<SetDefault onClick={resetHeaders}>
+					{t(translationPath(lang.table.setDefault))}
+				</SetDefault>
 				{Object.keys(sections).map((sectionKey, key) => {
 					const checkboxesInSection = Object.keys(sections[sectionKey]).length;
 

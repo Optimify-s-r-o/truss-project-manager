@@ -1,4 +1,4 @@
-import CheckboxSelection from '../Checkbox';
+import CheckboxSelection from '../../components/Checkbox';
 import React, { useEffect } from 'react';
 import { Checkbox } from '../../Jobs/Component';
 import { FilterContentType, FilterProxy } from '../../../SidebarFilter/_types';
@@ -22,6 +22,7 @@ interface ColumnSelector {
 	setColumns: React.Dispatch<React.SetStateAction<Checkbox[]>>;
 	initHeaders: string[];
 	putHeaderSettings: (data: PutHeaderSettings) => void;
+	resetHeaderSettings: (data: string) => void;
 }
 
 export const TrussColumnSelector = ({
@@ -30,6 +31,7 @@ export const TrussColumnSelector = ({
 	initHeaders,
 	putHeaderSettings,
 	setColumns,
+	resetHeaderSettings,
 }: ColumnSelector) => {
 	const { t } = useTranslation();
 	const dispatch = useDispatch();
@@ -317,6 +319,8 @@ export const TrussColumnSelector = ({
 					checkboxes={checkboxes.map((c, i) => {
 						return { ...c, position: i };
 					})}
+					resetHeaderSettings={resetHeaderSettings}
+					type={TreeType.TRUSS}
 				/>
 			</ContentInline>
 		</ContentSpaceBetweenWithPadding>

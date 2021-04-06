@@ -1,6 +1,11 @@
 import { Lang } from '../lang';
 
 const dictionary: Lang = {
+	table: {
+		setDefault: "Set Default",
+		headersEmpty:
+			'Keine Spalten zum Anzeigen ausgewählt. Drücken Sie "Standard festlegen" oder wählen Sie die Spalten manuell aus.',
+	},
 	customer: {
 		placeholder: "Kunde eingeben",
 		newCustomer: "Neukunde",

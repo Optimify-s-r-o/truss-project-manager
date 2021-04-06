@@ -27,6 +27,7 @@ interface ColumnSelector {
 	setColumns: React.Dispatch<React.SetStateAction<Checkbox[]>>;
 	initHeaders: string[];
 	putHeaderSettings: (data: PutHeaderSettings) => void;
+	resetHeaderSettings: (data: string) => void;
 }
 
 export const CustomerColumnSelector = ({
@@ -35,6 +36,7 @@ export const CustomerColumnSelector = ({
 	initHeaders,
 	putHeaderSettings,
 	setColumns,
+	resetHeaderSettings,
 }: ColumnSelector) => {
 	const { t } = useTranslation();
 	const dispatch = useDispatch();
@@ -179,6 +181,8 @@ export const CustomerColumnSelector = ({
 					checkboxes={checkboxes.map((c, i) => {
 						return { ...c, position: i };
 					})}
+					resetHeaderSettings={resetHeaderSettings}
+					type={TreeType.CUSTOMER}
 				/>
 			</ContentInline>
 		</ContentSpaceBetweenWithPadding>

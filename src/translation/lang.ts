@@ -1,6 +1,10 @@
 import { createProxy } from '../utils/getPath';
 
 export type Lang = Readonly<{
+	table: {
+		setDefault: string;
+		headersEmpty: string;
+	};
 	customer: {
 		placeholder: string;
 		newCustomer: string;

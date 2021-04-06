@@ -261,6 +261,22 @@ export const ColumnSelectorButton = styled(OutlinedButton)`
 			: props.theme.colors.primary.default};
 `;
 
+export const SetDefault = styled.button`
+	background-color: transparent;
+	border: 1px solid ${(props) => props.theme.colors.primary.default};
+	box-shadow: none;
+	color: ${(props) => props.theme.colors.primary.default};
+	cursor: pointer;
+	margin: 0 0 5px 0;
+	width: 100%;
+	padding: 5px 16px;
+	font-family: Arial;
+	font-size: 14px;
+	font-weight: 500;
+	text-transform: uppercase;
+	overflow: hidden;
+`;
+
 export const ColumnSelectorCheckboxes = styled.div`
 	position: absolute;
 	z-index: 999999;
@@ -274,7 +290,7 @@ export const ColumnSelectorCheckboxes = styled.div`
 	background-color: ${(props) => props.theme.colors.background.content};
 	border-radius: 3px;
 	box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.1);
-
+	padding: 8px 6px;
 	overflow: auto;
 
 	> div {
@@ -291,7 +307,7 @@ export const ColumnSelectorHeader = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 
-	padding: 8px 12px;
+	padding: 8px 3px;
 
 	color: ${(props) => props.theme.colors.primary.default};
 	font-size: 0.9rem;

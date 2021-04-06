@@ -1,6 +1,11 @@
 import { Lang } from '../lang';
 
 const dictionary: Lang = {
+	table: {
+		setDefault: "Set default",
+		headersEmpty:
+			'No columns selected to display. Press  "Set Default" , or select columns manually ',
+	},
 	customer: {
 		placeholder: "Find customer",
 		newCustomer: "New Customer",

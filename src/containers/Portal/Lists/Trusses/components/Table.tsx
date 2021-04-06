@@ -5,7 +5,12 @@ import { Checkbox } from '../../Jobs/Component';
 import { fixed } from '../../../../../utils/formating';
 import { formatCurrency } from 'src/utils/currencyFormat';
 import { getFilterActiveContent } from '../../_services';
-import { JobType, Page, Truss } from '../../../../../types/_types';
+import {
+	JobType,
+	Page,
+	TreeType,
+	Truss
+	} from '../../../../../types/_types';
 import { lang } from '../../../../../translation/i18n';
 import { Routes } from '../../../../../constants/routes';
 import { StyledDiv } from '../../../Sidebar/_styles';
@@ -31,6 +36,7 @@ interface Table {
 	pending: boolean;
 	pageSize: string | null;
 	trusses: Truss[];
+	resetHeaderSettings: (data: string) => void;
 }
 
 export const TrussTable = ({
@@ -51,6 +57,7 @@ export const TrussTable = ({
 	totalRecords,
 	pending,
 	pageSize,
+	resetHeaderSettings,
 }: Table) => {
 	const { t } = useTranslation();
 	const history = useHistory();
@@ -167,6 +174,8 @@ export const TrussTable = ({
 				initSort={initSort}
 				initSortOrder={initSortOrder}
 				activeFilter={activeFilter}
+				resetHeaderSettings={resetHeaderSettings}
+				type={TreeType.TRUSS}
 			/>
 		</CardMiddleTableWrapper>
 	);

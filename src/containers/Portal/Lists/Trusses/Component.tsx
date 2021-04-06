@@ -61,6 +61,7 @@ interface DispatchProps {
 	setExpandedKeys: (data: string[]) => void;
 	putHeaderSettings: (data: PutHeaderSettings) => void;
 	getHeaderSettings: (data: string) => void;
+	resetHeaderSettings: (data: string) => void;
 }
 
 const Index = ({
@@ -85,6 +86,7 @@ const Index = ({
 	putHeaderSettings,
 	trusses,
 	pending,
+	resetHeaderSettings,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { t } = useTranslation();
 	const [checked, setChecked] = React.useState<Checkbox[]>([]);
@@ -118,6 +120,7 @@ const Index = ({
 							setColumns={setColumns}
 							initHeaders={initHeaders}
 							putHeaderSettings={putHeaderSettings}
+							resetHeaderSettings={resetHeaderSettings}
 						/>
 						<TrussTable
 							setSelectedKeys={setSelectedKeys}
@@ -137,6 +140,7 @@ const Index = ({
 							pending={pending}
 							pageSize={pageSize}
 							activeFilter={activeFilter}
+							resetHeaderSettings={resetHeaderSettings}
 						/>
 					</ContentCard>
 				</ContentFilter>

@@ -27,9 +27,6 @@ import {
 	Tree,
 	TreeType,
 } from "../../../../types/_types";
-const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
-
-interface OwnProps {}
 
 export interface StateProps {
 	activeFilter: boolean;
@@ -69,6 +66,7 @@ interface DispatchProps {
 	setSelectedKeys: (data: string[]) => void;
 	putHeaderSettings: (data: PutHeaderSettings) => void;
 	getHeaderSettings: (data: string) => void;
+	resetHeaderSettings: (data: string) => void;
 }
 
 const Index = ({
@@ -84,7 +82,7 @@ const Index = ({
 	setSelectedKeys,
 	recordsBeforeFilter,
 	isFiltered,
-	settings,
+	resetHeaderSettings,
 	initHeaders,
 	initSort,
 	initSortOrder,
@@ -93,7 +91,7 @@ const Index = ({
 	getProjects,
 	pending,
 	projects,
-}: OwnProps & StateProps & DispatchProps & RouteComponentProps) => {
+}: StateProps & DispatchProps & RouteComponentProps) => {
 	const { t } = useTranslation();
 	const [columns, setColumns] = React.useState<Checkbox[]>([]);
 	const [checked, setChecked] = React.useState<Checkbox[]>([]);
@@ -131,6 +129,7 @@ const Index = ({
 							setColumns={setColumns}
 							initHeaders={initHeaders}
 							putHeaderSettings={putHeaderSettings}
+							resetHeaderSettings={resetHeaderSettings}
 						/>
 						<ProjectTable
 							setSelectedKeys={setSelectedKeys}
@@ -149,6 +148,7 @@ const Index = ({
 							pending={pending}
 							pageSize={pageSize}
 							activeFilter={activeFilter}
+							resetHeaderSettings={resetHeaderSettings}
 						/>
 					</ContentCard>
 				</ContentFilter>

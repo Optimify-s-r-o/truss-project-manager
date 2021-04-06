@@ -5,7 +5,12 @@ import { CardMiddleTableWrapper } from '../../../../../constants/globalStyles';
 import { Checkbox } from '../../Jobs/Component';
 import { formatCurrency } from 'src/utils/currencyFormat';
 import { getFilterActiveContent } from '../../_services';
-import { JobType, Page, Project } from '../../../../../types/_types';
+import {
+	JobType,
+	Page,
+	Project,
+	TreeType
+	} from '../../../../../types/_types';
 import { lang } from '../../../../../translation/i18n';
 import { Routes } from '../../../../../constants/routes';
 import { StyledDiv } from '../../../Sidebar/_styles';
@@ -30,6 +35,7 @@ interface Table {
 	totalRecords: number | null;
 	pending: boolean;
 	pageSize: string | null;
+	resetHeaderSettings: (data: string) => void;
 }
 
 export const ProjectTable = ({
@@ -49,6 +55,7 @@ export const ProjectTable = ({
 	totalRecords,
 	pending,
 	pageSize,
+	resetHeaderSettings,
 }: Table) => {
 	const { t } = useTranslation();
 	const history = useHistory();
@@ -153,6 +160,8 @@ export const ProjectTable = ({
 				initSort={initSort}
 				initSortOrder={initSortOrder}
 				activeFilter={activeFilter}
+				resetHeaderSettings={resetHeaderSettings}
+				type={TreeType.PROJECT}
 			/>
 		</CardMiddleTableWrapper>
 	);

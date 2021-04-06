@@ -3,7 +3,12 @@ import Loading from '../Optimify/Loading';
 import Pagination from './Pagination';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Page } from '../../types/_types';
+import { ActionButton } from '../Quotations';
+import { Center } from '../../constants/globalStyles';
+import { Empty } from 'antd';
+import { faSlidersHSquare } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Page, TreeType } from '../../types/_types';
 import { ScrollableTable, SortOptions, SortType } from '.';
 import { translationPath } from '../../utils/getPath';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +33,8 @@ interface OwnProps {
 	initSortOrder?: number[];
 	initSort?: number[];
 	names?: string[];
+	resetHeaderSettings: (data: string) => void;
+	type: TreeType;
 }
 
 const ExternalTable = (props: OwnProps) => {
@@ -51,6 +58,8 @@ const ExternalTable = (props: OwnProps) => {
 		initSort,
 		initSortOrder,
 		names,
+		type,
+		resetHeaderSettings,
 	} = props;
 
 	const [selectedPageSize, setSelectedPageSize] = React.useState(
@@ -97,6 +106,10 @@ const ExternalTable = (props: OwnProps) => {
 			});
 	};
 
+	const reset = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+		resetHeaderSettings(type);
+	};
+
 	return (
 		<>
 			<HorizontalLine />
@@ -114,19 +127,34 @@ const ExternalTable = (props: OwnProps) => {
 					onSizeChanged={setSelectedPageSize}
 					handleSelectedPageSize={handleSelectedPageSize}
 				/>
-				<ScrollableTable
-					headers={headers}
-					data={data}
-					renderers={renderers}
-					sortable={sortable}
-					sortType={SortType.External}
-					onSort={onSort}
-					initialSort={sort}
-					initialSortOrder={sortOrder}
-					filterContent={filterContent}
-					activeFilter={activeFilter}
-					names={names}
-				/>
+				{headers && headers.length > 0 ? (
+					<ScrollableTable
+						headers={headers}
+						data={data}
+						renderers={renderers}
+						sortable={sortable}
+						sortType={SortType.External}
+						onSort={onSort}
+						initialSort={sort}
+						initialSortOrder={sortOrder}
+						filterContent={filterContent}
+						activeFilter={activeFilter}
+						names={names}
+					/>
+				) : (
+					<HeadersEmpty>
+						<Empty
+							description={t(translationPath(lang.table.headersEmpty).path)}
+						/>
+						<br />
+						<Center>
+							<ActionButton onClick={reset}>
+								<FontAwesomeIcon icon={faSlidersHSquare} />
+								{t(translationPath(lang.table.setDefault).path)}
+							</ActionButton>
+						</Center>
+					</HeadersEmpty>
+				)}
 				<HorizontalLine />
 				<Pagination
 					sort={sortString}
@@ -187,4 +215,8 @@ const LoadingWrapper = styled.div`
 const HorizontalLine = styled.div`
 	height: 1px;
 	background-color: ${(props) => props.theme.colors.sectionsDivider};
+`;
+
+const HeadersEmpty = styled.div`
+	padding: 2em;
 `;

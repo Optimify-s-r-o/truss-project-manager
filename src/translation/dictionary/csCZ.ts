@@ -1,6 +1,11 @@
 import { Lang } from '../lang';
 
 const dictionary: Lang = {
+	table: {
+		setDefault: "Nastavit výchozí",
+		headersEmpty:
+			'Nejsou vybráné sloupce k zobrazení. Stiskněte tlačítko "Nastavit výchozí", nebo sloupce vyberte ručně',
+	},
 	customer: {
 		placeholder: "Hledat zákazníka",
 		newCustomer: "Nový zákazník",

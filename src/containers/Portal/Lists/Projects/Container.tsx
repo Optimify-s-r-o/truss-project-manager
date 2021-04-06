@@ -1,13 +1,16 @@
 import Component, { StateProps } from './Component';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { getHeaderSettings, putHeaderSettings } from '../_action';
 import { getProjects } from '../../SidebarFilter/_actions';
 import { Page } from '../../../../types/_types';
-import { push } from 'connected-react-router';
 import { PutHeaderSettings } from '../_types';
 import { setSelectedKeys } from '../../TreeView/_actions';
 import { usersAction } from '../../Accounts/_actions';
+import {
+	getHeaderSettings,
+	putHeaderSettings,
+	resetHeaderSettings,
+} from "../_action";
 
 const mapStateToProps = (state: any): StateProps => ({
 	firstRecordOnPage: state.FilterReducer.projects?.FirstRecordOnPage,
@@ -47,7 +50,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 		dispatch(putHeaderSettings.request(data)),
 	getHeaderSettings: (data: string) =>
 		dispatch(getHeaderSettings.request(data)),
-	push,
+	resetHeaderSettings: (data: string) =>
+		dispatch(resetHeaderSettings.request(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Component);

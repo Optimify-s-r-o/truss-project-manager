@@ -48,6 +48,7 @@ export interface DispatchProps {
 	deleteCustomer: (data: DeleteRequest) => void;
 	putHeaderSettings: (data: PutHeaderSettings) => void;
 	getHeaderSettings: (data: string) => void;
+	resetHeaderSettings: (data: string) => void;
 }
 
 const Index = ({
@@ -60,7 +61,7 @@ const Index = ({
 	filterCustomers,
 	customers,
 	getCustomers,
-	path,
+	resetHeaderSettings,
 	pending,
 	firstRecordOnPage,
 	lastRecordOnPage,
@@ -104,6 +105,7 @@ const Index = ({
 							setColumns={setColumns}
 							initHeaders={initHeaders}
 							putHeaderSettings={putHeaderSettings}
+							resetHeaderSettings={resetHeaderSettings}
 						/>
 						<CustomerTable
 							checked={checked}
@@ -122,6 +124,7 @@ const Index = ({
 							pending={pending}
 							pageSize={pageSize}
 							activeFilter={activeFilter}
+							resetHeaderSettings={resetHeaderSettings}
 						/>
 					</ContentCard>
 				</ContentFilter>

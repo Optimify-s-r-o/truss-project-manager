@@ -14,6 +14,12 @@ export const putHeaderSettings = createAsyncAction(
 	"PUT_HEADER_SETTING_FAILURE"
 )<PutHeaderSettings, HeaderSettings, Error>();
 
+export const resetHeaderSettings = createAsyncAction(
+	"RESET_HEADER_SETTING_REQUEST",
+	"RESET_HEADER_SETTING_SUCCESS",
+	"RESET_HEADER_SETTING_FAILURE"
+)<string, HeaderSettings, Error>();
+
 export const setDisabledColumnSelector = createAction(
 	"SET_DISABLED_COLUMN_SELECTOR"
 )<string[]>();
@@ -28,4 +34,5 @@ export type HeaderSettingsType = ActionType<
 	| typeof setDisabledColumnSelector
 	| typeof setSort
 	| typeof setSortOrder
+	| typeof resetHeaderSettings
 >;
