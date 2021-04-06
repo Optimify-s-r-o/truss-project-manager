@@ -80,6 +80,7 @@ export interface StateProps {
 	treeHub: any;
 	copiedJob: string;
 	activeFilterContent: string;
+	showFilterSidebar: boolean;
 }
 
 export interface DispatchProps {
@@ -127,6 +128,7 @@ export interface DispatchProps {
 	copyJob: (data: CopyJob) => void;
 	setActiveFilterContent: (data: any) => void;
 	setActive: (data: boolean) => void;
+	showFilter: (data: boolean) => void;
 }
 
 const Index = ({
@@ -188,6 +190,8 @@ const Index = ({
 	setActiveFilterContent,
 	activeFilterContent,
 	setActive,
+	showFilter,
+	showFilterSidebar,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { addToast } = useToasts();
 	const [treePending, setTreePending] = React.useState(true);
@@ -287,7 +291,7 @@ const Index = ({
 		>
 			<KeyboardEventHandler
 				handleKeys={["f8"]}
-				onKeyEvent={(key, e) => setActive(!activeFilter)}
+				onKeyEvent={(key, e) => showFilter(!showFilterSidebar)}
 			/>
 			<ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
 				<GlobalStyles />
@@ -298,7 +302,7 @@ const Index = ({
 							setTheme={setTheme}
 							mode={mode}
 							connect={connect}
-							setActiveFilter={setActive}
+							setActiveFilter={showFilter}
 							selectedKeys={selectedKeys}
 							selectedPageSize={selectedPageSize}
 							setSelectedPageSize={setSelectedPageSize}
@@ -306,10 +310,9 @@ const Index = ({
 						/>
 						<IconMenu
 							quickSearchRequest={quickSearchRequest}
-							setFilter={setActive}
-							filter={activeFilter}
+							showFilter={showFilter}
+							filter={showFilterSidebar}
 							connect={connect}
-							setActiveFilter={setActive}
 							selectedKeys={selectedKeys}
 							selectedPageSize={selectedPageSize}
 						/>
@@ -366,7 +369,7 @@ const Index = ({
 								jobPending={jobPending}
 								trussPending={trussPending}
 								customerPending={customerPending}
-								activeFilter={activeFilter}
+								activeFilter={showFilterSidebar}
 								selectedKeys={selectedKeys}
 								getJobs={getJobs}
 								getProjects={getProjects}

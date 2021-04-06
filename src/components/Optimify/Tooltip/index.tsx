@@ -30,7 +30,7 @@ const Tooltip = (props: OwnProps) => {
 			offset["top"] = 3;
 			break;
 	}
-	if (!props.disabled) {
+	if (props.disabled) {
 		return <>{props.children}</>;
 	}
 

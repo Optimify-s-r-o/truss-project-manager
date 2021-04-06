@@ -9,6 +9,7 @@ import {
 	getTrusses,
 	setActive,
 	setActiveFilterContent,
+	showFilter,
 } from "./_actions";
 
 const initialState: FilterType = {
@@ -20,6 +21,7 @@ const initialState: FilterType = {
 	pending: false,
 	activeFilterContent: null,
 	activeFilter: false,
+	showFilter: false,
 	filterPending: false,
 };
 
@@ -37,6 +39,11 @@ export default (
 			return {
 				...state,
 				activeFilter: action.payload,
+			};
+		case getType(showFilter):
+			return {
+				...state,
+				showFilter: action.payload,
 			};
 		case getType(getCustomers.request):
 		case getType(getProjects.request):

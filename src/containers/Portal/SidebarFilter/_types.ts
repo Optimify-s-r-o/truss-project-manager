@@ -43,6 +43,7 @@ export type FilterType = FetchStateType &
 		activeFilterContent: any;
 		activeFilter: boolean;
 		filterPending: boolean;
+		showFilter: boolean;
 	}>;
 
 export type FilteredData = PaginationDto & {

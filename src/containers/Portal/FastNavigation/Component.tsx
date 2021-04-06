@@ -39,20 +39,18 @@ import {
 
 interface IHeader {
 	quickSearchRequest: (data: QuickSearchRequest) => void;
-	setFilter: React.Dispatch<React.SetStateAction<boolean>>;
+	showFilter: (data: boolean) => void;
 	filter: boolean;
 	connect: HubConnection;
-	setActiveFilter: React.Dispatch<React.SetStateAction<boolean>>;
 	selectedKeys?: string[];
 	selectedPageSize: number;
 }
 
 export const IconMenu = ({
-	setFilter,
+	showFilter,
 	filter,
 	quickSearchRequest,
 	connect,
-	setActiveFilter,
 	selectedKeys,
 	selectedPageSize,
 }: IHeader) => {
@@ -257,7 +255,7 @@ export const IconMenu = ({
 					/>
 				</FastSearch>
 			</Start>
-			<Filter onClick={() => setFilter(!filter)}>
+			<Filter onClick={() => showFilter(!filter)}>
 				<Tooltip
 					title={
 						<>

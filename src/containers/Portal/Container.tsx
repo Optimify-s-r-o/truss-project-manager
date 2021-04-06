@@ -46,6 +46,7 @@ import {
 	getTrusses,
 	setActive,
 	setActiveFilterContent,
+	showFilter,
 } from "./SidebarFilter/_actions";
 import {
 	copyJob,
@@ -102,6 +103,7 @@ const mapStateToProps = (state: any) => ({
 	customerPending: state.CustomersReducer.customerPending,
 	treeHub: state.HubReducer.tree,
 	activeFilter: state.FilterReducer.activeFilter,
+	showFilterSidebar: state.FilterReducer.showFilter,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -155,6 +157,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	copyJob: (data: CopyJob) => dispatch(copyJob.request(data)),
 	setActiveFilterContent: (data: any) => dispatch(setActiveFilterContent(data)),
 	setActive: (data: boolean) => dispatch(setActive(data)),
+	showFilter: (data: boolean) => dispatch(showFilter(data)),
 });
 
 export default compose(
