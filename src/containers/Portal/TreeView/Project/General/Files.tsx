@@ -101,7 +101,6 @@ export const Files = ({
 					? folders?.downloads + `\\${name}`
 					: `C:\\${name}`,
 			buttonLabel: "Save",
-			filters: extension,
 		};
 		const { remote } = window.require("electron");
 		const WIN = remote.getCurrentWindow();
