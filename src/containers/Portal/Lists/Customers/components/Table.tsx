@@ -96,7 +96,6 @@ export const CustomerTable = ({
 		}
 	};
 
-	console.log(checked);
 	return (
 		<CardMiddleTableWrapper>
 			<ExternalTable

@@ -82,12 +82,7 @@ const ExternalTable = (props: OwnProps) => {
 			setSortString(sortString);
 			setSort(sortOptions);
 			setSortOrder(sortOrder);
-			console.log({
-				PageSize: selectedPageSize,
-				Page: currentPage - 1,
-				Sort: sortString,
-				RewriteSort: true,
-			});
+
 			if (sortString) {
 				onPageRequired({
 					PageSize: selectedPageSize,
@@ -117,8 +112,6 @@ const ExternalTable = (props: OwnProps) => {
 	const reset = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 		resetHeaderSettings(type);
 	};
-
-	console.log(filterContent);
 
 	return (
 		<>

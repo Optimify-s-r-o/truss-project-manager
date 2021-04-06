@@ -20,13 +20,19 @@ interface VariableProps {
 	value: string;
 	text: any;
 	handleDoubleClick?: (variable: string) => void;
+	section: SectionProps;
 }
 
 const VariablesBar = ({ variables, handleDoubleClick }: any) => {
 	const { t } = useTranslation();
 	const [sections, setSections] = React.useState<Array<SectionProps>>([]);
 
-	const Variable = ({ value, text, handleDoubleClick }: VariableProps) => (
+	const Variable = ({
+		value,
+		text,
+		handleDoubleClick,
+		section,
+	}: VariableProps) => (
 		<VariableBox
 			onDoubleClick={(e) => handleDoubleClick(value)}
 			draggable={true}
@@ -37,6 +43,11 @@ const VariablesBar = ({ variables, handleDoubleClick }: any) => {
 			<Tooltip
 				placement={"top"}
 				title={t(translationPath(lang.quotations.description[text]).path)}
+				disabled={
+					section.title === "ImportedTruss" || section.title === "ImportedJob"
+						? true
+						: false
+				}
 			>
 				{t(translationPath(lang.quotations.variables[text]).path)}
 			</Tooltip>
@@ -125,6 +136,7 @@ const VariablesBar = ({ variables, handleDoubleClick }: any) => {
 											value={variable.value}
 											text={variable.text}
 											handleDoubleClick={handleDoubleClick}
+											section={section}
 										/>
 									))}
 								</VariablesWrapper>
