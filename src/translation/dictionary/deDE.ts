@@ -374,6 +374,7 @@ const dictionary: Lang = {
 		passwordMatch: "Die Passwörter die du eingegeben hast, passen nicht",
 	},
 	common: {
+		assessment: "Bewertung",
 		downloadingJob: "Der Job wird heruntergeladen.",
 		jobDownloaded: "Der Job wurde erfolgreich heruntergeladen.",
 		copyingJob: "Der Job wird kopiert.",

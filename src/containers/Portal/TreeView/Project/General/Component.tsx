@@ -12,6 +12,7 @@ import { CreateCustomer } from '../../../Customer/_types';
 import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
 import { Customer } from 'src/containers/Portal/Customer/_types';
 import { CustomersAll } from '../../../Lists/Customers/_types';
+import { DateWithCheckbox } from './components/DateWithCheckbox';
 import { DeleteJob, RequestDownloadLink, Unlock } from '../../Job/_types';
 import { DeleteProject } from '../../../Project/_types';
 import { EditTruss, OpenTruss } from '../../../../../sagas/Truss/_actions';
@@ -341,34 +342,22 @@ const Index = ({
 											)}
 											type={Input.DATE}
 										/>
-										<FormikRow
+										<DateWithCheckbox
 											formik={formik}
-											titleWidth={40}
 											name={lastPathMember(ProjectProxy.QuotationDate).path}
+											checkboxName={
+												lastPathMember(ProjectProxy.QuotationFinished).path
+											}
 											title={t(translationPath(lang.common.quotationDate))}
-											type={Input.DATE}
 										/>
-										<FormikRow
+										<DateWithCheckbox
 											formik={formik}
-											titleWidth={40}
 											name={lastPathMember(ProjectProxy.ConstructionDate).path}
+											checkboxName={
+												lastPathMember(ProjectProxy.ConstructionFinished).path
+											}
 											title={t(translationPath(lang.common.constructionDate))}
-											type={Input.DATE}
 										/>
-										{/* <FormikRow
-										formik={formik}
-										name={lastPathMember(ProjectProxy.QuotationFinished).path}
-										title={t(translationPath(lang.common.QuotationFinished))}
-										type={Input.SWITCH}
-									/>
-									<FormikRow
-										formik={formik}
-										name={
-											lastPathMember(ProjectProxy.ConstructionFinished).path
-										}
-										title={t(translationPath(lang.common.ConstructionFinished))}
-										type={Input.SWITCH}
-									/> */}
 									</ContentCard>
 								</GridItem>
 								<GridItem fill>

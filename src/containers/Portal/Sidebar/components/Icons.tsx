@@ -166,7 +166,7 @@ export const Icons = ({ id, title, status, lock, lockedByMe }: Icons) => {
 	);
 };
 
-const Box = styled.div<{ color: string }>`
+export const Box = styled.div<{ color: string }>`
 	display: inline-block;
 	border-radius: 10px;
 	color: ${(props) => props.theme.colors.status[props.color]};

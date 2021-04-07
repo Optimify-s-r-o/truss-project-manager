@@ -3,6 +3,7 @@ import EditJob from './components/EditJob';
 import FormikRow from '../../../../../components/Optimify/Form/FormikRow';
 import Moment from 'react-moment';
 import NewJob from './components/NewJob';
+import styled from 'styled-components';
 import { CreateJobFromFile } from '../../../../../sagas/CreateJobFromFile';
 import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
 import { DeleteJob, RequestDownloadLink, Unlock } from '../../Job/_types';
@@ -10,6 +11,7 @@ import { EditTruss, OpenTruss } from '../../../../../sagas/Truss/_actions';
 import { formatCurrency } from 'src/utils/currencyFormat';
 import { get } from 'lodash';
 import { getPath, translationPath } from '../../../../../utils/getPath';
+import { getStatusIcons, Status } from '../../../Sidebar/components/Icons';
 import { IAddJsonToProject } from './File/_types';
 import { Input } from '../../../../../constants/enum';
 import { IProjectDuplicate } from '../_types';
@@ -145,7 +147,7 @@ const Index = (props: WithTranslation & OwnProps) => {
 			}
 		});
 	};
-
+	console.log(project);
 	return (
 		<GridRow columns={1}>
 			<GridItem>
@@ -176,8 +178,9 @@ const Index = (props: WithTranslation & OwnProps) => {
 							<Table
 								style={TABLE_STYLE_CONDENSED}
 								headers={[
-									t(translationPath(lang.common.jobName)),
 									t(translationPath(lang.common.status)),
+									t(translationPath(lang.common.jobName)),
+									t(translationPath(lang.common.assessment)),
 									t(translationPath(lang.common.description)),
 									t(translationPath(lang.common.type)),
 									t(translationPath(lang.common.state)),
@@ -190,6 +193,7 @@ const Index = (props: WithTranslation & OwnProps) => {
 									project
 										? project.Jobs.map((value: Job, index: number) => {
 												return [
+													value.JobState,
 													value.JobName,
 													null,
 													value.Description,
@@ -204,6 +208,13 @@ const Index = (props: WithTranslation & OwnProps) => {
 										: []
 								}
 								renderers={[
+									(value: any, key: number, parent: Job) => {
+										return (
+											<Box color={value}>
+												{getStatusIcons(Status[value?.JobState] as any)}
+											</Box>
+										);
+									},
 									(value: any, key: number, parent: Job) => {
 										return (
 											<NameColumn>
@@ -354,3 +365,25 @@ const Index = (props: WithTranslation & OwnProps) => {
 };
 
 export default withTranslation()(Index);
+
+export const Box = styled.div<{ color: string }>`
+	display: inline-block;
+	border-radius: 10px;
+	color: ${(props) => props.theme.colors.status[props.color]};
+	font-size: 0.7rem;
+	font-weight: 400;
+	padding: 1px;
+	white-space: nowrap;
+
+	svg {
+		margin-top: -1px;
+		margin-right: 3px;
+		margin-bottom: -1px;
+
+		font-size: 1rem;
+
+		&:last-of-type {
+			margin-right: 6px;
+		}
+	}
+`;

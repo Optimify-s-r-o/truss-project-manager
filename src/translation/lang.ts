@@ -371,6 +371,7 @@ export type Lang = Readonly<{
 	};
 
 	common: {
+		assessment: string;
 		downloadingJob: string;
 		jobDownloaded: string;
 		copyingJob: string;

@@ -93,14 +93,14 @@ export const TrussColumnSelector = ({
 		},
 		{
 			name: "Type",
-			title: t(translationPath(lang.common.type).path),
+			title: t(translationPath(lang.common.trussType).path),
 			section: "General",
 			filter: getPath(FilterProxy.Trusses.TypeFilter.Types),
 			filterType: FilterContentType.ARRAY,
 		},
 		{
 			name: "Kind",
-			title: t(translationPath(lang.common.kinds).path),
+			title: t(translationPath(lang.common.typeOfTruss).path),
 			section: "General",
 			filter: getPath(FilterProxy.Trusses.KindsFilter.Kinds),
 			filterType: FilterContentType.ARRAY,

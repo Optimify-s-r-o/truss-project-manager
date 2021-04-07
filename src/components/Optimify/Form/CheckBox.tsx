@@ -97,7 +97,7 @@ export const StyledBox = styled(Center)<{
 	checked?: boolean;
 }>`
 	position: relative;
-
+	cursor: pointer;
 	width: 15px;
 	height: 15px;
 

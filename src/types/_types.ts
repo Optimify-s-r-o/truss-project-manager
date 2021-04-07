@@ -376,6 +376,7 @@ export type CustomerStateType = FetchStateType &
 export interface Job {
 	Id: string;
 	JobName: string;
+	JobState: string;
 	Description: string;
 	Customer: string;
 	Project: string;

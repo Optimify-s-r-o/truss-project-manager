@@ -12,12 +12,12 @@ import { getLanguage, lang } from '../../../translation/i18n';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { LineOutlined } from '@ant-design/icons';
 import { translationPath } from '../../../utils/getPath';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface DateInputProps {
 	value: Date;
-	onChange: (
+	onChange?: (
 		name: string
 	) => (
 		date: Date | null,
@@ -34,6 +34,24 @@ const DateInput = ({ name, formik, disabled }: DateInputProps) => {
 	const [focused, setFocused] = useState(false);
 	const datepicker = useRef(null);
 	const [language, setLanguage] = React.useState(getLanguage());
+
+	useEffect(() => {
+		function handleClickOutside(event) {
+			if (
+				(event.target.tagName === "A" || event.target.tagName === "DIV") &&
+				datepicker.current &&
+				event.target &&
+				!event.target?.className?.includes("ant-picker")
+			) {
+				setFocused(false);
+			}
+		}
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [datepicker]);
 
 	const onChange = (value: any, dateString: string) => {
 		formik.setFieldValue(name, value);
@@ -122,6 +140,7 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	margin: 8px 0;
+	width: 100%;
 
 	svg {
 		color: ${(props) => props.theme.colors.forms.border};
