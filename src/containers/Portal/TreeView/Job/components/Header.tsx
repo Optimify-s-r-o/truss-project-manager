@@ -3,7 +3,6 @@ import Navigation from '../../../../../components/NavigationLink';
 import { Delete, Lock } from '../../../../../components/Button';
 import { DeleteJob, JobProxy, Unlock } from '../_types';
 import { EditTruss } from '../../../../../sagas/Truss/_actions';
-import { faCube } from '@fortawesome/pro-duotone-svg-icons';
 import { faHomeLgAlt, faMountains } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { get } from 'lodash';
@@ -110,12 +109,6 @@ export const Header = ({
 						active: location.pathname.includes("trusses"),
 						text: t(translationPath(lang.common.trusses).path),
 						icon: faMountains,
-					},
-					{
-						to: Routes.TREE_LINK_JOB + id + "/viewer",
-						active: location.pathname.includes("viewer"),
-						text: t(translationPath(lang.common.viewer).path),
-						icon: faCube,
 					},
 					{
 						to: Routes.TREE_LINK_JOB + id + "/quotations/persist",

@@ -2,13 +2,21 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import Data from '../../../../../components/Data/Data';
 import FormikRow from '../../../../../components/Optimify/Form/FormikRow';
+import Loading from '../../../../../components/Optimify/Loading';
 import Moment from 'react-moment';
 import RouteLeavingGuard from '../../../../../components/Prompt';
-import { Alert, Button as SButton, Modal } from 'antd';
+import { ActionSection } from '../../../../../components/Quotations';
+import {
+	Alert,
+	Button as SButton,
+	Empty,
+	Modal
+	} from 'antd';
 import { Button } from '../../../../../components/Optimify/Button';
 import { DeleteJob, JobProxy, Unlock } from '../_types';
 import { EditTruss } from '../../../../../sagas/Truss/_actions';
 import { Enter } from 'src/components/KeyBoardEventHandler';
+import { File } from '../Viewer/components/File';
 import { fixed } from '../../../../../utils/formating';
 import { formatCurrency } from 'src/utils/currencyFormat';
 import { get } from 'lodash';
@@ -18,8 +26,11 @@ import { Input } from '../../../../../constants/enum';
 import { JobType, Settings, TreeType } from '../../../../../types/_types';
 import { RightColumn } from './_styles';
 import { RouteComponentProps } from 'react-router-dom';
+import { Table } from '../Viewer/components/Table';
 import { UnitType } from '../../../../../components/Data/Unit';
 import { useFormik } from 'formik';
+import { Viewer, ViewerRequest } from '../Viewer/_types';
+import { ViewerColumn, ViewerTitleSection } from '../Viewer/_styles';
 import {
 	ContentCard,
 	Form,
@@ -50,6 +61,8 @@ export interface StateProps {
 	settings: Settings;
 	image: string;
 	history: any;
+	models: Viewer;
+	viewerPending: boolean;
 }
 
 export interface DisptachProps {
@@ -58,6 +71,10 @@ export interface DisptachProps {
 	removeJob: (data: DeleteJob) => void;
 	unlockJob: (data: Unlock) => void;
 	editTruss: (data: EditTruss) => void;
+	uploadModelPostAction: (data: ViewerRequest) => void;
+	editModelPutAction: (data: ViewerRequest) => void;
+	deleteModel: (data: string) => void;
+	clearModels: (data: void) => void;
 }
 
 let globalCallback = null;
@@ -71,6 +88,9 @@ const Index = ({
 	editTruss,
 	pending,
 	setSelectedKeys,
+	models,
+	uploadModelPostAction,
+	deleteModel,
 }: WithTranslation & StateProps & DisptachProps & RouteComponentProps) => {
 	const [alertDialog, setAlertDialog] = React.useState(false);
 
@@ -401,6 +421,39 @@ const Index = ({
 									</ContentCard>
 								</GridItem>
 							</GridRow>
+							<GridItem fill>
+								<Loading
+									text={t(translationPath(lang.common.loading))}
+									pending={pending}
+									margin
+								>
+									{models?.Exists ? (
+										<ContentCard fullSize>
+											<ViewerTitleSection>
+												<Header2>
+													{t(translationPath(lang.viewer.title))}
+												</Header2>
+											</ViewerTitleSection>
+											<Table
+												models={models}
+												deleteModel={deleteModel}
+												id={job?.id}
+											/>
+										</ContentCard>
+									) : (
+										<ViewerColumn>
+											<Empty description={""} />
+											<br />
+											<ActionSection>
+												<File
+													uploadModelPostAction={uploadModelPostAction}
+													id={job?.id}
+												/>
+											</ActionSection>
+										</ViewerColumn>
+									)}
+								</Loading>
+							</GridItem>
 						</TreeContent>
 						{!equal(formik.values, job) && (
 							<TreeButtonsRow>

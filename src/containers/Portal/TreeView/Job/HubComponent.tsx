@@ -8,6 +8,7 @@ export interface HubComponent {
 	jobHub: any;
 	children: React.ReactNode;
 	setLoading: (data: boolean) => void;
+	modelsGetAction: (data: string) => void;
 }
 
 export const HubComponent = ({
@@ -15,6 +16,7 @@ export const HubComponent = ({
 	jobHub,
 	setLoading,
 	children,
+	modelsGetAction,
 }: HubComponent) => {
 	useEffect(() => {
 		return () => {
@@ -28,6 +30,7 @@ export const HubComponent = ({
 				try {
 					setLoading(true);
 					jobHub?.invoke(Hub.OpenJob, id);
+					modelsGetAction(id);
 				} catch (err) {
 					console.log(err);
 				}

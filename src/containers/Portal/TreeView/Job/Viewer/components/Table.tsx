@@ -39,7 +39,7 @@ export const Table = ({ models, deleteModel, id }: ITable) => {
 		<ScrollableTable
 			height={250}
 			headers={[
-				t(translationPath(lang.common.viewer.link)),
+				t(translationPath(lang.viewer.url)),
 				t(translationPath(lang.common.dateOfCreation)),
 				t(translationPath(lang.common.user)),
 				t(translationPath(lang.common.actions)),
@@ -49,7 +49,11 @@ export const Table = ({ models, deleteModel, id }: ITable) => {
 			})}
 			renderers={[
 				(value: any, key: number, parent: Viewer) => {
-					return <StyledDiv onClick={openFineUrl(value)}>{value}</StyledDiv>;
+					return (
+						<StyledDiv onClick={openFineUrl(value)}>
+							{value && value?.split("/#")[0]}
+						</StyledDiv>
+					);
 				},
 				(value: any, key: number, parent: Viewer) => {
 					return <Moment format="DD/MM/YYYY">{value}</Moment>;

@@ -1,6 +1,7 @@
 import Component, { StateProps } from './Component';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { modelsGetAction } from './Viewer/_actions';
 import { setLoading } from '../Project/General/_actions';
 import { withRouter } from 'react-router-dom';
 import {
@@ -29,6 +30,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	unlockJob: (data: Unlock) => dispatch(unlockJob.request(data)),
 	setJob: (data: JobRootObject) => dispatch(setJob(data)),
 	setLoading: (data: boolean) => dispatch(setLoading(data)),
+	modelsGetAction: (data: string) => dispatch(modelsGetAction.request(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({

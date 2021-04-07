@@ -489,6 +489,7 @@ const dictionary: Lang = {
 		Truss: "Tragen",
 		NonStructuralTruss: "Nicht tragend",
 		Infill: "Unterstützender Teil",
+		BracingFrame: "Versteifungsfachwerk",
 		NonStructuralInfill: "Strukturteil",
 		GableLadder: "Schildaustausch",
 		NotRecognized: "Unerkannt",

@@ -468,6 +468,7 @@ export type Lang = Readonly<{
 		of: string;
 		kinds: string;
 		Truss: string;
+		BracingFrame: string;
 		NonStructuralTruss: string;
 		Infill: string;
 		NonStructuralInfill: string;

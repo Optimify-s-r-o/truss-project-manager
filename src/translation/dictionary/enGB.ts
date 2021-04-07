@@ -483,6 +483,7 @@ const dictionary: Lang = {
 		Truss: "Truss",
 		NonStructuralTruss: "Non-structural Truss",
 		Infill: "Infill",
+		BracingFrame: "Stiffening truss",
 		NonStructuralInfill: "Non-structural Infill",
 		GableLadder: "Gable ladder",
 		NotRecognized: "Not recognized",

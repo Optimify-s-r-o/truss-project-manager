@@ -5,31 +5,30 @@ import ProtectedRoute from '../../../../components/ProtectedRoute';
 import Quotations from './Quotations/Container';
 import React from 'react';
 import Trusses from './Trusses/Container';
-import Viewer from './Viewer/Container';
+import { HubComponent } from './HubComponent';
+import { JobType, TreeType } from '../../../../types/_types';
+import { MainTree } from '../../_styles';
+import { Routes } from '../../../../constants/routes';
+import { translationPath } from '../../../../utils/getPath';
+import {
+	RouteComponentProps,
+	Switch,
+	useLocation,
+	useParams,
+} from "react-router-dom";
+import {
+	lang,
+	t,
+	WithTranslation,
+	withTranslation,
+} from "../../../../translation/i18n";
 import {
 	DeleteJob,
 	JobRootObject,
 	JobsSelectedRequest,
 	ProjectNameJobName,
-	Unlock
-	} from './_types';
-import { HubComponent } from './HubComponent';
-import { JobType, TreeType } from '../../../../types/_types';
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation
-	} from '../../../../translation/i18n';
-import { MainTree } from '../../_styles';
-import {
-	RouteComponentProps,
-	Switch,
-	useLocation,
-	useParams
-	} from 'react-router-dom';
-import { Routes } from '../../../../constants/routes';
-import { translationPath } from '../../../../utils/getPath';
+	Unlock,
+} from "./_types";
 const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
 export interface StateProps {
 	activeTree: TreeType;
@@ -50,18 +49,25 @@ export interface DispatchProps {
 	setJob: (data: JobRootObject) => void;
 	unlockJob: (data: Unlock) => void;
 	setLoading: (data: boolean) => void;
+	modelsGetAction: (data: string) => void;
 }
 
 const Index = ({
 	jobHub,
 	setLoading,
 	loadingPage,
+	modelsGetAction,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const { id } = useParams<{ id: string; type?: string }>();
 	const location = useLocation();
 
 	return (
-		<HubComponent id={id} jobHub={jobHub} setLoading={setLoading}>
+		<HubComponent
+			id={id}
+			jobHub={jobHub}
+			setLoading={setLoading}
+			modelsGetAction={modelsGetAction}
+		>
 			<MainTree>
 				<Loading
 					text={t(translationPath(lang.common.loading))}
@@ -88,11 +94,6 @@ const Index = ({
 							path={Routes.TREE_JOB_TRUSSES}
 							exact
 							component={Trusses}
-						/>
-						<ProtectedRoute
-							path={Routes.TREE_JOB_MODEL_VIEWER}
-							exact
-							component={Viewer}
 						/>
 						<ProtectedRoute exact path={Routes.TREE_JOB} component={General} />
 					</Switch>

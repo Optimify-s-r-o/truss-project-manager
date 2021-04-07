@@ -254,7 +254,7 @@ const dictionary: Lang = {
 		upload: "Nahrát 3D model",
 		dateOfCreation: "Datum nahrání",
 		uploadedBy: "Nahráno",
-		url: "URL 3d modelu",
+		url: "URL 3D modelu",
 		link: "odkaz",
 	},
 	organization: {
@@ -480,6 +480,7 @@ const dictionary: Lang = {
 		of: "z",
 		kinds: "Účel",
 		Truss: "Nosný",
+		BracingFrame: "Ztužující vazník",
 		NonStructuralTruss: "Nenosný",
 		Infill: "Nosný dílec",
 		NonStructuralInfill: "Konstrukční dílec",
