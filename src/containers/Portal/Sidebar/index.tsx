@@ -173,7 +173,7 @@ export const Sidebar = ({
 				activeTree,
 				requiredPage.Page,
 				requiredPage.PageSize,
-				requiredPage.Sort
+				requiredPage.Sort || ""
 			);
 		}
 	};
