@@ -6942,10 +6942,10 @@ electron-localshortcut@^3.2.1:
     keyboardevent-from-electron-accelerator "^2.0.0"
     keyboardevents-areequal "^0.2.1"
 
-electron-log@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/electron-log/-/electron-log-4.3.2.tgz#213334c69f0498fac677a7a73eae4a61fb69949e"
-  integrity sha512-PJPWE8JDzQ137UlxX9K917nI8GTcwgiJpE2PMPXZo+I6C4AaZU+JWQ3lW5NjQ1Lg8Qk8qbze+Ly0yAiqhbmpeA==
+electron-log@^4.3.3:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/electron-log/-/electron-log-4.3.3.tgz#84f37795b916e1801e7dcd66d21cb59f5a1a60a8"
+  integrity sha512-WNPZm56O6YAxdQ2ESTaYr6nEid+jqobNjHMuDCfY2l76uPwz5UBOO+8sGv0XeXG8IQvygcagcwjpVuK9/IggYg==
 
 electron-publish@22.10.5:
   version "22.10.5"
@@ -6961,10 +6961,10 @@ electron-publish@22.10.5:
     lazy-val "^1.0.4"
     mime "^2.5.0"
 
-electron-store@^7.0.2:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/electron-store/-/electron-store-7.0.2.tgz#e45a54d092ea43e2a953619ed4473893d448dfdf"
-  integrity sha512-tSUeHF9qdiPirph8JKJvIIcdVb3wYwgHUJCE38SJq4L08Op2z1+u8DSQ42Nvx34TKvb2lkQkByV0tHh6xBxdEQ==
+electron-store@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/electron-store/-/electron-store-7.0.3.tgz#56d78284454018ed50ffc7645da49f828ae5ff19"
+  integrity sha512-wIbw4GHt4djs4dVrlRLCD/SpdpDUiRsQc212jagGA6zJ8xt1iwx3KZIzXY8gmwvgVCOcVxi3iyCXZoBBWwBXpQ==
   dependencies:
     conf "^9.0.0"
     type-fest "^0.20.2"
@@ -8793,10 +8793,10 @@ i18next-browser-languagedetector@^6.1.0:
   dependencies:
     "@babel/runtime" "^7.5.5"
 
-i18next@^20.2.0:
-  version "20.2.0"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-20.2.0.tgz#ef2b6a099b6e03a1f288ce2517bc8b6a226d0ba2"
-  integrity sha512-gF7jdgWcYoTymnyJ3zTD6DMAl9xtWfWMDXYT89CWi4JJFYxWSXw90waGzqZV9km8eTXBA8IzmK0Y9cGHz7ESCw==
+i18next@^20.2.1:
+  version "20.2.1"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-20.2.1.tgz#8aedfdc596f7d54b9d3f6d87bcb89214467cb785"
+  integrity sha512-JLruWDEQ3T6tKT6P7u+DsNtToMHUwUcQIYOMRcnNBdUhSfKkoIDUKdVDKgGtmqr//LrirxjADUdr3d5Gwbow6g==
   dependencies:
     "@babel/runtime" "^7.12.0"
 
@@ -16262,7 +16262,7 @@ w3c-xmlserializer@^2.0.0:
   dependencies:
     xml-name-validator "^3.0.0"
 
-wait-on@^5.3.1:
+wait-on@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/wait-on/-/wait-on-5.3.0.tgz#584e17d4b3fe7b46ac2b9f8e5e102c005c2776c7"
   integrity sha512-DwrHrnTK+/0QFaB9a8Ol5Lna3k7WvUR4jzSKmz0YaPBpuN2sACyiPVKVfj6ejnjcajAcvn3wlbTyMIn9AZouOg==
