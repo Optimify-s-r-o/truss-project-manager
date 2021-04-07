@@ -107,9 +107,7 @@ export const Component = ({
 							columnNames={[
 								lastPathMember(UserProxy.Username).path,
 								lastPathMember(UserProxy.Email).path,
-								,
 								lastPathMember(UserProxy.PhoneNumber).path,
-								,
 								lastPathMember(UserProxy.Name).path,
 								lastPathMember(UserProxy.Surname).path,
 								lastPathMember(UserProxy.Role).path,

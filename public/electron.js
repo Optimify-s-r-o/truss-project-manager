@@ -7,25 +7,6 @@ const fs = require('fs');
 const { autoUpdater } = require("electron-updater")
 const log = require('electron-log');
 
-const runApiServer = () => {
-  if (!isDev) {
-    var executablePath =
-      'C:\\Program Files\\Truss Project Manager REST API\\ApmBackend.exe';
-      execFile(
-      executablePath,
-      { cwd: 'C:\\Program Files\\Truss Project Manager REST API\\' },
-      function (err, data) {
-        console.log(err);
-        console.log(data);
-        if (err) {
-          console.error(err);
-          return;
-        }
-      }
-    );
-  }
-}
-
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
 autoUpdater.autoDownload=false;
@@ -34,7 +15,6 @@ let win;
 
 
 const  createWindow =()=> {
-  runApiServer();
   win = new BrowserWindow({
     width: 1324,
     height: 828,

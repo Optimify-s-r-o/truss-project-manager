@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import FormikRow from '../../../../components/Optimify/Form/FormikRow';
 import { Button } from '../../../../components/Optimify/Button';
+import { Enter } from 'src/components/KeyBoardEventHandler';
 import { faUserPlus } from '@fortawesome/pro-light-svg-icons';
 import { Fetch, UserRole } from '../../../../types/_types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -125,112 +126,119 @@ export const Component = ({
 	});
 
 	return (
-		<MainTree>
-			<MainTreeContent>
-				<Form onSubmit={formik.handleSubmit}>
-					<TreeScreen>
-						<PageHeader>
-							<PageTitle>
-								<TitleSection>
-									<FontAwesomeIcon icon={faUserPlus as IconProp} />
-									<TitleName>
-										{username
-											? t(translationPath(lang.common.editAccount).path)
-											: t(translationPath(lang.common.addAccount).path)}
-									</TitleName>
-								</TitleSection>
-							</PageTitle>
-						</PageHeader>
-						<TreeContent>
-							<GridRow columns={1}>
-								<GridItem fill>
-									<ContentCard fullSize>
-										<FormikRow
-											formik={formik}
-											name="Name"
-											title={t(translationPath(lang.common.forename).path)}
-											type={Input.TEXT}
-										/>
-										<FormikRow
-											formik={formik}
-											name="Surname"
-											title={t(translationPath(lang.common.surname).path)}
-											type={Input.TEXT}
-										/>
-										<FormikRow
-											formik={formik}
-											name="PhoneNumber"
-											title={t(translationPath(lang.common.phone).path)}
-											type={Input.PHONE}
-										/>
-										<FormikRow
-											formik={formik}
-											name="Role"
-											title={t(translationPath(lang.common.account.role).path)}
-											type={Input.SELECT}
-											disabled={!admin}
-											options={
-												formik.values?.Role === "ORGANIZATIONADMIN"
-													? [
-															{
-																value: "ORGANIZATIONADMIN",
-																label: t(
-																	translationPath(
-																		lang.common.account["ORGANIZATIONADMIN"]
-																	).path
-																),
-															},
-													  ]
-													: [
-															{
-																value: "DESIGNENGINEER",
-																label: t(
-																	translationPath(
-																		lang.common.account["DESIGNENGINEER"]
-																	).path
-																),
-															},
-															{
-																value: "VIEWER",
-																label: t(
-																	translationPath(lang.common.account["VIEWER"])
-																		.path
-																),
-															},
-													  ]
-											}
-										/>
-										<FormikRow
-											formik={formik}
-											name="Email"
-											title={t(translationPath(lang.common.emailUsername).path)}
-											type={Input.TEXT}
-										/>
-										{formik.values && formik.values.Id ? (
-											<></>
-										) : (
+		<Enter formik={formik}>
+			<MainTree>
+				<MainTreeContent>
+					<Form onSubmit={formik.handleSubmit}>
+						<TreeScreen>
+							<PageHeader>
+								<PageTitle>
+									<TitleSection>
+										<FontAwesomeIcon icon={faUserPlus as IconProp} />
+										<TitleName>
+											{username
+												? t(translationPath(lang.common.editAccount).path)
+												: t(translationPath(lang.common.addAccount).path)}
+										</TitleName>
+									</TitleSection>
+								</PageTitle>
+							</PageHeader>
+							<TreeContent>
+								<GridRow columns={1}>
+									<GridItem fill>
+										<ContentCard fullSize>
 											<FormikRow
 												formik={formik}
-												name="Password"
-												title={t(translationPath(lang.common.password).path)}
-												type={Input.PASSWORD}
+												name="Name"
+												title={t(translationPath(lang.common.forename).path)}
+												type={Input.TEXT}
 											/>
-										)}
-									</ContentCard>
-								</GridItem>
-							</GridRow>
-						</TreeContent>
-						<TreeButtonsRow>
-							<Button level={2} loading={pending}>
-								{username
-									? t(translationPath(lang.common.save).path)
-									: t(translationPath(lang.common.createAccount).path)}
-							</Button>
-						</TreeButtonsRow>
-					</TreeScreen>
-				</Form>
-			</MainTreeContent>
-		</MainTree>
+											<FormikRow
+												formik={formik}
+												name="Surname"
+												title={t(translationPath(lang.common.surname).path)}
+												type={Input.TEXT}
+											/>
+											<FormikRow
+												formik={formik}
+												name="PhoneNumber"
+												title={t(translationPath(lang.common.phone).path)}
+												type={Input.PHONE}
+											/>
+											<FormikRow
+												formik={formik}
+												name="Role"
+												title={t(
+													translationPath(lang.common.account.role).path
+												)}
+												type={Input.SELECT}
+												disabled={!admin}
+												options={
+													formik.values?.Role === "ORGANIZATIONADMIN"
+														? [
+																{
+																	value: "ORGANIZATIONADMIN",
+																	label: t(
+																		translationPath(
+																			lang.common.account["ORGANIZATIONADMIN"]
+																		).path
+																	),
+																},
+														  ]
+														: [
+																{
+																	value: "DESIGNENGINEER",
+																	label: t(
+																		translationPath(
+																			lang.common.account["DESIGNENGINEER"]
+																		).path
+																	),
+																},
+																{
+																	value: "VIEWER",
+																	label: t(
+																		translationPath(
+																			lang.common.account["VIEWER"]
+																		).path
+																	),
+																},
+														  ]
+												}
+											/>
+											<FormikRow
+												formik={formik}
+												name="Email"
+												title={t(
+													translationPath(lang.common.emailUsername).path
+												)}
+												type={Input.TEXT}
+											/>
+											{formik.values && formik.values.Id ? (
+												<></>
+											) : (
+												<FormikRow
+													formik={formik}
+													name="Password"
+													title={t(translationPath(lang.common.password).path)}
+													type={Input.PASSWORD}
+												/>
+											)}
+										</ContentCard>
+									</GridItem>
+								</GridRow>
+							</TreeContent>
+							<TreeButtonsRow>
+								<Button level={2} loading={pending}>
+									{username
+										? t(translationPath(lang.common.save).path)
+										: t(translationPath(lang.common.createAccount).path)}
+								</Button>
+							</TreeButtonsRow>
+						</TreeScreen>
+					</Form>
+				</MainTreeContent>
+			</MainTree>
+		</Enter>
 	);
 };
 

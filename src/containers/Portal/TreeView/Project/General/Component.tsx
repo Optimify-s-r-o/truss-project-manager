@@ -15,6 +15,7 @@ import { CustomersAll } from '../../../Lists/Customers/_types';
 import { DeleteJob, RequestDownloadLink, Unlock } from '../../Job/_types';
 import { DeleteProject } from '../../../Project/_types';
 import { EditTruss, OpenTruss } from '../../../../../sagas/Truss/_actions';
+import { Enter } from 'src/components/KeyBoardEventHandler';
 import { FileRequest } from '../../../../../sagas/DownloadFile/_actions';
 import { Files } from './Files';
 import { formatCurrency } from 'src/utils/currencyFormat';
@@ -234,7 +235,7 @@ const Index = ({
 	};
 
 	return (
-		<>
+		<Enter formik={formik}>
 			<Header
 				removeProject={removeProject}
 				createTruss={createTruss}
@@ -444,7 +445,7 @@ const Index = ({
 					</p>
 				</Modal>
 			</MainTreeContent>
-		</>
+		</Enter>
 	);
 };
 

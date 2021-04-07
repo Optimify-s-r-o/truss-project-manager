@@ -79,7 +79,7 @@ const Index = ({
 	const [columns, setColumns] = React.useState<Checkbox[]>([]);
 
 	useEffect(() => {
-		getCustomers({ Page: 0, PageSize: 25, Sort: "", Paginate: true });
+		getCustomers({ Page: 0, PageSize: 25, Paginate: true });
 		getHeaderSettings(TreeType.CUSTOMER);
 	}, []);
 

@@ -71,7 +71,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 				name={getPath(FilterProxy.Trusses.TypeFilter.Types)}
 				pathName={lastPathMember(FilterProxy.Trusses.TypeFilter.Types).path}
 				path={getPath(FilterProxy.Trusses.TypeFilter)}
-				title={t(translationPath(lang.common.type))}
+				title={t(translationPath(lang.common.trussType))}
 				value={formik.values?.Trusses?.TypeFilter?.Types}
 			/>
 			<FormikCheckbox
@@ -81,7 +81,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 				name={getPath(FilterProxy.Trusses.KindsFilter.Kinds)}
 				pathName={lastPathMember(FilterProxy.Trusses.KindsFilter.Kinds).path}
 				path={getPath(FilterProxy.Trusses.KindsFilter)}
-				title={t(translationPath(lang.common.kinds))}
+				title={t(translationPath(lang.common.typeOfTruss))}
 				value={formik.values?.Trusses?.KindsFilter?.Kinds}
 			/>
 		</FilterSection>

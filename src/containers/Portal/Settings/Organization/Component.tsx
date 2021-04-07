@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Alert } from 'antd';
 import { Box } from '../../../../components/Box';
 import { Button } from '../../../../components/Optimify/Button';
+import { Enter } from 'src/components/KeyBoardEventHandler';
 import { faCog } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { get } from 'lodash';
@@ -93,133 +94,145 @@ export const Component = ({
 		},
 	});
 	return (
-		<MainTree>
-			<Form onSubmit={formik.handleSubmit}>
-				<PageHeader>
-					<PageTitle>
-						<TitleSection>
-							<FontAwesomeIcon icon={faCog as IconProp} />
-							<TitleName>
-								{" "}
-								{t(translationPath(lang.common.settings).path)}
-							</TitleName>
-						</TitleSection>
-					</PageTitle>
-				</PageHeader>
-				<MainTreeContent>
-					<TreeScreen>
-						<TreeContent>
-							<GridRow columns={1}>
-								<GridItem fill>
-									<Box title={t(translationPath(lang.organization.title).path)}>
-										<>
-											{!admin && (
-												<Alert
-													message={t(
-														translationPath(lang.common.notAdmin).path
-													)}
-													type="warning"
-													showIcon
-													closable
+		<Enter formik={formik}>
+			<MainTree>
+				<Form onSubmit={formik.handleSubmit}>
+					<PageHeader>
+						<PageTitle>
+							<TitleSection>
+								<FontAwesomeIcon icon={faCog as IconProp} />
+								<TitleName>
+									{" "}
+									{t(translationPath(lang.common.settings).path)}
+								</TitleName>
+							</TitleSection>
+						</PageTitle>
+					</PageHeader>
+					<MainTreeContent>
+						<TreeScreen>
+							<TreeContent>
+								<GridRow columns={1}>
+									<GridItem fill>
+										<Box
+											title={t(translationPath(lang.organization.title).path)}
+										>
+											<>
+												{!admin && (
+													<Alert
+														message={t(
+															translationPath(lang.common.notAdmin).path
+														)}
+														type="warning"
+														showIcon
+														closable
+													/>
+												)}
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(OrganizationProxy.Crn).path}
+													title={t(translationPath(lang.common.crn).path)}
+													type={Input.TEXT}
+													disabled={!admin}
 												/>
-											)}
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(OrganizationProxy.Crn).path}
-												title={t(translationPath(lang.common.crn).path)}
-												type={Input.TEXT}
-												disabled={!admin}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(OrganizationProxy.VatRegNo).path}
-												title={t(translationPath(lang.common.vatRegNo).path)}
-												type={Input.TEXT}
-												disabled={!admin}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(OrganizationProxy.Name).path}
-												title={t(translationPath(lang.common.name).path)}
-												type={Input.TEXT}
-												disabled={!admin}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(OrganizationProxy.CityName).path}
-												title={t(translationPath(lang.common.cityName).path)}
-												type={Input.TEXT}
-												disabled={!admin}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(OrganizationProxy.StreetName).path}
-												title={t(translationPath(lang.common.street).path)}
-												type={Input.TEXT}
-												disabled={!admin}
-											/>
-											<FormikRow
-												formik={formik}
-												name={
-													lastPathMember(OrganizationProxy.PlaceNumber).path
-												}
-												title={t(translationPath(lang.common.placeNumber).path)}
-												type={Input.TEXT}
-												disabled={!admin}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(OrganizationProxy.Zip).path}
-												title={t(translationPath(lang.common.postcode).path)}
-												type={Input.TEXT}
-												disabled={!admin}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(OrganizationProxy.RegionName).path}
-												title={t(translationPath(lang.common.region).path)}
-												type={Input.TEXT}
-												disabled={!admin}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(OrganizationProxy.CountryId).path}
-												title={t(translationPath(lang.common.country).path)}
-												type={Input.SELECT}
-												options={
-													get(
-														settingsEntity,
-														getPath(SettingsProxy.Countries)
-													) &&
-													get(
-														settingsEntity,
-														getPath(SettingsProxy.Countries)
-													).map((value: Countries) => {
-														return {
-															value: value.Id,
-															label: value.EnglishName,
-														};
-													})
-												}
-												disabled={!admin}
-											/>
-											<br />
-											{admin && (
-												<ButtonsRow>
-													<Button level={2} type="submit" loading={pending}>
-														{t(translationPath(lang.common.save).path)}
-													</Button>
-												</ButtonsRow>
-											)}
-										</>
-									</Box>
-								</GridItem>
-							</GridRow>
-						</TreeContent>
-					</TreeScreen>
-				</MainTreeContent>
-			</Form>
-		</MainTree>
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(OrganizationProxy.VatRegNo).path}
+													title={t(translationPath(lang.common.vatRegNo).path)}
+													type={Input.TEXT}
+													disabled={!admin}
+												/>
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(OrganizationProxy.Name).path}
+													title={t(translationPath(lang.common.name).path)}
+													type={Input.TEXT}
+													disabled={!admin}
+												/>
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(OrganizationProxy.CityName).path}
+													title={t(translationPath(lang.common.cityName).path)}
+													type={Input.TEXT}
+													disabled={!admin}
+												/>
+												<FormikRow
+													formik={formik}
+													name={
+														lastPathMember(OrganizationProxy.StreetName).path
+													}
+													title={t(translationPath(lang.common.street).path)}
+													type={Input.TEXT}
+													disabled={!admin}
+												/>
+												<FormikRow
+													formik={formik}
+													name={
+														lastPathMember(OrganizationProxy.PlaceNumber).path
+													}
+													title={t(
+														translationPath(lang.common.placeNumber).path
+													)}
+													type={Input.TEXT}
+													disabled={!admin}
+												/>
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(OrganizationProxy.Zip).path}
+													title={t(translationPath(lang.common.postcode).path)}
+													type={Input.TEXT}
+													disabled={!admin}
+												/>
+												<FormikRow
+													formik={formik}
+													name={
+														lastPathMember(OrganizationProxy.RegionName).path
+													}
+													title={t(translationPath(lang.common.region).path)}
+													type={Input.TEXT}
+													disabled={!admin}
+												/>
+												<FormikRow
+													formik={formik}
+													name={
+														lastPathMember(OrganizationProxy.CountryId).path
+													}
+													title={t(translationPath(lang.common.country).path)}
+													type={Input.SELECT}
+													options={
+														get(
+															settingsEntity,
+															getPath(SettingsProxy.Countries)
+														) &&
+														get(
+															settingsEntity,
+															getPath(SettingsProxy.Countries)
+														).map((value: Countries) => {
+															return {
+																value: value.Id,
+																label: value.EnglishName,
+															};
+														})
+													}
+													disabled={!admin}
+												/>
+												<br />
+												{admin && (
+													<ButtonsRow>
+														<Button level={2} type="submit" loading={pending}>
+															{t(translationPath(lang.common.save).path)}
+														</Button>
+													</ButtonsRow>
+												)}
+											</>
+										</Box>
+									</GridItem>
+								</GridRow>
+							</TreeContent>
+						</TreeScreen>
+					</MainTreeContent>
+				</Form>
+			</MainTree>
+		</Enter>
 	);
 };
 

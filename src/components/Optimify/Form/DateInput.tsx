@@ -1,11 +1,20 @@
-import { DatePicker } from "antd";
-import locale from "antd/es/date-picker/locale/cs_CZ";
-import moment from "moment";
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import styled from "styled-components";
-import { lang } from "../../../translation/i18n";
-import { translationPath } from "../../../utils/getPath";
+import * as React from 'react';
+import localeCZ from './localesDateInput/cs-CZ.json';
+import localeDE from './localesDateInput/de-DE.json';
+import localeEN from './localesDateInput/en-GB.json';
+import moment from 'moment';
+import styled from 'styled-components';
+import { ContentRow } from 'src/constants/globalStyles';
+import { DatePicker } from 'antd';
+import { faCalendar, faTimes } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getLanguage, lang } from '../../../translation/i18n';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { LineOutlined } from '@ant-design/icons';
+import { translationPath } from '../../../utils/getPath';
+import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 interface DateInputProps {
 	value: Date;
 	onChange: (
@@ -22,54 +31,111 @@ interface DateInputProps {
 
 const DateInput = ({ name, formik, disabled }: DateInputProps) => {
 	const { t } = useTranslation();
-	const [open, setOpen] = React.useState(false);
+	const [focused, setFocused] = useState(false);
+	const datepicker = useRef(null);
+	const [language, setLanguage] = React.useState(getLanguage());
 
 	const onChange = (value: any, dateString: string) => {
-		setOpen(false);
 		formik.setFieldValue(name, value);
+		setFocused(false);
 	};
 
+	const handleToggle = () => {
+		setFocused(!focused);
+	};
+
+	const handleRemove = () => {
+		formik.setFieldValue(name, null);
+	};
+
+	const handleBlur = () => {
+		setFocused(false);
+	};
+
+	const handleFocus = () => {
+		setFocused(true);
+	};
 	return (
 		<Wrapper>
-			<DatePicker
-				allowClear
-				name={name}
-				onChange={onChange}
-				placeholder={t(translationPath(lang.placeholder.dateInput).path)}
-				value={
-					formik.values && formik.values[name]
-						? moment(formik.values[name])
-						: null
-				}
-				format={"DD. MM. YYYY"}
-				locale={locale}
-				disabled={disabled}
-			/>
+			<Row>
+				<DatePicker
+					allowClear={false}
+					ref={datepicker}
+					name={name}
+					onChange={onChange}
+					open={focused}
+					placeholder={t(translationPath(lang.placeholder.dateInput).path)}
+					value={
+						formik.values && formik.values[name]
+							? moment(formik.values[name])
+							: null
+					}
+					format={"DD. MM. YYYY"}
+					locale={
+						language === "cs-CZ"
+							? localeCZ
+							: language === "de-DE"
+							? localeDE
+							: localeEN
+					}
+					disabled={disabled}
+					onBlur={handleBlur}
+					onFocus={handleFocus}
+					suffixIcon={<></>}
+				/>
+				{!disabled && (
+					<>
+						<Delete icon={faTimes as IconProp} onClick={handleRemove} />
+						<Line />
+						<Toggle icon={faCalendar as IconProp} onClick={handleToggle} />
+					</>
+				)}
+			</Row>
 		</Wrapper>
 	);
 };
+
+const Row = styled(ContentRow)`
+	border-bottom: 1px solid ${(props) => props.theme.colors.forms.border};
+
+	svg {
+		color: ${(props) => props.theme.colors.forms.border};
+	}
+`;
+
+const Delete = styled(FontAwesomeIcon)`
+	cursor: pointer;
+`;
+
+const Toggle = styled(FontAwesomeIcon)`
+	cursor: pointer;
+`;
+
+const Line = styled(LineOutlined)`
+	transform: rotate(90deg);
+	svg {
+		background-color: ${(props) => props.theme.colors.background.content};
+	}
+`;
 
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	margin: 8px 0;
 
-	.ant-picker {
-		background-color: ${(props) => props.theme.colors.background.content};
+	svg {
+		color: ${(props) => props.theme.colors.forms.border};
 	}
 
-	.anticon svg {
+	.ant-picker {
+		width: 100%;
+		border: 0;
 		background-color: ${(props) => props.theme.colors.background.content};
-		color: ${(props) => props.theme.colors.forms.border};
 	}
 
 	> *:first-child {
 		flex-grow: 1;
-	}
-
-	.svg-inline--fa {
-		font-size: 1.15em !important;
-		margin: 0 -2px 0 -1px;
+		margin-bottom: -1px;
 	}
 
 	.react-datepicker {
@@ -89,7 +155,7 @@ const Wrapper = styled.div`
 		right: 9px !important;
 
 		&:before {
-			border: 1px solid #d8d8d8;
+			border: 0;
 		}
 	}
 

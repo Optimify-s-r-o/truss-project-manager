@@ -77,7 +77,7 @@ export const NavMenu = styled.div<{
 		props.isOpen && `background-color: ${props.theme.colors.background.menu};`}
 	color: ${(props) => props.theme.colors.primaryText.default};
 	font-size: 0.8rem;
-
+	white-space: nowrap;
 	display: block;
 
 	cursor: default;

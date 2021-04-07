@@ -8,6 +8,7 @@ import { Alert, Button as SButton, Modal } from 'antd';
 import { Button } from '../../../../../components/Optimify/Button';
 import { DeleteJob, JobProxy, Unlock } from '../_types';
 import { EditTruss } from '../../../../../sagas/Truss/_actions';
+import { Enter } from 'src/components/KeyBoardEventHandler';
 import { fixed } from '../../../../../utils/formating';
 import { formatCurrency } from 'src/utils/currencyFormat';
 import { get } from 'lodash';
@@ -137,7 +138,7 @@ const Index = ({
 	};
 
 	return (
-		<>
+		<Enter formik={formik}>
 			<Header
 				removeJob={removeJob}
 				unlockJob={unlockJob}
@@ -439,7 +440,7 @@ const Index = ({
 					/>
 				</p>
 			</Modal>
-		</>
+		</Enter>
 	);
 };
 

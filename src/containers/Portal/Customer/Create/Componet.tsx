@@ -11,6 +11,7 @@ import {
 import { Button } from '../../../../components/Optimify/Button';
 import { Contact, Page } from '../../../../types/_types';
 import { CreateCustomer, Customer, CustomerProxy } from '../_types';
+import { Enter } from 'src/components/KeyBoardEventHandler';
 import { faSuitcase } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -282,192 +283,202 @@ const Index = ({
 	}, []);
 
 	return (
-		<MainTree>
-			<Loading
-				text={t(translationPath(lang.common.loading).path)}
-				pending={pending}
-				margin
-			>
-				<MainTreeContent>
-					<Form onSubmit={formik.handleSubmit}>
-						<TreeScreen>
-							<PageHeader>
-								<PageTitle>
-									<TitleSection>
-										<FontAwesomeIcon icon={faSuitcase as IconProp} />
-										<TitleName>
-											{formik.values && formik.values.Id
-												? t(translationPath(lang.common.editCustomer).path)
-												: t(translationPath(lang.common.newCustomer).path)}
-										</TitleName>
-									</TitleSection>
-								</PageTitle>
-							</PageHeader>
-							<TreeContent>
-								<GridRow columns={2}>
-									<GridItem fill>
-										<ContentCard fullSize>
-											<Header1>
-												{t(
-													translationPath(lang.common.generalInformation).path
-												)}
-											</Header1>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(CustomerProxy.Company).path}
-												title={t(translationPath(lang.common.companyName).path)}
-												type={Input.TEXT}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(CustomerProxy.Crn).path}
-												title={t(translationPath(lang.common.crn).path)}
-												type={Input.TEXT}
-											>
-												<Upload
-													upload={() =>
-														loadCompanyDataFromAres(formik.values.Crn)
-													}
-													title={t(translationPath(lang.common.ares).path)}
-													uploading={aresPending}
-												/>
-											</FormikRow>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(CustomerProxy.VatRegNo).path}
-												title={t(translationPath(lang.common.vatRegNo).path)}
-												type={Input.TEXT}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(CustomerProxy.Surname).path}
-												title={t(translationPath(lang.common.surname).path)}
-												type={Input.TEXT}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(CustomerProxy.Forename).path}
-												title={t(translationPath(lang.common.forename).path)}
-												type={Input.TEXT}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(CustomerProxy.PhoneNumber).path}
-												title={t(translationPath(lang.common.phone).path)}
-												type={Input.PHONE}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(CustomerProxy.Email).path}
-												title={t(translationPath(lang.common.email).path)}
-												type={Input.EMAIL}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(CustomerProxy.Address).path}
-												title={t(translationPath(lang.common.address).path)}
-												type={Input.ADDRESS_GOOGLE}
-											/>
-											<FormikRow
-												formik={formik}
-												name={lastPathMember(CustomerProxy.DateOfCreation).path}
-												disabled
-												title={t(
-													translationPath(
-														lang.common.customerDateOfCreationFilter
-													).path
-												)}
-												type={Input.DATE}
-											/>
-										</ContentCard>
-									</GridItem>
-									<GridItem fill>
-										<ContentCard fullSize>
-											<ContentSpaceBetween>
+		<Enter formik={formik}>
+			<MainTree>
+				<Loading
+					text={t(translationPath(lang.common.loading).path)}
+					pending={pending}
+					margin
+				>
+					<MainTreeContent>
+						<Form onSubmit={formik.handleSubmit}>
+							<TreeScreen>
+								<PageHeader>
+									<PageTitle>
+										<TitleSection>
+											<FontAwesomeIcon icon={faSuitcase as IconProp} />
+											<TitleName>
+												{formik.values && formik.values.Id
+													? t(translationPath(lang.common.editCustomer).path)
+													: t(translationPath(lang.common.newCustomer).path)}
+											</TitleName>
+										</TitleSection>
+									</PageTitle>
+								</PageHeader>
+								<TreeContent>
+									<GridRow columns={2}>
+										<GridItem fill>
+											<ContentCard fullSize>
 												<Header1>
-													{t(translationPath(lang.common.contactPerson).path)}
+													{t(
+														translationPath(lang.common.generalInformation).path
+													)}
 												</Header1>
-												<Add add={() => addContactPerson()} />
-											</ContentSpaceBetween>
-											<CardEndTableWrapper>
-												<ScrollableTable
-													headers={[
-														t(translationPath(lang.common.forename).path),
-														t(translationPath(lang.common.surname).path),
-														t(translationPath(lang.common.email).path),
-														t(translationPath(lang.common.phone).path),
-														t(translationPath(lang.common.actions).path),
-													]}
-													sortable={[false, false, false, false]}
-													data={
-														contacts?.length != 0
-															? contacts?.map(
-																	(value: Contact, index: number) => {
-																		return [
-																			value.Forename,
-																			value.Surname,
-																			value.Contact.Email,
-																			value.Contact.Phone,
-																			index,
-																			value,
-																		];
-																	}
-															  )
-															: []
-													}
-													renderers={[
-														(value: any, key: number, parent: Contact) => {
-															return value;
-														},
-														(value: any, key: number, parent: Contact) => {
-															return value;
-														},
-														(value: any, key: number, parent: Contact) => {
-															return value;
-														},
-														(value: any, key: number, parent: Contact) => {
-															return value;
-														},
-														(value: any, key: number, parent: Contact) => {
-															return (
-																<div>
-																	<Edit edit={() => editContact(parent)} />
-																	&nbsp;
-																	<Delete
-																		remove={() => removeContact(parent?.Id)}
-																		title={t(
-																			translationPath(lang.remove.contactPerson)
-																				.path,
-																			{ name: parent.Forename + parent.Surname }
-																		)}
-																	/>
-																</div>
-															);
-														},
-													]}
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(CustomerProxy.Company).path}
+													title={t(
+														translationPath(lang.common.companyName).path
+													)}
+													type={Input.TEXT}
 												/>
-											</CardEndTableWrapper>
-											<Modal
-												isModalVisible={isModalVisible}
-												contactFormik={contactFormik}
-												setIsModalVisible={setIsModalVisible}
-											/>
-										</ContentCard>
-									</GridItem>
-								</GridRow>
-							</TreeContent>
-							<TreeButtonsRow>
-								<Button level={1} loading={pending}>
-									{id
-										? t(translationPath(lang.common.save).path)
-										: t(translationPath(lang.common.createCustomer).path)}
-								</Button>
-							</TreeButtonsRow>
-						</TreeScreen>
-					</Form>
-				</MainTreeContent>
-			</Loading>
-		</MainTree>
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(CustomerProxy.Crn).path}
+													title={t(translationPath(lang.common.crn).path)}
+													type={Input.TEXT}
+												>
+													<Upload
+														upload={() =>
+															loadCompanyDataFromAres(formik.values.Crn)
+														}
+														title={t(translationPath(lang.common.ares).path)}
+														uploading={aresPending}
+													/>
+												</FormikRow>
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(CustomerProxy.VatRegNo).path}
+													title={t(translationPath(lang.common.vatRegNo).path)}
+													type={Input.TEXT}
+												/>
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(CustomerProxy.Surname).path}
+													title={t(translationPath(lang.common.surname).path)}
+													type={Input.TEXT}
+												/>
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(CustomerProxy.Forename).path}
+													title={t(translationPath(lang.common.forename).path)}
+													type={Input.TEXT}
+												/>
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(CustomerProxy.PhoneNumber).path}
+													title={t(translationPath(lang.common.phone).path)}
+													type={Input.PHONE}
+												/>
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(CustomerProxy.Email).path}
+													title={t(translationPath(lang.common.email).path)}
+													type={Input.EMAIL}
+												/>
+												<FormikRow
+													formik={formik}
+													name={lastPathMember(CustomerProxy.Address).path}
+													title={t(translationPath(lang.common.address).path)}
+													type={Input.ADDRESS_GOOGLE}
+												/>
+												<FormikRow
+													formik={formik}
+													name={
+														lastPathMember(CustomerProxy.DateOfCreation).path
+													}
+													disabled
+													title={t(
+														translationPath(
+															lang.common.customerDateOfCreationFilter
+														).path
+													)}
+													type={Input.DATE}
+												/>
+											</ContentCard>
+										</GridItem>
+										<GridItem fill>
+											<ContentCard fullSize>
+												<ContentSpaceBetween>
+													<Header1>
+														{t(translationPath(lang.common.contactPerson).path)}
+													</Header1>
+													<Add add={() => addContactPerson()} />
+												</ContentSpaceBetween>
+												<CardEndTableWrapper>
+													<ScrollableTable
+														headers={[
+															t(translationPath(lang.common.forename).path),
+															t(translationPath(lang.common.surname).path),
+															t(translationPath(lang.common.email).path),
+															t(translationPath(lang.common.phone).path),
+															t(translationPath(lang.common.actions).path),
+														]}
+														sortable={[false, false, false, false]}
+														data={
+															contacts?.length != 0
+																? contacts?.map(
+																		(value: Contact, index: number) => {
+																			return [
+																				value.Forename,
+																				value.Surname,
+																				value.Contact.Email,
+																				value.Contact.Phone,
+																				index,
+																				value,
+																			];
+																		}
+																  )
+																: []
+														}
+														renderers={[
+															(value: any, key: number, parent: Contact) => {
+																return value;
+															},
+															(value: any, key: number, parent: Contact) => {
+																return value;
+															},
+															(value: any, key: number, parent: Contact) => {
+																return value;
+															},
+															(value: any, key: number, parent: Contact) => {
+																return value;
+															},
+															(value: any, key: number, parent: Contact) => {
+																return (
+																	<div>
+																		<Edit edit={() => editContact(parent)} />
+																		&nbsp;
+																		<Delete
+																			remove={() => removeContact(parent?.Id)}
+																			title={t(
+																				translationPath(
+																					lang.remove.contactPerson
+																				).path,
+																				{
+																					name:
+																						parent.Forename + parent.Surname,
+																				}
+																			)}
+																		/>
+																	</div>
+																);
+															},
+														]}
+													/>
+												</CardEndTableWrapper>
+												<Modal
+													isModalVisible={isModalVisible}
+													contactFormik={contactFormik}
+													setIsModalVisible={setIsModalVisible}
+												/>
+											</ContentCard>
+										</GridItem>
+									</GridRow>
+								</TreeContent>
+								<TreeButtonsRow>
+									<Button level={1} loading={pending}>
+										{id
+											? t(translationPath(lang.common.save).path)
+											: t(translationPath(lang.common.createCustomer).path)}
+									</Button>
+								</TreeButtonsRow>
+							</TreeScreen>
+						</Form>
+					</MainTreeContent>
+				</Loading>
+			</MainTree>
+		</Enter>
 	);
 };
 

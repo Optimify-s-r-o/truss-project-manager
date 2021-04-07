@@ -103,7 +103,6 @@ export const Table = (props: TableProps) => {
 		else if (newSortOrder.includes(key) && newSort[key] === SortOptions.Default)
 			newSortOrder = newSortOrder.filter((val) => val !== key);
 		setSortOrder(newSortOrder);
-
 		if (props.sortType === SortType.External) {
 			props.onSort && props.onSort(newSort, newSortOrder);
 		}

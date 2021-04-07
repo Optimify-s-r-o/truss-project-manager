@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import BottomLink from '../components/BottomLink';
 import FormikRow from '../../../components/Optimify/Form/FormikRow';
-import KeyboardEventHandler from 'react-keyboard-event-handler';
 import styled from 'styled-components';
 import { Button } from '../../../components/Optimify/Button';
 import { Container, Headline } from './_styles';
 import { Credentials } from './_types';
+import { Enter } from 'src/components/KeyBoardEventHandler';
 import { Folder } from 'src/types/_types';
 import { Form } from '../../../constants/globalStyles';
 import { Input } from '../../../constants/enum';
@@ -105,13 +105,7 @@ const Component = (
 	}, []);
 
 	return (
-		<>
-			<KeyboardEventHandler
-				handleKeys={["enter"]}
-				onKeyEvent={(key, e) => {
-					formik.handleSubmit();
-				}}
-			/>
+		<Enter formik={formik}>
 			<Container>
 				<Headline> {t(translationPath(lang.common.loginCloud))}</Headline>
 				<Form onSubmit={formik.handleSubmit}>
@@ -140,7 +134,7 @@ const Component = (
 				</Row>
 			</Container>
 			<BottomLink />
-		</>
+		</Enter>
 	);
 };
 

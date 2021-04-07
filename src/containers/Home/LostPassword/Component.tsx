@@ -5,6 +5,7 @@ import FormikRow from '../../../components/Optimify/Form/FormikRow';
 import { Button, PlainButton } from '../../../components/Optimify/Button';
 import { Center, Form } from '../../../constants/globalStyles';
 import { Container, Headline } from './_styles';
+import { Enter } from 'src/components/KeyBoardEventHandler';
 import { Input } from '../../../constants/enum';
 import { Link } from 'react-router-dom';
 import { Routes } from '../../../constants/routes';
@@ -43,7 +44,7 @@ export const Index = (props: WithTranslation & DispatchProps & StateProps) => {
 	});
 
 	return (
-		<>
+		<Enter formik={formik}>
 			<Container>
 				<Headline>{t(translationPath(lang.common.lostPassword).path)}</Headline>
 				<Form onSubmit={formik.handleSubmit}>
@@ -71,7 +72,7 @@ export const Index = (props: WithTranslation & DispatchProps & StateProps) => {
 				</Center>
 			</Container>
 			<BottomLink />
-		</>
+		</Enter>
 	);
 };
 
