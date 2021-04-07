@@ -203,7 +203,6 @@ const Index = (
 			trussExe: truss2DExe,
 		});
 	};
-
 	return (
 		<MainTree>
 			<MainTreeContent>
@@ -271,8 +270,8 @@ const Index = (
 											title={t(translationPath(lang.common.user))}
 											type={Input.SELECT}
 											options={
-												props.users
-													? props.users?.map((value: UserData) => {
+												props?.users
+													? props?.users?.map((value: UserData) => {
 															return {
 																value: value.Username,
 																label: value.Username,

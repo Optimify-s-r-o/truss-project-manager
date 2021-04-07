@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { editUser, getUserByUsername } from '../_actions';
 import { Fetch } from '../../../../types/_types';
 import { push } from 'connected-react-router';
-import { User } from '../_types';
+import { UserData } from '../_types';
 import { withRouter } from 'react-router';
 
 const mapStateToProps = (state: any): StateProps => ({
@@ -18,7 +18,7 @@ const mapStateToProps = (state: any): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-	editUserCall: (data: User) => dispatch(editUser.request(data)),
+	editUser: (data: UserData) => dispatch(editUser.request(data)),
 	clearToast: () => dispatch(clearNotificationAction()),
 	getUserByUsername: (data: Fetch) => dispatch(getUserByUsername.request(data)),
 	push,

@@ -1,21 +1,18 @@
 import * as React from 'react';
 import * as Yup from 'yup';
 import FormikRow from '../../../../components/Optimify/Form/FormikRow';
-import { ApiURL } from '../../../../constants/api';
 import { Button } from '../../../../components/Optimify/Button';
-import { editUser } from '../_actions';
 import { faUserPlus } from '@fortawesome/pro-light-svg-icons';
 import { Fetch, UserRole } from '../../../../types/_types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getUserByUsernameCall } from '../../../../sagas/Fetch/actions';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Input, Method } from '../../../../constants/enum';
+import { Input } from '../../../../constants/enum';
 import { lang } from '../../../../translation/i18n';
-import { Routes } from '../../../../constants/routes';
 import { translationPath } from '../../../../utils/getPath';
 import { useFormik } from 'formik';
 import { useParams } from 'react-router-dom';
-import { User, UserData } from '../_types';
+import { UserData } from '../_types';
 import { useTranslation } from 'react-i18next';
 import {
 	ContentCard,
@@ -49,14 +46,14 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-	editUserCall: (data: User) => void;
+	editUser: (data: UserData) => void;
 	clearToast: () => void;
 	getUserByUsername: (data: Fetch) => void;
 	push: any;
 }
 
 export const Component = ({
-	editUserCall,
+	editUser,
 	pending,
 	user,
 	getUserByUsername,
@@ -114,22 +111,15 @@ export const Component = ({
 			),
 		}),
 		onSubmit: (values: UserData) => {
-			editUserCall({
-				action: editUser,
-				data: {
-					Id: values.Id,
-					Username: values.Username,
-					Email: values.Email,
-					Name: values.Name,
-					Surname: values.Surname,
-					PhoneNumber: values.PhoneNumber,
-					Password: values.Password,
-					Role: values.Role,
-				},
-				method: Method.PUT,
-				url: ApiURL.USERS,
-				successMessage: true,
-				path: Routes.USERS,
+			editUser({
+				Id: values.Id,
+				Username: values.Username,
+				Email: values.Email,
+				Name: values.Name,
+				Surname: values.Surname,
+				PhoneNumber: values.PhoneNumber,
+				Password: values.Password,
+				Role: values.Role,
 			});
 		},
 	});

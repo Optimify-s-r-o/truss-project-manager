@@ -25,7 +25,6 @@ import {
 } from "../../components/Toast/_actions";
 import {
 	changeLocalPasswordAction,
-	editUser,
 	getUserByUsername,
 } from "../../containers/Portal/Accounts/_actions";
 import {
@@ -113,7 +112,9 @@ const setData = (
  * @param action typesafe action
  * TODO add all action to action: Return...
  */
-function* Call(action: ReturnType<typeof editUser.request>): Generator {
+function* Call(
+	action: ReturnType<typeof uploadProjectFile.request>
+): Generator {
 	let data: FetchSagaReponseType;
 	try {
 		data = yield call(
@@ -188,7 +189,6 @@ function* Call(action: ReturnType<typeof editUser.request>): Generator {
 export function* watchSagaCall() {
 	yield takeEvery(getType(settings.request), Call);
 	yield takeEvery(getType(settingsFilter.request), Call);
-	yield takeEvery(getType(editUser.request), Call);
 	yield takeEvery(getType(quickSearch.request), Call);
 	yield takeEvery(getType(projectTree.request), Call);
 	yield takeEvery(getType(customerTree.request), Call);

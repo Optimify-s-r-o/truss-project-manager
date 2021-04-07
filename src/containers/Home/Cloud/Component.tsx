@@ -106,13 +106,15 @@ const Component = (
 
 	return (
 		<>
+			<KeyboardEventHandler
+				handleKeys={["enter"]}
+				onKeyEvent={(key, e) => {
+					formik.handleSubmit();
+				}}
+			/>
 			<Container>
 				<Headline> {t(translationPath(lang.common.loginCloud))}</Headline>
 				<Form onSubmit={formik.handleSubmit}>
-					<KeyboardEventHandler
-						handleKeys={["enter"]}
-						onKeyEvent={(key, e) => formik.handleSubmit()}
-					/>
 					<FormikRow
 						formik={formik}
 						name="username"

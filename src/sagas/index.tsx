@@ -5,7 +5,9 @@ import { watchCreateTruss, watchEditTruss } from './Truss/_sagas';
 import { watchResetPassword } from '../containers/Home/LostPassword/_sagas';
 import { watchSagaCall } from './Fetch/call';
 import {
+	watchEditUserAction,
 	watchGetUsersAction,
+	watchGetUsersWithPaginationAction,
 	watchRemoveUsersAction,
 } from "../containers/Portal/Accounts/_sagas";
 import {
@@ -198,6 +200,8 @@ export const rootSaga = [
 	watchPutHeadersSettingsAction,
 	watchGetHeadersSettingsAction,
 	watchResetHeadersSettingsAction,
+	watchGetUsersWithPaginationAction,
+	watchEditUserAction,
 ];
 
 export type SagasType = typeof rootSaga;

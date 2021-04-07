@@ -151,10 +151,17 @@ export const TrussColumnSelector = ({
 			filter: null,
 		},
 		{
-			name: "RoofingLoad",
-			title: t(translationPath(lang.common.roofingLoad).path),
+			name: "WindLoad",
+			title: t(translationPath(lang.common.windLoad).path),
 			section: "Load",
-			filter: getPath(FilterProxy.Trusses.RoofingLoadFilter),
+			filter: getPath(FilterProxy.Trusses.WindLoadFilter),
+			filterType: FilterContentType.RANGE,
+		},
+		{
+			name: "SnowLoad",
+			title: t(translationPath(lang.common.snowLoad).path),
+			section: "Load",
+			filter: getPath(FilterProxy.Trusses.SnowLoadFilter),
 			filterType: FilterContentType.RANGE,
 		},
 		{
@@ -162,6 +169,13 @@ export const TrussColumnSelector = ({
 			title: t(translationPath(lang.common.ceilingLoad).path),
 			section: "Load",
 			filter: getPath(FilterProxy.Trusses.CeilingLoadFilter),
+			filterType: FilterContentType.RANGE,
+		},
+		{
+			name: "RoofingLoad",
+			title: t(translationPath(lang.common.roofingLoad).path),
+			section: "Load",
+			filter: getPath(FilterProxy.Trusses.RoofingLoadFilter),
 			filterType: FilterContentType.RANGE,
 		},
 		{
@@ -175,20 +189,6 @@ export const TrussColumnSelector = ({
 			title: t(translationPath(lang.common.windRegion).path),
 			section: "Load",
 			filter: null,
-		},
-		{
-			name: "SnowLoad",
-			title: t(translationPath(lang.common.snowLoad).path),
-			section: "Load",
-			filter: getPath(FilterProxy.Trusses.SnowLoadFilter),
-			filterType: FilterContentType.RANGE,
-		},
-		{
-			name: "WindLoad",
-			title: t(translationPath(lang.common.windLoad).path),
-			section: "Load",
-			filter: getPath(FilterProxy.Trusses.WindLoadFilter),
-			filterType: FilterContentType.RANGE,
 		},
 		{
 			name: "RoofingName",
@@ -236,33 +236,6 @@ export const TrussColumnSelector = ({
 			filterType: FilterContentType.RANGE,
 		},
 		{
-			name: "PlatesOnPlanks",
-			title: t(translationPath(lang.common.PlatesWeighOnPlanksVolume).path),
-			section: "Others",
-			filter: null,
-		},
-		{
-			name: "PlatesOnArea",
-			title: t(translationPath(lang.common.PlateWeightOnArea).path),
-			section: "Others",
-
-			filter: null,
-		},
-		{
-			name: "Count",
-			title: t(translationPath(lang.common.count).path),
-			section: "Others",
-			filter: null,
-		},
-		{
-			name: "ModelCount",
-			title: t(translationPath(lang.common.modelCount).path),
-			section: "Others",
-			filter: getPath(FilterProxy.Trusses.ModelCountFilter),
-			filterType: FilterContentType.RANGE,
-			round: true,
-		},
-		{
 			name: "SupportsCount",
 			title: t(translationPath(lang.common.numberOfSupports).path),
 			section: "Others",
@@ -287,12 +260,39 @@ export const TrussColumnSelector = ({
 			round: true,
 		},
 		{
+			name: "ModelCount",
+			title: t(translationPath(lang.common.modelCount).path),
+			section: "Others",
+			filter: getPath(FilterProxy.Trusses.ModelCountFilter),
+			filterType: FilterContentType.RANGE,
+			round: true,
+		},
+		{
 			name: "Plies",
 			title: t(translationPath(lang.common.ply).path),
 			section: "Others",
 			filter: getPath(FilterProxy.Trusses.PliesFilter),
 			filterType: FilterContentType.RANGE,
 			round: true,
+		},
+		{
+			name: "PlatesOnPlanks",
+			title: t(translationPath(lang.common.PlatesWeighOnPlanksVolume).path),
+			section: "Others",
+			filter: null,
+		},
+		{
+			name: "PlatesOnArea",
+			title: t(translationPath(lang.common.PlateWeightOnArea).path),
+			section: "Others",
+
+			filter: null,
+		},
+		{
+			name: "Count",
+			title: t(translationPath(lang.common.count).path),
+			section: "Others",
+			filter: null,
 		},
 		{
 			name: "Centres",

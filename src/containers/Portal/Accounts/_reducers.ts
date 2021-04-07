@@ -7,11 +7,13 @@ import {
 	getUserByUsername,
 	usersAction,
 	UsersActionType,
+	usersWithPaginationAction,
 } from "./_actions";
 
 const initialState: UsersType = {
 	users: null,
 	user: null,
+	usersWithPagination: null,
 	error: null,
 	pending: null,
 	edit: null,
@@ -23,6 +25,8 @@ export default (
 ): UsersType => {
 	switch (action.type) {
 		case getType(usersAction.request):
+		case getType(usersWithPaginationAction.request):
+		case getType(getUserByUsername.request):
 		case getType(getUserByUsername.request):
 			return {
 				...state,
@@ -31,6 +35,12 @@ export default (
 			return {
 				...state,
 				users: action.payload,
+			};
+		case getType(usersWithPaginationAction.success):
+			return {
+				...state,
+				pending: false,
+				usersWithPagination: action.payload,
 			};
 		case getType(getUserByUsername.success):
 			return {
@@ -61,6 +71,7 @@ export default (
 		case getType(usersAction.failure):
 		case getType(editUser.failure):
 		case getType(getUserByUsername.failure):
+		case getType(usersWithPaginationAction.failure):
 			return {
 				...state,
 				pending: false,

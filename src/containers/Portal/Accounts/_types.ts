@@ -1,5 +1,5 @@
-import { createProxy } from '../../../utils/getPath';
-import { Data, Fetch, FetchStateType } from '../../../types/_types';
+import { Data, Fetch, FetchStateType } from "../../../types/_types";
+import { createProxy } from "../../../utils/getPath";
 
 export interface UserData {
 	Id: string;
@@ -14,18 +14,15 @@ export interface UserData {
 
 export const UserProxy = createProxy<UserData>();
 
-export interface User extends Fetch {
-	data: UserData;
-}
-
 export interface Users {
-	users: User[];
+	users: UserData[];
 }
 
 export type UsersType = FetchStateType &
 	Readonly<{
-		users: Data<UserData>;
-		edit: User | null;
+		users: UserData;
+		usersWithPagination: Data<UserData>;
+		edit: UserData | null;
 		user: UserData | null;
 	}>;
 
