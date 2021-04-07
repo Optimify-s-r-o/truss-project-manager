@@ -74,22 +74,33 @@ const ExternalTable = (props: OwnProps) => {
 					PageSize: selectedPageSize,
 					Page: currentPage - 1,
 					Sort: sortString,
+					Paginate: true,
 				});
 			} else {
 				onPageRequired({
 					PageSize: selectedPageSize,
 					Page: currentPage - 1,
+					Paginate: true,
 				});
 			}
 		});
 	};
 
 	const handleSelectedPageSize = (newSize: number) => {
+		if (sortString) {
+			selectedPageSize &&
+				onPageRequired({
+					PageSize: newSize,
+					Page: 0,
+					Sort: sortString,
+					Paginate: true,
+				});
+		}
 		selectedPageSize &&
 			onPageRequired({
 				PageSize: newSize,
 				Page: 0,
-				Sort: sortString,
+				Paginate: true,
 			});
 	};
 
