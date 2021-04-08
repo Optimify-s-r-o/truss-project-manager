@@ -594,6 +594,8 @@ const dictionary: Lang = {
 		treeTooltipJobConstructionFinished: "Výroba - dokončená",
 		treeTooltipJobConstructionInProgress: "Výroba - rozpracovaná",
 		treeTooltipJobConstructionAborted: "Výroba - zrušená",
+		treeTooltipProjectQuotationAborted: "Cenová nabídka - zrušená",
+		treeTooltipProjectProductionAborted: "Výroba - zrušená",
 		treeTooltipJobTRUSS_3D: "Truss3D",
 		treeTooltipJobTRUSS_2D: "Truss2D",
 		treeTooltipProjectArchivedAndRealized: "Realizován",

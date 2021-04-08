@@ -375,7 +375,9 @@ const Index = (props: WithTranslation & OwnProps) => {
 export default withTranslation()(Index);
 
 export const Box = styled.div<{ color: string }>`
-	display: inline-block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	border-radius: 10px;
 	color: ${(props) => props.theme.colors.status[props.color]};
 	font-size: 0.7rem;

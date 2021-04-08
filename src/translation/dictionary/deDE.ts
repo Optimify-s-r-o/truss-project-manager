@@ -612,6 +612,8 @@ const dictionary: Lang = {
 		treeTooltipJobQuotationFinished: "CN abgeschlossen",
 		treeTooltipJobQuotationInProgress: "In Arbeit CN",
 		treeTooltipJobQuotationAborted: "Stornierte CN",
+		treeTooltipProjectQuotationAborted: "Bid - Cancelled",
+		treeTooltipProjectProductionAborted: "Produktion - abgebrochen",
 		treeTooltipJobConstructionFinished: "Fertige Produktion",
 		treeTooltipJobConstructionInProgress: "In Arbeit",
 		treeTooltipJobConstructionAborted: "Einstellung der Produktion",

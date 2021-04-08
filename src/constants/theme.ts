@@ -98,6 +98,8 @@ export interface Theme {
 			ProjectQuotationFinished: string;
 			ProjectProductionInProgress: string;
 			ProjectProductionFinished: string;
+			ProjectProductionAborted: string;
+			ProjectQuotationAborted: string;
 
 			// Customer
 			CustomerInEvidence: string;
@@ -208,6 +210,8 @@ export const lightTheme: Theme = {
 			ProjectQuotationFinished: Colors.GREEN,
 			ProjectProductionInProgress: Colors.RED,
 			ProjectProductionFinished: Colors.GREEN,
+			ProjectProductionAborted: Colors.GRAY,
+			ProjectQuotationAborted: Colors.GRAY,
 
 			// Customer
 			CustomerInEvidence: "brown",
@@ -305,10 +309,10 @@ export const darkTheme: Theme = {
 
 			// Job
 			JobQuotationFinished: Colors.GREEN,
-			JobQuotationInProgress: Colors.GRAY,
+			JobQuotationInProgress: Colors.RED,
 			JobQuotationAborted: Colors.GRAY,
 			JobConstructionFinished: Colors.GREEN,
-			JobConstructionInProgress: Colors.GRAY,
+			JobConstructionInProgress: Colors.RED,
 			JobConstructionAborted: Colors.GRAY,
 
 			JobTRUSS_3D: Colors.GRAY,
@@ -318,10 +322,12 @@ export const darkTheme: Theme = {
 			ProjectArchivedAndRealized: Colors.GREEN,
 			ProjectArchivedAndAborted: Colors.GRAY,
 			ProjectNewlyCreated: Colors.GRAY,
-			ProjectQuotationInProgress: Colors.GRAY,
+			ProjectQuotationInProgress: Colors.RED,
 			ProjectQuotationFinished: Colors.GREEN,
-			ProjectProductionInProgress: Colors.GRAY,
+			ProjectProductionInProgress: Colors.RED,
 			ProjectProductionFinished: Colors.GREEN,
+			ProjectProductionAborted: Colors.GRAY,
+			ProjectQuotationAborted: Colors.GRAY,
 
 			// Customer
 			CustomerInEvidence: Colors.GRAY,

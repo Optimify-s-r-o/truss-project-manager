@@ -86,7 +86,7 @@ const  createWindow =()=> {
       .catch((error) => {
         logInfo('CHECK_FOR_UPDATE_FAILURE:')
         logInfo(error);
-        sender.send("CHECK_FOR_UPDATE_SUCCESS"); //should be failure
+        sender.send("CHECK_FOR_UPDATE_SUCCESS"); 
       });
   }
   });

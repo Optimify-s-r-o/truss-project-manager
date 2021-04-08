@@ -596,6 +596,8 @@ export type Lang = Readonly<{
 		treeTooltipProjectQuotationFinished: string;
 		treeTooltipProjectProductionInProgress: string;
 		treeTooltipProjectProductionFinished: string;
+		treeTooltipProjectQuotationAborted: string;
+		treeTooltipProjectProductionAborted: string;
 
 		// Customer
 		treeTooltipCustomerInEvidence: string;
