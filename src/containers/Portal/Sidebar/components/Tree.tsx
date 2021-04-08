@@ -108,8 +108,19 @@ export const Tree = ({
 		}
 	};
 
-	const onExpand = (expandedKeys) => {
-		setExpandedKeys(expandedKeys);
+	const onExpand = (exp, { expanded, node }) => {
+		if (!expanded) {
+			setExpandedKeys(
+				expandedKeys.filter((key) => {
+					if (node.children.find((e) => e.key === key) || key === node.key) {
+						return false;
+					}
+					return true;
+				})
+			);
+			return;
+		}
+		setExpandedKeys(exp);
 	};
 
 	const onRigthContextClick = (info: {
