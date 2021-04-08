@@ -16,6 +16,7 @@ import { IconMenu } from './FastNavigation/Component';
 import { isElectron } from '../../utils/electron';
 import { Method } from '../../constants/enum';
 import { NavigationSetting } from './Navigation/NavigationSetting';
+import { ProjectFileRequest } from './TreeView/Project/_types';
 import { QuickSearchRequest } from './FastNavigation/_types';
 import { RouteComponentProps } from 'react-router';
 import { settings, settingsFilter } from './_actions';
@@ -44,10 +45,6 @@ import {
 	JobRootObject,
 	Unlock,
 } from "./TreeView/Job/_types";
-import {
-	IProjectDuplicate,
-	ProjectFileRequest,
-} from "./TreeView/Project/_types";
 import {
 	ContentHeight,
 	ContentRow,
@@ -123,7 +120,7 @@ export interface DispatchProps {
 	priceListsGetAction: (data: void) => void;
 	setProject: (data: Project) => void;
 	setLoading: (data: boolean) => void;
-	duplicateJob: (data: IProjectDuplicate) => void;
+	duplicateJob: (data: string) => void;
 	setCopiedJob: (data: string) => void;
 	copyJob: (data: CopyJob) => void;
 	setActiveFilterContent: (data: any) => void;
@@ -226,6 +223,7 @@ const Index = ({
 			clearToast();
 		}
 	}, [toast]);
+
 	React.useEffect(() => {
 		getCustomers({ Paginate: false });
 		settingsCall({

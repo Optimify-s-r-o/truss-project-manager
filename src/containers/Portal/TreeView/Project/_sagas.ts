@@ -1,12 +1,12 @@
 import { ApiURL } from '../../../../constants/api';
 import { calculateProject } from './_actions';
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { duplicateJob, projectUpdate } from './General/_actions';
 import { Error, fetchSaga } from '../../../../sagas/_sagas';
 import { getType } from 'typesafe-actions';
 import { lang, t } from '../../../../translation/i18n';
 import { Method } from '../../../../constants/enum';
 import { notificationAction } from '../../../../components/Toast/_actions';
-import { projectUpdate } from './General/_actions';
 import { Quotations } from '../../Quotations/_types';
 import { quotationSelectionGetAction } from '../../Quotations/_actions';
 import { Status } from '../../../../components/Toast/_types';
@@ -101,6 +101,57 @@ function* updateProjectActionSaga(
 		yield put(projectUpdate.failure(err));
 	}
 }
+
+function* duplicateJobActionSaga(
+	action: ReturnType<typeof duplicateJob.request>
+): Generator {
+	yield put(
+		notificationAction({
+			code: Status.INFO,
+			message: t(translationPath(lang.common.duplicating)),
+		})
+	);
+	try {
+		// @ts-ignore
+		const { errorResponseData, response, success, statusText } = yield call(
+			fetchSaga,
+			ApiURL.JOB_DUPLICATE,
+			Method.POST,
+			{
+				param: action.payload,
+			}
+		);
+
+		if (!success) {
+			yield put(
+				notificationAction({
+					code: Status.ERROR,
+					message: t(
+						translationPath(
+							lang.common[(errorResponseData as Error).ErrorMessage]
+						)
+					),
+				})
+			);
+			yield put(duplicateJob.failure(errorResponseData));
+			return;
+		}
+
+		yield put(duplicateJob.success(response));
+	} catch (err) {
+		yield put(
+			notificationAction({
+				code: Status.ERROR,
+				message: t(translationPath(lang.common.errorMessage)),
+			})
+		);
+		yield put(duplicateJob.failure(err));
+	}
+}
+export function* watchDuplicateAction() {
+	yield takeLatest(getType(duplicateJob.request), duplicateJobActionSaga);
+}
+
 export function* watchProjectUpdateAction() {
 	yield takeLatest(getType(projectUpdate.request), updateProjectActionSaga);
 }

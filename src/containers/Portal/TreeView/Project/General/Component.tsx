@@ -1,33 +1,18 @@
-import * as React from 'react';
-import * as Yup from 'yup';
-import _ from 'lodash';
-import DataRow from '../../../../../components/Optimify/Form/DataRow';
-import FormikRow from '../../../../../components/Optimify/Form/FormikRow';
-import Jobs from './Jobs';
-import moment from 'moment';
-import RouteLeavingGuard from '../../../../../components/Prompt';
-import { Alert, Button as SButton, Modal } from 'antd';
-import { Button } from '../../../../../components/Optimify/Button';
-import { CreateCustomer } from '../../../Customer/_types';
-import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
-import { Customer } from 'src/containers/Portal/Customer/_types';
-import { CustomersAll } from '../../../Lists/Customers/_types';
-import { DateWithCheckbox } from './components/DateWithCheckbox';
-import { DeleteJob, RequestDownloadLink, Unlock } from '../../Job/_types';
-import { DeleteProject } from '../../../Project/_types';
-import { EditTruss, OpenTruss } from '../../../../../sagas/Truss/_actions';
-import { Enter } from 'src/components/KeyBoardEventHandler';
-import { FileRequest } from '../../../../../sagas/DownloadFile/_actions';
-import { Files } from './Files';
-import { formatCurrency } from 'src/utils/currencyFormat';
-import { Header } from '../components/Header';
-import { IAddJsonToProject } from './File/_types';
-import { Input } from '../../../../../constants/enum';
-import { lastPathMember, translationPath } from '../../../../../utils/getPath';
-import { RouteComponentProps } from 'react-router-dom';
-import { SelectedProjectsRequest } from '../../Projects/_types';
-import { useFormik } from 'formik';
-import { UserData } from '../../../Accounts/_types';
+import { Alert, Button as SButton, Modal } from "antd";
+import { useFormik } from "formik";
+import _ from "lodash";
+import moment from "moment";
+import * as React from "react";
+import { RouteComponentProps } from "react-router-dom";
+import { Enter } from "src/components/KeyBoardEventHandler";
+import { Customer } from "src/containers/Portal/Customer/_types";
+import { formatCurrency } from "src/utils/currencyFormat";
+import * as Yup from "yup";
+import { Button } from "../../../../../components/Optimify/Button";
+import DataRow from "../../../../../components/Optimify/Form/DataRow";
+import FormikRow from "../../../../../components/Optimify/Form/FormikRow";
+import RouteLeavingGuard from "../../../../../components/Prompt";
+import { Input } from "../../../../../constants/enum";
 import {
 	ContentCard,
 	Form,
@@ -35,6 +20,9 @@ import {
 	GridRow,
 	Header2,
 } from "../../../../../constants/globalStyles";
+import { CreateJobFromTrussFile } from "../../../../../sagas/CreateJobFromFile/_types";
+import { FileRequest } from "../../../../../sagas/DownloadFile/_actions";
+import { EditTruss, OpenTruss } from "../../../../../sagas/Truss/_actions";
 import {
 	lang,
 	t,
@@ -49,20 +37,31 @@ import {
 	Settings,
 	TreeType,
 } from "../../../../../types/_types";
+import { lastPathMember, translationPath } from "../../../../../utils/getPath";
+import { UserData } from "../../../Accounts/_types";
+import { CreateCustomer } from "../../../Customer/_types";
+import { CustomersAll } from "../../../Lists/Customers/_types";
+import { DeleteProject } from "../../../Project/_types";
 import {
 	MainTreeContent,
 	TreeButtonsRow,
 	TreeContent,
 	TreeScreen,
 } from "../../../_styles";
+import { DeleteJob, RequestDownloadLink, Unlock } from "../../Job/_types";
+import { SelectedProjectsRequest } from "../../Projects/_types";
+import { Header } from "../components/Header";
 import {
-	IProjectDuplicate,
 	ProjectFile,
 	ProjectFileRequest,
 	ProjectLog,
 	ProjectLogsRequest,
 	ProjectUploadFileRequest,
 } from "../_types";
+import { DateWithCheckbox } from "./components/DateWithCheckbox";
+import { IAddJsonToProject } from "./File/_types";
+import { Files } from "./Files";
+import Jobs from "./Jobs";
 export interface StateProps {
 	all: CustomersAll[];
 	activeTree: TreeType;
@@ -91,7 +90,7 @@ export interface DispatchProps {
 	addJsonRequest: (data: IAddJsonToProject) => void;
 	editTruss: (data: EditTruss) => void;
 	createTruss: (data: OpenTruss) => void;
-	duplicateJob: (data: IProjectDuplicate) => void;
+	duplicateJob: (data: string) => void;
 	removeJob: (data: DeleteJob) => void;
 	removeFile: (data: ProjectFileRequest) => void;
 	getFiles: (data: ProjectFileRequest) => void;

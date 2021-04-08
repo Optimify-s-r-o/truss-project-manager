@@ -10,12 +10,13 @@ import { useTranslation } from 'react-i18next';
 
 interface ILink {
 	link: any;
+	title?: string;
 }
-export const Link = ({ link }: ILink) => {
+export const Link = ({ link, title }: ILink) => {
 	const { t } = useTranslation();
 	return (
 		<Tooltip
-			title={t(translationPath(lang.common.link).path)}
+			title={title ? title : t(translationPath(lang.common.link).path)}
 			placement={"bottom"}
 		>
 			<IconButton type="button" level={3} onClick={() => link()}>

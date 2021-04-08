@@ -9,7 +9,6 @@ import { Events } from './components/Events';
 import { Fetch, Page, TreeType } from '../../../types/_types';
 import { Hub } from '../../../constants/hub';
 import { HubConnection } from '@microsoft/signalr';
-import { IProjectDuplicate } from '../TreeView/Project/_types';
 import { isElectron } from '../../../utils/electron';
 import { RightContext } from './components/RightContext';
 import { SSpin } from '../../../constants/globalStyles';
@@ -46,7 +45,7 @@ interface Sidebar {
 	removeFromSelection: (data: string) => void;
 	addToSelection: (data: string) => void;
 	resetSelectionAction: (data: void) => void;
-	duplicateJob: (data: IProjectDuplicate) => void;
+	duplicateJob: (data: string) => void;
 	setCopiedJob: (data: string) => void;
 	copiedJob: string;
 	copyJob: (data: CopyJob) => void;
@@ -240,7 +239,7 @@ export const Sidebar = ({
 				onPageRequired={onPageRequired}
 				setSelectedPageSize={setSelectedPageSize}
 			/>
-			{isVisible && nodeType != "Customer" && (
+			{isVisible && nodeType != "Customer" && nodeType != "Truss" && (
 				<ContextMenu show={isVisible} x={x} y={y} ref={ref}>
 					<RightContext
 						isVisible={isVisible}

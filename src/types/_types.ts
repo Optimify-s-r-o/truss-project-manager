@@ -631,6 +631,7 @@ export interface UserInfo {
 	Username: string;
 	Role: string;
 	ValidUntil: string;
+	Location: string;
 }
 
 export enum UserRole {

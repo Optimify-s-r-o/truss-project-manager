@@ -43,7 +43,7 @@ function* cloudLoginActionSaga(
 			return;
 		}
 		yield put(login.success(response));
-		yield put(push(Routes.PORTAL));
+		yield put(push(response?.Location || Routes.PORTAL));
 	} catch (err) {
 		yield put(
 			notificationAction({

@@ -371,10 +371,13 @@ export type Lang = Readonly<{
 	};
 
 	common: {
+		asc: string;
+		desc: string;
 		assessment: string;
 		downloadingJob: string;
 		jobDownloaded: string;
 		copyingJob: string;
+		duplicating: string;
 		jobCopied: string;
 		CustomerExists: string;
 		statistics: string;

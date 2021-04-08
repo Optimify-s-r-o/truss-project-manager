@@ -29,11 +29,6 @@ export default (
 				...state,
 				settings: action.payload,
 			};
-
-		case getType(settings.failure):
-			return {
-				...state,
-			};
 		case getType(settingsFilter.request):
 			return {
 				...state,
@@ -45,6 +40,7 @@ export default (
 			};
 
 		case getType(settingsFilter.failure):
+		case getType(settings.failure):
 			return {
 				...state,
 			};

@@ -100,6 +100,7 @@ import {
 } from "../containers/Portal/TreeView/Job/_sagas";
 import {
 	watchCalculateProjectQuotationAction,
+	watchDuplicateAction,
 	watchProjectUpdateAction,
 } from "../containers/Portal/TreeView/Project/_sagas";
 import {
@@ -202,6 +203,7 @@ export const rootSaga = [
 	watchResetHeadersSettingsAction,
 	watchGetUsersWithPaginationAction,
 	watchEditUserAction,
+	watchDuplicateAction,
 ];
 
 export type SagasType = typeof rootSaga;

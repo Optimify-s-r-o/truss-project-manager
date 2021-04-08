@@ -1,13 +1,12 @@
 import Moment from 'react-moment';
 import React from 'react';
 import Tooltip from '../../../../../../components/Optimify/Tooltip';
-import { Delete } from '../../../../../../components/Button';
+import { Delete, Link } from '../../../../../../components/Button';
 import { faCopy } from '@fortawesome/pro-duotone-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconButton } from '../../../../../../components/Optimify/Button';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { lang, t } from '../../../../../../translation/i18n';
-import { StyledDiv } from '../../../../Sidebar/_styles';
 import { translationPath } from '../../../../../../utils/getPath';
 import { Viewer } from '../_types';
 import {
@@ -34,27 +33,23 @@ export const Table = ({ models, deleteModel, id }: ITable) => {
 		const { clipboard } = window.require("electron");
 		clipboard.writeText(value, "selection");
 	};
-
+	console.log(models);
 	return (
 		<ScrollableTable
 			height={250}
 			headers={[
-				t(translationPath(lang.viewer.url)),
 				t(translationPath(lang.common.dateOfCreation)),
 				t(translationPath(lang.common.user)),
 				t(translationPath(lang.common.actions)),
 			]}
-			data={[models]?.map((value: Viewer, index: number) => {
-				return [value.Url, value.Uploaded, value.UploadedBy, value, value];
-			})}
+			data={
+				!models?.Exists
+					? []
+					: [models]?.map((value: Viewer, index: number) => {
+							return [value.Uploaded, value.UploadedBy, value, value];
+					  })
+			}
 			renderers={[
-				(value: any, key: number, parent: Viewer) => {
-					return (
-						<StyledDiv onClick={openFineUrl(value)}>
-							{value && value?.split("/#")[0]}
-						</StyledDiv>
-					);
-				},
 				(value: any, key: number, parent: Viewer) => {
 					return <Moment format="DD/MM/YYYY">{value}</Moment>;
 				},
@@ -76,6 +71,11 @@ export const Table = ({ models, deleteModel, id }: ITable) => {
 									<FontAwesomeIcon icon={faCopy as IconProp} color={"black"} />
 								</IconButton>
 							</Tooltip>
+							&nbsp;
+							<Link
+								link={openFineUrl(parent.Url)}
+								title={t(translationPath(lang.common.open))}
+							/>
 							&nbsp;
 							<Delete
 								remove={() => deleteModel(id)}

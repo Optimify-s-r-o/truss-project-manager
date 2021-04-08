@@ -15,8 +15,10 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Routes } from '../../../constants/routes';
 import { translationPath } from '../../../utils/getPath';
 import { useFormik } from 'formik';
+import { useLocation } from 'react-router';
 import {
 	ELECTRON_APP_GET_PATH,
+	ELECTRON_APP_GET_SETTINGS,
 	ELECTRON_STORE_GET,
 	ELECTRON_STORE_SET,
 } from "src/constants/ipcConstants";
@@ -101,8 +103,21 @@ const Component = (
 			electron.ipcRenderer.on(ELECTRON_APP_GET_PATH, (event, text) => {
 				setFolders(text);
 			});
+
+			electron.ipcRenderer.send(ELECTRON_APP_GET_SETTINGS);
+			electron.ipcRenderer.on(ELECTRON_APP_GET_SETTINGS, (event, text) => {
+				if (text) {
+					console.log(text);
+				}
+			});
 		}
 	}, []);
+
+	const location = useLocation();
+
+	React.useEffect(() => {
+		console.log(location);
+	}, [location]);
 
 	return (
 		<Enter formik={formik}>

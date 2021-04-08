@@ -4,12 +4,16 @@ import useResizeAware from 'react-resize-aware';
 import { device } from '../../constants/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { lang } from '../../translation/i18n';
 import { RootStateType } from '../../reducers/index';
+import { Tooltip } from 'antd';
+import { translationPath } from '../../utils/getPath';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import {
-	faSortAmountDownAlt,
-	faSortAmountUp,
-} from "@fortawesome/pro-duotone-svg-icons";
+	faSortAmountDown,
+	faSortAmountUpAlt,
+} from "@fortawesome/pro-solid-svg-icons";
 import {
 	setDisabledColumnSelector,
 	setSort,
@@ -50,6 +54,7 @@ export const TABLE_STYLE_DEFAULT = "default";
 export const TABLE_STYLE_CONDENSED = "condensed";
 
 export const Table = (props: TableProps) => {
+	const { t } = useTranslation();
 	const dispatch = useDispatch();
 	const state = useSelector(
 		(state: RootStateType) => state.HeaderSettingsReducer
@@ -116,20 +121,33 @@ export const Table = (props: TableProps) => {
 												onClick={handleSort(key, 1)}
 												active={state?.sort[key] === SortOptions.Asc}
 											>
-												<FontAwesomeIcon
-													icon={faSortAmountDownAlt as IconProp}
-												/>
+												<Tooltip
+													title={t(translationPath(lang.common.asc).path)}
+													placement={"bottom"}
+												>
+													<FontAwesomeIcon
+														icon={faSortAmountUpAlt as IconProp}
+													/>
+												</Tooltip>
 												{state?.sort[key] === SortOptions.Asc && (
 													<SortOrder>
 														{state.sortOrder.indexOf(key) + 1}
 													</SortOrder>
 												)}
 											</Sort>
+
 											<Sort
 												onClick={handleSort(key, 2)}
 												active={state.sort[key] === SortOptions.Desc}
 											>
-												<FontAwesomeIcon icon={faSortAmountUp as IconProp} />
+												<Tooltip
+													title={t(translationPath(lang.common.desc).path)}
+													placement={"bottom"}
+												>
+													<FontAwesomeIcon
+														icon={faSortAmountDown as IconProp}
+													/>
+												</Tooltip>
 												{state.sort[key] === SortOptions.Desc && (
 													<SortOrder>
 														{state.sortOrder.indexOf(key) + 1}

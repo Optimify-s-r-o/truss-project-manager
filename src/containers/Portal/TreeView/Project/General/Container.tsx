@@ -34,7 +34,6 @@ import {
 	uploadProjectFile,
 } from "../_actions";
 import {
-	IProjectDuplicate,
 	ProjectFileRequest,
 	ProjectLogsRequest,
 	ProjectUploadFileRequest,
@@ -46,8 +45,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 		dispatch(addJsonToProject.request(data)),
 	createTruss: (data: OpenTruss) => dispatch(createTruss.request(data)),
 	editTruss: (data: EditTruss) => dispatch(editTruss.request(data)),
-	duplicateJob: (data: IProjectDuplicate) =>
-		dispatch(duplicateJob.request(data)),
+	duplicateJob: (data: string) => dispatch(duplicateJob.request(data)),
 	removeJob: (data: DeleteJob) => dispatch(deleteJob.request(data)),
 	removeFile: (data: ProjectFileRequest) => dispatch(deleteFile.request(data)),
 	getFiles: (data: ProjectFileRequest) =>

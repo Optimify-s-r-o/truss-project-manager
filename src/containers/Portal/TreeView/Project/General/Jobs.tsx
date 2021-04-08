@@ -14,9 +14,9 @@ import { getPath, translationPath } from '../../../../../utils/getPath';
 import { getStatusIcons, Status } from '../../../Sidebar/components/Icons';
 import { IAddJsonToProject } from './File/_types';
 import { Input } from '../../../../../constants/enum';
-import { IProjectDuplicate } from '../_types';
 import { NameColumn, StatusBox, VerticalScroll } from './_styles';
 import { Routes } from '../../../../../constants/routes';
+import { Tooltip } from 'antd';
 import {
 	Clone,
 	Delete,
@@ -41,7 +41,6 @@ import {
 } from "../../../../../constants/globalStyles";
 import {
 	deleteJobAction,
-	duplicateProjectJobAction,
 	unlockJobAction,
 } from "../../../../../sagas/Fetch/actions";
 import {
@@ -66,7 +65,7 @@ export interface OwnProps {
 	editTruss: (data: EditTruss) => void;
 	createTruss: (data: OpenTruss) => void;
 	addJsonRequest: (data: IAddJsonToProject) => void;
-	duplicate: (data: IProjectDuplicate) => void;
+	duplicate: (data: string) => void;
 	removeJob: (data: DeleteJob) => void;
 	history: any;
 	duplicateId: string;
@@ -102,7 +101,7 @@ const Index = (props: WithTranslation & OwnProps) => {
 	} = props;
 
 	const duplicateProjectJob = (id: string) => {
-		duplicate(duplicateProjectJobAction(id));
+		duplicate(id);
 	};
 
 	const removeJobCall = (id: string, projectId: string) => {
@@ -211,7 +210,16 @@ const Index = (props: WithTranslation & OwnProps) => {
 									(value: any, key: number, parent: Job) => {
 										return (
 											<Box color={value}>
-												{getStatusIcons(Status[value?.JobState] as any)}
+												<Tooltip
+													key={key}
+													color={"#108ee9"}
+													title={t(
+														translationPath(lang.common["treeTooltip" + value])
+													)}
+													placement={"right"}
+												>
+													{getStatusIcons(Status[value] as any)}
+												</Tooltip>
 											</Box>
 										);
 									},

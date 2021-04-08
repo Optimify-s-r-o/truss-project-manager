@@ -13,6 +13,7 @@ import {
 	} from '../../types/_types';
 import { getProjectFiles, setProject } from './TreeView/Project/_actions';
 import { priceListsGetAction } from './PriceLists/_actions';
+import { ProjectFileRequest } from './TreeView/Project/_types';
 import { quickSearch } from './FastNavigation/_actions';
 import { QuickSearchRequest } from './FastNavigation/_types';
 import { setCloud } from '../Home/Cloud/_actions';
@@ -61,10 +62,6 @@ import {
 	JobRootObject,
 	Unlock,
 } from "./TreeView/Job/_types";
-import {
-	IProjectDuplicate,
-	ProjectFileRequest,
-} from "./TreeView/Project/_types";
 import {
 	customerTree,
 	jobTree,
@@ -152,8 +149,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	priceListsGetAction: (data: void) =>
 		dispatch(priceListsGetAction.request(data)),
 	setProject: (data: Project) => dispatch(setProject(data)),
-	duplicateJob: (data: IProjectDuplicate) =>
-		dispatch(duplicateJob.request(data)),
+	duplicateJob: (data: string) => dispatch(duplicateJob.request(data)),
 	copyJob: (data: CopyJob) => dispatch(copyJob.request(data)),
 	setActiveFilterContent: (data: any) => dispatch(setActiveFilterContent(data)),
 	setActive: (data: boolean) => dispatch(setActive(data)),

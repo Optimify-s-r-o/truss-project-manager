@@ -128,7 +128,7 @@ export default (
 			return {
 				...state,
 				duplicatePending: true,
-				duplicateId: action.payload.param as string,
+				duplicateId: action.payload as string,
 			};
 		case getType(duplicateJob.success):
 			return {

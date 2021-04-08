@@ -5,7 +5,6 @@ import { DeleteProject } from '../../Project/_types';
 import { Divider, Item, SPopConfirm } from '../_styles';
 import { EditTruss, OpenTruss } from '../../../../sagas/Truss/_actions';
 import { IconWrap, Title } from '../../_styles';
-import { IProjectDuplicate } from '../../TreeView/Project/_types';
 import { lang } from '../../../../translation/i18n';
 import { Routes } from '../../../../constants/routes';
 import { translationPath } from '../../../../utils/getPath';
@@ -26,7 +25,6 @@ import {
 import {
 	deleteJobRoute,
 	deleteProjectRoute,
-	duplicateProjectJobAction,
 } from "../../../../sagas/Fetch/actions";
 interface IRightContext {
 	isVisible: boolean;
@@ -52,7 +50,7 @@ interface IRightContext {
 	removeFromSelection: (data: string) => void;
 	addToSelection: (data: string) => void;
 	selectedKeys: string[];
-	duplicateJob: (data: IProjectDuplicate) => void;
+	duplicateJob: (data: string) => void;
 	setCopiedJob: (data: string) => void;
 	copiedJob: string;
 	copyJob: (data: CopyJob) => void;
@@ -150,7 +148,7 @@ export const RightContext = ({
 	};
 
 	const duplicate = (id: string) => {
-		duplicateJob(duplicateProjectJobAction(id));
+		duplicateJob(id);
 		setIsVisible(false);
 	};
 	return (
@@ -269,18 +267,6 @@ export const RightContext = ({
 						</IconWrap>
 						<Title>{t(translationPath(lang.contextMenu.copyJob).path)}</Title>
 					</Item>
-					<ActiveSelection
-						id={nodeId}
-						removeFromSelection={removeFromSelection}
-						addToSelection={addToSelection}
-						add={t(translationPath(lang.contextMenu.addToSelection).path)}
-						remove={t(
-							translationPath(lang.contextMenu.removeFromSelection).path
-						)}
-						selectedKeys={selectedKeys}
-						setIsVisible={setIsVisible}
-					/>
-					<Divider />
 					<Item onClick={() => duplicate(nodeId)}>
 						<IconWrap>
 							<Icon icon={faCopy} />
@@ -308,21 +294,6 @@ export const RightContext = ({
 							</Title>
 						</Item>
 					</SPopConfirm>
-				</>
-			)}
-			{nodeType == "Truss" && (
-				<>
-					<ActiveSelection
-						id={nodeId}
-						removeFromSelection={removeFromSelection}
-						addToSelection={addToSelection}
-						add={t(translationPath(lang.contextMenu.addToSelection).path)}
-						remove={t(
-							translationPath(lang.contextMenu.removeFromSelection).path
-						)}
-						selectedKeys={selectedKeys}
-						setIsVisible={setIsVisible}
-					/>
 				</>
 			)}
 		</>

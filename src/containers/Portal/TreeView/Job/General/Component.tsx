@@ -2,16 +2,10 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import Data from '../../../../../components/Data/Data';
 import FormikRow from '../../../../../components/Optimify/Form/FormikRow';
-import Loading from '../../../../../components/Optimify/Loading';
 import Moment from 'react-moment';
 import RouteLeavingGuard from '../../../../../components/Prompt';
 import { ActionSection } from '../../../../../components/Quotations';
-import {
-	Alert,
-	Button as SButton,
-	Empty,
-	Modal
-	} from 'antd';
+import { Alert, Button as SButton, Modal } from 'antd';
 import { Button } from '../../../../../components/Optimify/Button';
 import { DeleteJob, JobProxy, Unlock } from '../_types';
 import { EditTruss } from '../../../../../sagas/Truss/_actions';
@@ -30,7 +24,7 @@ import { Table } from '../Viewer/components/Table';
 import { UnitType } from '../../../../../components/Data/Unit';
 import { useFormik } from 'formik';
 import { Viewer, ViewerRequest } from '../Viewer/_types';
-import { ViewerColumn, ViewerTitleSection } from '../Viewer/_styles';
+import { ViewerTitleSection } from '../Viewer/_styles';
 import {
 	ContentCard,
 	Form,
@@ -422,37 +416,24 @@ const Index = ({
 								</GridItem>
 							</GridRow>
 							<GridItem fill>
-								<Loading
-									text={t(translationPath(lang.common.loading))}
-									pending={pending}
-									margin
-								>
-									{models?.Exists ? (
-										<ContentCard fullSize>
-											<ViewerTitleSection>
-												<Header2>
-													{t(translationPath(lang.viewer.title))}
-												</Header2>
-											</ViewerTitleSection>
-											<Table
-												models={models}
-												deleteModel={deleteModel}
-												id={job?.id}
-											/>
-										</ContentCard>
-									) : (
-										<ViewerColumn>
-											<Empty description={""} />
-											<br />
+								<ContentCard fullSize>
+									<ViewerTitleSection>
+										<Header2>{t(translationPath(lang.viewer.title))}</Header2>
+										{!models?.Exists && (
 											<ActionSection>
 												<File
 													uploadModelPostAction={uploadModelPostAction}
 													id={job?.id}
 												/>
 											</ActionSection>
-										</ViewerColumn>
-									)}
-								</Loading>
+										)}
+									</ViewerTitleSection>
+									<Table
+										models={models}
+										deleteModel={deleteModel}
+										id={job?.id}
+									/>
+								</ContentCard>
 							</GridItem>
 						</TreeContent>
 						{!equal(formik.values, job) && (

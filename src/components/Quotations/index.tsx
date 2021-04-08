@@ -233,9 +233,7 @@ export const ActionButton = styled.button`
 	}
 `;
 
-export const ActionSection = styled(ContentRowEnd)`
-	padding: 0 8px 10px 0px;
-`;
+export const ActionSection = styled(ContentRowEnd)``;
 
 export const Summary = styled(ContentRowEnd)`
 	padding-top: 35px;

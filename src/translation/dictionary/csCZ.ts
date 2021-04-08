@@ -376,10 +376,13 @@ const dictionary: Lang = {
 		passwordMatch: "Zadaná hesla se neshodují",
 	},
 	common: {
+		asc: "Vzestupně",
+		desc: "Sestupně",
 		assessment: "Posouzení",
 		downloadingJob: "Úloha se právě stahuje.",
 		jobDownloaded: "Úloha byla úspěšně stažena.",
 		copyingJob: "Úloha se právě kopíruje.",
+		duplicating: "Úloha se právě duplikuje.",
 		jobCopied: "Úloha byla úspěšně zkopírována.",
 		CustomerExists: "Zákazník již existuje.",
 		statistics: "Statistika",
