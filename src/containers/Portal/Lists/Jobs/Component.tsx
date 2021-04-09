@@ -107,7 +107,7 @@ const Index = ({
 	const [columns, setColumns] = React.useState<Checkbox[]>([]);
 
 	useEffect(() => {
-		getJobs({ Page: 0, PageSize: 25 });
+		getJobs({ Paginate: true });
 		getUsers({ Paginate: false });
 		getHeaderSettings(TreeType.JOB);
 	}, []);

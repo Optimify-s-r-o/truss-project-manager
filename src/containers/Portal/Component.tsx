@@ -214,7 +214,6 @@ const Index = ({
 						...userSettings,
 						location: location.pathname,
 					});
-					console.log("zapisuj potvoro");
 					settingsHub.invoke(
 						Hub.WriteSettings,
 						JSON.stringify({

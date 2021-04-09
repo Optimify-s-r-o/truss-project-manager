@@ -93,7 +93,7 @@ const Index = ({
 	const [columns, setColumns] = React.useState<Checkbox[]>([]);
 
 	React.useEffect(() => {
-		getTrusses({ Page: 0, PageSize: 25 });
+		getTrusses({ Paginate: true });
 		getUsers({ Paginate: false });
 		getHeaderSettings(TreeType.TRUSS);
 	}, []);

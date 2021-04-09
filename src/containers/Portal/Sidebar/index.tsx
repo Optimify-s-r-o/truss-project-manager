@@ -109,6 +109,7 @@ export const Sidebar = ({
 							if (json) {
 								console.log(json);
 								setData(json);
+								setSelectedPageSize(json.PageSize);
 								setTree(createTree(json.Data));
 								setTreePending(false);
 							}
@@ -157,6 +158,10 @@ export const Sidebar = ({
 
 	React.useEffect(() => {
 		if (connect) {
+			console.log({
+				PageSize: selectedPageSize,
+				Page: 0,
+			});
 			selectedPageSize &&
 				onPageRequired({
 					PageSize: selectedPageSize,

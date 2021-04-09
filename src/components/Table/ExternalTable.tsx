@@ -62,15 +62,17 @@ const ExternalTable = (props: OwnProps) => {
 		resetHeaderSettings,
 	} = props;
 
-	const [selectedPageSize, setSelectedPageSize] = React.useState(
-		defaultPageSize ? defaultPageSize : 25
-	);
+	const [selectedPageSize, setSelectedPageSize] = React.useState(25);
 	const [sortString, setSortString] = React.useState<string | null | undefined>(
 		null
 	);
 	const [sort, setSort] = React.useState<number[]>(initSort);
 	const [sortOrder, setSortOrder] = React.useState<number[]>(initSortOrder);
 	const { t } = useTranslation();
+
+	useEffect(() => {
+		setSelectedPageSize(pageSize);
+	}, [pageSize]);
 
 	useEffect(() => {
 		setSort(initSort);

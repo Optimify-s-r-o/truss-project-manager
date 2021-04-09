@@ -97,10 +97,7 @@ const Index = ({
 	const [checked, setChecked] = React.useState<Checkbox[]>([]);
 
 	useEffect(() => {
-		getProjects({
-			PageSize: 25,
-			Page: 0,
-		});
+		getProjects({ Paginate: true });
 		getUsers({
 			Paginate: false,
 		});

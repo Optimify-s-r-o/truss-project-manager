@@ -223,11 +223,13 @@ export const HubComponent = ({
 		}
 
 		return () => {
-			settings.stop();
-			job.stop();
-			truss.stop();
-			project.stop();
-			tree.stop();
+			if (token) {
+				settings?.state === "Connected" && settings?.stop();
+				job?.state === "Connected" && job?.stop();
+				truss?.state === "Connected" && truss?.stop();
+				project?.state === "Connected" && project?.stop();
+				tree?.state === "Connected" && tree?.stop();
+			}
 		};
 	}, [token]);
 
