@@ -105,7 +105,7 @@ export const JobTable = ({
 				return <Moment format="DD/MM/YYYY">{value[item?.name]}</Moment>;
 			case "Price":
 			case "PricePerSquareMeter":
-				return !!value[item?.name] ? formatCurrency(value[item?.name]) : "x";
+				return !!value[item?.name] ? formatCurrency(value[item?.name]) : "-";
 
 			case "Open":
 				return (
@@ -133,7 +133,7 @@ export const JobTable = ({
 				return value.Load[item?.name];
 			default:
 				if (!value[item?.name]) {
-					return "x";
+					return "-";
 				}
 				return value[item?.name];
 		}

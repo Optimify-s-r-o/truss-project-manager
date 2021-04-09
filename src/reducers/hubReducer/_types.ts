@@ -6,4 +6,5 @@ export type HubStateType = Readonly<{
 	project: any;
 	job: any;
 	truss: any;
+	settings: any;
 }>;

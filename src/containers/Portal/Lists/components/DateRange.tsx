@@ -44,7 +44,7 @@ const Index = (props: WithTranslation & OwnProps) => {
 	};
 
 	const getDate = (date: any) => {
-		return date ? moment(date).format("D. MM. YYYY") : "x";
+		return date ? moment(date).format("D. MM. YYYY") : "-";
 	};
 
 	return (

@@ -1,5 +1,4 @@
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import React, { useState } from 'react';
 import Routing from '../../components/Routes';
 import { ApiURL } from '../../constants/api';
 import { CustomersTreeType } from './TreeView/_types';
@@ -10,10 +9,12 @@ import { Filter } from './SidebarFilter';
 import { FilterProjectRequest } from './SidebarFilter/Projects/_types';
 import { getProjectFilesAction } from '../../sagas/Fetch/actions';
 import { GlobalNotification } from '../../components/Toast/_types';
+import { Hub } from '../../constants/hub';
 import { HubComponent } from './HubComponent';
 import { HubConnection } from '@microsoft/signalr';
 import { IconMenu } from './FastNavigation/Component';
 import { isElectron } from '../../utils/electron';
+import { memo, useEffect, useState } from 'react';
 import { Method } from '../../constants/enum';
 import { NavigationSetting } from './Navigation/NavigationSetting';
 import { ProjectFileRequest } from './TreeView/Project/_types';
@@ -23,6 +24,7 @@ import { settings, settingsFilter } from './_actions';
 import { SidePanel } from './Sidebar/SidePanel';
 import { ThemeProvider } from 'styled-components';
 import { Truss } from './TreeView/Truss/_types';
+import { useLocation } from 'react-router-dom';
 import { UserData } from './Accounts/_types';
 import { useToasts } from 'react-toast-notifications';
 import { WithTranslation, withTranslation } from '../../translation/i18n';
@@ -78,6 +80,8 @@ export interface StateProps {
 	copiedJob: string;
 	activeFilterContent: string;
 	showFilterSidebar: boolean;
+	settingsHub: any;
+	userSettings: any;
 }
 
 export interface DispatchProps {
@@ -126,6 +130,7 @@ export interface DispatchProps {
 	setActiveFilterContent: (data: any) => void;
 	setActive: (data: boolean) => void;
 	showFilter: (data: boolean) => void;
+	setHubSettings: (data: any) => void;
 }
 
 const Index = ({
@@ -189,19 +194,44 @@ const Index = ({
 	setActive,
 	showFilter,
 	showFilterSidebar,
+	setHubSettings,
+	settingsHub,
+	userSettings,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { addToast } = useToasts();
-	const [treePending, setTreePending] = React.useState(true);
-	const [selectedPageSize, setSelectedPageSize] = React.useState(25);
+	const location = useLocation();
+	const [treePending, setTreePending] = useState(true);
+	const [selectedPageSize, setSelectedPageSize] = useState(25);
 	const [connect, setHubConnection] = useState<HubConnection>();
-	const [mode, setTheme] = React.useState<"light" | "dark">("light");
-	const [activeTree, setActiveTree] = React.useState<TreeType>(
-		TreeType.PROJECT
-	);
+	const [mode, setTheme] = useState<"light" | "dark">("light");
+	const [activeTree, setActiveTree] = useState<TreeType>(TreeType.PROJECT);
 
-	React.useEffect(() => {}, [mode]);
+	useEffect(() => {
+		const jobHandler = async () => {
+			if (settingsHub?.state === "Connected") {
+				try {
+					console.log({
+						...userSettings,
+						location: location.pathname,
+					});
+					console.log("zapisuj potvoro");
+					settingsHub.invoke(
+						Hub.WriteSettings,
+						JSON.stringify({
+							...userSettings,
+							location: location?.pathname,
+						})
+					);
+				} catch (err) {
+					console.log(err);
+				}
+			}
+		};
+		console.log(location);
+		jobHandler();
+	}, [settingsHub, location]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (isElectron()) {
 			const electron = window.require("electron");
 			electron.ipcRenderer.send(ELECTRON_STORE_GET, "app-theme");
@@ -214,7 +244,7 @@ const Index = ({
 		}
 	}, []);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (toast) {
 			addToast(toast.message, {
 				appearance: toast.code,
@@ -224,7 +254,7 @@ const Index = ({
 		}
 	}, [toast]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		getCustomers({ Paginate: false });
 		settingsCall({
 			action: settings,
@@ -286,6 +316,7 @@ const Index = ({
 			setTruss={setTruss}
 			getTruss={getTruss}
 			setLoading={setLoading}
+			setHubSettings={setHubSettings}
 		>
 			<KeyboardEventHandler
 				handleKeys={["f8"]}
@@ -381,4 +412,4 @@ const Index = ({
 	);
 };
 
-export default withTranslation()(React.memo(Index));
+export default withTranslation()(memo(Index));

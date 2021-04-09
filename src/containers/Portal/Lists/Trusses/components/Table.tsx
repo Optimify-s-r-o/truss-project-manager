@@ -112,7 +112,7 @@ export const TrussTable = ({
 			case "PriceSum":
 			case "PriceOnPlanks":
 			case "PriceOnArea":
-				return !!value[item?.name] ? formatCurrency(value[item?.name]) : "x";
+				return !!value[item?.name] ? formatCurrency(value[item?.name]) : "-";
 			case "MembersCount":
 			case "PlatesCount":
 			case "ModelCount":
@@ -122,7 +122,7 @@ export const TrussTable = ({
 				if (value[item?.name] && typeof value[item?.name] == "number") {
 					return fixed(value[item?.name], 2);
 				} else if (!value[item?.name]) {
-					return "x";
+					return "-";
 				}
 				return value[item?.name];
 		}

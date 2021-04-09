@@ -25,6 +25,7 @@ import { withRouter } from 'react-router';
 import {
 	setHubJob,
 	setHubProject,
+	setHubSettings,
 	setHubTree,
 	setHubTruss,
 } from "../../reducers/hubReducer/_actions";
@@ -101,6 +102,7 @@ const mapStateToProps = (state: any) => ({
 	treeHub: state.HubReducer.tree,
 	activeFilter: state.FilterReducer.activeFilter,
 	showFilterSidebar: state.FilterReducer.showFilter,
+	settingsHub: state.HubReducer.settings,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -149,6 +151,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	priceListsGetAction: (data: void) =>
 		dispatch(priceListsGetAction.request(data)),
 	setProject: (data: Project) => dispatch(setProject(data)),
+	setHubSettings: (data: any) => dispatch(setHubSettings(data)),
 	duplicateJob: (data: string) => dispatch(duplicateJob.request(data)),
 	copyJob: (data: CopyJob) => dispatch(copyJob.request(data)),
 	setActiveFilterContent: (data: any) => dispatch(setActiveFilterContent(data)),

@@ -80,7 +80,7 @@ export const ProjectTable = ({
 				return value[item.name] ? (
 					<Moment format="DD/MM/YYYY">{value[item?.name]}</Moment>
 				) : (
-					"x"
+					"-"
 				);
 			case "State":
 				const filtered = (value[item?.name] as any).filter((value) => {
@@ -98,12 +98,16 @@ export const ProjectTable = ({
 			case "ProductionPrice":
 				return !!value[item?.name]
 					? formatCurrency(value[item?.name] as number)
-					: "x";
+					: "-";
 			case "Location":
-				return <span>{getAddress(value?.Location)}</span>;
+				return (
+					<span>
+						{getAddress(value?.Location) ? getAddress(value?.Location) : "-"}
+					</span>
+				);
 			default:
 				if (!value[item?.name]) {
-					return "x";
+					return "-";
 				}
 				return value[item?.name];
 		}

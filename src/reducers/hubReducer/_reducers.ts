@@ -5,6 +5,7 @@ import {
 	setHubCustomer,
 	setHubJob,
 	setHubProject,
+	setHubSettings,
 	setHubTree,
 	setHubTruss,
 } from "./_actions";
@@ -17,6 +18,7 @@ const initialState: HubStateType = {
 	job: null,
 	truss: null,
 	customer: null,
+	settings: null,
 };
 
 export const HubReducer = (
@@ -33,6 +35,11 @@ export const HubReducer = (
 			return {
 				...state,
 				customer: action.payload,
+			};
+		case getType(setHubSettings):
+			return {
+				...state,
+				settings: action.payload,
 			};
 		case getType(setHubProject):
 			return {

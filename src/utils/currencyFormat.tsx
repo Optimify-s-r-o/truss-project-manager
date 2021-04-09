@@ -4,7 +4,7 @@ import { Unit } from '../components/Data/Unit';
 import { UnitType } from 'src/components/Data/Unit';
 
 export const formatCurrency = (value: any, unit?: UnitType) => {
-	if (value === null) return "x";
+	if (value === null) return "-";
 	const amount = value
 		? fixed(value, 2)
 				.toString()

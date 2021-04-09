@@ -36,6 +36,7 @@ export interface HubComponent {
 	getTruss: (id: string) => void;
 	setLoading: (data: boolean) => void;
 	filterSettingsCall: (data: Fetch) => void;
+	setHubSettings: (data: any) => void;
 }
 
 export const HubComponent = ({
@@ -57,9 +58,15 @@ export const HubComponent = ({
 	getTruss,
 	setLoading,
 	filterSettingsCall,
+	setHubSettings,
 }: HubComponent) => {
-	const token = useSelector((state: RootStateType) => state.AuthReducer.token);
-
+	const state = useSelector((state: RootStateType) => state);
+	const token = state.AuthReducer.token;
+	const settings = state.HubReducer.settings;
+	const tree = state.HubReducer.tree;
+	const job = state.HubReducer.job;
+	const truss = state.HubReducer.truss;
+	const project = state.HubReducer.project;
 	const getUrl = () => {
 		return process.env.REACT_APP_BACKEND_API;
 	};
@@ -167,6 +174,7 @@ export const HubComponent = ({
 				.build();
 			try {
 				await connect.start();
+
 				connect?.on(Hub.ReceivedTruss, (message) => {
 					setLoading(false);
 					const json = message && JSON.parse(message);
@@ -186,13 +194,41 @@ export const HubComponent = ({
 		}
 	};
 
+	const createSettingsHubConnection = async () => {
+		if (token) {
+			const connect = new HubConnectionBuilder()
+				.withUrl(`${getUrl()}${HubApi.Settings}`, {
+					accessTokenFactory: () => token,
+				})
+				.withHubProtocol(new signalRMsgPack.MessagePackHubProtocol())
+				.withAutomaticReconnect()
+				.configureLogging(LogLevel.Information)
+				.build();
+			try {
+				await connect.start();
+				setHubSettings(connect);
+			} catch (err) {
+				console.log(err);
+			}
+		}
+	};
+
 	useEffect(() => {
 		if (token) {
 			createTreeHubConnection();
 			createProjectHubConnection();
 			createJobHubConnection();
 			createTrussHubConnection();
+			createSettingsHubConnection();
 		}
+
+		return () => {
+			settings.stop();
+			job.stop();
+			truss.stop();
+			project.stop();
+			tree.stop();
+		};
 	}, [token]);
 
 	useEffect(() => {

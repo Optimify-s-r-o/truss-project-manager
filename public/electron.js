@@ -1,6 +1,7 @@
 const path = require("path");
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain, screen } = require("electron");
 const isDev = require("electron-is-dev");
+const windowStateKeeper = require('electron-window-state')
 const execFile = require('child_process').execFile;
 const Store = require('electron-store');
 const fs = require('fs');
@@ -10,23 +11,32 @@ const log = require('electron-log');
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
 autoUpdater.autoDownload=false;
+const store = new Store();
 log.info('App starting...');
+
 let win;
 
 
-const  createWindow =()=> {
+const createWindow =()=> {
+  let mainWindowState = windowStateKeeper({
+    defaultWidth: 1324,
+    defaultHeight: 828
+  });
+
   win = new BrowserWindow({
-    width: 1324,
-    height: 828,
-    minWidth: 1324,
-    minHeight: 828,
-    show: false,
-    webPreferences: {
-      nodeIntegration: true,
-      enableRemoteModule: true,
-      contextIsolation: false
+    'x': mainWindowState.x,
+    'y': mainWindowState.y,
+    'width': mainWindowState.width,
+    'height': mainWindowState.height,
+    'show': false,
+    'webPreferences': {
+      'nodeIntegration': true,
+      'enableRemoteModule': true,
+      'contextIsolation': false
     }
   });
+
+  mainWindowState.manage(win);
 
   win.once('ready-to-show', () => {
     win.show()
@@ -46,8 +56,6 @@ const  createWindow =()=> {
     REACT_DEVELOPER_TOOLS = devTools.REACT_DEVELOPER_TOOLS;
   } 
 
-  //create electron store
-  const store = new Store();
 
   const truss3DExe ='C:\\Program Files (x86)\\Fine\\TRUSS4\\v1\\Truss3D_4_CS.exe'
   if (fs.existsSync(truss3DExe)) {
@@ -168,7 +176,6 @@ const  createWindow =()=> {
 }
 
 app.on('ready', ()=>  {
-  
   createWindow();
 });
 
@@ -179,6 +186,7 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
+ 
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }

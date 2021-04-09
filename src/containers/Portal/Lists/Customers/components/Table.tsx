@@ -90,7 +90,7 @@ export const CustomerTable = ({
 				);
 			default:
 				if (!value[item?.name]) {
-					return "x";
+					return "-";
 				}
 				return value[item?.name];
 		}

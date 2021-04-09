@@ -15,6 +15,7 @@ const initialState: LoginStateType = {
 	validUntil: "",
 	users: null,
 	loadingUsers: false,
+	userSettings: null,
 };
 
 export const AuthReducer = (
@@ -43,6 +44,7 @@ export const AuthReducer = (
 				username: action.payload.Username,
 				role: action.payload.Role,
 				validUntil: action.payload.ValidUntil,
+				userSettings: action.payload.Settings,
 			};
 
 		case getType(login.failure):

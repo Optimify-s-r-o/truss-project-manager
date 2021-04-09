@@ -28,6 +28,7 @@ enum Hub {
 	RequestTruss = "RequestTruss",
 	CloseTruss = "CloseTruss",
 	OpenTruss = "OpenTruss",
+	WriteSettings = "WriteSettings",
 }
 
 enum HubApi {
@@ -35,6 +36,7 @@ enum HubApi {
 	Job = "/hubs/job",
 	Project = "/hubs/project",
 	Truss = "/hubs/truss",
+	Settings = "/hubs/settings",
 }
 
 export { Hub, HubApi };
