@@ -31,7 +31,9 @@ export const HubComponent = ({
 			if (jobHub?.state === "Connected") {
 				try {
 					setLoading(true);
-					jobHub?.invoke(Hub.OpenJob, id);
+					if (id) {
+						jobHub?.invoke(Hub.OpenJob, id);
+					}
 					modelsGetAction(id);
 				} catch (err) {
 					console.log(err);

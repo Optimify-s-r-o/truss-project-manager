@@ -424,6 +424,7 @@ export type Lang = Readonly<{
 		FailedToCreateFile: string;
 		PreviousSectionMissing: string;
 		AtLeastOneSectionRequired: string;
+		SelectionsCannotBeApplied: string;
 		ModelAlreadyExists: string;
 		ModelNotExists: string;
 		ModelUploadFailed: string;

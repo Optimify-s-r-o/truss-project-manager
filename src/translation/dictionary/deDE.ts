@@ -440,6 +440,8 @@ const dictionary: Lang = {
 		PreviousSectionMissing: "Der vorherige Abschnitt fehlt.",
 		AtLeastOneSectionRequired:
 			"Bitte geben Sie mindestens einen Abschnitt ein.",
+		SelectionsCannotBeApplied:
+			"Das Ausblenden ist nur für Projekte zulässig. Ihre Auswahl enthält andere Elemente.",
 		ModelAlreadyExists: "Das Modell existiert bereits.",
 		ModelNotExists: "Das Modell existiert nicht.",
 		ModelUploadFailed: "Das 3D-Modell konnte nicht hochgeladen werden.",

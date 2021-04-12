@@ -436,6 +436,9 @@ const dictionary: Lang = {
 		FailedToCreateFile: "The file could not be created.",
 		PreviousSectionMissing: "The previous section is missing.",
 		AtLeastOneSectionRequired: "Enter at least one section.",
+
+		SelectionsCannotBeApplied:
+			"Hiding is only allowed for projects. Your selection includes other elements.",
 		ModelAlreadyExists: "The model already exists.",
 		ModelNotExists: "The model does not exist.",
 		ModelUploadFailed: "The 3D model could not be uploaded.",

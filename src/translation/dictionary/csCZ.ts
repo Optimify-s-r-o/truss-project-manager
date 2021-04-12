@@ -436,6 +436,8 @@ const dictionary: Lang = {
 		FailedToCreateFile: "Soubor se nepovedlo vytvořit.",
 		PreviousSectionMissing: "Předešlá sekce chybí.",
 		AtLeastOneSectionRequired: "Zadejte alespoň jednu sekci.",
+		SelectionsCannotBeApplied:
+			"Skrývání je povoleno pouze pro projekty. Váš výběr obsahuje i jiné prvky.",
 		ModelAlreadyExists: "Model již existuje.",
 		ModelNotExists: "Model neexistuje.",
 		ModelUploadFailed: "3D model se nepovedlo nahrát.",

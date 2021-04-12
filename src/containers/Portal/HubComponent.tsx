@@ -148,7 +148,9 @@ export const HubComponent = ({
 					});
 				});
 				connect.on(Hub.JobIdChanged, (id) => {
-					connect?.invoke(Hub.OpenJob, id);
+					if (id) {
+						connect?.invoke(Hub.OpenJob, id);
+					}
 				});
 				connect?.on(Hub.ReceivedJob, (message) => {
 					setLoading(false);
