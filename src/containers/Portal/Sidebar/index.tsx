@@ -109,7 +109,7 @@ export const Sidebar = ({
 							if (json) {
 								console.log(json);
 								setData(json);
-								json?.SelectedKeys && setSelectedKeys(json?.SelectedKeys);
+								json?.SelectedKey && setSelectedKeys([json?.SelectedKey]);
 								setSelectedPageSize(json.SettingsPageSize);
 								setTree(createTree(json.Data));
 								setTreePending(false);
