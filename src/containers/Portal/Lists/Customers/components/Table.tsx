@@ -1,6 +1,7 @@
 import ExternalTable from '../../../../../components/Table/ExternalTable';
 import Moment from 'react-moment';
 import React from 'react';
+import { Action } from '../_styles';
 import { CardMiddleTableWrapper } from '../../../../../constants/globalStyles';
 import { Checkbox } from '../../Jobs/Component';
 import { Customer, CustomerProxy } from '../../../Customer/_types';
@@ -78,7 +79,7 @@ export const CustomerTable = ({
 				return <Moment format="DD/MM/YYYY">{value[item?.name]}</Moment>;
 			case "Open":
 				return (
-					<div>
+					<Action>
 						<Edit edit={() => navigate(value)} />
 						&nbsp;
 						<DeleteCustomer
@@ -86,7 +87,7 @@ export const CustomerTable = ({
 							hasProject={value.ProjectCount > 0}
 							name={value?.Name}
 						/>
-					</div>
+					</Action>
 				);
 			default:
 				if (!value[item?.name]) {

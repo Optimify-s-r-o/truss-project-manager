@@ -273,7 +273,7 @@ function* copyJobActionSaga(
 					),
 				})
 			);
-			yield put(calculateJob.failure(errorResponseData));
+			yield put(copyJob.failure(errorResponseData));
 			return;
 		}
 		yield put(
