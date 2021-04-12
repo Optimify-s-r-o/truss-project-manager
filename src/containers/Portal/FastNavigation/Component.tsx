@@ -61,14 +61,18 @@ export const IconMenu = ({
 	const invokeTreeHub = async (tree: TreeType) => {
 		try {
 			if (selectedKeys?.length > 0) {
-				connect.invoke(
-					Hub.RequestTreeWithSelection,
-					tree,
-					selectedPageSize,
-					""
-				);
+				if (connect?.state === "Connected") {
+					connect.invoke(
+						Hub.RequestTreeWithSelection,
+						tree,
+						selectedPageSize,
+						""
+					);
+				}
 			} else {
-				connect.invoke(Hub.RequestNewTree, tree, 0, selectedPageSize, "");
+				if (connect?.state === "Connected") {
+					connect.invoke(Hub.RequestNewTree, tree, 0, selectedPageSize, "");
+				}
 			}
 		} catch (err) {
 			console.log(err);

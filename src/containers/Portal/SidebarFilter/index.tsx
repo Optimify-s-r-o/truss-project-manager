@@ -99,7 +99,9 @@ export const Filter = ({
 
 	const invokeTreeHub = async (tree: TreeType) => {
 		try {
-			connect.invoke(Hub.RequestNewTree, tree, 0, 25, "");
+			if (connect?.state === "Connected") {
+				connect.invoke(Hub.RequestNewTree, tree, 0, 25, "");
+			}
 		} catch (err) {
 			console.log(err);
 		}
@@ -111,7 +113,9 @@ export const Filter = ({
 
 	const resetTree = () => {
 		try {
-			connect.invoke(Hub.ResetTree);
+			if (connect?.state === "Connected") {
+				connect.invoke(Hub.ResetTree);
+			}
 		} catch (err) {
 			console.log(err);
 		}

@@ -27,7 +27,9 @@ export const HubComponent = ({
 }: HubComponent) => {
 	useEffect(() => {
 		return () => {
-			trussHub?.invoke(Hub.CloseTruss);
+			if (trussHub?.state === "Connected") {
+				trussHub?.invoke(Hub.CloseTruss);
+			}
 		};
 	}, []);
 

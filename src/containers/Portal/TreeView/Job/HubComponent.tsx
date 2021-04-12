@@ -20,7 +20,9 @@ export const HubComponent = ({
 }: HubComponent) => {
 	useEffect(() => {
 		return () => {
-			jobHub?.invoke(Hub.CloseJob);
+			if (jobHub?.state === "Connected") {
+				jobHub?.invoke(Hub.CloseJob);
+			}
 		};
 	}, []);
 

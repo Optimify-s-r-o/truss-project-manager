@@ -18,7 +18,9 @@ export const HubComponent = ({
 }: HubComponent) => {
 	useEffect(() => {
 		return () => {
-			projectHub?.invoke(Hub.CloseProject);
+			if (projectHub?.state === "Connected") {
+				projectHub?.invoke(Hub.CloseProject);
+			}
 		};
 	}, []);
 

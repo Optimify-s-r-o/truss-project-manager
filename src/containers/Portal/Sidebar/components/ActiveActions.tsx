@@ -69,7 +69,9 @@ export const ActiveActions = ({
 	};
 	const resetTree = () => {
 		try {
-			connect.invoke(Hub.ResetTree);
+			if (connect?.state === "Connected") {
+				connect.invoke(Hub.ResetTree);
+			}
 		} catch (err) {
 			console.log(err);
 		}

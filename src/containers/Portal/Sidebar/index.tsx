@@ -157,7 +157,7 @@ export const Sidebar = ({
 	}, []);
 
 	const onPageRequired = (requiredPage: Page) => {
-		if (connect) {
+		if (connect && connect?.state === "Connected") {
 			connect.invoke(
 				Hub.RequestNewTree,
 				activeTree,

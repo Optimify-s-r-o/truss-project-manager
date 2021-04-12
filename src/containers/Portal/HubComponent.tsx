@@ -83,8 +83,10 @@ export const HubComponent = ({
 
 			try {
 				await connect.start();
-				connect.invoke(Hub.RequestTree);
-				connect.invoke(Hub.RequestFilters);
+				if (connect?.state === "Connected") {
+					connect.invoke(Hub.RequestTree);
+					connect.invoke(Hub.RequestFilters);
+				}
 			} catch (err) {
 				console.log(err);
 			}
