@@ -80,7 +80,7 @@ export const ActiveActions = ({
 	const resetSelection = () => {
 		resetSelectionAction();
 	};
-	console.log(data);
+
 	return (
 		<>
 			{(data?.IsFilterActive || data?.IsSkipped) && (

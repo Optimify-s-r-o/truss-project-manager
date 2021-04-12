@@ -6,6 +6,7 @@ import Price from './Price';
 import TechnicalParameters from './TechnicalParameters';
 import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
+import { getJobsFilters } from '../_services';
 import { Grow } from '../../Lists/components/_styles';
 import { Hub } from 'src/constants/hub';
 import { Reset } from '../components/Reset';
@@ -39,8 +40,7 @@ const Index = ({
 	handleChange,
 	jobPending,
 }: OwnProps & WithTranslation) => {
-	const { values, setValues, setFieldValue, resetForm } =
-		useFormikContext() ?? {};
+	const { values, setValues, setFieldValue } = useFormikContext() ?? {};
 
 	useEffect(() => {
 		handleForm({ Jobs: values });
@@ -49,7 +49,8 @@ const Index = ({
 	useEffect(() => {
 		if (treeHub) {
 			treeHub.on(Hub.TreeResetFinished, (message) => {
-				resetForm();
+				const initialValues: any = getJobsFilters(filter);
+				setValues(initialValues);
 			});
 		}
 	}, [treeHub]);
@@ -85,7 +86,6 @@ const Index = ({
 				resetTree={resetTree}
 				pending={jobPending}
 				activeFilter={activeFilter}
-				resetForm={resetForm}
 			/>
 		</>
 	);

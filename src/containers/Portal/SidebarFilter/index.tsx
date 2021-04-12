@@ -72,10 +72,14 @@ export const Filter = ({
 	treeHub,
 }: IFilter) => {
 	const location = useLocation();
-	const [formData, setFormData] = useState<any>({});
+	const [formData, setFormData] = useState<any>(getInitialValues(filter));
 	const [activeFilterType, setActiveFilter] = useState<FilterType>(
 		FilterType.Job
 	);
+
+	useEffect(() => {
+		setFormData(getInitialValues(filter, activeFilterContent));
+	}, [activeFilterContent]);
 
 	useEffect(() => {
 		getUsers({ Page: 0, PageSize: 25, Sort: "" });

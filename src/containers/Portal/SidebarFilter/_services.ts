@@ -30,7 +30,6 @@ export const getInitialValues = (
 	activeFilterContent?: any
 ): Filter => {
 	return {
-		PersistTree: true,
 		Customers: getCustomersFilters(filter, activeFilterContent),
 		Projects: getProjectsFilters(filter, activeFilterContent),
 		Jobs: getJobsFilters(filter, activeFilterContent),
@@ -449,7 +448,7 @@ export const resetFilterCustomersValues = (
 ) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 	return {
 		...values,
-		Customers: getCustomersFilters(filter),
+		...getCustomersFilters(filter),
 	};
 };
 
@@ -459,7 +458,7 @@ export const resetFilterProjectsValues = (
 ) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 	return {
 		...values,
-		Projects: getProjectsFilters(filter),
+		...getProjectsFilters(filter),
 	};
 };
 
@@ -468,7 +467,7 @@ export const resetFilterJobsValues = (values: any, filter: FilterSettings) => (
 ) => {
 	return {
 		...values,
-		Jobs: getJobsFilters(filter),
+		...getJobsFilters(filter),
 	};
 };
 
@@ -478,6 +477,6 @@ export const resetFilterTrussesValues = (
 ) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 	return {
 		...values,
-		Trusses: getTrussesFilters(filter),
+		...getTrussesFilters(filter),
 	};
 };

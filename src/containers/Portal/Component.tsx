@@ -131,6 +131,7 @@ export interface DispatchProps {
 	setActive: (data: boolean) => void;
 	showFilter: (data: boolean) => void;
 	setHubSettings: (data: any) => void;
+	clearFilteredData: () => void;
 }
 
 const Index = ({
@@ -197,6 +198,7 @@ const Index = ({
 	setHubSettings,
 	settingsHub,
 	userSettings,
+	clearFilteredData,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { addToast } = useToasts();
 	const location = useLocation();
@@ -240,6 +242,10 @@ const Index = ({
 				}
 			});
 		}
+
+		return () => {
+			clearFilteredData();
+		};
 	}, []);
 
 	useEffect(() => {

@@ -32,19 +32,17 @@ export interface OwnProps {
 
 const Index = (props: OwnProps & WithTranslation) => {
 	const { values, setFieldValue, users, filter } = props;
-
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.filterGeneral))}
 			values={values}
 			filter={filter}
-			formikCheckboxes={[
-				getPath(ProjectsFilterProxy.ProjectStateFilter.ProjectStates),
-			]}
+			formikCheckboxes={[getPath(ProjectsFilterProxy.ProjectStateFilter)]}
 			checkboxes={[getPath(FilterSettingsProxy.Project.ProjectStates)]}
 			input={[
-				getPath(ProjectsFilterProxy.NameFilter),
+				getPath(ProjectsFilterProxy.NameFilter.Name),
 				getPath(ProjectsFilterProxy.UserFilter.Name),
+				getPath(ProjectsFilterProxy.AddressFilter.Location),
 			]}
 		>
 			<FilterContentSection withoutMargin>

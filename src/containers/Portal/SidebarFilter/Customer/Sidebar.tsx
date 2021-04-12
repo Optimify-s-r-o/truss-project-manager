@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import Statistics from './Statistics';
 import { FilterSettings, Page, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
+import { getCustomersFilters, getTrussesFilters } from '../_services';
 import { Grow } from '../../Lists/components/_styles';
 import { Hub } from '../../../../constants/hub';
 import { Reset } from '../components/Reset';
@@ -35,8 +36,7 @@ const Index = ({
 	handleChange,
 	customerPending,
 }: OwnProps & WithTranslation) => {
-	const { values, setValues, setFieldValue, resetForm } =
-		useFormikContext() ?? {};
+	const { values, setValues, setFieldValue } = useFormikContext() ?? {};
 
 	useEffect(() => {
 		handleForm({ Customers: values });
@@ -45,7 +45,8 @@ const Index = ({
 	useEffect(() => {
 		if (treeHub) {
 			treeHub.on(Hub.TreeResetFinished, (message) => {
-				resetForm();
+				const initialValues: any = getCustomersFilters(filter);
+				setValues(initialValues);
 			});
 		}
 	}, [treeHub]);
@@ -73,7 +74,6 @@ const Index = ({
 				resetTree={resetTree}
 				pending={customerPending}
 				activeFilter={activeFilter}
-				resetForm={resetForm}
 			/>
 		</>
 	);

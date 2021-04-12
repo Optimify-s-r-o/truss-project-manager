@@ -29,12 +29,10 @@ const CheckBox = ({
 	useEffect(() => {
 		if (value && value?.length === 0) {
 			setChecked(false);
+		} else if (value && value?.length > 0 && value?.includes(name)) {
+			setChecked(true);
 		}
 	}, [value]);
-
-	useEffect(() => {
-		setChecked(checked);
-	}, [checked]);
 
 	return (
 		<Content>

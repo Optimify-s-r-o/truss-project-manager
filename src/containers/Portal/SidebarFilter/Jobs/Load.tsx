@@ -29,8 +29,8 @@ const Index = (props: OwnProps & WithTranslation) => {
 		<FilterSection
 			values={values}
 			formikCheckboxes={[
-				getPath(JobsFilterProxy.WindAreaFilter.WindAreas),
-				getPath(JobsFilterProxy.SnowAreaFilter.SnowAreas),
+				getPath(JobsFilterProxy.WindAreaFilter),
+				getPath(JobsFilterProxy.SnowAreaFilter),
 			]}
 			filter={filter}
 			filters={[

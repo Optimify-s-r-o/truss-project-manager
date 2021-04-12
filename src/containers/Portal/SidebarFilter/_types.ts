@@ -59,7 +59,7 @@ export type Filter = {
 	Jobs: JobsFilter;
 	Trusses: TrussesFilter;
 	ActiveTree?: string;
-	PersistTree: boolean;
+	PersistTree?: boolean;
 };
 
 export const FilterProxy = createProxy<Filter>();

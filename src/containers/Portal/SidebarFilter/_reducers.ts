@@ -1,6 +1,7 @@
 import { FilterType } from './_types';
 import { getType } from 'typesafe-actions';
 import {
+	clearFilteredData,
 	FilterActionType,
 	filterEntities,
 	getCustomers,
@@ -30,6 +31,10 @@ export default (
 	action: FilterActionType
 ): FilterType => {
 	switch (action.type) {
+		case getType(clearFilteredData):
+			return {
+				...initialState,
+			};
 		case getType(setActiveFilterContent):
 			return {
 				...state,

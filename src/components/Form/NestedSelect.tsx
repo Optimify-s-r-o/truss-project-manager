@@ -32,9 +32,6 @@ export const NestedSelect = ({
 
 	const item = (options as OptionType[])?.find(
 		(item: { label: string | number; value: string | number }, key: number) => {
-			console.log(item);
-			console.log(name);
-			console.log(values);
 			if (
 				name &&
 				values &&
@@ -47,7 +44,7 @@ export const NestedSelect = ({
 			}
 		}
 	);
-	console.log(item);
+
 	return (
 		<BaseInlineInputWrapper isFocused={isFocused}>
 			<Row>

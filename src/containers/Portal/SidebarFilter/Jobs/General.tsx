@@ -33,11 +33,14 @@ const Index = (props: OwnProps & WithTranslation) => {
 			title={t(translationPath(lang.common.filterGeneral))}
 			values={values}
 			formikCheckboxes={[
-				getPath(JobsFilterProxy.JobTypeFilter.JobTypes),
-				getPath(JobsFilterProxy.JobStateFilter.JobStates),
+				getPath(JobsFilterProxy.JobTypeFilter),
+				getPath(JobsFilterProxy.JobStateFilter),
 			]}
 			filter={filter}
-			checkboxes={[getPath(FilterSettingsProxy.Job.JobTypes)]}
+			checkboxes={[
+				getPath(FilterSettingsProxy.Job.JobTypes),
+				getPath(FilterSettingsProxy.Job.States),
+			]}
 			input={[getPath(JobsFilterProxy.NameFilter.Name)]}
 		>
 			<FilterContentSection withoutMargin>

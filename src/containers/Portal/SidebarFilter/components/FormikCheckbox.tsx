@@ -55,6 +55,7 @@ export const FormikCheckbox = ({
 			}
 		}
 	};
+
 	return (
 		<>
 			{get(filter, filterPath) && (

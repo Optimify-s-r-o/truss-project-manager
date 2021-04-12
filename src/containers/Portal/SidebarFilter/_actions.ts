@@ -48,6 +48,8 @@ export const setActive = createAction("@FILTER/SET_ACTIVE_FILTER")<boolean>();
 
 export const showFilter = createAction("@FILTER/SHOW")<boolean>();
 
+export const clearFilteredData = createAction("@FILTER/CLEAR")();
+
 export type FilterActionType = ActionType<
 	| typeof filterEntities
 	| typeof getCustomers
@@ -57,4 +59,5 @@ export type FilterActionType = ActionType<
 	| typeof setActiveFilterContent
 	| typeof setActive
 	| typeof showFilter
+	| typeof clearFilteredData
 >;
