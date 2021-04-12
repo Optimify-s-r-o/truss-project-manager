@@ -112,7 +112,7 @@ export type JobsFilter = {
 	HipLengthFilter: Slider;
 	CoveredAreaFilter: Slider;
 	RidgeLengthFilter: Slider;
-	JobDateOfCreationFilter: DateOfCreationFilter;
+	DateOfCreationFilter: DateOfCreationFilter;
 	DateOfLastUpdateFilter: DateOfLastUpdateFilter;
 };
 export const JobsFilterProxy = createProxy<JobsFilter>();

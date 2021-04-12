@@ -1,10 +1,15 @@
-import _ from "lodash";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { TreeType } from "src/types/_types";
-import { lang } from "../../../../translation/i18n";
-import { translationPath } from "../../../../utils/getPath";
-import { DateRange, MultipleSelect, Row, SliderRange } from "./Row";
+import _ from 'lodash';
+import React from 'react';
+import {
+	DateRange,
+	MultipleSelect,
+	Row,
+	SliderRange
+	} from './Row';
+import { lang } from '../../../../translation/i18n';
+import { translationPath } from '../../../../utils/getPath';
+import { TreeType } from 'src/types/_types';
+import { useTranslation } from 'react-i18next';
 interface IActive {
 	values: any;
 	active: boolean;
@@ -78,15 +83,17 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				type={TreeType.CUSTOMER}
 			/>
 			<SliderRange
-				title={t(translationPath(lang.common.numberOfQuotationsFilter).path)}
+				title={t(translationPath(lang.common.finishedQuotationCount).path)}
 				value={values?.Customers?.NumberOfQuotationsFilter}
 				show={values?.Customers?.NumberOfQuotationsFilter?.Active}
+				round
 				type={TreeType.CUSTOMER}
 			/>
 			<SliderRange
-				title={t(translationPath(lang.common.numberOfProductionsFilter).path)}
+				title={t(translationPath(lang.common.finishedProductionCount).path)}
 				value={values?.Customers?.NumberOfProductionsFilter}
 				show={values?.Customers?.NumberOfProductionsFilter?.Active}
+				round
 				type={TreeType.CUSTOMER}
 			/>
 			<SliderRange
@@ -140,6 +147,24 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				translate
 				type={TreeType.PROJECT}
 			/>
+			<DateRange
+				title={t(translationPath(lang.common.projectTimeOfCreation).path)}
+				value={values?.Projects?.DateOfCreationFilter}
+				show={values?.Projects?.DateOfCreationFilter?.Active}
+				type={TreeType.PROJECT}
+			/>
+			<DateRange
+				title={t(translationPath(lang.common.quotationDate).path)}
+				value={values?.Projects?.QuotationDateFilter}
+				show={values?.Projects?.QuotationDateFilter?.Active}
+				type={TreeType.PROJECT}
+			/>
+			<DateRange
+				title={t(translationPath(lang.common.constructionDate).path)}
+				value={values?.Projects?.ConstructionDateFilter}
+				show={values?.Projects?.ConstructionDateFilter?.Active}
+				type={TreeType.PROJECT}
+			/>
 			<SliderRange
 				title={t(translationPath(lang.common.quotation).path)}
 				value={values?.Projects?.QuotationPriceFilter}
@@ -150,24 +175,6 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				title={t(translationPath(lang.common.production).path)}
 				value={values?.Projects?.ProductionPriceFilter}
 				show={values?.Projects?.ProductionPriceFilter?.Active}
-				type={TreeType.PROJECT}
-			/>
-			<DateRange
-				title={t(translationPath(lang.common.dateOfCreation).path)}
-				value={values?.Projects?.DateOfCreationFilter}
-				show={values?.Projects?.DateOfCreationFilter?.Active}
-				type={TreeType.PROJECT}
-			/>
-			<DateRange
-				title={t(translationPath(lang.common.constructionDate).path)}
-				value={values?.Projects?.ConstructionDateFilter}
-				show={values?.Projects?.ConstructionDateFilter?.Active}
-				type={TreeType.PROJECT}
-			/>
-			<DateRange
-				title={t(translationPath(lang.common.quotationDate).path)}
-				value={values?.Projects?.QuotationDateFilter}
-				show={values?.Projects?.QuotationDateFilter?.Active}
 				type={TreeType.PROJECT}
 			/>
 			<Row
@@ -184,14 +191,14 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				type={TreeType.JOB}
 			/>
 			<MultipleSelect
-				title={t(translationPath(lang.common.state).path)}
+				title={t(translationPath(lang.common.jobState).path)}
 				value={values?.Jobs?.JobStateFilter?.JobStates}
 				show={values?.Jobs?.JobStateFilter?.Active}
 				translate
 				type={TreeType.JOB}
 			/>
 			<SliderRange
-				title={t(translationPath(lang.common.price).path)}
+				title={t(translationPath(lang.common.designPrice).path)}
 				value={values?.Jobs?.PriceFilter}
 				show={values?.Jobs?.PriceFilter?.Active}
 				type={TreeType.JOB}
@@ -270,13 +277,13 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				type={TreeType.JOB}
 			/>
 			<DateRange
-				title={t(translationPath(lang.common.dateOfCreation).path)}
+				title={t(translationPath(lang.common.jobDateOfCreation).path)}
 				value={values?.Jobs?.DateOfCreationFilter}
 				show={values?.Jobs?.DateOfCreationFilter?.Active}
 				type={TreeType.JOB}
 			/>
 			<DateRange
-				title={t(translationPath(lang.common.dateOfLastUpdate).path)}
+				title={t(translationPath(lang.common.jobDateOfLastUpdate).path)}
 				value={values?.Jobs?.DateOfLastUpdateFilter}
 				show={values?.Jobs?.DateOfLastUpdateFilter?.Active}
 				type={TreeType.JOB}
@@ -295,14 +302,14 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				type={TreeType.TRUSS}
 			/>
 			<MultipleSelect
-				title={t(translationPath(lang.common.type).path)}
+				title={t(translationPath(lang.common.trussType).path)}
 				value={values?.Trusses?.TypeFilter?.Types}
 				show={values?.Trusses?.TypeFilter?.Active}
 				translate
 				type={TreeType.TRUSS}
 			/>
 			<MultipleSelect
-				title={t(translationPath(lang.common.kinds).path)}
+				title={t(translationPath(lang.common.typeOfTruss).path)}
 				value={values?.Trusses?.KindsFilter?.Kinds}
 				show={values?.Trusses?.KindsFilter?.Active}
 				translate

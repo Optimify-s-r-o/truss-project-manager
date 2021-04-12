@@ -112,6 +112,7 @@ const Index = ({
 		getHeaderSettings(TreeType.JOB);
 	}, []);
 
+	console.log(activeFilterContent);
 	return (
 		<ContentInline>
 			<Main>

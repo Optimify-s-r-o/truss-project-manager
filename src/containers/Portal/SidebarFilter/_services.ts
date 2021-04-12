@@ -290,8 +290,8 @@ export const getJobsFilters = (
 				get(filter, getPath(FilterSettingsProxy.Job.PriceTo))
 			)
 		),
-		JobDateOfCreationFilter: getFilter(
-			activeFilterContent?.Jobs?.JobDateOfCreationFilter,
+		DateOfCreationFilter: getFilter(
+			activeFilterContent?.Jobs?.DateOfCreationFilter,
 			{
 				...activation,
 				From: null,
@@ -299,7 +299,7 @@ export const getJobsFilters = (
 			}
 		),
 		DateOfLastUpdateFilter: getFilter(
-			activeFilterContent?.Jobs?.JobDateOfCreationFilter,
+			activeFilterContent?.Jobs?.DateOfLastUpdateFilter,
 			{
 				...activation,
 				From: null,

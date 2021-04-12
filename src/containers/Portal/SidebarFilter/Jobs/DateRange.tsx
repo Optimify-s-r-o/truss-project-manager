@@ -34,7 +34,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 			title={t(translationPath(lang.common.dateOfProcessing))}
 			values={values}
 			filters={[
-				lastPathMember(JobsFilterProxy.JobDateOfCreationFilter).path,
+				lastPathMember(JobsFilterProxy.DateOfCreationFilter).path,
 				lastPathMember(JobsFilterProxy.DateOfLastUpdateFilter).path,
 			]}
 			filter={filter}
@@ -43,7 +43,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 			<FilterContentSection>
 				<FormikBox
 					checked={true}
-					name={[getPath(JobsFilterProxy.JobDateOfCreationFilter)]}
+					name={[getPath(JobsFilterProxy.DateOfCreationFilter)]}
 					values={values}
 					setFieldValue={setFieldValue}
 					label={
@@ -55,7 +55,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 				<DateRange
 					values={values}
 					setFieldValue={setFieldValue}
-					name={getPath(JobsFilterProxy.JobDateOfCreationFilter)}
+					name={getPath(JobsFilterProxy.DateOfCreationFilter)}
 					title={t(translationPath(lang.common.jobDateOfCreation))}
 				/>
 			</FilterContentSection>

@@ -2,7 +2,6 @@ import * as React from 'react';
 import EmptyFilter from '../../../../components/EmpyFilter';
 import FilterSection from '../../Lists/components/FilterSection';
 import FormSlider from '../../../../components/FormSlider';
-import { FilterProxy } from '..//_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
 import { getPath, translationPath } from '../../../../utils/getPath';
 import { TrussesFilterProxy } from '../_types';
@@ -39,7 +38,7 @@ const Index = ({
 			<EmptyFilter filter={filter} type="Job" names={["Price"]}>
 				<FormSlider
 					label={t(translationPath(lang.common.price))}
-					name={getPath(FilterProxy.Trusses.PriceFilter)}
+					name={getPath(TrussesFilterProxy.PriceFilter)}
 					setFieldValue={setFieldValue}
 					values={values}
 					from={values?.PriceFilter?.From}

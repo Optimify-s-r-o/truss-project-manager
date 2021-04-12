@@ -174,7 +174,7 @@ export const JobColumnSelector = ({
 			name: "DateOfCreation",
 			title: t(translationPath(lang.common.jobDateOfCreation).path),
 			section: "Date",
-			filter: getPath(FilterProxy.Jobs.JobDateOfCreationFilter),
+			filter: getPath(FilterProxy.Jobs.DateOfCreationFilter),
 			filterType: FilterContentType.DATE,
 		},
 		{
