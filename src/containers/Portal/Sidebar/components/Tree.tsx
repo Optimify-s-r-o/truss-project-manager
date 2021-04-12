@@ -5,6 +5,7 @@ import { Page, TreeType } from '../../../../types/_types';
 import { Routes } from '../../../../constants/routes';
 import { SDirectoryTree } from '../_styles';
 import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
 interface IActiveActions {
@@ -53,6 +54,7 @@ export const Tree = ({
 }: IActiveActions) => {
 	const { t } = useTranslation();
 	const history = useHistory();
+	const location = useLocation();
 
 	const onSelect = (keys, event) => {
 		const path = location.pathname;
@@ -96,6 +98,7 @@ export const Tree = ({
 				history.push(Routes.TREE_LINK_JOB + keys);
 			}
 		} else if (event?.node?.treeType === TreeType.TRUSS) {
+			console.log(path);
 			if (path.includes("material")) {
 				history.push(Routes.TREE_LINK_TRUSS + keys + "/material/persist");
 			} else if (path.includes("quotations")) {

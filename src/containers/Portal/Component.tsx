@@ -212,10 +212,6 @@ const Index = ({
 		const jobHandler = async () => {
 			if (settingsHub?.state === "Connected") {
 				try {
-					console.log({
-						...userSettings,
-						location: location.pathname,
-					});
 					settingsHub.invoke(
 						Hub.WriteSettings,
 						JSON.stringify({
