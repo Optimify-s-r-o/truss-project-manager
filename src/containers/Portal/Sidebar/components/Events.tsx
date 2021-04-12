@@ -251,7 +251,7 @@ export const Events = ({
 
 	const keyDownHandler = (event) => {
 		if (event.ctrlKey && event.code === "KeyA") {
-			event.preventDefault();
+			// event.preventDefault();
 		}
 	};
 

@@ -156,6 +156,13 @@ export const Tree = ({
 		setJobLockedByMe(info.node.lockedByMe);
 		setIsVisible(true);
 	};
+	const handlePaseSizeChange = (value: any) => {
+		setSelectedPageSize(value);
+		onPageRequired({
+			PageSize: value,
+			Page: 0,
+		});
+	};
 
 	return (
 		<>
@@ -179,7 +186,7 @@ export const Tree = ({
 						totalPages={data?.TotalPages}
 						totalRecords={data?.TotalRecords}
 						onPageRequired={onPageRequired}
-						onSizeChanged={setSelectedPageSize}
+						onSizeChanged={handlePaseSizeChange}
 					/>
 				</>
 			) : (

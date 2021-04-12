@@ -1,12 +1,14 @@
-import * as React from 'react';
 import DateRange from './DateRange';
 import General from './General';
 import Price from './Price';
+import React, { useEffect } from 'react';
 import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
 import { Grow } from '../../Lists/components/_styles';
+import { Hub } from '../../../../constants/hub';
 import { Reset } from '../components/Reset';
 import { SelectType } from '../components/Select';
+import { useFormikContext } from 'formik';
 import { UserData } from '../../Accounts/_types';
 import { WithTranslation, withTranslation } from '../../../../translation/i18n';
 
@@ -14,42 +16,68 @@ export interface OwnProps {
 	filter: FilterSettings;
 	activeTree: TreeType;
 	users: UserData[];
-	formik: any;
-	active: boolean;
 	resetTree: () => void;
 	activeFilterContent: any;
 	activeFilter: FilterType;
 	handleChange: (value: FilterType) => void;
 	projectPending: boolean;
+	handleForm: (newData: any) => void;
+	treeHub: any;
 }
 
 const Index = ({
 	activeTree,
 	filter,
 	users,
-	formik,
-	active,
 	resetTree,
-	activeFilterContent,
 	activeFilter,
 	handleChange,
 	projectPending,
+	handleForm,
+	treeHub,
 }: OwnProps & WithTranslation) => {
+	const { values, setValues, setFieldValue, resetForm } =
+		useFormikContext() ?? {};
+
+	useEffect(() => {
+		handleForm({ Projects: values });
+	}, [values]);
+
+	useEffect(() => {
+		if (treeHub) {
+			treeHub.on(Hub.TreeResetFinished, (message) => {
+				resetForm();
+			});
+		}
+	}, [treeHub]);
+
 	return (
 		<>
 			<SelectType activeFilter={activeFilter} handleChange={handleChange} />
 			<Grow>
-				<General formik={formik} filter={filter} users={users} />
-				<DateRange formik={formik} filter={filter} />
-				<Price formik={formik} filter={filter} />
+				<General
+					values={values}
+					setValues={setValues}
+					setFieldValue={setFieldValue}
+					filter={filter}
+					users={users}
+				/>
+				<DateRange
+					values={values}
+					filter={filter}
+					setFieldValue={setFieldValue}
+				/>
+				<Price values={values} setFieldValue={setFieldValue} filter={filter} />
 			</Grow>
 			<Reset
 				activeTree={activeTree}
 				filter={filter}
-				formik={formik}
+				values={values}
+				setValues={setValues}
 				resetTree={resetTree}
 				pending={projectPending}
 				activeFilter={activeFilter}
+				resetForm={resetForm}
 			/>
 		</>
 	);

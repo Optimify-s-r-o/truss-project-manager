@@ -13,7 +13,7 @@ export interface ActiveInterval {
 interface IOwnProps {
 	checkboxes?: (string | number | symbol)[][];
 	filter?: FilterSettings;
-	formik: any;
+	values: any;
 	formikCheckboxes?: (string | number | symbol)[][];
 	input?: (string | number | symbol)[][];
 	name?: string[];
@@ -54,7 +54,7 @@ export const slidersCount = (
 };
 
 export const activeCount = (
-	formik: any,
+	values: any,
 	formikCheckboxes?: (string | number | symbol)[][],
 	input?: (string | number | symbol)[][],
 	name?: string[]
@@ -62,14 +62,14 @@ export const activeCount = (
 	let count = 0;
 	if (name) {
 		for (let i of name) {
-			if (get(formik.values, i)?.Active) {
+			if (get(values, i)?.Active) {
 				count++;
 			}
 		}
 	}
 	if (formikCheckboxes) {
 		for (let i of formikCheckboxes) {
-			const item = get(formik.values, i);
+			const item = get(values, i);
 			if (item && _.size(item) > 0 && item?.Active) {
 				count++;
 			}
@@ -77,7 +77,7 @@ export const activeCount = (
 	}
 	if (input) {
 		for (let i of input) {
-			if (get(formik.values, i) && get(formik.values, i).length > 0) {
+			if (get(values, i) && get(values, i).length > 0) {
 				count++;
 			}
 		}
@@ -88,7 +88,7 @@ export const activeCount = (
 const Active = (props: IOwnProps) => {
 	const {
 		filter,
-		formik,
+		values,
 		formikCheckboxes,
 		checkboxes,
 		input,
@@ -105,8 +105,8 @@ const Active = (props: IOwnProps) => {
 		count += slidersCount(setting, filter);
 		count += input ? input.length : 0;
 		setSize(count);
-		setActive(activeCount(formik, formikCheckboxes, input, name));
-	}, [formik]);
+		setActive(activeCount(values, formikCheckboxes, input, name));
+	}, [values]);
 
 	return (
 		<Border isActive={active > 0 ? 1 : 0}>

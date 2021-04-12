@@ -15,7 +15,6 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Routes } from '../../../constants/routes';
 import { translationPath } from '../../../utils/getPath';
 import { useFormik } from 'formik';
-import { useLocation } from 'react-router';
 import {
 	ELECTRON_APP_GET_PATH,
 	ELECTRON_APP_GET_SETTINGS,
@@ -112,12 +111,6 @@ const Component = (
 			});
 		}
 	}, []);
-
-	const location = useLocation();
-
-	React.useEffect(() => {
-		console.log(location);
-	}, [location]);
 
 	return (
 		<Enter formik={formik}>

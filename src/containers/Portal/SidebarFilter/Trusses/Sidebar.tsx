@@ -7,50 +7,74 @@ import Size from './Size';
 import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
 import { Grow } from '../../Lists/components/_styles';
+import { Hub } from 'src/constants/hub';
 import { Reset } from '../components/Reset';
 import { SelectType } from '../components/Select';
+import { useEffect } from 'react';
+import { useFormikContext } from 'formik';
 import { WithTranslation, withTranslation } from '../../../../translation/i18n';
 
 export interface OwnProps {
 	filter: FilterSettings;
 	activeTree: TreeType;
-	formik: any;
 	active: boolean;
 	resetTree: () => void;
 	activeFilterContent: any;
 	activeFilter: FilterType;
 	handleChange: (value: FilterType) => void;
 	trussPending: boolean;
+	handleForm: (newData: any) => void;
+	treeHub: any;
 }
 
 const Index = ({
-	formik,
 	activeTree,
 	filter,
-	active,
+	treeHub,
 	resetTree,
-	activeFilterContent,
+	handleForm,
 	activeFilter,
 	handleChange,
 	trussPending,
 }: OwnProps & WithTranslation) => {
+	const { values, setValues, setFieldValue, resetForm } =
+		useFormikContext() ?? {};
+
+	useEffect(() => {
+		handleForm({ Trusses: values });
+	}, [values]);
+
+	useEffect(() => {
+		if (treeHub) {
+			treeHub.on(Hub.TreeResetFinished, (message) => {
+				resetForm();
+			});
+		}
+	}, [treeHub]);
+
 	return (
 		<>
 			<SelectType activeFilter={activeFilter} handleChange={handleChange} />
 			<Grow>
-				<General formik={formik} filter={filter} />
-				<Price formik={formik} filter={filter} />
-				<Load formik={formik} filter={filter} />
-				<Size formik={formik} filter={filter} />
-				<Other formik={formik} filter={filter} />
+				<General
+					values={values}
+					setFieldValue={setFieldValue}
+					filter={filter}
+				/>
+				<Price values={values} setFieldValue={setFieldValue} filter={filter} />
+				<Load values={values} setFieldValue={setFieldValue} filter={filter} />
+				<Size values={values} setFieldValue={setFieldValue} filter={filter} />
+				<Other values={values} setFieldValue={setFieldValue} filter={filter} />
 			</Grow>
 			<Reset
 				activeTree={activeTree}
 				filter={filter}
-				formik={formik}
+				values={values}
+				setValues={setValues}
 				resetTree={resetTree}
 				pending={trussPending}
 				activeFilter={activeFilter}
+				resetForm={resetForm}
 			/>
 		</>
 	);

@@ -10,7 +10,8 @@ import {
 	FilterTitle,
 } from "../../Lists/components/_styles";
 export interface OwnProps {
-	formik: any;
+	values: any;
+	setFieldValue: (field: any, value: any, shouldValidate?: boolean) => void;
 	name: (string | number | symbol)[];
 	path: (string | number | symbol)[];
 	filterPath: (string | number | symbol)[];
@@ -21,7 +22,8 @@ export interface OwnProps {
 }
 
 export const FormikCheckbox = ({
-	formik,
+	values,
+	setFieldValue,
 	filter,
 	title,
 	name,
@@ -34,18 +36,18 @@ export const FormikCheckbox = ({
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.checked) {
-			formik.setFieldValue(path, {
-				[pathName]: [...get(formik.values, name), event.target.name],
+			setFieldValue(path, {
+				[pathName]: [...get(values, name), event.target.name],
 				IncludeNotSet: false,
 				Active: true,
 			});
 		} else {
-			const currentValues = get(formik.values, name);
+			const currentValues = get(values, name);
 			if (currentValues) {
 				const newArr = currentValues.filter((value: string) => {
 					if (value != event.target.name) return value;
 				});
-				formik.setFieldValue(path, {
+				setFieldValue(path, {
 					[pathName]: newArr,
 					IncludeNotSet: false,
 					Active: newArr.length > 0 ? true : false,

@@ -2,9 +2,9 @@ import * as React from 'react';
 import EmptyFilter from '../../../../components/EmpyFilter';
 import FilterSection from '../../Lists/components/FilterSection';
 import FormSlider from '../../../../components/FormSlider';
-import { FilterProxy } from '../_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
 import { getPath, translationPath } from '../../../../utils/getPath';
+import { JobsFilterProxy } from '../_types';
 import {
 	lang,
 	t,
@@ -13,19 +13,20 @@ import {
 } from "../../../../translation/i18n";
 export interface OwnProps {
 	filter: FilterSettings;
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
 const Index = (props: OwnProps & WithTranslation) => {
-	const { formik, filter } = props;
+	const { values, filter, setFieldValue } = props;
 
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.designPrice))}
-			formik={formik}
+			values={values}
 			filters={[
-				getPath(FilterProxy.Jobs.PriceFilter),
-				getPath(FilterProxy.Jobs.PricePerSquareMeterFilter),
+				getPath(JobsFilterProxy.PriceFilter),
+				getPath(JobsFilterProxy.PricePerSquareMeterFilter),
 			]}
 			filter={filter}
 			setting={[
@@ -42,19 +43,21 @@ const Index = (props: OwnProps & WithTranslation) => {
 			<EmptyFilter filter={filter} type="Job" names={["Price"]}>
 				<FormSlider
 					label={t(translationPath(lang.common.designPrice))}
-					name={getPath(FilterProxy.Jobs.PriceFilter)}
-					formik={formik}
-					from={formik?.values?.Jobs.PriceFilter?.From}
-					to={formik?.values?.Jobs.PriceFilter?.To}
+					name={getPath(JobsFilterProxy.PriceFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					from={values?.PriceFilter?.From}
+					to={values?.PriceFilter?.To}
 					settingsFrom={filter?.Job?.PriceFrom}
 					settingsTo={filter?.Job?.PriceTo}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.pricePerSquareMeter))}
-					name={getPath(FilterProxy.Jobs.PricePerSquareMeterFilter)}
-					formik={formik}
-					from={formik?.values?.Jobs.PricePerSquareMeterFilter?.From}
-					to={formik?.values?.Jobs.PricePerSquareMeterFilter?.To}
+					name={getPath(JobsFilterProxy.PricePerSquareMeterFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					from={values?.PricePerSquareMeterFilter?.From}
+					to={values?.PricePerSquareMeterFilter?.To}
 					settingsFrom={filter?.Job?.PricePerSquareMeterFrom}
 					settingsTo={filter?.Job?.PricePerSquareMeterTo}
 				/>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import DateRange from '../../Lists/components/DateRange';
 import FilterSection from '../../Lists/components/FilterSection';
 import FormikBox from '../../../../components/Optimify/Form/FormikCheckbox';
-import { FilterProxy } from '../_types';
+import { CustomersFilterProxy, FilterProxy } from '../_types';
 import { FilterSettings } from '../../../../types/_types';
 import { getPath, translationPath } from '../../../../utils/getPath';
 import {
@@ -16,16 +16,18 @@ import {
 	FilterContentSection,
 } from "../../Lists/components/_styles";
 export interface OwnProps {
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 	filter: FilterSettings;
 }
 
 const Index = (props: OwnProps & WithTranslation) => {
-	const { formik, filter } = props;
+	const { filter, values, setFieldValue } = props;
+
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.dateOfProcessing))}
-			formik={formik}
+			values={values}
 			filters={[getPath(FilterProxy.Customers.CustomerDateOfCreationFilter)]}
 			filter={filter}
 			skipCount={1}
@@ -33,8 +35,9 @@ const Index = (props: OwnProps & WithTranslation) => {
 			<FilterContentSection>
 				<FormikBox
 					checked={true}
-					name={[getPath(FilterProxy.Customers.CustomerDateOfCreationFilter)]}
-					formik={formik}
+					name={[getPath(CustomersFilterProxy.CustomerDateOfCreationFilter)]}
+					values={values}
+					setFieldValue={setFieldValue}
 					label={
 						<DateRangeTitle>
 							{t(translationPath(lang.common.customerDateOfCreationFilter))}
@@ -42,8 +45,9 @@ const Index = (props: OwnProps & WithTranslation) => {
 					}
 				/>
 				<DateRange
-					formik={formik}
-					name={getPath(FilterProxy.Customers.CustomerDateOfCreationFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					name={getPath(CustomersFilterProxy.CustomerDateOfCreationFilter)}
 					title={t(translationPath(lang.common.customerDateOfCreationFilter))}
 				/>
 			</FilterContentSection>

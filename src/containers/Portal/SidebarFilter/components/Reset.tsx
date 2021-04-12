@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
 import { Fixed } from '../../../../constants/globalStyles';
+import { FormikState } from 'formik';
 import { lang } from '../../../../translation/i18n';
 import { OutlinedButton } from '../../../../components/Optimify/Button';
 import { translationPath } from '../../../../utils/getPath';
@@ -18,32 +19,41 @@ import {
 export interface OwnProps {
 	filter: FilterSettings;
 	activeTree: TreeType;
-	formik: any;
+	values: any;
+	setValues: (values: unknown, shouldValidate?: boolean) => void;
 	resetTree: () => void;
 	pending: boolean;
 	activeFilter: FilterType;
+	resetForm?: (nextState?: Partial<FormikState<unknown>>) => void;
 }
 
 export const Reset = (props: OwnProps) => {
-	const { activeTree, filter, formik, resetTree, activeFilter } = props;
+	const {
+		resetForm,
+		filter,
+		values,
+		setValues,
+		resetTree,
+		activeFilter,
+	} = props;
 	const { t } = useTranslation();
 
 	const handleReset = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 		const initialValues: any =
 			activeFilter === FilterType.Customer
-				? resetFilterCustomersValues(formik, filter)
+				? resetFilterCustomersValues(values, filter)
 				: activeFilter === FilterType.Project
-				? resetFilterProjectsValues(formik, filter)
+				? resetFilterProjectsValues(values, filter)
 				: activeFilter === FilterType.Job
-				? resetFilterJobsValues(formik, filter)
-				: resetFilterTrussesValues(formik, filter);
-
-		formik.setValues(initialValues);
+				? resetFilterJobsValues(values, filter)
+				: resetFilterTrussesValues(values, filter);
+		setValues(initialValues);
+		resetForm();
 	};
 	return (
 		<Fixed>
 			<ButtonsRow>
-				{!_.isEqual(getInitialValues(activeTree, filter), formik.values) && (
+				{!_.isEqual(getInitialValues(filter), values) && (
 					<OutlinedButton type="button" level={3} onClick={handleReset}>
 						{t(
 							translationPath(

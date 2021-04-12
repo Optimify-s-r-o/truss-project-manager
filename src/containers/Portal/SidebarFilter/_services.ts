@@ -1,11 +1,7 @@
+import { FilterSettings, FilterSettingsProxy } from '../../../types/_types';
 import { get } from 'lodash';
 import { getObject } from '../../../utils/helpers';
 import { getPath } from '../../../utils/getPath';
-import {
-	FilterSettings,
-	FilterSettingsProxy,
-	TreeType,
-} from "../../../types/_types";
 import {
 	CustomersFilter,
 	Filter,
@@ -30,7 +26,6 @@ export const getFilter = (activeFilterContent: any, value: any) => {
 };
 
 export const getInitialValues = (
-	activeTree: TreeType,
 	filter: FilterSettings,
 	activeFilterContent?: any
 ): Filter => {
@@ -40,7 +35,6 @@ export const getInitialValues = (
 		Projects: getProjectsFilters(filter, activeFilterContent),
 		Jobs: getJobsFilters(filter, activeFilterContent),
 		Trusses: getTrussesFilters(filter, activeFilterContent),
-		ActiveTree: activeTree,
 	};
 };
 
@@ -52,30 +46,25 @@ export const getCustomersFilters = (
 		FirstNameFilter: getFilter(
 			activeFilterContent?.Customers?.FirstNameFilter,
 			{
-				...activation,
-				FirstName: "",
+				FirstName: null,
 			}
 		),
 		LastNameFilter: getFilter(activeFilterContent?.Customers?.LastNameFilter, {
-			...activation,
-			LastName: "",
+			LastName: null,
 		}),
 		CompanyNameFilter: getFilter(
 			activeFilterContent?.Customers?.CompanyNameFilter,
 			{
-				...activation,
-				Name: "",
+				Name: null,
 			}
 		),
 		CrnFilter: getFilter(activeFilterContent?.Customers?.CrnFilter, {
-			...activation,
-			Crn: "",
+			Crn: null,
 		}),
 		VatNumberFilter: getFilter(
 			activeFilterContent?.Customers?.VatNumberFilter,
 			{
-				...activation,
-				VatNumber: "",
+				VatNumber: null,
 			}
 		),
 		CustomerTypeFilter: getFilter(
@@ -155,17 +144,14 @@ export const getProjectsFilters = (
 ): ProjectsFilter => {
 	return {
 		NameFilter: getFilter(activeFilterContent?.Projects?.NameFilter, {
-			...activation,
-			Name: "",
+			Name: null,
 			ExactMatch: false,
 		}),
 		UserFilter: getFilter(activeFilterContent?.Projects?.UserFilter, {
-			...activation,
-			Name: "",
+			Name: null,
 		}),
 		AddressFilter: getFilter(activeFilterContent?.Projects?.AddressFilter, {
-			...activation,
-			Location: "",
+			Location: null,
 		}),
 		ProjectStateFilter: getFilter(
 			activeFilterContent?.Projects?.ProjectStateFilter,
@@ -221,8 +207,7 @@ export const getJobsFilters = (
 ): JobsFilter => {
 	return {
 		NameFilter: getFilter(activeFilterContent?.Jobs?.NameFilter, {
-			...activation,
-			Name: "",
+			Name: null,
 			ExactMatch: false,
 		}),
 		JobTypeFilter: getFilter(activeFilterContent?.Jobs?.JobTypeFilter, {
@@ -278,8 +263,7 @@ export const getJobsFilters = (
 			)
 		),
 		CeilingNameFilter: getFilter(activeFilterContent?.Jobs?.CeilingNameFilter, {
-			...activation,
-			Name: "",
+			Name: null,
 			ExactMatch: false,
 		}),
 		CentresFilter: getFilter(
@@ -290,8 +274,7 @@ export const getJobsFilters = (
 			)
 		),
 		RoofingNameFilter: getFilter(activeFilterContent?.Jobs?.RoofingNameFilter, {
-			...activation,
-			Name: "",
+			Name: null,
 			ExactMatch: false,
 		}),
 		HipLengthFilter: getFilter(
@@ -333,8 +316,7 @@ export const getTrussesFilters = (
 ): TrussesFilter => {
 	return {
 		NameFilter: getFilter(activeFilterContent?.Trusses?.NameFilter, {
-			...activation,
-			Name: "",
+			Name: null,
 			ExactMatch: false,
 		}),
 		StatusFilter: getFilter(activeFilterContent?.Trusses?.StatusFilter, {
@@ -462,40 +444,40 @@ export const getTrussesFilters = (
 };
 
 export const resetFilterCustomersValues = (
-	formik: any,
+	values: any,
 	filter: FilterSettings
 ) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 	return {
-		...formik.values,
+		...values,
 		Customers: getCustomersFilters(filter),
 	};
 };
 
 export const resetFilterProjectsValues = (
-	formik: any,
+	values: any,
 	filter: FilterSettings
 ) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 	return {
-		...formik.values,
+		...values,
 		Projects: getProjectsFilters(filter),
 	};
 };
 
-export const resetFilterJobsValues = (formik: any, filter: FilterSettings) => (
+export const resetFilterJobsValues = (values: any, filter: FilterSettings) => (
 	_event: React.MouseEvent<HTMLElement, MouseEvent>
 ) => {
 	return {
-		...formik.values,
+		...values,
 		Jobs: getJobsFilters(filter),
 	};
 };
 
 export const resetFilterTrussesValues = (
-	formik: any,
+	values: any,
 	filter: FilterSettings
 ) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 	return {
-		...formik.values,
+		...values,
 		Trusses: getTrussesFilters(filter),
 	};
 };

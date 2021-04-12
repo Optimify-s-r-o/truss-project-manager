@@ -204,7 +204,7 @@ const Index = ({
 	const [selectedPageSize, setSelectedPageSize] = useState(25);
 	const [connect, setHubConnection] = useState<HubConnection>();
 	const [mode, setTheme] = useState<"light" | "dark">("light");
-	const [activeTree, setActiveTree] = useState<TreeType>(TreeType.PROJECT);
+	const [activeTree, setActiveTree] = useState<TreeType>(null);
 
 	useEffect(() => {
 		const jobHandler = async () => {
@@ -226,7 +226,6 @@ const Index = ({
 				}
 			}
 		};
-		console.log(location);
 		jobHandler();
 	}, [settingsHub, location]);
 

@@ -14,7 +14,7 @@ import {
 } from "./_styles";
 
 interface OwnProps {
-	formik: any;
+	values: any;
 	formikCheckboxes?: (string | number | symbol)[][];
 	filter?: FilterSettings;
 	filters?: any[];
@@ -46,7 +46,7 @@ const FilterSection = (props: OwnProps) => {
 						</FilterHeaderText>
 						<Active
 							filter={props.filter}
-							formik={props.formik}
+							values={props.values}
 							formikCheckboxes={props.formikCheckboxes}
 							checkboxes={props.checkboxes}
 							input={props.input}

@@ -1,14 +1,14 @@
 import * as React from 'react';
 import FilterSection from '../../Lists/components/FilterSection';
-import FormikRow from '../../../../components/Optimify/Form/FormikRow';
 import IncludeNotSetCheckbox from '../../../../components/Optimify/Form/IncludeNotSetCheckbox';
 import Tooltip from '../../../../components/Optimify/Tooltip';
 import { ContentRowEnd } from '../../../../constants/globalStyles';
 import { FilterContentSection } from '../../Lists/components/_styles';
-import { FilterProxy } from '../_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
 import { FormikCheckbox } from '../components/FormikCheckbox';
-import { Input } from '../../../../constants/enum';
+import { NestedInput } from '../../../../components/Form/NestedInput';
+import { NestedSelect } from '../../../../components/Form/NestedSelect';
+import { ProjectsFilterProxy } from '../_types';
 import { UserData } from '../../Accounts/_types';
 import {
 	lang,
@@ -23,44 +23,39 @@ import {
 } from "../../../../utils/getPath";
 
 export interface OwnProps {
-	formik: any;
+	values: any;
+	setValues: (values: unknown, shouldValidate?: boolean) => void;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 	filter: FilterSettings;
 	users: UserData[];
 }
 
 const Index = (props: OwnProps & WithTranslation) => {
-	const { formik, users, filter } = props;
+	const { values, setFieldValue, users, filter } = props;
 
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.filterGeneral))}
-			formik={formik}
+			values={values}
 			filter={filter}
 			formikCheckboxes={[
-				getPath(FilterProxy.Projects.ProjectStateFilter.ProjectStates),
+				getPath(ProjectsFilterProxy.ProjectStateFilter.ProjectStates),
 			]}
 			checkboxes={[getPath(FilterSettingsProxy.Project.ProjectStates)]}
 			input={[
-				getPath(FilterProxy.Projects.NameFilter.Name),
-				getPath(FilterProxy.Projects.UserFilter.Name),
+				getPath(ProjectsFilterProxy.NameFilter),
+				getPath(ProjectsFilterProxy.UserFilter.Name),
 			]}
 		>
 			<FilterContentSection withoutMargin>
-				<FormikRow
-					formik={formik}
-					name={getPath(FilterProxy.Projects.NameFilter.Name)}
-					filter={getPath(FilterProxy.Projects.NameFilter)}
-					filterName={lastPathMember(FilterProxy.Projects.NameFilter.Name).path}
+				<NestedInput
+					name={getPath(ProjectsFilterProxy.NameFilter.Name)}
+					value={values?.NameFilter.Name}
 					title={t(translationPath(lang.common.projectName))}
-					type={Input.FILTER_TEXT}
 				/>
-				<FormikRow
-					formik={formik}
-					name={getPath(FilterProxy.Projects.UserFilter.Name).join(".")}
-					filter={getPath(FilterProxy.Projects.UserFilter)}
-					filterName={lastPathMember(FilterProxy.Projects.UserFilter.Name).path}
+				<NestedSelect
+					name={getPath(ProjectsFilterProxy.UserFilter.Name)}
 					title={t(translationPath(lang.common.user))}
-					type={Input.SELECT}
 					options={
 						users?.length > 0
 							? users?.map((value: UserData) => {
@@ -79,28 +74,22 @@ const Index = (props: OwnProps & WithTranslation) => {
 						>
 							<IncludeNotSetCheckbox
 								checked={false}
-								formik={formik}
-								name={lastPathMember(FilterProxy.Projects.UserFilter).path}
+								values={values}
+								setFieldValue={setFieldValue}
+								name={lastPathMember(ProjectsFilterProxy.UserFilter).path}
 								property={
-									lastPathMember(FilterProxy.Projects.UserFilter.IncludeNotSet)
+									lastPathMember(ProjectsFilterProxy.UserFilter.IncludeNotSet)
 										.path
 								}
-								erase={
-									lastPathMember(FilterProxy.Projects.UserFilter.Name).path
-								}
+								erase={lastPathMember(ProjectsFilterProxy.UserFilter.Name).path}
 							/>
 						</Tooltip>
 					</ContentRowEnd>
-				</FormikRow>
-				<FormikRow
-					formik={formik}
-					name={getPath(FilterProxy.Projects.AddressFilter.Location)}
-					filter={getPath(FilterProxy.Projects.AddressFilter)}
-					filterName={
-						lastPathMember(FilterProxy.Projects.AddressFilter.Location).path
-					}
+				</NestedSelect>
+				<NestedInput
+					name={getPath(ProjectsFilterProxy.AddressFilter.Location)}
+					value={values?.AddressFilter?.Location}
 					title={t(translationPath(lang.common.address))}
-					type={Input.FILTER_TEXT}
 				>
 					<ContentRowEnd>
 						<Tooltip
@@ -109,34 +98,36 @@ const Index = (props: OwnProps & WithTranslation) => {
 						>
 							<IncludeNotSetCheckbox
 								checked={false}
-								formik={formik}
-								name={lastPathMember(FilterProxy.Projects.AddressFilter).path}
+								values={values}
+								setFieldValue={setFieldValue}
+								name={lastPathMember(ProjectsFilterProxy.AddressFilter).path}
 								property={
 									lastPathMember(
-										FilterProxy.Projects.AddressFilter.IncludeNotSet
+										ProjectsFilterProxy.AddressFilter.IncludeNotSet
 									).path
 								}
 								erase={
-									lastPathMember(FilterProxy.Projects.AddressFilter.Location)
+									lastPathMember(ProjectsFilterProxy.AddressFilter.Location)
 										.path
 								}
 							/>
 						</Tooltip>
 					</ContentRowEnd>
-				</FormikRow>
+				</NestedInput>
 			</FilterContentSection>
 			<FormikCheckbox
-				formik={formik}
+				values={values}
+				setFieldValue={setFieldValue}
 				filter={filter}
 				filterPath={getPath(FilterSettingsProxy.Project.ProjectStates)}
-				name={getPath(FilterProxy.Projects.ProjectStateFilter.ProjectStates)}
+				name={getPath(ProjectsFilterProxy.ProjectStateFilter.ProjectStates)}
 				pathName={
-					lastPathMember(FilterProxy.Projects.ProjectStateFilter.ProjectStates)
+					lastPathMember(ProjectsFilterProxy.ProjectStateFilter.ProjectStates)
 						.path
 				}
-				path={getPath(FilterProxy.Projects.ProjectStateFilter)}
+				path={getPath(ProjectsFilterProxy.ProjectStateFilter)}
 				title={t(translationPath(lang.common.projectState))}
-				value={formik.values?.Projects?.ProjectStateFilter?.ProjectStates}
+				value={values?.ProjectStateFilter?.ProjectStates}
 			/>
 		</FilterSection>
 	);

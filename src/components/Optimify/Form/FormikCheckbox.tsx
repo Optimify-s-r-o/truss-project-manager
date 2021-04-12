@@ -15,16 +15,17 @@ interface IOwnProps {
 	checked: boolean;
 	label?: string | JSX.Element;
 	name: any;
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
 const CheckBox = (props: IOwnProps) => {
-	const { formik, checked, label, name } = props;
+	const { values, setFieldValue, checked, label, name } = props;
 
-	const value = get(formik.values, name);
+	const value = get(values, name);
 
 	const handleChange = (_event: React.ChangeEvent<HTMLInputElement>) => {
-		formik.setFieldValue(name, { ...value, Active: !value?.Active });
+		setFieldValue(name, { ...value, Active: !value?.Active });
 	};
 
 	return (

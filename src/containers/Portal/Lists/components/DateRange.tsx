@@ -31,12 +31,13 @@ import {
 	withTranslation,
 } from "../../../../translation/i18n";
 interface OwnProps {
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 	name: any;
 	title?: string;
 }
 const Index = (props: WithTranslation & OwnProps) => {
-	const { formik, name, title } = props;
+	const { values, name, title, setFieldValue } = props;
 	const [isOpen, setOpen] = React.useState(false);
 
 	const onToggle = () => {
@@ -53,16 +54,17 @@ const Index = (props: WithTranslation & OwnProps) => {
 				<PlainButton level={3} type="button" noLeftMargin onClick={onToggle}>
 					<FontAwesomeIcon icon={faCalendarAlt as IconProp} />
 					&nbsp;&nbsp;
-					{get(formik.values, name)?.From || get(formik.values, name)?.To
-						? getDate(get(formik.values, name)?.From) +
+					{get(values, name)?.From || get(values, name)?.To
+						? getDate(get(values, name)?.From) +
 						  " - " +
-						  getDate(get(formik.values, name)?.To)
+						  getDate(get(values, name)?.To)
 						: t(translationPath(lang.common.dateFilterPlaceholder))}
 				</PlainButton>
 			</div>
 			{isOpen && (
 				<ModalWindow
-					formik={formik}
+					values={values}
+					setFieldValue={setFieldValue}
 					close={onToggle}
 					open={isOpen}
 					name={name}
@@ -77,7 +79,8 @@ export default withTranslation()(React.memo(Index));
 interface IModalWindow {
 	open: boolean;
 	close: () => void;
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 	name: string;
 	title: string;
 }
@@ -91,7 +94,7 @@ export const ModalWindow = (props: IModalWindow) => {
 	const [activeFilterType, setActiveFilter] = useState<FilterDateRange>(
 		FilterDateRange.RANGE
 	);
-	const { formik, name, close, open, title } = props;
+	const { values, setFieldValue, name, close, open, title } = props;
 	const [selectionRange, setSelectionRange] = React.useState({
 		startDate: new Date(),
 		endDate: new Date(),
@@ -106,7 +109,7 @@ export const ModalWindow = (props: IModalWindow) => {
 		});
 	};
 	const handleClose = () => {
-		formik.setFieldValue(name, {
+		setFieldValue(name, {
 			From: selectionRange.startDate
 				? moment(selectionRange.startDate).utc(true)
 				: null,

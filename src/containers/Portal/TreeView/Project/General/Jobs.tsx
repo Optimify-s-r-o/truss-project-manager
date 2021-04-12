@@ -146,7 +146,7 @@ const Index = (props: WithTranslation & OwnProps) => {
 			}
 		});
 	};
-	console.log(project);
+
 	return (
 		<GridRow columns={1}>
 			<GridItem>

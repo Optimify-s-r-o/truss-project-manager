@@ -6,7 +6,7 @@ import { translationPath } from '../../../../utils/getPath';
 import { useTranslation } from 'react-i18next';
 
 export interface IActiveCommon {
-	formik: any;
+	values: any;
 	active: boolean;
 	activeFilterContent: any;
 	filter: FilterSettings;
@@ -15,7 +15,7 @@ export interface IActiveCommon {
 }
 
 export const ActiveCommon = ({
-	formik,
+	values,
 	activeFilterContent,
 	active,
 	filter,
@@ -27,7 +27,7 @@ export const ActiveCommon = ({
 	if (activeFilter) {
 		return (
 			<Active
-				formik={formik}
+				values={values}
 				active={active}
 				activeFilterContent={activeFilterContent}
 			/>

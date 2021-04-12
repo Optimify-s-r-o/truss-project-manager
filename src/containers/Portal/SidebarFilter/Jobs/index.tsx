@@ -1,7 +1,11 @@
 import * as React from 'react';
+import * as Yup from 'yup';
 import Sidebar from './Sidebar';
 import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
+import { Form } from '../../../../constants/globalStyles';
+import { Formik } from 'formik';
+import { getJobsFilters } from '../_services';
 import { Show } from '../_styles';
 import { UserData } from '../../Accounts/_types';
 
@@ -18,7 +22,8 @@ export interface IJob {
 	invokeTreeHub: (tree: TreeType) => void;
 	jobPending: boolean;
 	show: boolean;
-	formik: any;
+	handleForm: (newData: any) => void;
+	treeHub: any;
 }
 
 export const Job = ({
@@ -31,24 +36,35 @@ export const Job = ({
 	activeFilterContent,
 	activeFilter,
 	handleChange,
-	formik,
+	handleForm,
 	jobPending,
 	show,
+	treeHub,
 }: IJob) => {
 	return (
 		<Show show={show}>
-			<Sidebar
-				formik={formik}
-				filter={filter}
-				activeTree={activeTree}
-				users={users}
-				active={active}
-				resetTree={resetTree}
-				activeFilterContent={activeFilterContent}
-				handleChange={handleChange}
-				activeFilter={activeFilter}
-				jobPending={jobPending}
-			/>
+			<Formik
+				initialValues={getJobsFilters(filter, activeFilterContent)}
+				enableReinitialize={true}
+				validationSchema={Yup.object({})}
+				onSubmit={(values: any) => {}}
+			>
+				<Form>
+					<Sidebar
+						treeHub={treeHub}
+						filter={filter}
+						activeTree={activeTree}
+						users={users}
+						active={active}
+						resetTree={resetTree}
+						activeFilterContent={activeFilterContent}
+						handleChange={handleChange}
+						activeFilter={activeFilter}
+						jobPending={jobPending}
+						handleForm={handleForm}
+					/>
+				</Form>
+			</Formik>
 		</Show>
 	);
 };

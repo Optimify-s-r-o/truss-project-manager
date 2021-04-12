@@ -1,11 +1,9 @@
-import * as Yup from 'yup';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import SidebarNavigation from '../Lists/components/SidebarNavigation';
 import { Customer } from './Customer';
 import { FilterSettings, Page, TreeType } from '../../../types/_types';
 import { FilterWrapper, Icon, Title } from './_styles';
-import { Form } from '../../../constants/globalStyles';
 import { getInitialValues } from './_services';
 import { Hub } from '../../../constants/hub';
 import { HubConnection } from '@microsoft/signalr';
@@ -17,10 +15,8 @@ import { Submit } from './components/Submit';
 import { Tooltip } from 'antd';
 import { translationPath } from '../../../utils/getPath';
 import { Truss } from './Trusses';
-import { useFormik } from 'formik';
 import { useLocation } from 'react-router';
 import { UserData } from '../Accounts/_types';
-
 export enum FilterType {
 	Customer,
 	CustomerPerson,
@@ -76,11 +72,12 @@ export const Filter = ({
 	treeHub,
 }: IFilter) => {
 	const location = useLocation();
+	const [formData, setFormData] = useState<any>({});
 	const [activeFilterType, setActiveFilter] = useState<FilterType>(
 		FilterType.Job
 	);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		getUsers({ Page: 0, PageSize: 25, Sort: "" });
 	}, []);
 
@@ -95,6 +92,10 @@ export const Filter = ({
 				: FilterType.Customer
 		);
 	}, [activeTree]);
+
+	const handleForm = (newData: any) => {
+		setFormData({ ...formData, ...newData });
+	};
 
 	const invokeTreeHub = async (tree: TreeType) => {
 		try {
@@ -116,25 +117,20 @@ export const Filter = ({
 		}
 	};
 
-	const formik = useFormik({
-		initialValues: getInitialValues(activeTree, filter, activeFilterContent),
-		enableReinitialize: true,
-		validationSchema: Yup.object({}),
-		onSubmit: (values: any) => {
-			if (!_.isEqual(getInitialValues(activeTree, filter), values)) {
-				invokeTreeHub(activeTree);
-				filterEntities({ ...values, location });
-			}
-		},
-	});
-
 	useEffect(() => {
 		if (treeHub) {
 			treeHub.on(Hub.TreeResetFinished, (message) => {
-				formik.setValues(getInitialValues(activeTree, filter));
+				setFormData(getInitialValues(filter));
 			});
 		}
 	}, [treeHub, activeTree, filter]);
+
+	const handleSubmit = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+		if (!_.isEqual(getInitialValues(filter), formData)) {
+			invokeTreeHub(activeTree);
+			filterEntities({ ...formData, location });
+		}
+	};
 
 	return (
 		<SidebarNavigation path={path} activeFilter={activeFilter}>
@@ -159,76 +155,79 @@ export const Filter = ({
 				</Title>
 
 				<FilterWrapper>
-					<Form onSubmit={formik.handleSubmit}>
-						<Submit
-							formik={formik}
-							active={active}
-							activeFilterContent={activeFilterContent}
-							activeFilter={activeFilter}
-							activeTree={activeTree}
-							pending={pending}
-							filter={filter}
-						/>
-						<Project
-							formik={formik}
-							filter={filter}
-							activeTree={activeTree}
-							path={path}
-							users={users}
-							active={active}
-							resetTree={resetTree}
-							activeFilterContent={activeFilterContent}
-							handleChange={handleChange}
-							activeFilter={activeFilterType}
-							invokeTreeHub={invokeTreeHub}
-							projectPending={projectPending}
-							show={activeFilterType === FilterType.Project}
-						/>
-						<Job
-							formik={formik}
-							filter={filter}
-							activeTree={activeTree}
-							path={path}
-							users={users}
-							active={active}
-							resetTree={resetTree}
-							activeFilterContent={activeFilterContent}
-							handleChange={handleChange}
-							activeFilter={activeFilterType}
-							invokeTreeHub={invokeTreeHub}
-							jobPending={jobPending}
-							show={activeFilterType === FilterType.Job}
-						/>
-						<Truss
-							formik={formik}
-							filter={filter}
-							activeTree={activeTree}
-							path={path}
-							active={active}
-							resetTree={resetTree}
-							activeFilterContent={activeFilterContent}
-							handleChange={handleChange}
-							activeFilter={activeFilterType}
-							invokeTreeHub={invokeTreeHub}
-							trussPending={trussPending}
-							show={activeFilterType === FilterType.Truss}
-						/>
-						<Customer
-							formik={formik}
-							getCustomers={getCustomers}
-							filter={filter}
-							activeTree={activeTree}
-							path={path}
-							active={active}
-							resetTree={resetTree}
-							activeFilterContent={activeFilterContent}
-							handleChange={handleChange}
-							activeFilter={activeFilterType}
-							invokeTreeHub={invokeTreeHub}
-							customerPending={customerPending}
-							show={activeFilterType === FilterType.Customer}
-						/>
-					</Form>
+					<Submit
+						active={active}
+						activeFilterContent={activeFilterContent}
+						activeFilter={activeFilter}
+						activeTree={activeTree}
+						pending={pending}
+						filter={filter}
+						formData={formData}
+						handleSubmit={handleSubmit}
+					/>
+					<Project
+						treeHub={treeHub}
+						filter={filter}
+						activeTree={activeTree}
+						path={path}
+						users={users}
+						active={active}
+						resetTree={resetTree}
+						activeFilterContent={activeFilterContent}
+						handleChange={handleChange}
+						activeFilter={activeFilterType}
+						invokeTreeHub={invokeTreeHub}
+						projectPending={projectPending}
+						handleForm={handleForm}
+						show={activeFilterType === FilterType.Project}
+					/>
+					<Job
+						treeHub={treeHub}
+						filter={filter}
+						activeTree={activeTree}
+						path={path}
+						users={users}
+						active={active}
+						resetTree={resetTree}
+						activeFilterContent={activeFilterContent}
+						handleChange={handleChange}
+						activeFilter={activeFilterType}
+						invokeTreeHub={invokeTreeHub}
+						jobPending={jobPending}
+						handleForm={handleForm}
+						show={activeFilterType === FilterType.Job}
+					/>
+					<Truss
+						treeHub={treeHub}
+						filter={filter}
+						activeTree={activeTree}
+						path={path}
+						active={active}
+						resetTree={resetTree}
+						activeFilterContent={activeFilterContent}
+						handleChange={handleChange}
+						activeFilter={activeFilterType}
+						invokeTreeHub={invokeTreeHub}
+						trussPending={trussPending}
+						handleForm={handleForm}
+						show={activeFilterType === FilterType.Truss}
+					/>
+					<Customer
+						treeHub={treeHub}
+						getCustomers={getCustomers}
+						filter={filter}
+						activeTree={activeTree}
+						path={path}
+						active={active}
+						resetTree={resetTree}
+						activeFilterContent={activeFilterContent}
+						handleChange={handleChange}
+						activeFilter={activeFilterType}
+						invokeTreeHub={invokeTreeHub}
+						customerPending={customerPending}
+						handleForm={handleForm}
+						show={activeFilterType === FilterType.Customer}
+					/>
 				</FilterWrapper>
 			</Sidebar>
 		</SidebarNavigation>

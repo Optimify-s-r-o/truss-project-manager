@@ -33,7 +33,7 @@ export const Table = ({ models, deleteModel, id }: ITable) => {
 		const { clipboard } = window.require("electron");
 		clipboard.writeText(value, "selection");
 	};
-	console.log(models);
+
 	return (
 		<ScrollableTable
 			height={250}

@@ -2,8 +2,8 @@ import * as React from 'react';
 import EmptyFilter from '../../../../components/EmpyFilter';
 import FilterSection from '../../Lists/components/FilterSection';
 import FormSlider from '../../../../components/FormSlider';
-import { FilterProxy } from '..//_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
+import { JobsFilterProxy } from '..//_types';
 import {
 	lang,
 	t,
@@ -18,20 +18,21 @@ import {
 
 export interface OwnProps {
 	filter: FilterSettings;
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
 const Index = (props: OwnProps & WithTranslation) => {
-	const { formik, filter } = props;
+	const { values, filter, setFieldValue } = props;
 
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.filterTechnicalParametr))}
-			formik={formik}
+			values={values}
 			filters={[
-				lastPathMember(FilterProxy.Jobs.HipLengthFilter).path,
-				lastPathMember(FilterProxy.Jobs.CoveredAreaFilter).path,
-				lastPathMember(FilterProxy.Jobs.RidgeLengthFilter).path,
+				lastPathMember(JobsFilterProxy.HipLengthFilter).path,
+				lastPathMember(JobsFilterProxy.CoveredAreaFilter).path,
+				lastPathMember(JobsFilterProxy.RidgeLengthFilter).path,
 			]}
 			filter={filter}
 			setting={[
@@ -56,28 +57,31 @@ const Index = (props: OwnProps & WithTranslation) => {
 			>
 				<FormSlider
 					label={t(translationPath(lang.common.hipLength))}
-					name={getPath(FilterProxy.Jobs.HipLengthFilter)}
-					formik={formik}
-					from={formik?.values?.Jobs?.HipLengthFilter?.From}
-					to={formik?.values?.Jobs?.HipLengthFilter?.To}
+					name={getPath(JobsFilterProxy.HipLengthFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					from={values?.HipLengthFilter?.From}
+					to={values?.HipLengthFilter?.To}
 					settingsFrom={filter?.Job?.HipLengthFrom}
 					settingsTo={filter?.Job?.HipLengthTo}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.roofArea))}
-					name={getPath(FilterProxy.Jobs.CoveredAreaFilter)}
-					formik={formik}
-					from={formik?.values?.Jobs?.CoveredAreaFilter?.From}
-					to={formik?.values?.Jobs?.CoveredAreaFilter?.To}
+					name={getPath(JobsFilterProxy.CoveredAreaFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					from={values?.CoveredAreaFilter?.From}
+					to={values?.CoveredAreaFilter?.To}
 					settingsFrom={filter?.Job?.CoveredAreaFrom}
 					settingsTo={filter?.Job?.CoveredAreaTo}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.ridgeLength))}
-					name={getPath(FilterProxy.Jobs.RidgeLengthFilter)}
-					formik={formik}
-					from={formik?.values?.Jobs?.RidgeLengthFilter?.From}
-					to={formik?.values?.Jobs?.RidgeLengthFilter?.To}
+					name={getPath(JobsFilterProxy.RidgeLengthFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					from={values?.RidgeLengthFilter?.From}
+					to={values?.RidgeLengthFilter?.To}
 					settingsFrom={filter?.Job?.RidgeLengthFrom}
 					settingsTo={filter?.Job?.RidgeLengthTo}
 				/>

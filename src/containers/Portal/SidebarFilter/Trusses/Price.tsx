@@ -5,6 +5,7 @@ import FormSlider from '../../../../components/FormSlider';
 import { FilterProxy } from '..//_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
 import { getPath, translationPath } from '../../../../utils/getPath';
+import { TrussesFilterProxy } from '../_types';
 import {
 	lang,
 	t,
@@ -13,17 +14,20 @@ import {
 } from "../../../../translation/i18n";
 export interface OwnProps {
 	filter: FilterSettings;
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
-const Index = (props: OwnProps & WithTranslation) => {
-	const { formik, filter } = props;
-
+const Index = ({
+	values,
+	filter,
+	setFieldValue,
+}: OwnProps & WithTranslation) => {
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.checkboxSectionCalculation))}
-			formik={formik}
-			filters={[getPath(FilterProxy.Trusses.PriceFilter)]}
+			values={values}
+			filters={[getPath(TrussesFilterProxy.PriceFilter)]}
 			filter={filter}
 			setting={[
 				{
@@ -36,9 +40,10 @@ const Index = (props: OwnProps & WithTranslation) => {
 				<FormSlider
 					label={t(translationPath(lang.common.price))}
 					name={getPath(FilterProxy.Trusses.PriceFilter)}
-					formik={formik}
-					from={formik?.values?.Trusses?.PriceFilter?.From}
-					to={formik?.values?.Trusses?.PriceFilter?.To}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.PriceFilter?.From}
+					to={values?.PriceFilter?.To}
 					settingsFrom={filter?.Truss?.PriceFrom}
 					settingsTo={filter?.Truss?.PriceTo}
 				/>

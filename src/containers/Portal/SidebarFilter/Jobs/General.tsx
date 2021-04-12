@@ -1,11 +1,10 @@
 import * as React from 'react';
 import FilterSection from '../../Lists/components/FilterSection';
-import FormikRow from '../../../../components/Optimify/Form/FormikRow';
 import { FilterContentSection } from '../../Lists/components/_styles';
-import { FilterProxy } from '../_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
 import { FormikCheckbox } from '../components/FormikCheckbox';
-import { Input } from '../../../../constants/enum';
+import { JobsFilterProxy } from '../_types';
+import { NestedInput } from 'src/components/Form/NestedInput';
 import { UserData } from '../../Accounts/_types';
 import {
 	lang,
@@ -20,57 +19,55 @@ import {
 } from "../../../../utils/getPath";
 
 export interface OwnProps {
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 	filter: FilterSettings;
 	users: UserData[];
 }
 
 const Index = (props: OwnProps & WithTranslation) => {
-	const { formik, filter, users } = props;
+	const { values, filter, setFieldValue } = props;
 
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.filterGeneral))}
-			formik={formik}
+			values={values}
 			formikCheckboxes={[
-				getPath(FilterProxy.Jobs.JobTypeFilter.JobTypes),
-				getPath(FilterProxy.Jobs.JobStateFilter.JobStates),
+				getPath(JobsFilterProxy.JobTypeFilter.JobTypes),
+				getPath(JobsFilterProxy.JobStateFilter.JobStates),
 			]}
 			filter={filter}
 			checkboxes={[getPath(FilterSettingsProxy.Job.JobTypes)]}
-			input={[getPath(FilterProxy.Jobs.NameFilter.Name)]}
+			input={[getPath(JobsFilterProxy.NameFilter.Name)]}
 		>
 			<FilterContentSection withoutMargin>
-				<FormikRow
-					formik={formik}
-					name={getPath(FilterProxy.Jobs.NameFilter.Name)}
-					filter={getPath(FilterProxy.Jobs.NameFilter)}
-					filterName={lastPathMember(FilterProxy.Jobs.NameFilter.Name).path}
+				<NestedInput
+					name={getPath(JobsFilterProxy.NameFilter.Name)}
+					value={values.NameFilter?.Name}
 					title={t(translationPath(lang.common.jobName))}
-					type={Input.FILTER_TEXT}
 				/>
 			</FilterContentSection>
 			<FormikCheckbox
-				formik={formik}
+				values={values}
+				setFieldValue={setFieldValue}
 				filter={filter}
 				filterPath={getPath(FilterSettingsProxy.Job.JobTypes)}
-				name={getPath(FilterProxy.Jobs.JobTypeFilter.JobTypes)}
-				pathName={lastPathMember(FilterProxy.Jobs.JobTypeFilter.JobTypes).path}
-				path={getPath(FilterProxy.Jobs.JobTypeFilter)}
+				name={getPath(JobsFilterProxy.JobTypeFilter.JobTypes)}
+				pathName={lastPathMember(JobsFilterProxy.JobTypeFilter.JobTypes).path}
+				path={getPath(JobsFilterProxy.JobTypeFilter)}
 				title={t(translationPath(lang.common.jobType))}
-				value={formik.values?.Jobs?.JobTypeFilter?.JobTypes}
+				value={values?.JobTypeFilter?.JobTypes}
 			/>
 			<FormikCheckbox
-				formik={formik}
+				values={values}
+				setFieldValue={setFieldValue}
 				filter={filter}
 				filterPath={getPath(FilterSettingsProxy.Job.States)}
-				name={getPath(FilterProxy.Jobs.JobStateFilter.JobStates)}
-				pathName={
-					lastPathMember(FilterProxy.Jobs.JobStateFilter.JobStates).path
-				}
-				path={getPath(FilterProxy.Jobs.JobStateFilter)}
+				name={getPath(JobsFilterProxy.JobStateFilter.JobStates)}
+				pathName={lastPathMember(JobsFilterProxy.JobStateFilter.JobStates).path}
+				path={getPath(JobsFilterProxy.JobStateFilter)}
 				title={t(translationPath(lang.common.jobState))}
-				value={formik?.values?.Jobs?.JobStateFilter?.JobStates}
+				value={values?.JobStateFilter?.JobStates}
 			/>
 		</FilterSection>
 	);

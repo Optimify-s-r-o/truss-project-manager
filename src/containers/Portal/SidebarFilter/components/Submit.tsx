@@ -13,29 +13,31 @@ import { useTranslation } from 'react-i18next';
 export interface OwnProps {
 	filter: FilterSettings;
 	activeTree: TreeType;
-	formik: any;
 	pending: boolean;
 	active: boolean;
 	activeFilter: boolean;
 	activeFilterContent: any;
+	handleSubmit: (_event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+	formData: any;
 }
 
 export const Submit = (props: OwnProps) => {
 	const {
 		activeTree,
 		filter,
-		formik,
 		pending,
 		active,
 		activeFilterContent,
 		activeFilter,
+		handleSubmit,
+		formData,
 	} = props;
 	const { t } = useTranslation();
 
 	return (
 		<ActiveFilter>
 			<ActiveCommon
-				formik={formik}
+				values={formData}
 				active={active}
 				activeFilterContent={activeFilterContent}
 				filter={filter}
@@ -46,10 +48,9 @@ export const Submit = (props: OwnProps) => {
 				<Button
 					level={3}
 					loading={pending}
-					disabled={_.isEqual(
-						getInitialValues(activeTree, filter),
-						formik.values
-					)}
+					disabled={_.isEqual(getInitialValues(filter), formData)}
+					type="button"
+					onClick={handleSubmit}
 				>
 					{t(translationPath(lang.common.filterApply).path)}
 				</Button>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import EmptyFilter from '../../../../components/EmpyFilter';
 import FilterSection from '../../Lists/components/FilterSection';
 import FormSlider from '../../../../components/FormSlider';
-import { FilterProxy } from '../_types';
+import { CustomersFilterProxy } from '../_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
 import { getPath, translationPath } from '../../../../utils/getPath';
 import {
@@ -14,19 +14,20 @@ import {
 
 export interface OwnProps {
 	filter: FilterSettings;
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
 const Index = (props: OwnProps & WithTranslation) => {
-	const { formik, filter } = props;
+	const { values, filter, setFieldValue } = props;
 
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.price))}
-			formik={formik}
+			values={values}
 			filters={[
-				getPath(FilterProxy.Customers.SumOfProjectPricesFilter),
-				getPath(FilterProxy.Customers.AveragePricePerProjectFilter),
+				getPath(CustomersFilterProxy.SumOfProjectPricesFilter),
+				getPath(CustomersFilterProxy.AveragePricePerProjectFilter),
 			]}
 			filter={filter}
 			setting={[
@@ -49,19 +50,21 @@ const Index = (props: OwnProps & WithTranslation) => {
 			>
 				<FormSlider
 					label={t(translationPath(lang.common.averagePricePerProjectFilter))}
-					name={getPath(FilterProxy.Customers.AveragePricePerProjectFilter)}
-					formik={formik}
-					from={formik?.values?.Customers?.AveragePricePerProjectFilter?.From}
-					to={formik?.values?.Customers?.AveragePricePerProjectFilter?.To}
+					name={getPath(CustomersFilterProxy.AveragePricePerProjectFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					from={values?.AveragePricePerProjectFilter?.From}
+					to={values?.AveragePricePerProjectFilter?.To}
 					settingsFrom={filter?.Customer?.AveragePricePerProjectFrom}
 					settingsTo={filter?.Customer?.AveragePricePerProjectTo}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.sumOfProjectPricesFilter))}
-					name={getPath(FilterProxy.Customers.SumOfProjectPricesFilter)}
-					formik={formik}
-					from={formik?.values?.Customers?.SumOfProjectPricesFilter?.From}
-					to={formik?.values?.Customers?.SumOfProjectPricesFilter?.To}
+					name={getPath(CustomersFilterProxy.SumOfProjectPricesFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					from={values?.SumOfProjectPricesFilter?.From}
+					to={values?.SumOfProjectPricesFilter?.To}
 					settingsFrom={filter?.Customer?.SumOfProjectPricesFrom}
 					settingsTo={filter?.Customer?.SumOfProjectPricesTo}
 				/>

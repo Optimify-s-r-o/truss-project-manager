@@ -15,25 +15,36 @@ interface IOwnProps {
 	label?: string | JSX.Element;
 	name: string;
 	property: string;
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 	erase?: string;
 }
 
 const CheckBox = (props: IOwnProps) => {
-	const { formik, checked, label, name, property, erase } = props;
-	let object = formik.values[name];
+	const {
+		values,
+		setFieldValue,
+		checked,
+		label,
+		name,
+		property,
+		erase,
+	} = props;
+
+	let object = values && values[name];
 	const active = object && object[property];
 
 	React.useEffect(() => {
 		if (
-			formik.values[name] &&
-			formik.values[name][property] &&
+			values &&
+			values[name] &&
+			values[name][property] &&
 			erase &&
-			formik.values[name][erase]
+			values[name][erase]
 		) {
-			formik.setFieldValue(name, { ...object, IncludeNotSet: !active });
+			setFieldValue(name, { ...object, IncludeNotSet: !active });
 		}
-	}, [formik.values[name]]);
+	}, [values && values[name]]);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		let newValue = { ...object, IncludeNotSet: event.target.checked };
@@ -45,7 +56,7 @@ const CheckBox = (props: IOwnProps) => {
 				[erase]: null,
 			};
 		}
-		formik.setFieldValue(name, newValue);
+		setFieldValue(name, newValue);
 	};
 
 	return (

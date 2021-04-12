@@ -11,7 +11,8 @@ import {
 } from "../containers/Portal/Lists/components/_styles";
 
 export interface OwnProps {
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 	from: number;
 	min?: number;
 	max?: number;
@@ -27,7 +28,8 @@ export interface OwnProps {
 const Index = (props: OwnProps & WithTranslation) => {
 	const {
 		from,
-		formik,
+		setFieldValue,
+		values,
 		label,
 		name,
 		settingsFrom,
@@ -38,7 +40,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 	} = props;
 
 	const rangeChange = (name: any) => (value: [number, number]) => {
-		formik.setFieldValue(name, {
+		setFieldValue(name, {
 			From: value && value[0],
 			To: value && value[1],
 			Active: true,
@@ -54,7 +56,8 @@ const Index = (props: OwnProps & WithTranslation) => {
 						<FormikBox
 							checked={true}
 							name={name}
-							formik={formik}
+							values={values}
+							setFieldValue={setFieldValue}
 							label={<FilterTitle>{label}</FilterTitle>}
 						/>
 						<SSlider

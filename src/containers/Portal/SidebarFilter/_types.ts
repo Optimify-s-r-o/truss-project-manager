@@ -58,7 +58,7 @@ export type Filter = {
 	Projects: ProjectsFilter;
 	Jobs: JobsFilter;
 	Trusses: TrussesFilter;
-	ActiveTree: string;
+	ActiveTree?: string;
 	PersistTree: boolean;
 };
 
@@ -93,6 +93,7 @@ export type ProjectsFilter = {
 	QuotationDateFilter: Slider;
 	QuotationPriceFilter: Slider;
 };
+export const ProjectsFilterProxy = createProxy<ProjectsFilter>();
 
 export type JobsFilter = {
 	NameFilter: NameFilter;
@@ -114,6 +115,7 @@ export type JobsFilter = {
 	JobDateOfCreationFilter: DateOfCreationFilter;
 	DateOfLastUpdateFilter: DateOfLastUpdateFilter;
 };
+export const JobsFilterProxy = createProxy<JobsFilter>();
 
 export type TrussesFilter = {
 	NameFilter: InputFilter;
@@ -137,6 +139,7 @@ export type TrussesFilter = {
 	ModelCountFilter: Slider;
 	PliesFilter: Slider;
 };
+export const TrussesFilterProxy = createProxy<TrussesFilter>();
 
 export interface Slider {
 	From: number;

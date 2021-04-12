@@ -2,9 +2,9 @@ import * as React from 'react';
 import EmptyFilter from '../../../../components/EmpyFilter';
 import FilterSection from '../../Lists/components/FilterSection';
 import FormSlider from '../../../../components/FormSlider';
-import { FilterProxy } from '../_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
 import { getPath, translationPath } from '../../../../utils/getPath';
+import { TrussesFilterProxy } from '../_types';
 import {
 	lang,
 	t,
@@ -13,20 +13,24 @@ import {
 } from "../../../../translation/i18n";
 export interface OwnProps {
 	filter: FilterSettings;
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
-const Index = (props: OwnProps & WithTranslation) => {
-	const { formik, filter } = props;
+const Index = ({
+	values,
+	filter,
+	setFieldValue,
+}: OwnProps & WithTranslation) => {
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.load))}
-			formik={formik}
+			values={values}
 			filters={[
-				getPath(FilterProxy.Trusses.WindLoadFilter),
-				getPath(FilterProxy.Trusses.SnowLoadFilter),
-				getPath(FilterProxy.Trusses.CeilingLoadFilter),
-				getPath(FilterProxy.Trusses.RoofingLoadFilter),
+				getPath(TrussesFilterProxy.WindLoadFilter),
+				getPath(TrussesFilterProxy.SnowLoadFilter),
+				getPath(TrussesFilterProxy.CeilingLoadFilter),
+				getPath(TrussesFilterProxy.RoofingLoadFilter),
 			]}
 			filter={filter}
 			setting={[
@@ -55,37 +59,41 @@ const Index = (props: OwnProps & WithTranslation) => {
 			>
 				<FormSlider
 					label={t(translationPath(lang.common.windLoad))}
-					name={getPath(FilterProxy.Trusses.WindLoadFilter)}
-					formik={formik}
-					from={formik?.values?.Trusses?.WindLoadFilter?.From}
-					to={formik?.values?.Trusses?.WindLoadFilter?.To}
+					name={getPath(TrussesFilterProxy.WindLoadFilter)}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.WindLoadFilter?.From}
+					to={values?.WindLoadFilter?.To}
 					settingsFrom={filter?.Truss?.WindLoadFrom}
 					settingsTo={filter?.Truss?.WindLoadTo}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.snowLoad))}
-					name={getPath(FilterProxy.Trusses.SnowLoadFilter)}
-					formik={formik}
-					from={formik?.values?.Trusses?.SnowLoadFilter?.From}
-					to={formik?.values?.Trusses?.SnowLoadFilter?.To}
+					name={getPath(TrussesFilterProxy.SnowLoadFilter)}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.SnowLoadFilter?.From}
+					to={values?.SnowLoadFilter?.To}
 					settingsFrom={filter?.Truss?.SnowLoadFrom}
 					settingsTo={filter?.Truss?.SnowLoadTo}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.ceilingLoad))}
-					name={getPath(FilterProxy.Trusses.CeilingLoadFilter)}
-					formik={formik}
-					from={formik?.values?.Trusses?.CeilingLoadFilter?.From}
-					to={formik?.values?.Trusses?.CeilingLoadFilter?.To}
+					name={getPath(TrussesFilterProxy.CeilingLoadFilter)}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.CeilingLoadFilter?.From}
+					to={values?.CeilingLoadFilter?.To}
 					settingsFrom={filter?.Truss?.CeilingLoadFrom}
 					settingsTo={filter?.Truss?.CeilingLoadTo}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.roofingLoad))}
-					name={getPath(FilterProxy.Trusses.RoofingLoadFilter)}
-					formik={formik}
-					from={formik?.values?.Trusses?.RoofingLoadFilter?.From}
-					to={formik?.values?.Trusses?.RoofingLoadFilter?.To}
+					name={getPath(TrussesFilterProxy.RoofingLoadFilter)}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.RoofingLoadFilter?.From}
+					to={values?.RoofingLoadFilter?.To}
 					settingsFrom={filter?.Truss?.RoofingLoadFrom}
 					settingsTo={filter?.Truss?.RoofingLoadTo}
 				/>

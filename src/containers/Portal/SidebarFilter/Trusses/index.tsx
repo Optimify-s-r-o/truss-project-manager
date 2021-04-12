@@ -1,7 +1,11 @@
 import * as React from 'react';
+import * as Yup from 'yup';
 import Sidebar from './Sidebar';
 import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
+import { Form } from '../../../../constants/globalStyles';
+import { Formik } from 'formik';
+import { getTrussesFilters } from '../_services';
 import { Show } from '../_styles';
 
 export interface ITruss {
@@ -16,35 +20,46 @@ export interface ITruss {
 	invokeTreeHub: (tree: TreeType) => void;
 	trussPending: boolean;
 	show: boolean;
-	formik: any;
+	handleForm: (newData: any) => void;
+	treeHub: any;
 }
 
 export const Truss = ({
 	filter,
 	activeTree,
-	path,
+	handleForm,
 	active,
 	resetTree,
 	activeFilterContent,
 	activeFilter,
 	handleChange,
 	trussPending,
-	formik,
+	treeHub,
 	show,
 }: ITruss) => {
 	return (
 		<Show show={show}>
-			<Sidebar
-				formik={formik}
-				filter={filter}
-				activeTree={activeTree}
-				active={active}
-				resetTree={resetTree}
-				activeFilterContent={activeFilterContent}
-				handleChange={handleChange}
-				activeFilter={activeFilter}
-				trussPending={trussPending}
-			/>
+			<Formik
+				initialValues={getTrussesFilters(filter, activeFilterContent)}
+				enableReinitialize={true}
+				validationSchema={Yup.object({})}
+				onSubmit={(values: any) => {}}
+			>
+				<Form>
+					<Sidebar
+						treeHub={treeHub}
+						handleForm={handleForm}
+						filter={filter}
+						activeTree={activeTree}
+						active={active}
+						resetTree={resetTree}
+						activeFilterContent={activeFilterContent}
+						handleChange={handleChange}
+						activeFilter={activeFilter}
+						trussPending={trussPending}
+					/>
+				</Form>
+			</Formik>
 		</Show>
 	);
 };

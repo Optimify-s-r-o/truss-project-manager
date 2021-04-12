@@ -1,11 +1,10 @@
 import * as React from 'react';
 import FilterSection from '../../Lists/components/FilterSection';
-import FormikRow from '../../../../components/Optimify/Form/FormikRow';
 import { FilterContentSection } from '../../Lists/components/_styles';
-import { FilterProxy } from '../_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
 import { FormikCheckbox } from '../components/FormikCheckbox';
-import { Input } from '../../../../constants/enum';
+import { NestedInput } from 'src/components/Form/NestedInput';
+import { TrussesFilterProxy } from '../_types';
 import {
 	lang,
 	t,
@@ -19,70 +18,72 @@ import {
 } from "../../../../utils/getPath";
 
 export interface OwnProps {
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 	filter: FilterSettings;
 }
 
-const Index = (props: OwnProps & WithTranslation) => {
-	const { filter, formik } = props;
-
+const Index = ({
+	values,
+	setFieldValue,
+	filter,
+}: OwnProps & WithTranslation) => {
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.filterGeneral))}
 			filter={filter}
-			formik={formik}
+			values={values}
 			formikCheckboxes={[
-				getPath(FilterProxy.Trusses.StatusFilter.Statuses),
-				getPath(FilterProxy.Trusses.TypeFilter.Types),
-				getPath(FilterProxy.Trusses.KindsFilter.Kinds),
+				getPath(TrussesFilterProxy.StatusFilter.Statuses),
+				getPath(TrussesFilterProxy.TypeFilter.Types),
+				getPath(TrussesFilterProxy.KindsFilter.Kinds),
 			]}
 			checkboxes={[
 				getPath(FilterSettingsProxy.Truss.Statuses),
 				getPath(FilterSettingsProxy.Truss.Types),
 				getPath(FilterSettingsProxy.Truss.Kinds),
 			]}
-			input={[getPath(FilterProxy.Trusses.NameFilter.Name)]}
+			input={[getPath(TrussesFilterProxy.NameFilter.Name)]}
 		>
 			<FilterContentSection>
-				<FormikRow
-					formik={formik}
-					name={getPath(FilterProxy.Trusses.NameFilter.Name)}
-					filter={getPath(FilterProxy.Trusses.NameFilter)}
+				<NestedInput
+					name={getPath(TrussesFilterProxy.NameFilter.Name)}
+					value={values?.NameFilter?.Name}
 					title={t(translationPath(lang.common.truss))}
-					type={Input.FILTER_TEXT}
 				/>
 			</FilterContentSection>
 			<FormikCheckbox
-				formik={formik}
+				values={values}
+				setFieldValue={setFieldValue}
 				filter={filter}
 				filterPath={getPath(FilterSettingsProxy.Truss.Statuses)}
-				name={getPath(FilterProxy.Trusses.StatusFilter.Statuses)}
-				pathName={
-					lastPathMember(FilterProxy.Trusses.StatusFilter.Statuses).path
-				}
-				path={getPath(FilterProxy.Trusses.StatusFilter)}
+				name={getPath(TrussesFilterProxy.StatusFilter.Statuses)}
+				pathName={lastPathMember(TrussesFilterProxy.StatusFilter.Statuses).path}
+				path={getPath(TrussesFilterProxy.StatusFilter)}
 				title={t(translationPath(lang.common.status))}
-				value={formik.values?.Trusses?.StatusFilter?.Statuses}
+				value={values?.StatusFilter?.Statuses}
 			/>
 			<FormikCheckbox
-				formik={formik}
+				values={values}
+				setFieldValue={setFieldValue}
 				filter={filter}
 				filterPath={getPath(FilterSettingsProxy.Truss.Types)}
-				name={getPath(FilterProxy.Trusses.TypeFilter.Types)}
-				pathName={lastPathMember(FilterProxy.Trusses.TypeFilter.Types).path}
-				path={getPath(FilterProxy.Trusses.TypeFilter)}
+				name={getPath(TrussesFilterProxy.TypeFilter.Types)}
+				pathName={lastPathMember(TrussesFilterProxy.TypeFilter.Types).path}
+				path={getPath(TrussesFilterProxy.TypeFilter)}
 				title={t(translationPath(lang.common.trussType))}
-				value={formik.values?.Trusses?.TypeFilter?.Types}
+				value={values?.TypeFilter?.Types}
 			/>
 			<FormikCheckbox
-				formik={formik}
+				values={values}
+				setFieldValue={setFieldValue}
 				filter={filter}
 				filterPath={getPath(FilterSettingsProxy.Truss.Kinds)}
-				name={getPath(FilterProxy.Trusses.KindsFilter.Kinds)}
-				pathName={lastPathMember(FilterProxy.Trusses.KindsFilter.Kinds).path}
-				path={getPath(FilterProxy.Trusses.KindsFilter)}
+				name={getPath(TrussesFilterProxy.KindsFilter.Kinds)}
+				pathName={lastPathMember(TrussesFilterProxy.KindsFilter.Kinds).path}
+				path={getPath(TrussesFilterProxy.KindsFilter)}
 				title={t(translationPath(lang.common.typeOfTruss))}
-				value={formik.values?.Trusses?.KindsFilter?.Kinds}
+				value={values?.KindsFilter?.Kinds}
 			/>
 		</FilterSection>
 	);

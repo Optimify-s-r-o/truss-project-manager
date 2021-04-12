@@ -102,7 +102,7 @@ export const JobColumnSelector = ({
 			name: "Project",
 			title: t(translationPath(lang.common.projectName).path),
 			section: "General",
-			filter: getPath(FilterProxy.Projects.NameFilter.Name),
+			filter: getPath(FilterProxy.Projects.NameFilter),
 			filterType: FilterContentType.TEXT,
 		},
 

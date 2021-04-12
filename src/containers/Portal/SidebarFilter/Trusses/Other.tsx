@@ -2,9 +2,9 @@ import * as React from 'react';
 import EmptyFilter from '../../../../components/EmpyFilter';
 import FilterSection from '../../Lists/components/FilterSection';
 import FormSlider from '../../../../components/FormSlider';
-import { FilterProxy } from '../_types';
 import { FilterSettings, FilterSettingsProxy } from '../../../../types/_types';
 import { getPath, translationPath } from '../../../../utils/getPath';
+import { TrussesFilterProxy } from '../_types';
 import {
 	lang,
 	t,
@@ -14,24 +14,27 @@ import {
 
 export interface OwnProps {
 	filter: FilterSettings;
-	formik: any;
+	values: any;
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
-const Index = (props: OwnProps & WithTranslation) => {
-	const { formik, filter } = props;
-
+const Index = ({
+	values,
+	filter,
+	setFieldValue,
+}: OwnProps & WithTranslation) => {
 	return (
 		<FilterSection
 			title={t(translationPath(lang.common.next))}
-			formik={formik}
+			values={values}
 			filters={[
-				getPath(FilterProxy.Trusses.WeightFilter),
-				getPath(FilterProxy.Trusses.TransportWeightFilter),
-				getPath(FilterProxy.Trusses.SupportsQuantityFilter),
-				getPath(FilterProxy.Trusses.ModelCountFilter),
-				getPath(FilterProxy.Trusses.MembersCountFilter),
-				getPath(FilterProxy.Trusses.PlatesCountFilter),
-				getPath(FilterProxy.Trusses.PliesFilter),
+				getPath(TrussesFilterProxy.WeightFilter),
+				getPath(TrussesFilterProxy.TransportWeightFilter),
+				getPath(TrussesFilterProxy.SupportsQuantityFilter),
+				getPath(TrussesFilterProxy.ModelCountFilter),
+				getPath(TrussesFilterProxy.MembersCountFilter),
+				getPath(TrussesFilterProxy.PlatesCountFilter),
+				getPath(TrussesFilterProxy.PliesFilter),
 			]}
 			filter={filter}
 			setting={[
@@ -80,28 +83,31 @@ const Index = (props: OwnProps & WithTranslation) => {
 			>
 				<FormSlider
 					label={t(translationPath(lang.common.weight))}
-					name={getPath(FilterProxy.Trusses.WeightFilter)}
-					formik={formik}
-					from={formik?.values?.Trusses?.WeightFilter?.From}
-					to={formik?.values?.Trusses?.WeightFilter?.To}
+					name={getPath(TrussesFilterProxy.WeightFilter)}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.WeightFilter?.From}
+					to={values?.WeightFilter?.To}
 					settingsFrom={filter?.Truss?.WeightFrom}
 					settingsTo={filter?.Truss?.WeightTo}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.transportWeight))}
-					name={getPath(FilterProxy.Trusses.TransportWeightFilter)}
-					formik={formik}
-					from={formik?.values?.Trusses?.TransportWeightFilter?.From}
-					to={formik?.values?.Trusses?.TransportWeightFilter?.To}
+					name={getPath(TrussesFilterProxy.TransportWeightFilter)}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.TransportWeightFilter?.From}
+					to={values?.TransportWeightFilter?.To}
 					settingsFrom={filter?.Truss?.TransportWeightFrom}
 					settingsTo={filter?.Truss?.TransportWeightTo}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.numberOfSupports))}
-					name={getPath(FilterProxy.Trusses.SupportsQuantityFilter)}
-					formik={formik}
-					from={formik?.values?.Trusses?.SupportsQuantityFilter?.From}
-					to={formik?.values?.Trusses?.SupportsQuantityFilter?.To}
+					name={getPath(TrussesFilterProxy.SupportsQuantityFilter)}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.SupportsQuantityFilter?.From}
+					to={values?.SupportsQuantityFilter?.To}
 					settingsFrom={filter?.Truss?.SupportsCountFrom}
 					settingsTo={filter?.Truss?.SupportsCountTo}
 					step={1}
@@ -109,10 +115,11 @@ const Index = (props: OwnProps & WithTranslation) => {
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.membersCount))}
-					name={getPath(FilterProxy.Trusses.MembersCountFilter)}
-					formik={formik}
-					from={formik?.values?.Trusses?.MembersCountFilter?.From}
-					to={formik?.values?.Trusses?.MembersCountFilter?.To}
+					name={getPath(TrussesFilterProxy.MembersCountFilter)}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.MembersCountFilter?.From}
+					to={values?.MembersCountFilter?.To}
 					settingsFrom={filter?.Truss?.MembersCountFrom}
 					settingsTo={filter?.Truss?.MembersCountTo}
 					step={1}
@@ -120,10 +127,11 @@ const Index = (props: OwnProps & WithTranslation) => {
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.platesCount))}
-					name={getPath(FilterProxy.Trusses.PlatesCountFilter)}
-					formik={formik}
-					from={formik?.values?.Trusses?.PlatesCountFilter?.From}
-					to={formik?.values?.Trusses?.PlatesCountFilter?.To}
+					name={getPath(TrussesFilterProxy.PlatesCountFilter)}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.PlatesCountFilter?.From}
+					to={values?.PlatesCountFilter?.To}
 					settingsFrom={filter?.Truss?.PlatesCountFrom}
 					settingsTo={filter?.Truss?.PlatesCountTo}
 					step={1}
@@ -131,10 +139,11 @@ const Index = (props: OwnProps & WithTranslation) => {
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.modelCount))}
-					name={getPath(FilterProxy.Trusses.ModelCountFilter)}
-					formik={formik}
-					from={formik?.values?.Trusses?.ModelCountFilter?.From}
-					to={formik?.values?.Trusses?.ModelCountFilter?.To}
+					name={getPath(TrussesFilterProxy.ModelCountFilter)}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.ModelCountFilter?.From}
+					to={values?.ModelCountFilter?.To}
 					settingsFrom={filter?.Truss?.ModelCountFrom}
 					settingsTo={filter?.Truss?.ModelCountTo}
 					step={1}
@@ -142,10 +151,11 @@ const Index = (props: OwnProps & WithTranslation) => {
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.ply))}
-					name={getPath(FilterProxy.Trusses.PliesFilter)}
-					formik={formik}
-					from={formik?.values?.Trusses?.PliesFilter?.From}
-					to={formik?.values?.Trusses?.PliesFilter?.To}
+					name={getPath(TrussesFilterProxy.PliesFilter)}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.PliesFilter?.From}
+					to={values?.PliesFilter?.To}
 					settingsFrom={filter?.Truss?.PliesFrom}
 					settingsTo={filter?.Truss?.PliesTo}
 					step={1}
