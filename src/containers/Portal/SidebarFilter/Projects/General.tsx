@@ -54,7 +54,10 @@ const Index = (props: OwnProps & WithTranslation) => {
 					title={t(translationPath(lang.common.projectName))}
 				/>
 				<NestedSelect
-					name={getPath(ProjectsFilterProxy.UserFilter.Name)}
+					name={getPath(ProjectsFilterProxy.UserFilter.Name).join(".")}
+					setFieldValue={setFieldValue}
+					values={values}
+					filter={getPath(ProjectsFilterProxy.UserFilter)}
 					title={t(translationPath(lang.common.user))}
 					options={
 						users?.length > 0
