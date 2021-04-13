@@ -1,7 +1,7 @@
-import * as React from 'react';
-import Loader from '../Loader';
-import Modal from '../Modal';
-import styled from 'styled-components';
+import * as React from "react";
+import styled from "styled-components";
+import Loader from "../Loader";
+import Modal from "../Modal";
 interface OwnProps {
 	closeModal?: boolean;
 	button?: string;
@@ -410,7 +410,7 @@ const OutlinedButtonElement = styled(ButtonElement)`
 	}
 `;
 
-const IcondButtonElement = styled(ButtonElement)`
+export const IcondButtonElement = styled(ButtonElement)`
 	padding: 6px 9px;
 	border-radius: 8px;
 	margin: 0 0 0 5px;

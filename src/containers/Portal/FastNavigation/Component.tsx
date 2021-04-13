@@ -1,19 +1,3 @@
-import * as React from 'react';
-import Tooltip from '../../../components/Optimify/Tooltip';
-import { ApiURL } from '../../../constants/api';
-import { faSearch } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Hub } from '../../../constants/hub';
-import { HubConnection } from '@microsoft/signalr';
-import { lang, t } from '../../../translation/i18n';
-import { Method } from '../../../constants/enum';
-import { quickSearch } from './_actions';
-import { QuickSearchRequest } from './_types';
-import { Routes } from '../../../constants/routes';
-import { translationPath } from '../../../utils/getPath';
-import { TreeType } from '../../../types/_types';
-import { useDebounce } from '../../../utils/useDebounce';
-import { useHistory } from 'react-router';
 import {
 	faArrowLeft,
 	faArrowRight,
@@ -23,6 +7,21 @@ import {
 	faHomeLgAlt,
 	faMountains,
 } from "@fortawesome/pro-duotone-svg-icons";
+import { faSearch } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { HubConnection } from "@microsoft/signalr";
+import * as React from "react";
+import { useHistory } from "react-router";
+import Tooltip from "../../../components/Optimify/Tooltip";
+import { ApiURL } from "../../../constants/api";
+import { Method } from "../../../constants/enum";
+import { Hub } from "../../../constants/hub";
+import { Routes } from "../../../constants/routes";
+import { lang, t } from "../../../translation/i18n";
+import { TreeType } from "../../../types/_types";
+import { translationPath } from "../../../utils/getPath";
+import { useDebounce } from "../../../utils/useDebounce";
+import { quickSearch } from "./_actions";
 import {
 	ButtonSearch,
 	Divider,
@@ -36,6 +35,7 @@ import {
 	TooltipShortcut,
 	TooltipText,
 } from "./_styles";
+import { QuickSearchRequest } from "./_types";
 
 interface IHeader {
 	quickSearchRequest: (data: QuickSearchRequest) => void;
@@ -233,7 +233,7 @@ export const IconMenu = ({
 								<TooltipText>
 									{t(translationPath(lang.common.customersList))}
 								</TooltipText>
-								<TooltipShortcut>(Ctrl + S)</TooltipShortcut>
+								<TooltipShortcut>(Ctrl + M)</TooltipShortcut>
 							</>
 						}
 						placement={"right"}

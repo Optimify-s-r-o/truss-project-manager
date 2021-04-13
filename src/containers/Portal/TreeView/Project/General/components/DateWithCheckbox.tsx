@@ -1,13 +1,13 @@
-import DateInput from '../../../../../../components/Optimify/Form/DateInput';
-import React from 'react';
-import styled from 'styled-components';
-import { ContentColumn } from '../../../../../../constants/globalStyles';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FormikProps } from 'formik';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { StyledBox } from '../../../../../../components/Optimify/Form/CheckBox';
-import { Title } from '../../../../../../components/Optimify/Form/FormRow';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FormikProps } from "formik";
+import React from "react";
+import styled from "styled-components";
+import { StyledBox } from "../../../../../../components/Optimify/Form/CheckBox";
+import DateInput from "../../../../../../components/Optimify/Form/DateInput";
+import { Title } from "../../../../../../components/Optimify/Form/FormRow";
+import { ContentColumn } from "../../../../../../constants/globalStyles";
 
 interface Date {
 	name: string;
@@ -32,10 +32,10 @@ export const DateWithCheckbox = ({
 	return (
 		<ContentColumn>
 			<Row>
-				<Title htmlFor={id} width={40}>
+				<Title htmlFor={id} width={30}>
 					{title}
 				</Title>
-				<Value width={60} active={formik.values && formik.values[checkboxName]}>
+				<Value width={70} active={formik.values && formik.values[checkboxName]}>
 					<Label>
 						<Input
 							defaultChecked={formik.values && formik.values[checkboxName]}

@@ -1,18 +1,18 @@
-import * as React from 'react';
-import Tooltip from '../../../../components/Optimify/Tooltip';
-import { Container, Section } from './_styles';
-import { faUpload } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { OutlinedButton } from '../../../../components/Optimify/Button';
-import { translationPath } from '../../../../utils/getPath';
-import { useDropzone } from 'react-dropzone';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faUpload } from "@fortawesome/pro-duotone-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as React from "react";
+import { useDropzone } from "react-dropzone";
+import { IcondButtonElement } from "../../../../components/Optimify/Button/index";
+import Tooltip from "../../../../components/Optimify/Tooltip";
 import {
 	lang,
 	t,
 	WithTranslation,
 	withTranslation,
 } from "../../../../translation/i18n";
+import { translationPath } from "../../../../utils/getPath";
+import { Container, Section } from "./_styles";
 
 export enum FileEnum {
 	BUTTON = "BUTTON",
@@ -64,9 +64,9 @@ const File = (props: WithTranslation & OwnProps) => {
 					placement={"top"}
 				>
 					<div>
-						<OutlinedButton type="button" iconOnly onClick={openDialog}>
-							<FontAwesomeIcon icon={faUpload as IconProp} />
-						</OutlinedButton>
+						<IcondButtonElement type="button" iconOnly onClick={openDialog}>
+							<FontAwesomeIcon icon={faUpload as IconProp} color={"#6d4b0c"} />
+						</IcondButtonElement>
 					</div>
 				</Tooltip>
 			</span>

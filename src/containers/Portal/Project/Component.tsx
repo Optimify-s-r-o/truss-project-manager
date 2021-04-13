@@ -1,25 +1,16 @@
-import * as _ from 'lodash';
-import * as React from 'react';
-import * as Yup from 'yup';
-import AttachedFiles, { FileEnum } from './AttachedFiles';
-import FormikRow from '../../../components/Optimify/Form/FormikRow';
-import moment from 'moment';
-import { Button } from '../../../components/Optimify/Button';
-import { CreateCustomer, Customer } from '../Customer/_types';
-import { createfromJson, CreateInEvidence, ProjectRequest } from './_types';
-import { CustomersAll } from '../Lists/Customers/_types';
-import { Enter } from 'src/components/KeyBoardEventHandler';
-import { faFolderPlus } from '@fortawesome/pro-light-svg-icons';
-import { Files } from './Files';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Input } from '../../../constants/enum';
-import { isElectron } from '../../../utils/electron';
-import { lastPathMember, translationPath } from '../../../utils/getPath';
-import { ProjectProxy, Settings } from '../../../types/_types';
-import { RouteComponentProps } from 'react-router-dom';
-import { useFormik } from 'formik';
-import { UserData } from '../Accounts/_types';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faFolderPlus } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useFormik } from "formik";
+import * as _ from "lodash";
+import moment from "moment";
+import * as React from "react";
+import { RouteComponentProps } from "react-router-dom";
+import { Enter } from "src/components/KeyBoardEventHandler";
+import * as Yup from "yup";
+import { Button } from "../../../components/Optimify/Button";
+import FormikRow from "../../../components/Optimify/Form/FormikRow";
+import { Input } from "../../../constants/enum";
 import {
 	ContentCard,
 	Form,
@@ -37,6 +28,13 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../translation/i18n";
+import { ProjectProxy, Settings } from "../../../types/_types";
+import { isElectron } from "../../../utils/electron";
+import { lastPathMember, translationPath } from "../../../utils/getPath";
+import { UserData } from "../Accounts/_types";
+import { CreateCustomer, Customer } from "../Customer/_types";
+import { CustomersAll } from "../Lists/Customers/_types";
+import { DateWithCheckbox } from "../TreeView/Project/General/components/DateWithCheckbox";
 import {
 	MainTree,
 	MainTreeContent,
@@ -44,6 +42,9 @@ import {
 	TreeContent,
 	TreeScreen,
 } from "../_styles";
+import AttachedFiles, { FileEnum } from "./AttachedFiles";
+import { Files } from "./Files";
+import { createfromJson, CreateInEvidence, ProjectRequest } from "./_types";
 export interface StateProps {
 	all: CustomersAll[];
 	projectPending: boolean;
@@ -294,19 +295,23 @@ const Index = (
 								<GridRow columns={2}>
 									<GridItem fill>
 										<ContentCard fullSize>
-											<FormikRow
+											<DateWithCheckbox
 												formik={formik}
 												name={lastPathMember(ProjectProxy.QuotationDate).path}
+												checkboxName={
+													lastPathMember(ProjectProxy.QuotationFinished).path
+												}
 												title={t(translationPath(lang.common.quotationDate))}
-												type={Input.DATE}
 											/>
-											<FormikRow
+											<DateWithCheckbox
 												formik={formik}
 												name={
 													lastPathMember(ProjectProxy.ConstructionDate).path
 												}
+												checkboxName={
+													lastPathMember(ProjectProxy.ConstructionFinished).path
+												}
 												title={t(translationPath(lang.common.constructionDate))}
-												type={Input.DATE}
 											/>
 										</ContentCard>
 									</GridItem>

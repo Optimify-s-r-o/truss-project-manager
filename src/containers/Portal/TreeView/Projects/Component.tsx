@@ -1,22 +1,18 @@
-import * as React from 'react';
-import Export from '../../../../components/Export';
-import Loading from '../../../../components/Optimify/Loading';
-import { ApiURL } from '../../../../constants/api';
-import { faHomeLgAlt } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../utils/getPath';
-import { getSelectedProjects } from './_actions';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Method } from '../../../../constants/enum';
-import { RouteComponentProps, useParams } from 'react-router-dom';
-import { SelectedProjectsRequest } from './_types';
-import { TableTitle } from '../../_styles';
-import { useEffect } from 'react';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faHomeLgAlt } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { get } from "lodash";
+import * as React from "react";
+import { useEffect } from "react";
+import { RouteComponentProps, useParams } from "react-router-dom";
+import Export from "../../../../components/Export";
+import Loading from "../../../../components/Optimify/Loading";
 import {
 	ScrollableTable,
 	TABLE_STYLE_CONDENSED,
 } from "../../../../components/Optimify/Table";
+import { ApiURL } from "../../../../constants/api";
+import { Method } from "../../../../constants/enum";
 import {
 	CardEndTableWrapper,
 	ContentCard,
@@ -35,12 +31,16 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../../translation/i18n";
+import { JobRootObject, JobsProxy } from "../../../../types/_types";
 import {
-	JobRootObject,
-	JobsProxy,
-	NailPlate,
-	Planks,
-} from "../../../../types/_types";
+	getPath,
+	lastPathMember,
+	translationPath,
+} from "../../../../utils/getPath";
+import { TableTitle } from "../../_styles";
+import { Plank, PlankProxy, Plate, PlateProxy } from "../Truss/_types";
+import { getSelectedProjects } from "./_actions";
+import { SelectedProjectsRequest } from "./_types";
 
 export interface StateProps {
 	routerState: any;
@@ -104,15 +104,31 @@ const Index = (
 										"-" +
 										t(translationPath(lang.common.nailPlates))
 									}
-									data={get(props.jobs, getPath(JobsProxy.NailPlates))}
+									data={get(props.jobs, getPath(JobsProxy.Plates))}
 									structure={[
 										{
-											label: t(translationPath(lang.common.name)),
-											valueName: "Name",
+											label: t(translationPath(lang.common.type)),
+											valueName: lastPathMember(PlateProxy.Type).path,
 										},
 										{
-											label: t(translationPath(lang.common.platesCount)),
-											valueName: "Count",
+											label: t(translationPath(lang.common.name)),
+											valueName: lastPathMember(PlateProxy.Name).path,
+										},
+										{
+											label: t(translationPath(lang.priceLists.width)),
+											valueName: lastPathMember(PlateProxy.Width).path,
+										},
+										{
+											label: t(translationPath(lang.common.length)),
+											valueName: lastPathMember(PlateProxy.Length).path,
+										},
+										{
+											label: t(translationPath(lang.common.thickness)),
+											valueName: lastPathMember(PlateProxy.Thickness).path,
+										},
+										{
+											label: t(translationPath(lang.common.count)),
+											valueName: lastPathMember(PlateProxy.Count).path,
 										},
 									]}
 								/>
@@ -127,18 +143,38 @@ const Index = (
 									]}
 									sortable={[true, true]}
 									data={
-										get(props.jobs, getPath(JobsProxy.NailPlates)) &&
-										get(props.jobs, getPath(JobsProxy.NailPlates))?.map(
-											(value: NailPlate, key: number) => {
-												return [value.Name, value.Count, value];
+										get(props.jobs, getPath(JobsProxy.Plates)) &&
+										get(props.jobs, getPath(JobsProxy.Plates))?.map(
+											(value: Plate, key: number) => {
+												return [
+													value.Type,
+													value.Name,
+													value.Width,
+													value.Length,
+													value.Thickness,
+													value.Count,
+													value,
+												];
 											}
 										)
 									}
 									renderers={[
-										(value: any, key: number, parent: NailPlate) => {
+										(value: any, key: number, parent: Plate) => {
 											return value;
 										},
-										(value: any, key: number, parent: NailPlate) => {
+										(value: any, key: number, parent: Plate) => {
+											return value;
+										},
+										(value: any, key: number, parent: Plate) => {
+											return value;
+										},
+										(value: any, key: number, parent: Plate) => {
+											return value;
+										},
+										(value: any, key: number, parent: Plate) => {
+											return value;
+										},
+										(value: any, key: number, parent: Plate) => {
 											return value;
 										},
 									]}
@@ -162,23 +198,23 @@ const Index = (
 									structure={[
 										{
 											label: t(translationPath(lang.common.thickness)),
-											valueName: "B",
+											valueName: lastPathMember(PlankProxy.Thickness).path,
 										},
 										{
 											label: t(translationPath(lang.priceLists.width)),
-											valueName: "H",
+											valueName: lastPathMember(PlankProxy.Width).path,
 										},
 										{
 											label: t(translationPath(lang.common.length)),
-											valueName: "Length",
+											valueName: lastPathMember(PlankProxy.Length).path,
 										},
 										{
 											label: t(translationPath(lang.common.quality)),
-											valueName: "Quality",
+											valueName: lastPathMember(PlankProxy.Grade).path,
 										},
 										{
-											label: t(translationPath(lang.common.count)),
-											valueName: "Quantity",
+											label: t(translationPath(lang.common.countPerTruss)),
+											valueName: lastPathMember(PlankProxy.Count).path,
 										},
 									]}
 								/>
@@ -198,32 +234,32 @@ const Index = (
 									data={
 										get(props.jobs, getPath(JobsProxy.Planks)) &&
 										get(props.jobs, getPath(JobsProxy.Planks))?.map(
-											(value: Planks, key: number) => {
+											(value: Plank, key: number) => {
 												return [
-													value.B,
-													value.H,
+													value.Thickness,
+													value.Width,
 													value.Length,
-													value.Quality,
-													value.Quantity,
+													value.Grade,
+													value.Count,
 													value,
 												];
 											}
 										)
 									}
 									renderers={[
-										(value: any, key: number, parent: Planks) => {
+										(value: any, key: number, parent: Plank) => {
 											return value;
 										},
-										(value: any, key: number, parent: Planks) => {
+										(value: any, key: number, parent: Plank) => {
 											return value;
 										},
-										(value: any, key: number, parent: Planks) => {
+										(value: any, key: number, parent: Plank) => {
 											return value;
 										},
-										(value: any, key: number, parent: Planks) => {
+										(value: any, key: number, parent: Plank) => {
 											return value;
 										},
-										(value: any, key: number, parent: Planks) => {
+										(value: any, key: number, parent: Plank) => {
 											return value;
 										},
 									]}

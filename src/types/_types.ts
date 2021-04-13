@@ -1,14 +1,16 @@
-import { ApiURL } from '../constants/api';
-import { createProxy } from '../utils/getPath';
-import { Customer } from 'src/containers/Portal/Customer/_types';
-import { CustomerSimplified } from '../containers/Portal/Customer/_types';
-import { Method } from '../constants/enum';
-import { Quotations } from '../containers/Portal/Quotations/_types';
-import { Routes } from '../constants/routes';
+import { Customer } from "src/containers/Portal/Customer/_types";
+import { Plate } from "src/containers/Portal/TreeView/Truss/_types";
+import { ApiURL } from "../constants/api";
+import { Method } from "../constants/enum";
+import { Routes } from "../constants/routes";
+import { CustomerSimplified } from "../containers/Portal/Customer/_types";
+import { Quotations } from "../containers/Portal/Quotations/_types";
 import {
 	ProjectFile,
 	ProjectLog,
 } from "../containers/Portal/TreeView/Project/_types";
+import { Plank } from "../containers/Portal/TreeView/Truss/_types";
+import { createProxy } from "../utils/getPath";
 
 export type FetchStateType = Readonly<{
 	error: string;
@@ -500,8 +502,8 @@ export interface JobsGeneral {
 
 export interface JobRootObject {
 	Name: string[];
-	NailPlates: NailPlate[];
-	Planks: Planks[];
+	Plates: Plate[];
+	Planks: Plank[];
 	General: JobsGeneral;
 }
 

@@ -1,25 +1,20 @@
-import * as React from 'react';
-import Data from '../../../../components/Data/Data';
-import Export from '../../../../components/Export';
-import Loading from '../../../../components/Optimify/Loading';
-import { ApiURL } from '../../../../constants/api';
-import { faHomeLgAlt } from '@fortawesome/pro-light-svg-icons';
-import { fixed } from '../../../../utils/formating';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../utils/getPath';
-import { getSelectedJobs } from './_actions';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { JobsSelectedRequest } from '../Job/_types';
-import { Method } from '../../../../constants/enum';
-import { RouteComponentProps, useParams } from 'react-router-dom';
-import { TableTitle } from '../../_styles';
-import { UnitType } from '../../../../components/Data/Unit';
-import { useEffect } from 'react';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faHomeLgAlt } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { get } from "lodash";
+import * as React from "react";
+import { useEffect } from "react";
+import { RouteComponentProps, useParams } from "react-router-dom";
+import Data from "../../../../components/Data/Data";
+import { UnitType } from "../../../../components/Data/Unit";
+import Export from "../../../../components/Export";
+import Loading from "../../../../components/Optimify/Loading";
 import {
 	ScrollableTable,
 	TABLE_STYLE_CONDENSED,
 } from "../../../../components/Optimify/Table";
+import { ApiURL } from "../../../../constants/api";
+import { Method } from "../../../../constants/enum";
 import {
 	CardEndTableWrapper,
 	ContentCard,
@@ -39,12 +34,17 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../../translation/i18n";
+import { JobRootObject, JobsProxy } from "../../../../types/_types";
+import { fixed } from "../../../../utils/formating";
 import {
-	JobRootObject,
-	JobsProxy,
-	NailPlate,
-	Planks,
-} from "../../../../types/_types";
+	getPath,
+	lastPathMember,
+	translationPath,
+} from "../../../../utils/getPath";
+import { TableTitle } from "../../_styles";
+import { JobsSelectedRequest } from "../Job/_types";
+import { Plank, PlankProxy, Plate, PlateProxy } from "../Truss/_types";
+import { getSelectedJobs } from "./_actions";
 
 export interface StateProps {
 	routerState: any;
@@ -341,15 +341,31 @@ const Index = (
 										"-" +
 										t(translationPath(lang.common.nailPlates))
 									}
-									data={get(props.jobs, getPath(JobsProxy.NailPlates))}
+									data={get(props.jobs, getPath(JobsProxy.Plates))}
 									structure={[
 										{
-											label: t(translationPath(lang.common.name)),
-											valueName: "Name",
+											label: t(translationPath(lang.common.type)),
+											valueName: lastPathMember(PlateProxy.Type).path,
 										},
 										{
-											label: t(translationPath(lang.common.platesCount)),
-											valueName: "Count",
+											label: t(translationPath(lang.common.name)),
+											valueName: lastPathMember(PlateProxy.Name).path,
+										},
+										{
+											label: t(translationPath(lang.priceLists.width)),
+											valueName: lastPathMember(PlateProxy.Width).path,
+										},
+										{
+											label: t(translationPath(lang.common.length)),
+											valueName: lastPathMember(PlateProxy.Length).path,
+										},
+										{
+											label: t(translationPath(lang.common.thickness)),
+											valueName: lastPathMember(PlateProxy.Thickness).path,
+										},
+										{
+											label: t(translationPath(lang.common.count)),
+											valueName: lastPathMember(PlateProxy.Count).path,
 										},
 									]}
 								/>
@@ -359,23 +375,47 @@ const Index = (
 									style={TABLE_STYLE_CONDENSED}
 									height={200}
 									headers={[
+										t(translationPath(lang.common.type)),
 										t(translationPath(lang.common.name)),
-										t(translationPath(lang.common.count)),
+										t(translationPath(lang.priceLists.width)),
+										t(translationPath(lang.common.length)),
+										t(translationPath(lang.common.thickness)),
+										t(translationPath(lang.common.countPerTruss)),
 									]}
-									sortable={[true, true]}
+									sortable={[true, true, true, true, true, true]}
 									data={
-										get(props.jobs, getPath(JobsProxy.NailPlates)) &&
-										get(props.jobs, getPath(JobsProxy.NailPlates))?.map(
-											(value: NailPlate, key: number) => {
-												return [value.Name, value.Count, value];
+										get(props.jobs, getPath(JobsProxy.Plates)) &&
+										get(props.jobs, getPath(JobsProxy.Plates))?.map(
+											(value: Plate, key: number) => {
+												return [
+													value.Type,
+													value.Name,
+													value.Width,
+													value.Length,
+													value.Thickness,
+													value.Count,
+													value,
+												];
 											}
 										)
 									}
 									renderers={[
-										(value: any, key: number, parent: NailPlate) => {
+										(value: any, key: number, parent: Plate) => {
 											return value;
 										},
-										(value: any, key: number, parent: NailPlate) => {
+										(value: any, key: number, parent: Plate) => {
+											return value;
+										},
+										(value: any, key: number, parent: Plate) => {
+											return value;
+										},
+										(value: any, key: number, parent: Plate) => {
+											return value;
+										},
+										(value: any, key: number, parent: Plate) => {
+											return value;
+										},
+										(value: any, key: number, parent: Plate) => {
 											return value;
 										},
 									]}
@@ -399,23 +439,23 @@ const Index = (
 									structure={[
 										{
 											label: t(translationPath(lang.common.thickness)),
-											valueName: "B",
+											valueName: lastPathMember(PlankProxy.Thickness).path,
 										},
 										{
 											label: t(translationPath(lang.priceLists.width)),
-											valueName: "H",
+											valueName: lastPathMember(PlankProxy.Width).path,
 										},
 										{
 											label: t(translationPath(lang.common.length)),
-											valueName: "Length",
+											valueName: lastPathMember(PlankProxy.Length).path,
 										},
 										{
 											label: t(translationPath(lang.common.quality)),
-											valueName: "Quality",
+											valueName: lastPathMember(PlankProxy.Grade).path,
 										},
 										{
-											label: t(translationPath(lang.common.count)),
-											valueName: "Quantity",
+											label: t(translationPath(lang.common.countPerTruss)),
+											valueName: lastPathMember(PlankProxy.Count).path,
 										},
 									]}
 								/>
@@ -435,32 +475,32 @@ const Index = (
 									data={
 										get(props.jobs, getPath(JobsProxy.Planks)) &&
 										get(props.jobs, getPath(JobsProxy.Planks)).map(
-											(value: Planks, key: number) => {
+											(value: Plank, key: number) => {
 												return [
-													value.B,
-													value.H,
+													value.Thickness,
+													value.Width,
 													value.Length,
-													value.Quality,
-													value.Quantity,
+													value.Grade,
+													value.Count,
 													value,
 												];
 											}
 										)
 									}
 									renderers={[
-										(value: any, key: number, parent: Planks) => {
+										(value: any, key: number, parent: Plank) => {
 											return value;
 										},
-										(value: any, key: number, parent: Planks) => {
+										(value: any, key: number, parent: Plank) => {
 											return value;
 										},
-										(value: any, key: number, parent: Planks) => {
+										(value: any, key: number, parent: Plank) => {
 											return value;
 										},
-										(value: any, key: number, parent: Planks) => {
+										(value: any, key: number, parent: Plank) => {
 											return value;
 										},
-										(value: any, key: number, parent: Planks) => {
+										(value: any, key: number, parent: Plank) => {
 											return value;
 										},
 									]}

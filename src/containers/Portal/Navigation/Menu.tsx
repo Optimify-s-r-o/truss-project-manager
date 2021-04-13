@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Hub } from '../../../constants/hub';
-import { HubConnection } from '@microsoft/signalr';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { lang } from '../../../translation/i18n';
-import { Routes } from '../../../constants/routes';
-import { translationPath } from '../../../utils/getPath';
-import { TreeType } from '../../../types/_types';
-import { useHistory } from 'react-router';
-import { useTranslation } from 'react-i18next';
+import * as React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Hub } from "../../../constants/hub";
+import { HubConnection } from "@microsoft/signalr";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { lang } from "../../../translation/i18n";
+import { Routes } from "../../../constants/routes";
+import { translationPath } from "../../../utils/getPath";
+import { TreeType } from "../../../types/_types";
+import { useHistory } from "react-router";
+import { useTranslation } from "react-i18next";
 import {
 	faBookUser,
 	faBrowser,
@@ -158,7 +158,7 @@ export const NavigationMenu = ({
 					text: t(translationPath(lang.common.customersList).path),
 					invokeHub: TreeType.CUSTOMER,
 					icon: faBookUser,
-					shortcut: "Ctrl + S",
+					shortcut: "Ctrl + M",
 					color: "brown",
 				},
 			],

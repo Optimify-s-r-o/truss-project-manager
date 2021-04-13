@@ -1,16 +1,13 @@
-import * as React from 'react';
-import Data from '../../../../components/Data/Data';
-import Export from '../../../../components/Export';
-import Loading from '../../../../components/Optimify/Loading';
-import { faMountains } from '@fortawesome/pro-light-svg-icons';
-import { fixed } from '../../../../utils/formating';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { get } from 'lodash';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Page } from '../../../../types/_types';
-import { TableTitle } from '../../_styles';
-import { UnitType } from '../../../../components/Data/Unit';
-import { useParams } from 'react-router';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faMountains } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { get } from "lodash";
+import * as React from "react";
+import { useParams } from "react-router";
+import Data from "../../../../components/Data/Data";
+import { UnitType } from "../../../../components/Data/Unit";
+import Export from "../../../../components/Export";
+import Loading from "../../../../components/Optimify/Loading";
 import {
 	ScrollableTable,
 	TABLE_STYLE_CONDENSED,
@@ -34,11 +31,14 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../../translation/i18n";
+import { Page } from "../../../../types/_types";
+import { fixed } from "../../../../utils/formating";
 import {
 	getPath,
 	lastPathMember,
 	translationPath,
 } from "../../../../utils/getPath";
+import { TableTitle } from "../../_styles";
 import {
 	Member,
 	MemberProxy,

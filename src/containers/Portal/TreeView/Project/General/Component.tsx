@@ -333,7 +333,7 @@ const Index = ({
 									<ContentCard fullSize>
 										<FormikRow
 											formik={formik}
-											titleWidth={40}
+											titleWidth={30}
 											disabled
 											name={lastPathMember(ProjectProxy.TimeOfCreation).path}
 											title={t(

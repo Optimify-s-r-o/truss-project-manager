@@ -1,10 +1,10 @@
 import _ from 'lodash';
-import KeyboardEventHandler from 'react-keyboard-event-handler';
 import React from 'react';
-import { CustomerType } from '../../Lists/Customers/_types';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Routes } from '../../../../constants/routes';
 import { TreeType } from '../../../../types/_types';
-import { useHistory, useLocation } from 'react-router-dom';
+import { CustomerType } from '../../Lists/Customers/_types';
 
 interface Events {
 	setSelectedKeys: (data: string[]) => void;
@@ -302,7 +302,7 @@ export const Events = ({
 				onKeyEvent={(key, e) => history.push(Routes.CREATE_CUSTOMER)}
 			/>
 			<KeyboardEventHandler
-				handleKeys={["ctrl+s"]}
+				handleKeys={["ctrl+m"]}
 				onKeyEvent={(key, e) => history.push(Routes.CUSTOMER_LIST)}
 			/>
 			<KeyboardEventHandler
@@ -314,7 +314,7 @@ export const Events = ({
 				onKeyEvent={(key, e) => history.push(Routes.LINK_CREATE_USER)}
 			/>
 			<KeyboardEventHandler
-				handleKeys={["ctrl+J"]}
+				handleKeys={["ctrl+j"]}
 				onKeyEvent={(key, e) => history.push(Routes.FILTER_JOB)}
 			/>
 			<KeyboardEventHandler
