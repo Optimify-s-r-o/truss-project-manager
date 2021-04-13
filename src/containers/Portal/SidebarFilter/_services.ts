@@ -1,13 +1,17 @@
-import { FilterSettings, FilterSettingsProxy } from '../../../types/_types';
-import { get } from 'lodash';
-import { getObject } from '../../../utils/helpers';
-import { getPath } from '../../../utils/getPath';
+import { get } from "lodash";
+import { FilterSettings, FilterSettingsProxy } from "../../../types/_types";
+import { getPath, lastPathMember } from "../../../utils/getPath";
+import { getObject } from "../../../utils/helpers";
 import {
 	CustomersFilter,
+	CustomersFilterProxy,
 	Filter,
 	JobsFilter,
+	JobsFilterProxy,
 	ProjectsFilter,
+	ProjectsFilterProxy,
 	TrussesFilter,
+	TrussesFilterProxy,
 } from "./_types";
 
 export const activation = {
@@ -45,25 +49,29 @@ export const getCustomersFilters = (
 		FirstNameFilter: getFilter(
 			activeFilterContent?.Customers?.FirstNameFilter,
 			{
-				FirstName: null,
+				...activation,
+				FirstName: "",
 			}
 		),
 		LastNameFilter: getFilter(activeFilterContent?.Customers?.LastNameFilter, {
-			LastName: null,
+			...activation,
+			LastName: "",
 		}),
 		CompanyNameFilter: getFilter(
 			activeFilterContent?.Customers?.CompanyNameFilter,
 			{
-				Name: null,
+				...activation,
+				Name: "",
 			}
 		),
 		CrnFilter: getFilter(activeFilterContent?.Customers?.CrnFilter, {
-			Crn: null,
+			Crn: "",
 		}),
 		VatNumberFilter: getFilter(
 			activeFilterContent?.Customers?.VatNumberFilter,
 			{
-				VatNumber: null,
+				...activation,
+				VatNumber: "",
 			}
 		),
 		CustomerTypeFilter: getFilter(
@@ -143,14 +151,17 @@ export const getProjectsFilters = (
 ): ProjectsFilter => {
 	return {
 		NameFilter: getFilter(activeFilterContent?.Projects?.NameFilter, {
-			Name: null,
+			...activation,
+			Name: "",
 			ExactMatch: false,
 		}),
 		UserFilter: getFilter(activeFilterContent?.Projects?.UserFilter, {
+			...activation,
 			Name: null,
 		}),
 		AddressFilter: getFilter(activeFilterContent?.Projects?.AddressFilter, {
-			Location: null,
+			...activation,
+			Location: "",
 		}),
 		ProjectStateFilter: getFilter(
 			activeFilterContent?.Projects?.ProjectStateFilter,
@@ -206,7 +217,8 @@ export const getJobsFilters = (
 ): JobsFilter => {
 	return {
 		NameFilter: getFilter(activeFilterContent?.Jobs?.NameFilter, {
-			Name: null,
+			...activation,
+			Name: "",
 			ExactMatch: false,
 		}),
 		JobTypeFilter: getFilter(activeFilterContent?.Jobs?.JobTypeFilter, {
@@ -315,7 +327,8 @@ export const getTrussesFilters = (
 ): TrussesFilter => {
 	return {
 		NameFilter: getFilter(activeFilterContent?.Trusses?.NameFilter, {
-			Name: null,
+			...activation,
+			Name: "",
 			ExactMatch: false,
 		}),
 		StatusFilter: getFilter(activeFilterContent?.Trusses?.StatusFilter, {
@@ -478,5 +491,102 @@ export const resetFilterTrussesValues = (
 	return {
 		...values,
 		...getTrussesFilters(filter),
+	};
+};
+
+export const isNullOrEmpty = (value: any) => {
+	if (!!value) {
+		return false;
+	}
+	return true;
+};
+
+export const mapActiveInputs = (
+	values: any,
+	name: any,
+	lastPathMember: any
+) => {
+	return {
+		...activation,
+		Active: isNullOrEmpty(get(values, name)) ? false : true,
+		[lastPathMember.path]: get(values, name),
+	};
+};
+
+export const mapCustomers = (values: any) => {
+	return {
+		...values,
+		CompanyNameFilter: mapActiveInputs(
+			values,
+			getPath(CustomersFilterProxy.CompanyNameFilter.Name),
+			lastPathMember(CustomersFilterProxy.CompanyNameFilter.Name)
+		),
+		CrnFilter: mapActiveInputs(
+			values,
+			getPath(CustomersFilterProxy.CrnFilter.Crn),
+			lastPathMember(CustomersFilterProxy.CrnFilter.Crn)
+		),
+		VatNumberFilter: mapActiveInputs(
+			values,
+			getPath(CustomersFilterProxy.VatNumberFilter.VatNumber),
+			lastPathMember(CustomersFilterProxy.VatNumberFilter.VatNumber)
+		),
+		FirstNameFilter: mapActiveInputs(
+			values,
+			getPath(CustomersFilterProxy.FirstNameFilter.FirstName),
+			lastPathMember(CustomersFilterProxy.FirstNameFilter.FirstName)
+		),
+		LastNameFilter: mapActiveInputs(
+			values,
+			getPath(CustomersFilterProxy.LastNameFilter.LastName),
+			lastPathMember(CustomersFilterProxy.LastNameFilter.LastName)
+		),
+	};
+};
+
+export const mapProjects = (values: any) => {
+	return {
+		...values,
+		NameFilter: mapActiveInputs(
+			values,
+			getPath(ProjectsFilterProxy.NameFilter.Name),
+			lastPathMember(ProjectsFilterProxy.NameFilter.Name)
+		),
+		AddressFilter: mapActiveInputs(
+			values,
+			getPath(ProjectsFilterProxy.AddressFilter.Location),
+			lastPathMember(ProjectsFilterProxy.AddressFilter.Location)
+		),
+	};
+};
+
+export const mapJobs = (values: any) => {
+	return {
+		...values,
+		NameFilter: mapActiveInputs(
+			values,
+			getPath(JobsFilterProxy.NameFilter.Name),
+			lastPathMember(JobsFilterProxy.NameFilter.Name)
+		),
+	};
+};
+
+export const mapTrusses = (values: any) => {
+	return {
+		...values,
+		NameFilter: mapActiveInputs(
+			values,
+			getPath(TrussesFilterProxy.NameFilter.Name),
+			lastPathMember(TrussesFilterProxy.NameFilter.Name)
+		),
+	};
+};
+
+export const mapEntities = (values: any) => {
+	return {
+		Customers: mapCustomers(values?.Customers),
+		Projects: mapProjects(values?.Projects),
+		Jobs: mapJobs(values?.Jobs),
+		Trusses: mapTrusses(values?.Trusses),
 	};
 };

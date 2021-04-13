@@ -1,22 +1,22 @@
-import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
-import SidebarNavigation from '../Lists/components/SidebarNavigation';
-import { Customer } from './Customer';
-import { FilterSettings, Page, TreeType } from '../../../types/_types';
-import { FilterWrapper, Icon, Title } from './_styles';
-import { getInitialValues } from './_services';
-import { Hub } from '../../../constants/hub';
-import { HubConnection } from '@microsoft/signalr';
-import { Job } from './Jobs';
-import { lang, t } from '../../../translation/i18n';
-import { Project } from './Projects';
-import { Sidebar } from '../Lists/components/_styles';
-import { Submit } from './components/Submit';
-import { Tooltip } from 'antd';
-import { translationPath } from '../../../utils/getPath';
-import { Truss } from './Trusses';
-import { useLocation } from 'react-router';
-import { UserData } from '../Accounts/_types';
+import { HubConnection } from "@microsoft/signalr";
+import { Tooltip } from "antd";
+import _ from "lodash";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import { Hub } from "../../../constants/hub";
+import { lang, t } from "../../../translation/i18n";
+import { FilterSettings, Page, TreeType } from "../../../types/_types";
+import { translationPath } from "../../../utils/getPath";
+import { UserData } from "../Accounts/_types";
+import SidebarNavigation from "../Lists/components/SidebarNavigation";
+import { Sidebar } from "../Lists/components/_styles";
+import { Submit } from "./components/Submit";
+import { Customer } from "./Customer";
+import { Job } from "./Jobs";
+import { Project } from "./Projects";
+import { Truss } from "./Trusses";
+import { getInitialValues, mapEntities } from "./_services";
+import { FilterWrapper, Icon, Title } from "./_styles";
 export enum FilterType {
 	Customer,
 	CustomerPerson,
@@ -136,7 +136,7 @@ export const Filter = ({
 	const handleSubmit = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 		if (!_.isEqual(getInitialValues(filter), formData)) {
 			invokeTreeHub(activeTree);
-			filterEntities({ ...formData, location });
+			filterEntities(mapEntities(formData));
 		}
 	};
 
