@@ -20,6 +20,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	totalRecords: state.FilterReducer.jobs?.TotalRecords,
 	currentPage: state.FilterReducer.jobs?.CurrentPage,
 	isFiltered: state.FilterReducer.jobs?.IsFiltered,
+	settingsPageSize: state.FilterReducer.jobs?.SettingsPageSize,
 	recordsBeforeFilter: state.FilterReducer.jobs?.RecordsBeforeFilter,
 	pageSize: state.FilterReducer.jobs?.PageSize,
 	jobs: state.FilterReducer.jobs?.Data,

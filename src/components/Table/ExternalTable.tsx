@@ -85,7 +85,7 @@ const ExternalTable = (props: OwnProps) => {
 			setSort(sortOptions);
 			setSortOrder(sortOrder);
 
-			if (sortString) {
+			if (!!sortString) {
 				onPageRequired({
 					PageSize: selectedPageSize,
 					Page: currentPage - 1,
@@ -103,11 +103,19 @@ const ExternalTable = (props: OwnProps) => {
 	};
 
 	const handleSelectedPageSize = (newSize: number) => {
+		if (selectedPageSize && !!sortString) {
+			onPageRequired({
+				PageSize: selectedPageSize,
+				Page: currentPage - 1,
+				RewriteSort: true,
+				Sort: sortString,
+			});
+			return;
+		}
 		selectedPageSize &&
 			onPageRequired({
 				PageSize: newSize,
 				Page: 0,
-				Sort: sortString,
 			});
 	};
 
@@ -118,7 +126,7 @@ const ExternalTable = (props: OwnProps) => {
 	return (
 		<>
 			<HorizontalLine />
-			<LoadedWrapper isLoading={isLoading}>
+			<LoadedWrapper isLoading={isLoading || !!!selectedPageSize}>
 				<Pagination
 					sort={sortString}
 					pageSize={selectedPageSize}

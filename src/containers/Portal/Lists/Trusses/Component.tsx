@@ -30,6 +30,7 @@ import {
 export interface StateProps {
 	activeFilter: boolean;
 	firstRecordOnPage: number | null;
+	settingsPageSize: number | null;
 	lastRecordOnPage: number | null;
 	currentPage: number | null;
 	totalPages: number | null;
@@ -87,6 +88,7 @@ const Index = ({
 	trusses,
 	pending,
 	resetHeaderSettings,
+	settingsPageSize,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { t } = useTranslation();
 	const [checked, setChecked] = React.useState<Checkbox[]>([]);
@@ -141,6 +143,7 @@ const Index = ({
 							pageSize={pageSize}
 							activeFilter={activeFilter}
 							resetHeaderSettings={resetHeaderSettings}
+							settingsPageSize={settingsPageSize}
 						/>
 					</ContentCard>
 				</ContentFilter>

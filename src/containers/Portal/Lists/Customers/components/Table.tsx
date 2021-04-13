@@ -32,6 +32,7 @@ interface Table {
 	pageSize: string | null;
 	deleteCustomer: (data: DeleteRequest) => void;
 	resetHeaderSettings: (data: string) => void;
+	settingsPageSize: number | null;
 }
 
 export const CustomerTable = ({
@@ -52,6 +53,7 @@ export const CustomerTable = ({
 	pending,
 	pageSize,
 	resetHeaderSettings,
+	settingsPageSize,
 }: Table) => {
 	const { t } = useTranslation();
 	const history = useHistory();
@@ -133,7 +135,7 @@ export const CustomerTable = ({
 				onPageRequired={(requiredPage: Page) => {
 					getCustomers(requiredPage);
 				}}
-				pageSize={parseInt(pageSize)}
+				pageSize={settingsPageSize}
 				firstRecordOnPage={firstRecordOnPage}
 				lastRecordOnPage={lastRecordOnPage}
 				currentPage={currentPage}

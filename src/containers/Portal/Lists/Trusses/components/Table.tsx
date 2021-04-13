@@ -37,6 +37,7 @@ interface Table {
 	pageSize: string | null;
 	trusses: Truss[];
 	resetHeaderSettings: (data: string) => void;
+	settingsPageSize: number | null;
 }
 
 export const TrussTable = ({
@@ -58,6 +59,7 @@ export const TrussTable = ({
 	pending,
 	pageSize,
 	resetHeaderSettings,
+	settingsPageSize,
 }: Table) => {
 	const { t } = useTranslation();
 	const history = useHistory();
@@ -164,7 +166,7 @@ export const TrussTable = ({
 				onPageRequired={(requiredPage: Page) => {
 					getTrusses(requiredPage);
 				}}
-				pageSize={parseInt(pageSize)}
+				pageSize={settingsPageSize}
 				firstRecordOnPage={firstRecordOnPage}
 				lastRecordOnPage={lastRecordOnPage}
 				currentPage={currentPage}

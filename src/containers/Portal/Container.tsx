@@ -1,47 +1,7 @@
 import Component from './Component';
-import { addToSelectionAction, removeFromSelectionAction, resetSelectionAction } from './Sidebar/_actions';
-import {
-	clearFilteredData,
-	filterEntities,
-	getCustomers,
-	getJobs,
-	getProjects,
-	getTrusses,
-	setActive,
-	setActiveFilterContent,
-	showFilter
-	} from './SidebarFilter/_actions';
 import { clearNotificationAction } from '../../components/Toast/_actions';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import {
-	copyJob,
-	deleteJob,
-	jobImage,
-	setJob,
-	unlockJob
-	} from './TreeView/Job/_actions';
-import {
-	CopyJob,
-	DeleteJob,
-	JobRootObject,
-	Unlock
-	} from './TreeView/Job/_types';
-import {
-	createTruss,
-	EditTruss,
-	editTruss,
-	OpenTruss
-	} from '../../sagas/Truss/_actions';
-import {
-	customerTree,
-	jobTree,
-	setCopiedJob,
-	setExpandedKeys,
-	setSelectedKeys,
-	treeReset,
-	trussTree
-	} from './TreeView/_actions';
 import { deleteProject } from './Project/_actions';
 import { DeleteProject } from './Project/_types';
 import { duplicateJob, setLoading } from './TreeView/Project/General/_actions';
@@ -57,18 +17,62 @@ import { ProjectFileRequest } from './TreeView/Project/_types';
 import { quickSearch } from './FastNavigation/_actions';
 import { QuickSearchRequest } from './FastNavigation/_types';
 import { setCloud } from '../Home/Cloud/_actions';
-import {
-	setHubJob,
-	setHubProject,
-	setHubSettings,
-	setHubTree,
-	setHubTruss
-	} from '../../reducers/hubReducer/_actions';
 import { settings, settingsFilter, treeType } from './_actions';
 import { setTruss, trussImage } from './TreeView/Truss/_actions';
 import { Truss } from './TreeView/Truss/_types';
 import { usersAction } from './Accounts/_actions';
 import { withRouter } from 'react-router';
+import {
+	setHubJob,
+	setHubProject,
+	setHubSettings,
+	setHubTree,
+	setHubTruss,
+} from "../../reducers/hubReducer/_actions";
+import {
+	createTruss,
+	EditTruss,
+	editTruss,
+	OpenTruss,
+} from "../../sagas/Truss/_actions";
+import {
+	addToSelectionAction,
+	removeFromSelectionAction,
+	resetSelectionAction,
+} from "./Sidebar/_actions";
+import {
+	clearFilteredData,
+	filterEntities,
+	getCustomers,
+	getJobs,
+	getProjects,
+	getTrusses,
+	setActive,
+	setActiveFilterContent,
+	showFilter,
+} from "./SidebarFilter/_actions";
+import {
+	copyJob,
+	deleteJob,
+	jobImage,
+	setJob,
+	unlockJob,
+} from "./TreeView/Job/_actions";
+import {
+	CopyJob,
+	DeleteJob,
+	JobRootObject,
+	Unlock,
+} from "./TreeView/Job/_types";
+import {
+	customerTree,
+	jobTree,
+	setCopiedJob,
+	setExpandedKeys,
+	setSelectedKeys,
+	treeReset,
+	trussTree,
+} from "./TreeView/_actions";
 
 const mapStateToProps = (state: any) => ({
 	activeTree: state.SettingsReducer.activeTree,
@@ -91,7 +95,7 @@ const mapStateToProps = (state: any) => ({
 	filter: state.SettingsReducer.filter,
 	path: state.router.location.pathname,
 	users: state.UserReducer.users,
-	trussPending: state.TrussesReducer.trussPending,
+	trussPending: state.FilterReducer.trussPending,
 	jobPending: state.FilterReducer.pending,
 	activeFilterContent: state.FilterReducer.activeFilterContent,
 	projectPending: state.FilterReducer.projectPending,

@@ -36,6 +36,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	isFiltered: state.FilterReducer.customers?.IsFiltered,
 	recordsBeforeFilter: state.FilterReducer.customers?.RecordsBeforeFilter,
 	currentPage: state.FilterReducer.customers?.CurrentPage,
+	settingsPageSize: state.FilterReducer.customers?.SettingsPageSize,
 	totalPages: state.FilterReducer.customers?.TotalPages,
 	totalRecords: state.FilterReducer.customers?.TotalRecords,
 	pageSize: state.FilterReducer.customers?.PageSize,

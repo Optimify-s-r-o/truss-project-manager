@@ -28,6 +28,7 @@ export interface StateProps {
 	path: string;
 	pending: boolean;
 	firstRecordOnPage: number | null;
+	settingsPageSize: number | null;
 	lastRecordOnPage: number | null;
 	currentPage: number | null;
 	totalPages: number | null;
@@ -58,7 +59,7 @@ const Index = ({
 	deleteCustomer,
 	putHeaderSettings,
 	filter,
-	filterCustomers,
+	settingsPageSize,
 	customers,
 	getCustomers,
 	resetHeaderSettings,
@@ -125,6 +126,7 @@ const Index = ({
 							pageSize={pageSize}
 							activeFilter={activeFilter}
 							resetHeaderSettings={resetHeaderSettings}
+							settingsPageSize={settingsPageSize}
 						/>
 					</ContentCard>
 				</ContentFilter>

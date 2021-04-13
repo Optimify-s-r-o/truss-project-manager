@@ -1,13 +1,16 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faMountains } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { get } from "lodash";
-import * as React from "react";
-import { useParams } from "react-router";
-import Data from "../../../../components/Data/Data";
-import { UnitType } from "../../../../components/Data/Unit";
-import Export from "../../../../components/Export";
-import Loading from "../../../../components/Optimify/Loading";
+import * as React from 'react';
+import Data from '../../../../components/Data/Data';
+import Export from '../../../../components/Export';
+import Loading from '../../../../components/Optimify/Loading';
+import { faMountains } from '@fortawesome/pro-light-svg-icons';
+import { fixed } from '../../../../utils/formating';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { get } from 'lodash';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { Page } from '../../../../types/_types';
+import { TableTitle } from '../../_styles';
+import { UnitType } from '../../../../components/Data/Unit';
+import { useParams } from 'react-router';
 import {
 	ScrollableTable,
 	TABLE_STYLE_CONDENSED,
@@ -31,17 +34,12 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../../translation/i18n";
-import { Page } from "../../../../types/_types";
-import { fixed } from "../../../../utils/formating";
 import {
 	getPath,
 	lastPathMember,
 	translationPath,
 } from "../../../../utils/getPath";
-import { TableTitle } from "../../_styles";
 import {
-	Member,
-	MemberProxy,
 	Plank,
 	PlankProxy,
 	Plate,
@@ -313,61 +311,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 					</GridItem>
 				</GridRow>
 
-				<GridRow columns={3}>
-					<GridItem>
-						<ContentCard fullSize>
-							<ContentSpaceBetween>
-								<TableTitle>
-									{t(translationPath(lang.common.members))}
-								</TableTitle>
-								<Export
-									name={
-										props.truss?.Names?.map((value) => value).join(",") +
-										"-" +
-										t(translationPath(lang.common.members))
-									}
-									data={get(props.truss, getPath(TrussesProxy.Members))}
-									structure={[
-										{
-											label: t(translationPath(lang.common.name)),
-											valueName: lastPathMember(MemberProxy.Name).path,
-										},
-										{
-											label: t(translationPath(lang.common.trussCount)),
-											valueName: lastPathMember(MemberProxy.Count).path,
-										},
-									]}
-								/>
-							</ContentSpaceBetween>
-							<CardEndTableWrapper>
-								<ScrollableTable
-									style={TABLE_STYLE_CONDENSED}
-									height={200}
-									headers={[
-										t(translationPath(lang.common.name)),
-										t(translationPath(lang.common.count)),
-									]}
-									sortable={[true, true]}
-									data={
-										get(props.truss, getPath(TrussesProxy.Members)) &&
-										get(props.truss, getPath(TrussesProxy.Members))?.map(
-											(value: Member, key: number) => {
-												return [value.Name, value];
-											}
-										)
-									}
-									renderers={[
-										(value: any, key: number, parent: Member) => {
-											return value;
-										},
-										(value: any, key: number, parent: Member) => {
-											return value;
-										},
-									]}
-								/>
-							</CardEndTableWrapper>
-						</ContentCard>
-					</GridItem>
+				<GridRow columns={2}>
 					<GridItem>
 						<ContentCard fullSize>
 							<ContentSpaceBetween>

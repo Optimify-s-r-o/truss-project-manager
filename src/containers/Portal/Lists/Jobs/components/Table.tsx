@@ -41,6 +41,7 @@ interface Table {
 	pending: boolean;
 	pageSize: string | null;
 	resetHeaderSettings: (data: string) => void;
+	settingsPageSize: number | null;
 }
 
 export const JobTable = ({
@@ -63,6 +64,7 @@ export const JobTable = ({
 	pending,
 	pageSize,
 	resetHeaderSettings,
+	settingsPageSize,
 }: Table) => {
 	const { t } = useTranslation();
 	const history = useHistory();
@@ -175,7 +177,7 @@ export const JobTable = ({
 				onPageRequired={(requiredPage: Page) => {
 					getJobs(requiredPage);
 				}}
-				pageSize={parseInt(pageSize)}
+				pageSize={settingsPageSize}
 				firstRecordOnPage={firstRecordOnPage}
 				lastRecordOnPage={lastRecordOnPage}
 				currentPage={currentPage}

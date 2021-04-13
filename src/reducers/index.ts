@@ -15,6 +15,7 @@ import UserReducer from '../containers/Portal/Accounts/_reducers';
 import { AuthReducer } from '../containers/Home/_reducers';
 import { combineReducers } from 'redux';
 import { connectRouter, RouterActionType } from 'connected-react-router';
+import { default as FilterReducer } from '../containers/Portal/SidebarFilter/_reducers';
 import { HeaderSettingsReducer } from '../containers/Portal/Lists/_reducers';
 import { History } from 'history';
 import { HubReducer } from './hubReducer/_reducers';
@@ -22,10 +23,6 @@ import { OrganizationReducer } from '../containers/Portal/Settings/Organization/
 import { PriceListsReducer } from '../containers/Portal/PriceLists/_reducers';
 import { StateType } from 'typesafe-actions';
 import { ViewerReducer } from '../containers/Portal/TreeView/Job/Viewer/_reducers';
-import {
-	default as FilterReducer,
-	default as TrussesReducer,
-} from "../containers/Portal/SidebarFilter/_reducers";
 import {
 	default as TreeFirstLayerReducer,
 	default as TreeReducer,
@@ -51,7 +48,6 @@ const createRootReducer = (history: History) =>
 		AuthReducer,
 		FilterReducer,
 		UserReducer,
-		TrussesReducer,
 		LoadingReducer,
 		QuotationReducer,
 		OrganizationReducer,

@@ -37,6 +37,7 @@ interface Table {
 	pending: boolean;
 	pageSize: string | null;
 	resetHeaderSettings: (data: string) => void;
+	settingsPageSize: number | null;
 }
 
 export const ProjectTable = ({
@@ -57,6 +58,7 @@ export const ProjectTable = ({
 	pending,
 	pageSize,
 	resetHeaderSettings,
+	settingsPageSize,
 }: Table) => {
 	const { t } = useTranslation();
 	const history = useHistory();
@@ -149,7 +151,7 @@ export const ProjectTable = ({
 				onPageRequired={(requiredPage: Page) => {
 					getProjects(requiredPage);
 				}}
-				pageSize={parseInt(pageSize)}
+				pageSize={settingsPageSize}
 				firstRecordOnPage={firstRecordOnPage}
 				lastRecordOnPage={lastRecordOnPage}
 				currentPage={currentPage}
