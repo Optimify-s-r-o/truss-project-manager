@@ -136,7 +136,7 @@ export const Filter = ({
 	const handleSubmit = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 		if (!_.isEqual(getInitialValues(filter), formData)) {
 			invokeTreeHub(activeTree);
-			filterEntities(mapEntities(formData));
+			filterEntities({ ...mapEntities(formData), location });
 		}
 	};
 
