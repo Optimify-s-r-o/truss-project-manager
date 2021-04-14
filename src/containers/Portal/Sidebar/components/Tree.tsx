@@ -98,7 +98,6 @@ export const Tree = ({
 				history.push(Routes.TREE_LINK_JOB + keys);
 			}
 		} else if (event?.node?.treeType === TreeType.TRUSS) {
-			console.log(path);
 			if (path.includes("material")) {
 				history.push(Routes.TREE_LINK_TRUSS + keys + "/material/persist");
 			} else if (path.includes("quotations")) {

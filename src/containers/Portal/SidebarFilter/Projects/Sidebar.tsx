@@ -51,7 +51,7 @@ const Index = ({
 			});
 		}
 	}, [treeHub]);
-	console.log(values);
+
 	return (
 		<>
 			<SelectType activeFilter={activeFilter} handleChange={handleChange} />

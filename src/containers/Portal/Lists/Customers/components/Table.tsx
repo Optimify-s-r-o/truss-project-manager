@@ -98,7 +98,6 @@ export const CustomerTable = ({
 				return value[item?.name];
 		}
 	};
-
 	return (
 		<CardMiddleTableWrapper>
 			<ExternalTable

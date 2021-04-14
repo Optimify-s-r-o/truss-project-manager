@@ -91,9 +91,7 @@ export const CustomerInput = ({
 	}, []);
 
 	useEffect(() => {
-		if (formik.values && formik.values[name]) {
-			setCurrentCustomer(formik.values[name]);
-		}
+		setCurrentCustomer(formik.values[name] || "");
 	}, [formik.values]);
 
 	const createCustomer = () => {
@@ -137,6 +135,8 @@ export const CustomerInput = ({
 	const selectAll = () => {
 		customerInput.current.select();
 	};
+
+	console.log(currentCustomer);
 	return (
 		<DropDown ref={wrapperRef}>
 			<Row>
