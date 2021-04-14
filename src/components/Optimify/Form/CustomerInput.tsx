@@ -91,7 +91,9 @@ export const CustomerInput = ({
 	}, []);
 
 	useEffect(() => {
-		setCurrentCustomer(formik.values[name] || "");
+		setCurrentCustomer(
+			formik.values && formik.values[name] ? formik.values[name] : ""
+		);
 	}, [formik.values]);
 
 	const createCustomer = () => {
