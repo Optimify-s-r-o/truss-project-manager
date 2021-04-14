@@ -5,9 +5,10 @@ import { FilterContentType, FilterProxy } from '../../../SidebarFilter/_types';
 import { FilterType, PutHeaderSettings } from '../../_types';
 import { getPath, translationPath } from '../../../../../utils/getPath';
 import { lang } from '../../../../../translation/i18n';
+import { OutlinedButton } from 'src/components/Optimify/Button';
+import { Page, TreeType } from '../../../../../types/_types';
 import { RootStateType } from '../../../../../reducers/index';
 import { setSort, setSortOrder } from '../../_action';
-import { TreeType } from '../../../../../types/_types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
@@ -23,6 +24,7 @@ interface ColumnSelector {
 	initHeaders: string[];
 	putHeaderSettings: (data: PutHeaderSettings) => void;
 	resetHeaderSettings: (data: string) => void;
+	getTrusses: (data: Page) => void;
 }
 
 export const TrussColumnSelector = ({
@@ -32,6 +34,7 @@ export const TrussColumnSelector = ({
 	putHeaderSettings,
 	setColumns,
 	resetHeaderSettings,
+	getTrusses,
 }: ColumnSelector) => {
 	const { t } = useTranslation();
 	const dispatch = useDispatch();
@@ -308,10 +311,16 @@ export const TrussColumnSelector = ({
 		},
 	];
 
+	const handleResetSort = () => {
+		getTrusses({ Paginate: true, Sort: "" });
+	};
 	return (
 		<ContentSpaceBetweenWithPadding>
 			<Header1>{t(translationPath(lang.common.trussList).path)}</Header1>
 			<ContentInline>
+				<OutlinedButton type="button" level={3} onClick={handleResetSort}>
+					Zrušit řazení
+				</OutlinedButton>
 				<CheckboxSelection
 					changeChecked={changeChecked}
 					checked={checked}

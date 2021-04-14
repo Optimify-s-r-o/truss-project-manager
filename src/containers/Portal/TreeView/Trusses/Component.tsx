@@ -143,7 +143,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							/>
 							<Data
 								title={t(translationPath(lang.common.totalPlanksVolume))}
-								data={fixed(get(props.truss, getPath(TrussesProxy.Planks)), 4)}
+								data={fixed(get(props.truss, getPath(TrussesProxy.Volume)), 4)}
 								unit={UnitType.M3}
 							/>
 							<Data
@@ -348,7 +348,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 										},
 										{
 											label: t(translationPath(lang.common.count)),
-											valueName: lastPathMember(PlateProxy.Count).path,
+											valueName: lastPathMember(PlateProxy.CountSum).path,
 										},
 									]}
 								/>
@@ -376,7 +376,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 													value.Width,
 													value.Length,
 													value.Thickness,
-													value.Count,
+													value.CountSum,
 													value,
 												];
 											}

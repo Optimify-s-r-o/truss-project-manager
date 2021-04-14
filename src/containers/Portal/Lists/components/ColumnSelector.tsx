@@ -1,5 +1,5 @@
 import * as React from 'react';
-import CheckBox from '../../../../components/Optimify/Form/CheckBox';
+import CheckBox from '../../../../components/Optimify/Form/ColumnSelectorCheckBox';
 import Collapsible from 'react-collapsible';
 import { Checkbox } from '../Jobs/Component';
 import { faChevronDown } from '@fortawesome/pro-light-svg-icons';

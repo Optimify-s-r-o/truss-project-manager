@@ -1,18 +1,28 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faHomeLgAlt } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { get } from "lodash";
-import * as React from "react";
-import { useEffect } from "react";
-import { RouteComponentProps, useParams } from "react-router-dom";
-import Export from "../../../../components/Export";
-import Loading from "../../../../components/Optimify/Loading";
+import * as React from 'react';
+import Export from '../../../../components/Export';
+import Loading from '../../../../components/Optimify/Loading';
+import { ApiURL } from '../../../../constants/api';
+import { faHomeLgAlt } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { get } from 'lodash';
+import { getSelectedProjects } from './_actions';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { JobRootObject, JobsProxy } from '../../../../types/_types';
+import { Method } from '../../../../constants/enum';
+import {
+	Plank,
+	PlankProxy,
+	Plate,
+	PlateProxy
+	} from '../Truss/_types';
+import { RouteComponentProps, useParams } from 'react-router-dom';
+import { SelectedProjectsRequest } from './_types';
+import { TableTitle } from '../../_styles';
+import { useEffect } from 'react';
 import {
 	ScrollableTable,
 	TABLE_STYLE_CONDENSED,
 } from "../../../../components/Optimify/Table";
-import { ApiURL } from "../../../../constants/api";
-import { Method } from "../../../../constants/enum";
 import {
 	CardEndTableWrapper,
 	ContentCard,
@@ -31,16 +41,11 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../../translation/i18n";
-import { JobRootObject, JobsProxy } from "../../../../types/_types";
 import {
 	getPath,
 	lastPathMember,
 	translationPath,
 } from "../../../../utils/getPath";
-import { TableTitle } from "../../_styles";
-import { Plank, PlankProxy, Plate, PlateProxy } from "../Truss/_types";
-import { getSelectedProjects } from "./_actions";
-import { SelectedProjectsRequest } from "./_types";
 
 export interface StateProps {
 	routerState: any;
@@ -152,7 +157,7 @@ const Index = (
 													value.Width,
 													value.Length,
 													value.Thickness,
-													value.Count,
+													value.CountSum,
 													value,
 												];
 											}

@@ -1,18 +1,4 @@
 import React, { useEffect } from 'react';
-import {
-	ContentCard,
-	ContentFilter,
-	ContentInline,
-	SAlert
-	} from '../../../../constants/globalStyles';
-import {
-	Data,
-	FilterSettings,
-	JobType,
-	Page,
-	Tree,
-	TreeType
-	} from '../../../../types/_types';
 import { EditTruss } from '../../../../sagas/Truss/_actions';
 import { FilterContentType } from '../../SidebarFilter/_types';
 import { FilterRequest } from '../components/_types';
@@ -26,6 +12,20 @@ import { RouteComponentProps } from 'react-router';
 import { translationPath } from '../../../../utils/getPath';
 import { UserData } from '../../Accounts/_types';
 import { useTranslation } from 'react-i18next';
+import {
+	ContentCard,
+	ContentFilter,
+	ContentInline,
+	SAlert,
+} from "../../../../constants/globalStyles";
+import {
+	Data,
+	FilterSettings,
+	JobType,
+	Page,
+	Tree,
+	TreeType,
+} from "../../../../types/_types";
 
 export interface StateProps {
 	activeFilter: boolean;
@@ -102,7 +102,7 @@ const Index = ({
 	jobs,
 	pending,
 	resetHeaderSettings,
-	settingsPageSize
+	settingsPageSize,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { t } = useTranslation();
 	const [checked, setChecked] = React.useState<Checkbox[]>([]);
@@ -114,7 +114,6 @@ const Index = ({
 		getHeaderSettings(TreeType.JOB);
 	}, []);
 
-	console.log(activeFilterContent);
 	return (
 		<ContentInline>
 			<Main>

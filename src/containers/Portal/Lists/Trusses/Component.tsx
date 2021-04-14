@@ -99,7 +99,8 @@ const Index = ({
 		getUsers({ Paginate: false });
 		getHeaderSettings(TreeType.TRUSS);
 	}, []);
-
+	console.log(initSort);
+	console.log(initSortOrder);
 	return (
 		<ContentInline>
 			<Main>
@@ -123,6 +124,7 @@ const Index = ({
 							initHeaders={initHeaders}
 							putHeaderSettings={putHeaderSettings}
 							resetHeaderSettings={resetHeaderSettings}
+							getTrusses={getTrusses}
 						/>
 						<TrussTable
 							setSelectedKeys={setSelectedKeys}
