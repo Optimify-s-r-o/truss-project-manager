@@ -10,6 +10,8 @@ import {
 	getHeaderSettings,
 	putHeaderSettings,
 	resetHeaderSettings,
+	setSort,
+	setSortOrder,
 } from "../_action";
 
 const mapStateToProps = (state: any): StateProps => ({
@@ -44,6 +46,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	getTrusses: (data: Page) => dispatch(getTrusses.request(data)),
 	getUsers: (data: Page) => dispatch(usersAction.request(data)),
 	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
+	setSort: (data: number[]) => dispatch(setSort(data)),
+	setSortOrder: (data: number[]) => dispatch(setSortOrder(data)),
 	setExpandedKeys: (data: string[]) => dispatch(setExpandedKeys(data)),
 	putHeaderSettings: (data: PutHeaderSettings) =>
 		dispatch(putHeaderSettings.request(data)),

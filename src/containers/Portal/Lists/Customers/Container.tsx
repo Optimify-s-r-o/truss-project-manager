@@ -11,6 +11,8 @@ import {
 	getHeaderSettings,
 	putHeaderSettings,
 	resetHeaderSettings,
+	setSort,
+	setSortOrder,
 } from "../_action";
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
@@ -25,6 +27,8 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 		dispatch(getHeaderSettings.request(data)),
 	resetHeaderSettings: (data: string) =>
 		dispatch(resetHeaderSettings.request(data)),
+	setSort: (data: number[]) => dispatch(setSort(data)),
+	setSortOrder: (data: number[]) => dispatch(setSortOrder(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({

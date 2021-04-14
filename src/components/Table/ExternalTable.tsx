@@ -101,7 +101,8 @@ const ExternalTable = (props: OwnProps) => {
 			}
 		});
 	};
-
+	console.log(sort);
+	console.log(sortOrder);
 	const handleSelectedPageSize = (newSize: number) => {
 		if (selectedPageSize && !!sortString) {
 			onPageRequired({

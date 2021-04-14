@@ -5,6 +5,7 @@ const dictionary: Lang = {
 		setDefault: "Set Default",
 		headersEmpty:
 			'Keine Spalten zum Anzeigen ausgewählt. Drücken Sie "Standard festlegen" oder wählen Sie die Spalten manuell aus.',
+		removeSort: "Unsort",
 	},
 	customer: {
 		placeholder: "Kunde eingeben",

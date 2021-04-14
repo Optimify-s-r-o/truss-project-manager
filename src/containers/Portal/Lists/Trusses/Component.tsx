@@ -1,4 +1,3 @@
-import React from 'react';
 import { Checkbox } from '../Jobs/Component';
 import { Main } from '../../SidebarFilter/Jobs/_styles';
 import { PutHeaderSettings } from '../_types';
@@ -6,6 +5,7 @@ import { RouteComponentProps } from 'react-router';
 import { translationPath } from '../../../../utils/getPath';
 import { TrussColumnSelector } from './components/ColumnSelector';
 import { TrussTable } from './components/Table';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	ContentCard,
@@ -63,6 +63,8 @@ interface DispatchProps {
 	putHeaderSettings: (data: PutHeaderSettings) => void;
 	getHeaderSettings: (data: string) => void;
 	resetHeaderSettings: (data: string) => void;
+	setSort: (data: number[]) => void;
+	setSortOrder: (data: number[]) => void;
 }
 
 const Index = ({
@@ -89,18 +91,19 @@ const Index = ({
 	pending,
 	resetHeaderSettings,
 	settingsPageSize,
+	setSort,
+	setSortOrder,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { t } = useTranslation();
-	const [checked, setChecked] = React.useState<Checkbox[]>([]);
-	const [columns, setColumns] = React.useState<Checkbox[]>([]);
+	const [checked, setChecked] = useState<Checkbox[]>([]);
+	const [columns, setColumns] = useState<Checkbox[]>([]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		getTrusses({ Paginate: true });
 		getUsers({ Paginate: false });
 		getHeaderSettings(TreeType.TRUSS);
 	}, []);
-	console.log(initSort);
-	console.log(initSortOrder);
+
 	return (
 		<ContentInline>
 			<Main>
@@ -125,6 +128,9 @@ const Index = ({
 							putHeaderSettings={putHeaderSettings}
 							resetHeaderSettings={resetHeaderSettings}
 							getTrusses={getTrusses}
+							setSort={setSort}
+							setSortOrder={setSortOrder}
+							sort={initSort}
 						/>
 						<TrussTable
 							setSelectedKeys={setSelectedKeys}
@@ -154,4 +160,4 @@ const Index = ({
 	);
 };
 
-export default withTranslation()(React.memo(Index));
+export default withTranslation()(Index);

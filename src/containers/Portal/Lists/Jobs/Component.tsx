@@ -66,6 +66,8 @@ interface DispatchProps {
 	putHeaderSettings: (data: PutHeaderSettings) => void;
 	getHeaderSettings: (data: string) => void;
 	resetHeaderSettings: (data: string) => void;
+	setSort: (data: number[]) => void;
+	setSortOrder: (data: number[]) => void;
 }
 
 export interface Checkbox {
@@ -103,6 +105,8 @@ const Index = ({
 	pending,
 	resetHeaderSettings,
 	settingsPageSize,
+	setSort,
+	setSortOrder,
 }: StateProps & DispatchProps & WithTranslation & RouteComponentProps) => {
 	const { t } = useTranslation();
 	const [checked, setChecked] = React.useState<Checkbox[]>([]);
@@ -137,6 +141,10 @@ const Index = ({
 							initHeaders={initHeaders}
 							putHeaderSettings={putHeaderSettings}
 							resetHeaderSettings={resetHeaderSettings}
+							getJobs={getJobs}
+							setSort={setSort}
+							setSortOrder={setSortOrder}
+							sort={initSort}
 						/>
 						<JobTable
 							setSelectedKeys={setSelectedKeys}

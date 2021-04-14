@@ -5,6 +5,7 @@ const dictionary: Lang = {
 		setDefault: "Set default",
 		headersEmpty:
 			'No columns selected to display. Press  "Set Default" , or select columns manually ',
+		removeSort: "Unsort",
 	},
 	customer: {
 		placeholder: "Find customer",

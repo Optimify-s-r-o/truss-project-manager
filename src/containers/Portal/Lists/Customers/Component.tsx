@@ -50,6 +50,8 @@ export interface DispatchProps {
 	putHeaderSettings: (data: PutHeaderSettings) => void;
 	getHeaderSettings: (data: string) => void;
 	resetHeaderSettings: (data: string) => void;
+	setSort: (data: number[]) => void;
+	setSortOrder: (data: number[]) => void;
 }
 
 const Index = ({
@@ -75,6 +77,8 @@ const Index = ({
 	initSort,
 	initSortOrder,
 	getHeaderSettings,
+	setSort,
+	setSortOrder,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const [checked, setChecked] = React.useState<Checkbox[]>([]);
 	const [columns, setColumns] = React.useState<Checkbox[]>([]);
@@ -107,6 +111,10 @@ const Index = ({
 							initHeaders={initHeaders}
 							putHeaderSettings={putHeaderSettings}
 							resetHeaderSettings={resetHeaderSettings}
+							setSort={setSort}
+							setSortOrder={setSortOrder}
+							sort={initSort}
+							getCustomers={getCustomers}
 						/>
 						<CustomerTable
 							checked={checked}

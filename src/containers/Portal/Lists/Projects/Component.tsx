@@ -68,6 +68,8 @@ interface DispatchProps {
 	putHeaderSettings: (data: PutHeaderSettings) => void;
 	getHeaderSettings: (data: string) => void;
 	resetHeaderSettings: (data: string) => void;
+	setSort: (data: number[]) => void;
+	setSortOrder: (data: number[]) => void;
 }
 
 const Index = ({
@@ -93,6 +95,8 @@ const Index = ({
 	pending,
 	projects,
 	settingsPageSize,
+	setSort,
+	setSortOrder,
 }: StateProps & DispatchProps & RouteComponentProps) => {
 	const { t } = useTranslation();
 	const [columns, setColumns] = React.useState<Checkbox[]>([]);
@@ -129,6 +133,10 @@ const Index = ({
 							initHeaders={initHeaders}
 							putHeaderSettings={putHeaderSettings}
 							resetHeaderSettings={resetHeaderSettings}
+							getProjects={getProjects}
+							setSort={setSort}
+							setSortOrder={setSortOrder}
+							sort={initSort}
 						/>
 						<ProjectTable
 							setSelectedKeys={setSelectedKeys}

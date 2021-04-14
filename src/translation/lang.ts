@@ -4,6 +4,7 @@ export type Lang = Readonly<{
 	table: {
 		setDefault: string;
 		headersEmpty: string;
+		removeSort: string;
 	};
 	customer: {
 		placeholder: string;

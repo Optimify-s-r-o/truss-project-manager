@@ -5,9 +5,9 @@ import { CustomerProxy } from '../../../Customer/_types';
 import { FilterContentType, FilterProxy } from '../../../SidebarFilter/_types';
 import { FilterType, PutHeaderSettings } from '../../_types';
 import { lang } from '../../../../../translation/i18n';
+import { Page, TreeType } from '../../../../../types/_types';
 import { RootStateType } from '../../../../../reducers/index';
 import { setSort, setSortOrder } from '../../_action';
-import { TreeType } from '../../../../../types/_types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
@@ -28,6 +28,10 @@ interface ColumnSelector {
 	initHeaders: string[];
 	putHeaderSettings: (data: PutHeaderSettings) => void;
 	resetHeaderSettings: (data: string) => void;
+	getCustomers: (data: Page) => void;
+	sort: number[];
+	setSort: (data: number[]) => void;
+	setSortOrder: (data: number[]) => void;
 }
 
 export const CustomerColumnSelector = ({
@@ -37,6 +41,8 @@ export const CustomerColumnSelector = ({
 	putHeaderSettings,
 	setColumns,
 	resetHeaderSettings,
+	getCustomers,
+	sort,
 }: ColumnSelector) => {
 	const { t } = useTranslation();
 	const dispatch = useDispatch();
@@ -181,6 +187,10 @@ export const CustomerColumnSelector = ({
 					})}
 					resetHeaderSettings={resetHeaderSettings}
 					type={FilterType.Customer}
+					getEntities={getCustomers}
+					setSort={setSort}
+					setSortOrder={setSortOrder}
+					sort={sort}
 				/>
 			</ContentInline>
 		</ContentSpaceBetweenWithPadding>

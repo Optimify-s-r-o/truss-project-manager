@@ -20,6 +20,7 @@ function* getCustomersActionSaga(
 	action: ReturnType<typeof getCustomers.request>
 ): Generator {
 	try {
+		console.log(action.payload);
 		// @ts-ignore
 		const { errorResponseData, response, success, statusText } = yield call(
 			fetchSaga,

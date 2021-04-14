@@ -35,6 +35,7 @@ export const HeaderSettingsReducer = (
 				sort: action.payload,
 			};
 		case getType(setSortOrder):
+			console.log("yes");
 			return {
 				...state,
 				sortOrder: action.payload,

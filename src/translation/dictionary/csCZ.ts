@@ -5,6 +5,7 @@ const dictionary: Lang = {
 		setDefault: "Nastavit výchozí",
 		headersEmpty:
 			'Nejsou vybráné sloupce k zobrazení. Stiskněte tlačítko "Nastavit výchozí", nebo sloupce vyberte ručně',
+		removeSort: "Zrušit řazení",
 	},
 	customer: {
 		placeholder: "Hledat zákazníka",

@@ -5,9 +5,8 @@ import { FilterContentType, FilterProxy } from '../../../SidebarFilter/_types';
 import { FilterType, PutHeaderSettings } from '../../_types';
 import { getPath, translationPath } from '../../../../../utils/getPath';
 import { lang } from '../../../../../translation/i18n';
+import { Page, TreeType } from '../../../../../types/_types';
 import { RootStateType } from '../../../../../reducers/index';
-import { setSort, setSortOrder } from '../../_action';
-import { TreeType } from '../../../../../types/_types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
@@ -23,6 +22,10 @@ interface ColumnSelector {
 	initHeaders: string[];
 	putHeaderSettings: (data: PutHeaderSettings) => void;
 	resetHeaderSettings: (data: string) => void;
+	sort: number[];
+	setSort: (data: number[]) => void;
+	setSortOrder: (data: number[]) => void;
+	getProjects: (data: Page) => void;
 }
 
 export const ProjectColumnSelector = ({
@@ -32,6 +35,10 @@ export const ProjectColumnSelector = ({
 	putHeaderSettings,
 	setColumns,
 	resetHeaderSettings,
+	getProjects,
+	setSortOrder,
+	setSort,
+	sort,
 }: ColumnSelector) => {
 	const { t } = useTranslation();
 	const dispatch = useDispatch();
@@ -175,6 +182,10 @@ export const ProjectColumnSelector = ({
 					})}
 					resetHeaderSettings={resetHeaderSettings}
 					type={FilterType.Project}
+					getEntities={getProjects}
+					setSort={setSort}
+					setSortOrder={setSortOrder}
+					sort={sort}
 				/>
 			</ContentInline>
 		</ContentSpaceBetweenWithPadding>
