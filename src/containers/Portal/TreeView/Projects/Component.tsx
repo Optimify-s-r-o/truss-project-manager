@@ -335,9 +335,9 @@ const Index = (
 										t(translationPath(lang.priceLists.width)),
 										t(translationPath(lang.common.length)),
 										t(translationPath(lang.common.thickness)),
-										t(translationPath(lang.common.countPerTruss)),
+										t(translationPath(lang.common.count)),
 									]}
-									sortable={[true, true]}
+									sortable={[true, true, true, true, true, true]}
 									data={
 										get(props.jobs, getPath(JobsProxy.Plates)) &&
 										get(props.jobs, getPath(JobsProxy.Plates))?.map(
@@ -348,7 +348,7 @@ const Index = (
 													value.Width,
 													value.Length,
 													value.Thickness,
-													value.CountSum,
+													value.Count,
 													value,
 												];
 											}

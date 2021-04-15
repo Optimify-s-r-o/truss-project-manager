@@ -334,7 +334,7 @@ const Index = (
 										t(translationPath(lang.priceLists.width)),
 										t(translationPath(lang.common.length)),
 										t(translationPath(lang.common.thickness)),
-										t(translationPath(lang.common.countPerTruss)),
+										t(translationPath(lang.common.count)),
 									]}
 									sortable={[true, true, true, true, true, true]}
 									data={
@@ -347,7 +347,7 @@ const Index = (
 													value.Width,
 													value.Length,
 													value.Thickness,
-													value.CountSum,
+													value.Count,
 													value,
 												];
 											}
