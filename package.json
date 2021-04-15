@@ -1,6 +1,6 @@
 {
   "name": "truss-project-manager",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "productName": "Truss Project Manager",
   "description": "Truss Project Manager",
   "main": "public/electron.js",

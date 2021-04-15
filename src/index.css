@@ -18986,9 +18986,6 @@ textarea.ant-input-number {
 .ant-input-number-borderless {
   box-shadow: none;
 }
-.ant-input-number-out-of-range input {
-  color: black;
-}
 .ant-input-number-rtl {
   direction: rtl;
 }

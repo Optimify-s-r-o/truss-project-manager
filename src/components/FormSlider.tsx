@@ -122,7 +122,11 @@ const Index = (props: OwnProps & WithTranslation) => {
 
 export default withTranslation()(React.memo(Index));
 
-export const Input = styled(InputNumber)``;
+export const Input = styled(InputNumber)`
+	background-color: ${(props) => props.theme.colors.background.content};
+	color: ${(props) => props.theme.colors.contentText};
+`;
+
 export const FilterTitle = styled.div`
 	color: ${(props) => props.theme.colors.primary.active};
 	font-weight: 400;
