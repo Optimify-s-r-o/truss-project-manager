@@ -500,11 +500,10 @@ export interface JobsGeneral {
 	WindLoad: number;
 }
 
-export interface JobRootObject {
+export interface JobRootObject extends JobsGeneral {
 	Name: string[];
 	Plates: Plate[];
 	Planks: Plank[];
-	General: JobsGeneral;
 }
 
 export const JobsProxy = createProxy<JobRootObject>();

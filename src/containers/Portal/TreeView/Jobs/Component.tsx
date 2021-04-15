@@ -108,7 +108,7 @@ const Index = (
 							<Data
 								title={t(translationPath(lang.common.totalPlatesWeight))}
 								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.PlatesWeight)),
+									get(props.jobs, getPath(JobsProxy.PlatesWeight)),
 									2
 								)}
 								unit={UnitType.KG}
@@ -116,10 +116,7 @@ const Index = (
 							<Data
 								title={t(translationPath(lang.common.averagePlatesWeight))}
 								data={fixed(
-									get(
-										props.jobs,
-										getPath(JobsProxy.General.AveragePlatesWeight)
-									),
+									get(props.jobs, getPath(JobsProxy.AveragePlatesWeight)),
 									2
 								)}
 								unit={UnitType.KG}
@@ -127,7 +124,7 @@ const Index = (
 							<Data
 								title={t(translationPath(lang.common.totalPlanksVolume))}
 								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.PlanksVolume)),
+									get(props.jobs, getPath(JobsProxy.PlanksVolume)),
 									4
 								)}
 								unit={UnitType.M3}
@@ -135,10 +132,7 @@ const Index = (
 							<Data
 								title={t(translationPath(lang.common.averagePlanksVolume))}
 								data={fixed(
-									get(
-										props.jobs,
-										getPath(JobsProxy.General.AveragePlanksVolume)
-									),
+									get(props.jobs, getPath(JobsProxy.AveragePlanksVolume)),
 									4
 								)}
 								unit={UnitType.M3}
@@ -146,16 +140,13 @@ const Index = (
 
 							<Data
 								title={t(translationPath(lang.common.priceTotal))}
-								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.Price)),
-									2
-								)}
+								data={fixed(get(props.jobs, getPath(JobsProxy.Price)), 2)}
 								unit={UnitType.KC}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averagePrice))}
 								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.AveragePrice)),
+									get(props.jobs, getPath(JobsProxy.AveragePrice)),
 									2
 								)}
 								unit={UnitType.KC}
@@ -171,10 +162,7 @@ const Index = (
 							<Data
 								title={t(translationPath(lang.common.averagePlateWeightOnArea))}
 								data={fixed(
-									get(
-										props.jobs,
-										getPath(JobsProxy.General.PlatesWeightOnArea)
-									),
+									get(props.jobs, getPath(JobsProxy.PlatesWeightOnArea)),
 									2
 								)}
 								unit={UnitType.KGM2}
@@ -186,7 +174,7 @@ const Index = (
 								data={fixed(
 									get(
 										props.jobs,
-										getPath(JobsProxy.General.PlatesWeightOnPlanksVolume)
+										getPath(JobsProxy.PlatesWeightOnPlanksVolume)
 									),
 									2
 								)}
@@ -195,17 +183,14 @@ const Index = (
 							<Data
 								title={t(translationPath(lang.common.averagePriceOnPlanks))}
 								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.PriceOnPlanks)),
+									get(props.jobs, getPath(JobsProxy.PriceOnPlanks)),
 									2
 								)}
 								unit={UnitType.KCM3}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averagePriceOnArea))}
-								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.PriceOnArea)),
-									2
-								)}
+								data={fixed(get(props.jobs, getPath(JobsProxy.PriceOnArea)), 2)}
 								unit={UnitType.KCM2}
 							/>
 						</ContentCard>
@@ -217,72 +202,51 @@ const Index = (
 							<Header2>{t(translationPath(lang.common.geometry))}</Header2>
 							<Data
 								title={t(translationPath(lang.common.totalRoofingArea))}
-								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.RoofingArea)),
-									2
-								)}
+								data={fixed(get(props.jobs, getPath(JobsProxy.RoofingArea)), 2)}
 								unit={UnitType.M2}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averageRoofingArea))}
 								data={fixed(
-									get(
-										props.jobs,
-										getPath(JobsProxy.General.AverageRoofingArea)
-									),
+									get(props.jobs, getPath(JobsProxy.AverageRoofingArea)),
 									2
 								)}
 								unit={UnitType.M2}
 							/>
 							<Data
 								title={t(translationPath(lang.common.totalCeilingArea))}
-								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.CeilingArea)),
-									2
-								)}
+								data={fixed(get(props.jobs, getPath(JobsProxy.CeilingArea)), 2)}
 								unit={UnitType.M2}
 							/>
 							<Data
 								title={t(translationPath(lang.common.totalCeilingArea))}
 								data={fixed(
-									get(
-										props.jobs,
-										getPath(JobsProxy.General.AverageCeilingArea)
-									),
+									get(props.jobs, getPath(JobsProxy.AverageCeilingArea)),
 									2
 								)}
 								unit={UnitType.M2}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averagePitch))}
-								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.Pitch)),
-									0
-								)}
+								data={fixed(get(props.jobs, getPath(JobsProxy.Pitch)), 0)}
 								unit={UnitType.EMPTY}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averageCentres))}
-								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.Centres)),
-									0
-								)}
+								data={fixed(get(props.jobs, getPath(JobsProxy.Centres)), 0)}
 								unit={UnitType.MM}
 							/>
 							<Data
 								title={t(translationPath(lang.common.totalTrussTypesCountSum))}
 								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.TrussTypesCount)),
+									get(props.jobs, getPath(JobsProxy.TrussTypesCount)),
 									0
 								)}
 								unit={UnitType.EMPTY}
 							/>
 							<Data
 								title={t(translationPath(lang.common.totalTrussCountSum))}
-								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.TrussCount)),
-									0
-								)}
+								data={fixed(get(props.jobs, getPath(JobsProxy.TrussCount)), 0)}
 								unit={UnitType.EMPTY}
 							/>
 						</ContentCard>
@@ -292,42 +256,27 @@ const Index = (
 							<Header2>{t(translationPath(lang.common.load))}</Header2>
 							<Data
 								title={t(translationPath(lang.common.averageRoofingLoad))}
-								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.RoofingLoad)),
-									2
-								)}
+								data={fixed(get(props.jobs, getPath(JobsProxy.RoofingLoad)), 2)}
 								unit={UnitType.KNM2}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averageCeilingLoad))}
-								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.CeilingLoad)),
-									2
-								)}
+								data={fixed(get(props.jobs, getPath(JobsProxy.CeilingLoad)), 2)}
 								unit={UnitType.KNM2}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averageSnowLoad))}
-								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.SnowLoad)),
-									2
-								)}
+								data={fixed(get(props.jobs, getPath(JobsProxy.SnowLoad)), 2)}
 								unit={UnitType.KNM2}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averageWindLoad))}
-								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.WindLoad)),
-									2
-								)}
+								data={fixed(get(props.jobs, getPath(JobsProxy.WindLoad)), 2)}
 								unit={UnitType.KNM2}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averageUsefulInTheAttic))}
-								data={fixed(
-									get(props.jobs, getPath(JobsProxy.General.CeilingLoad)),
-									2
-								)}
+								data={fixed(get(props.jobs, getPath(JobsProxy.CeilingLoad)), 2)}
 								unit={UnitType.KNM2}
 							/>
 						</ContentCard>
