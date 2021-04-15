@@ -121,9 +121,13 @@ export const Sidebar = ({
 						connect.invoke(Hub.RequestTree);
 					});
 					connect.on(Hub.TreeLost, () => {
-						if (activeTree) {
-							connect.invoke(Hub.RequestNewTree, activeTree, 0, 25, "");
-						}
+						connect.invoke(
+							Hub.RequestNewTree,
+							activeTree ? activeTree : "Project",
+							0,
+							25,
+							""
+						);
 					});
 					connect.on(Hub.TreeSelection, (treeSelection, selectedEntityId) => {
 						if (treeSelection && selectedEntityId) {
