@@ -1,9 +1,9 @@
 import * as React from 'react';
 import FormikBox from './Optimify/Form/FormikCheckbox';
 import styled from 'styled-components';
-import { fixed } from '../utils/formating';
+import { fixed } from 'src/utils/formating';
 import { getStep } from '../containers/Portal/Lists/_services';
-import { Slider } from 'antd';
+import { InputNumber, Slider } from 'antd';
 import { WithTranslation, withTranslation } from '../translation/i18n';
 import {
 	FilterContentSection,
@@ -40,9 +40,26 @@ const Index = (props: OwnProps & WithTranslation) => {
 	} = props;
 
 	const rangeChange = (name: any) => (value: [number, number]) => {
+		console.log(value);
 		setFieldValue(name, {
 			From: value && value[0],
 			To: value && value[1],
+			Active: true,
+		});
+	};
+
+	const rangeChangeFrom = (name: any) => (value: number) => {
+		setFieldValue(name, {
+			From: value < settingsFrom ? settingsFrom : value,
+			To: to,
+			Active: true,
+		});
+	};
+
+	const rangeChangeTo = (name: any) => (value: number) => {
+		setFieldValue(name, {
+			From: from,
+			To: value > settingsTo ? settingsTo : value,
 			Active: true,
 		});
 	};
@@ -63,7 +80,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 						<SSlider
 							trackStyle={[{ backgroundColor: defaultColor }]}
 							handleStyle={{ borderColor: defaultColor }}
-							range
+							range={{ draggableTrack: true }}
 							defaultValue={[settingsFrom, settingsTo]}
 							value={[from, to]}
 							onChange={rangeChange(name)}
@@ -73,8 +90,26 @@ const Index = (props: OwnProps & WithTranslation) => {
 						/>
 
 						<SpaceBetweenFullWidth>
-							<span>{fixed(from, round ? round : round === 0 ? 0 : 2)}</span>
-							<span>{fixed(to, round ? round : round === 0 ? 0 : 2)}</span>
+							<span>
+								<Input
+									min={settingsFrom}
+									max={settingsTo}
+									style={{ width: 100 }}
+									value={fixed(from, round ? round : round === 0 ? 0 : 2)}
+									onChange={rangeChangeFrom(name)}
+									step={step ? step : getStep(settingsFrom, settingsTo)}
+								/>
+							</span>
+							<span>
+								<Input
+									min={settingsFrom}
+									max={settingsTo}
+									style={{ width: 100 }}
+									value={fixed(to, round ? round : round === 0 ? 0 : 2)}
+									onChange={rangeChangeTo(name)}
+									step={step ? step : getStep(settingsFrom, settingsTo)}
+								/>
+							</span>
 						</SpaceBetweenFullWidth>
 					</>
 				</FilterContentSection>
@@ -87,6 +122,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 
 export default withTranslation()(React.memo(Index));
 
+export const Input = styled(InputNumber)``;
 export const FilterTitle = styled.div`
 	color: ${(props) => props.theme.colors.primary.active};
 	font-weight: 400;

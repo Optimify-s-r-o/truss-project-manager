@@ -93,7 +93,9 @@ const Index = ({
 		enableReinitialize: true,
 		validationSchema: Yup.object({}),
 		onSubmit: (values: JobType) => {
-			jobUpdate(values);
+			if (!equal(formik.values, job)) {
+				jobUpdate(values);
+			}
 		},
 	});
 	React.useEffect(() => {

@@ -154,15 +154,17 @@ const Index = ({
 		enableReinitialize: true,
 		validationSchema: Yup.object({}),
 		onSubmit: (values: Project) => {
-			updateProject({
-				...values,
-				ConstructionDate: moment(formik.values.ConstructionDate).isValid()
-					? moment(formik.values.ConstructionDate).format()
-					: null,
-				QuotationDate: moment(formik.values.QuotationDate).isValid()
-					? moment(formik.values.QuotationDate).format()
-					: null,
-			});
+			if (!equal(formik.values, project)) {
+				updateProject({
+					...values,
+					ConstructionDate: moment(formik.values.ConstructionDate).isValid()
+						? moment(formik.values.ConstructionDate).format()
+						: null,
+					QuotationDate: moment(formik.values.QuotationDate).isValid()
+						? moment(formik.values.QuotationDate).format()
+						: null,
+				});
+			}
 		},
 	});
 

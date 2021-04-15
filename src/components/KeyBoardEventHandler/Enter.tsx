@@ -1,5 +1,5 @@
-import { FormikProps } from "formik";
-import { useEffect } from "react";
+import { FormikProps } from 'formik';
+import { useEffect } from 'react';
 interface KeyboardHandler {
 	children: React.ReactNode;
 	formik: FormikProps<any>;
@@ -12,7 +12,12 @@ export const Enter = ({ children, formik }: KeyboardHandler) => {
 		function submit(ev) {
 			var key = ev.which || ev.keyCode;
 
-			if (key === 13 || (key === 83 && previousKey === 17)) {
+			if (
+				key === 13 ||
+				(key === 83 &&
+					previousKey === 17 &&
+					!document.activeElement.className.includes("ant-input-number-input"))
+			) {
 				formik && formik.submitForm();
 			}
 			previousKey = key;

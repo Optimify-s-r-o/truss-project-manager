@@ -80,13 +80,5 @@ export const getTreeType = (
 
 export const getStep = (from: number, to: number): number => {
 	const count = from + to;
-	if (count < 10) {
-		return 0.01;
-	} else if (count < 40) {
-		return 0.01;
-	} else if (count < 100) {
-		return 0.1;
-	} else if (count > 100) {
-		return 1;
-	}
+	return 0.01;
 };
