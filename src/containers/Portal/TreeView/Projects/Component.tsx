@@ -1,8 +1,10 @@
 import * as React from 'react';
+import Data from '../../../../components/Data/Data';
 import Export from '../../../../components/Export';
 import Loading from '../../../../components/Optimify/Loading';
 import { ApiURL } from '../../../../constants/api';
 import { faHomeLgAlt } from '@fortawesome/pro-light-svg-icons';
+import { fixed } from '../../../../utils/formating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { get } from 'lodash';
 import { getSelectedProjects } from './_actions';
@@ -18,6 +20,7 @@ import {
 import { RouteComponentProps, useParams } from 'react-router-dom';
 import { SelectedProjectsRequest } from './_types';
 import { TableTitle } from '../../_styles';
+import { UnitType } from '../../../../components/Data/Unit';
 import { useEffect } from 'react';
 import {
 	ScrollableTable,
@@ -29,6 +32,7 @@ import {
 	ContentSpaceBetween,
 	GridItem,
 	GridRow,
+	Header2,
 	Main,
 	PageHeader,
 	PageTitle,
@@ -99,6 +103,189 @@ const Index = (
 				<GridRow columns={2}>
 					<GridItem>
 						<ContentCard>
+							<Header2>
+								{t(translationPath(lang.common.generalInformation))}
+							</Header2>
+							<Data
+								title={t(translationPath(lang.common.totalPlatesWeight))}
+								data={fixed(
+									get(props.jobs, getPath(JobsProxy.PlatesWeight)),
+									2
+								)}
+								unit={UnitType.KG}
+							/>
+							<Data
+								title={t(translationPath(lang.common.averagePlatesWeight))}
+								data={fixed(
+									get(props.jobs, getPath(JobsProxy.AveragePlatesWeight)),
+									2
+								)}
+								unit={UnitType.KG}
+							/>
+							<Data
+								title={t(translationPath(lang.common.totalPlanksVolume))}
+								data={fixed(
+									get(props.jobs, getPath(JobsProxy.PlanksVolume)),
+									4
+								)}
+								unit={UnitType.M3}
+							/>
+							<Data
+								title={t(translationPath(lang.common.averagePlanksVolume))}
+								data={fixed(
+									get(props.jobs, getPath(JobsProxy.AveragePlanksVolume)),
+									4
+								)}
+								unit={UnitType.M3}
+							/>
+
+							<Data
+								title={t(translationPath(lang.common.priceTotal))}
+								data={fixed(get(props.jobs, getPath(JobsProxy.Price)), 2)}
+								unit={UnitType.KC}
+							/>
+							<Data
+								title={t(translationPath(lang.common.averagePrice))}
+								data={fixed(
+									get(props.jobs, getPath(JobsProxy.AveragePrice)),
+									2
+								)}
+								unit={UnitType.KC}
+							/>
+						</ContentCard>
+					</GridItem>
+
+					<GridItem>
+						<ContentCard>
+							<Header2>
+								{t(translationPath(lang.common.controlInformation))}
+							</Header2>
+							<Data
+								title={t(translationPath(lang.common.averagePlateWeightOnArea))}
+								data={fixed(
+									get(props.jobs, getPath(JobsProxy.PlatesWeightOnArea)),
+									2
+								)}
+								unit={UnitType.KGM2}
+							/>
+							<Data
+								title={t(
+									translationPath(lang.common.averagePlatesWeighOnPlanksVolume)
+								)}
+								data={fixed(
+									get(
+										props.jobs,
+										getPath(JobsProxy.PlatesWeightOnPlanksVolume)
+									),
+									2
+								)}
+								unit={UnitType.KGM2}
+							/>
+							<Data
+								title={t(translationPath(lang.common.averagePriceOnPlanks))}
+								data={fixed(
+									get(props.jobs, getPath(JobsProxy.PriceOnPlanks)),
+									2
+								)}
+								unit={UnitType.KCM3}
+							/>
+							<Data
+								title={t(translationPath(lang.common.averagePriceOnArea))}
+								data={fixed(get(props.jobs, getPath(JobsProxy.PriceOnArea)), 2)}
+								unit={UnitType.KCM2}
+							/>
+						</ContentCard>
+					</GridItem>
+				</GridRow>
+				<GridRow columns={2}>
+					<GridItem>
+						<ContentCard>
+							<Header2>{t(translationPath(lang.common.geometry))}</Header2>
+							<Data
+								title={t(translationPath(lang.common.totalRoofingArea))}
+								data={fixed(get(props.jobs, getPath(JobsProxy.RoofingArea)), 2)}
+								unit={UnitType.M2}
+							/>
+							<Data
+								title={t(translationPath(lang.common.averageRoofingArea))}
+								data={fixed(
+									get(props.jobs, getPath(JobsProxy.AverageRoofingArea)),
+									2
+								)}
+								unit={UnitType.M2}
+							/>
+							<Data
+								title={t(translationPath(lang.common.totalCeilingArea))}
+								data={fixed(get(props.jobs, getPath(JobsProxy.CeilingArea)), 2)}
+								unit={UnitType.M2}
+							/>
+							<Data
+								title={t(translationPath(lang.common.totalCeilingArea))}
+								data={fixed(
+									get(props.jobs, getPath(JobsProxy.AverageCeilingArea)),
+									2
+								)}
+								unit={UnitType.M2}
+							/>
+							<Data
+								title={t(translationPath(lang.common.averagePitch))}
+								data={fixed(get(props.jobs, getPath(JobsProxy.Pitch)), 0)}
+								unit={UnitType.EMPTY}
+							/>
+							<Data
+								title={t(translationPath(lang.common.averageCentres))}
+								data={fixed(get(props.jobs, getPath(JobsProxy.Centres)), 0)}
+								unit={UnitType.MM}
+							/>
+							<Data
+								title={t(translationPath(lang.common.totalTrussTypesCountSum))}
+								data={fixed(
+									get(props.jobs, getPath(JobsProxy.TrussTypesCount)),
+									0
+								)}
+								unit={UnitType.EMPTY}
+							/>
+							<Data
+								title={t(translationPath(lang.common.totalTrussCountSum))}
+								data={fixed(get(props.jobs, getPath(JobsProxy.TrussCount)), 0)}
+								unit={UnitType.EMPTY}
+							/>
+						</ContentCard>
+					</GridItem>
+					<GridItem>
+						<ContentCard>
+							<Header2>{t(translationPath(lang.common.load))}</Header2>
+							<Data
+								title={t(translationPath(lang.common.averageRoofingLoad))}
+								data={fixed(get(props.jobs, getPath(JobsProxy.RoofingLoad)), 2)}
+								unit={UnitType.KNM2}
+							/>
+							<Data
+								title={t(translationPath(lang.common.averageCeilingLoad))}
+								data={fixed(get(props.jobs, getPath(JobsProxy.CeilingLoad)), 2)}
+								unit={UnitType.KNM2}
+							/>
+							<Data
+								title={t(translationPath(lang.common.averageSnowLoad))}
+								data={fixed(get(props.jobs, getPath(JobsProxy.SnowLoad)), 2)}
+								unit={UnitType.KNM2}
+							/>
+							<Data
+								title={t(translationPath(lang.common.averageWindLoad))}
+								data={fixed(get(props.jobs, getPath(JobsProxy.WindLoad)), 2)}
+								unit={UnitType.KNM2}
+							/>
+							<Data
+								title={t(translationPath(lang.common.averageUsefulInTheAttic))}
+								data={fixed(get(props.jobs, getPath(JobsProxy.CeilingLoad)), 2)}
+								unit={UnitType.KNM2}
+							/>
+						</ContentCard>
+					</GridItem>
+				</GridRow>
+				<GridRow columns={2}>
+					<GridItem>
+						<ContentCard>
 							<ContentSpaceBetween>
 								<TableTitle>
 									{t(translationPath(lang.common.nailPlates))}
@@ -143,8 +330,12 @@ const Index = (
 									style={TABLE_STYLE_CONDENSED}
 									height={200}
 									headers={[
+										t(translationPath(lang.common.type)),
 										t(translationPath(lang.common.name)),
-										t(translationPath(lang.common.count)),
+										t(translationPath(lang.priceLists.width)),
+										t(translationPath(lang.common.length)),
+										t(translationPath(lang.common.thickness)),
+										t(translationPath(lang.common.countPerTruss)),
 									]}
 									sortable={[true, true]}
 									data={
