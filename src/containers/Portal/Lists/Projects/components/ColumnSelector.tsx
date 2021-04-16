@@ -95,13 +95,15 @@ export const ProjectColumnSelector = ({
 			name: "AssignedUser",
 			title: t(translationPath(lang.common.user).path),
 			section: "General",
-			filter: null,
+			filter: getPath(FilterProxy.Projects.UserFilter.Name),
+			filterType: FilterContentType.TEXT,
 		},
 		{
 			name: "Location",
 			title: t(translationPath(lang.common.address).path),
 			section: "General",
-			filter: null,
+			filter: getPath(FilterProxy.Projects.AddressFilter.Location),
+			filterType: FilterContentType.TEXT,
 		},
 		{
 			name: "State",

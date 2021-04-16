@@ -1,7 +1,7 @@
-import { get } from "lodash";
-import { FilterSettings, FilterSettingsProxy } from "../../../types/_types";
-import { getPath, lastPathMember } from "../../../utils/getPath";
-import { getObject } from "../../../utils/helpers";
+import { FilterSettings, FilterSettingsProxy } from '../../../types/_types';
+import { get } from 'lodash';
+import { getObject } from '../../../utils/helpers';
+import { getPath, lastPathMember } from '../../../utils/getPath';
 import {
 	CustomersFilter,
 	CustomersFilterProxy,
@@ -273,10 +273,6 @@ export const getJobsFilters = (
 				get(filter, getPath(FilterSettingsProxy.Job.CoveredAreaTo))
 			)
 		),
-		CeilingNameFilter: getFilter(activeFilterContent?.Jobs?.CeilingNameFilter, {
-			Name: null,
-			ExactMatch: false,
-		}),
 		CentresFilter: getFilter(
 			activeFilterContent?.Jobs?.CentresFilter,
 			getObject(
@@ -284,10 +280,6 @@ export const getJobsFilters = (
 				get(filter, getPath(FilterSettingsProxy.Truss.CentresTo))
 			)
 		),
-		RoofingNameFilter: getFilter(activeFilterContent?.Jobs?.RoofingNameFilter, {
-			Name: null,
-			ExactMatch: false,
-		}),
 		HipLengthFilter: getFilter(
 			activeFilterContent?.Jobs?.HipLengthFilter,
 			getObject(

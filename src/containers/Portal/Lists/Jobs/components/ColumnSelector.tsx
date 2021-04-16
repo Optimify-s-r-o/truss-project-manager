@@ -109,7 +109,7 @@ export const JobColumnSelector = ({
 			name: "Project",
 			title: t(translationPath(lang.common.projectName).path),
 			section: "General",
-			filter: getPath(FilterProxy.Projects.NameFilter),
+			filter: getPath(FilterProxy.Projects.NameFilter.Name),
 			filterType: FilterContentType.TEXT,
 		},
 
@@ -140,27 +140,38 @@ export const JobColumnSelector = ({
 			filterType: FilterContentType.RANGE,
 		},
 		{
+			name: "Centres",
+			title: t(translationPath(lang.common.centres).path),
+			section: "Load",
+			filter: getPath(FilterProxy.Jobs.CentresFilter),
+			filterType: FilterContentType.RANGE,
+		},
+		{
 			name: "SnowRegion",
 			title: t(translationPath(lang.common.snowArea).path),
 			section: "Load",
+			filter: getPath(FilterProxy.Jobs.SnowAreaFilter.SnowAreas),
 			filterType: FilterContentType.ARRAY,
 		},
 		{
 			name: "WindRegion",
 			title: t(translationPath(lang.common.windArea).path),
 			section: "Load",
+			filter: getPath(FilterProxy.Jobs.WindAreaFilter.WindAreas),
 			filterType: FilterContentType.ARRAY,
 		},
 		{
 			name: "SnowLoad",
 			title: t(translationPath(lang.common.snowLoad).path),
 			section: "Load",
+			filter: getPath(FilterProxy.Jobs.SnowFilter),
 			filterType: FilterContentType.RANGE,
 		},
 		{
 			name: "WindLoad",
 			title: t(translationPath(lang.common.windLoad).path),
 			section: "Load",
+			filter: getPath(FilterProxy.Jobs.WindFilter),
 			filterType: FilterContentType.RANGE,
 		},
 		{

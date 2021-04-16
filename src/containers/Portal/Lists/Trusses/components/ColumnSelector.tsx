@@ -124,7 +124,8 @@ export const TrussColumnSelector = ({
 			name: "Price",
 			title: t(translationPath(lang.common.price).path),
 			section: "Calculation",
-			filter: null,
+			filter: getPath(FilterProxy.Trusses.PriceFilter),
+			filterType: FilterContentType.RANGE,
 		},
 		{
 			name: "PlateWeight",
@@ -148,8 +149,7 @@ export const TrussColumnSelector = ({
 			name: "PriceSum",
 			title: t(translationPath(lang.common.totalPrice).path),
 			section: "Calculation",
-			filter: getPath(FilterProxy.Trusses.PriceFilter),
-			filterType: FilterContentType.RANGE,
+			filter: null,
 		},
 		{
 			name: "PriceOnArea",
@@ -189,13 +189,15 @@ export const TrussColumnSelector = ({
 			name: "SnowRegion",
 			title: t(translationPath(lang.common.snowRegion).path),
 			section: "Load",
-			filter: null,
+			filter: getPath(FilterProxy.Jobs.SnowAreaFilter.SnowAreas),
+			filterType: FilterContentType.ARRAY,
 		},
 		{
 			name: "WindRegion",
 			title: t(translationPath(lang.common.windRegion).path),
 			section: "Load",
-			filter: null,
+			filter: getPath(FilterProxy.Jobs.WindAreaFilter.WindAreas),
+			filterType: FilterContentType.ARRAY,
 		},
 		{
 			name: "RoofingName",

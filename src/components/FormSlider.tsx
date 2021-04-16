@@ -1,14 +1,14 @@
-import * as React from 'react';
-import FormikBox from './Optimify/Form/FormikCheckbox';
-import styled from 'styled-components';
-import { fixed } from 'src/utils/formating';
-import { getStep } from '../containers/Portal/Lists/_services';
-import { InputNumber, Slider } from 'antd';
-import { WithTranslation, withTranslation } from '../translation/i18n';
+import { InputNumber, Slider } from "antd";
+import * as React from "react";
+import { fixed } from "src/utils/formating";
+import styled from "styled-components";
 import {
 	FilterContentSection,
 	SpaceBetweenFullWidth,
 } from "../containers/Portal/Lists/components/_styles";
+import { getStep } from "../containers/Portal/Lists/_services";
+import { WithTranslation, withTranslation } from "../translation/i18n";
+import FormikBox from "./Optimify/Form/FormikCheckbox";
 
 export interface OwnProps {
 	values: any;
@@ -40,7 +40,6 @@ const Index = (props: OwnProps & WithTranslation) => {
 	} = props;
 
 	const rangeChange = (name: any) => (value: [number, number]) => {
-		console.log(value);
 		setFieldValue(name, {
 			From: value && value[0],
 			To: value && value[1],

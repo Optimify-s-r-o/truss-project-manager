@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { faBookUser } from '@fortawesome/pro-duotone-svg-icons';
-import { faTools } from '@fortawesome/pro-solid-svg-icons';
+import { faCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { lang } from '../../../../translation/i18n';
 import { SSpan, StatusWrapper } from '../_styles';
@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 import {
 	faArchive,
 	faBan,
-	faCheck,
 	faCog,
 	faIdCard,
 	faMoneyBillWave,
@@ -65,14 +64,12 @@ export enum Status {
 export const getStatusIcons = (nodeStatus: Status): React.ReactNode => {
 	let icons = [];
 	switch (nodeStatus) {
-		case Status.TrussNotCalculated:
-			icons.push(faTools);
-			break;
 		case Status.TrussFailed:
 			icons.push(faBan);
 			break;
 		case Status.TrussSucceeded:
-			icons.push(faCheck);
+		case Status.TrussNotCalculated:
+			icons.push(faCircle);
 			break;
 		case Status.JobQuotationInProgress:
 		case Status.JobQuotationFinished:

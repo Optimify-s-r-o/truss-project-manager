@@ -104,11 +104,11 @@ export type JobsFilter = {
 	AltitudeFilter: Slider;
 	SnowAreaFilter: SnowAreaFilter;
 	WindAreaFilter: WindAreaFilter;
-	CeilingNameFilter: InputFilter;
+	CeilingNameFilter?: InputFilter;
 	WindFilter: Slider;
 	SnowFilter: Slider;
 	CentresFilter: Slider;
-	RoofingNameFilter: InputFilter;
+	RoofingNameFilter?: InputFilter;
 	HipLengthFilter: Slider;
 	CoveredAreaFilter: Slider;
 	RidgeLengthFilter: Slider;

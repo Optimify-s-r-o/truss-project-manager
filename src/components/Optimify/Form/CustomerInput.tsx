@@ -138,7 +138,6 @@ export const CustomerInput = ({
 		customerInput.current.select();
 	};
 
-	console.log(currentCustomer);
 	return (
 		<DropDown ref={wrapperRef}>
 			<Row>
