@@ -92,7 +92,7 @@ export const CustomerTable = ({
 					</Action>
 				);
 			default:
-				if (!value[item?.name]) {
+				if (value[item?.name] === null || value[item?.name] === undefined) {
 					return "-";
 				}
 				return value[item?.name];

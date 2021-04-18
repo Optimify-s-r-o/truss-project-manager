@@ -51,10 +51,12 @@ export type ProjectRequest = Omit<Project, "Id"> & {
 	openTruss3D?: boolean;
 	openTruss2D?: boolean;
 	trussExe?: string;
+	callback: any;
 };
 
 export type createfromJson = Omit<Project, "Id"> & {
 	Json: any;
+	callback: any;
 };
 
 export interface ProjectResponse {

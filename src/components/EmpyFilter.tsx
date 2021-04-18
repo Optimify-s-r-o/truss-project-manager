@@ -36,7 +36,7 @@ export const EmptyFilter = (props: WithTranslation & OwnProps) => {
 				const from = it + "From";
 				const to = it + "To";
 				const filterType = filter[type];
-				if (filterType[from] != filterType[to]) {
+				if (filterType[from] !== null && filterType[to] !== null) {
 					hasValue = true;
 				}
 			}

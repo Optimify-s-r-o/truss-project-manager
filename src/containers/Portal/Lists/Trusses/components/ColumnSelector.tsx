@@ -238,6 +238,13 @@ export const TrussColumnSelector = ({
 			filterType: FilterContentType.RANGE,
 		},
 		{
+			name: "Weight",
+			title: t(translationPath(lang.common.trussWeight).path),
+			section: "Others",
+			filter: getPath(FilterProxy.Trusses.WeightFilter),
+			filterType: FilterContentType.RANGE,
+		},
+		{
 			name: "TransportWeight",
 			title: t(translationPath(lang.common.transportWeight).path),
 			section: "Others",

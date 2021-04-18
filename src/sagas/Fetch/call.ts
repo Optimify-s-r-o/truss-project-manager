@@ -1,5 +1,16 @@
 import { addJsonToProject } from '../../containers/Portal/TreeView/Project/General/File/_actions';
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { changeLocalPasswordAction, getUserByUsername } from '../../containers/Portal/Accounts/_actions';
+import { clearNotificationAction, notificationAction } from '../../components/Toast/_actions';
+import {
+	customerTree,
+	jobTree,
+	projectTree,
+	treeReset,
+	trussTree
+	} from '../../containers/Portal/TreeView/_actions';
+import { deleteFile } from '../../containers/Portal/TreeView/Project/General/_actions';
+import { deleteJob, selectedJob, unlockJob } from '../../containers/Portal/TreeView/Job/_actions';
 import { deleteProject } from '../../containers/Portal/Project/_actions';
 import { EnumBody } from '../../types/_types';
 import {
@@ -8,6 +19,21 @@ import {
 	FetchSagaReponseType,
 	WildCards
 	} from '../_sagas';
+import {
+	filterCustomers,
+	filterCustomersEvidence,
+	filterCustomersLegal,
+	filterCustomersPerson,
+	getCustomersEvidence,
+	getCustomersLegal,
+	getCustomersPerson
+	} from '../../containers/Portal/Lists/Customers/_actions';
+import {
+	getProjectFiles,
+	getProjectLogs,
+	getSelectedProject,
+	uploadProjectFile
+	} from '../../containers/Portal/TreeView/Project/_actions';
 import { getSelectedJobs } from '../../containers/Portal/TreeView/Jobs/_actions';
 import { getSelectedProjects } from '../../containers/Portal/TreeView/Projects/_actions';
 import { getType } from 'typesafe-actions';
@@ -19,45 +45,6 @@ import { quickSearch } from '../../containers/Portal/FastNavigation/_actions';
 import { settings, settingsFilter } from '../../containers/Portal/_actions';
 import { Status } from '../../components/Toast/_types';
 import { translationPath } from '../../utils/getPath';
-import {
-	clearNotificationAction,
-	notificationAction,
-} from "../../components/Toast/_actions";
-import {
-	changeLocalPasswordAction,
-	getUserByUsername,
-} from "../../containers/Portal/Accounts/_actions";
-import {
-	filterCustomers,
-	filterCustomersEvidence,
-	filterCustomersLegal,
-	filterCustomersPerson,
-	getCustomersEvidence,
-	getCustomersLegal,
-	getCustomersPerson,
-} from "../../containers/Portal/Lists/Customers/_actions";
-import {
-	deleteJob,
-	selectedJob,
-	unlockJob,
-} from "../../containers/Portal/TreeView/Job/_actions";
-import {
-	deleteFile,
-	duplicateJob,
-} from "../../containers/Portal/TreeView/Project/General/_actions";
-import {
-	getProjectFiles,
-	getProjectLogs,
-	getSelectedProject,
-	uploadProjectFile,
-} from "../../containers/Portal/TreeView/Project/_actions";
-import {
-	customerTree,
-	jobTree,
-	projectTree,
-	treeReset,
-	trussTree,
-} from "../../containers/Portal/TreeView/_actions";
 
 const setData = (
 	method: Method,
@@ -196,7 +183,6 @@ export function* watchSagaCall() {
 	yield takeEvery(getType(getSelectedProject.request), Call);
 	yield takeEvery(getType(getSelectedProjects.request), Call);
 	yield takeEvery(getType(selectedJob.request), Call);
-	yield takeEvery(getType(duplicateJob.request), Call);
 	yield takeEvery(getType(addJsonToProject.request), Call);
 	yield takeEvery(getType(deleteProject.request), Call);
 	yield takeEvery(getType(jobTree.request), Call);

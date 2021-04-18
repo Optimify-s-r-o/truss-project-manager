@@ -38,6 +38,8 @@ const Index = (props: OwnProps & WithTranslation) => {
 				lastPathMember(JobsFilterProxy.CentresFilter).path,
 				lastPathMember(JobsFilterProxy.WindFilter).path,
 				lastPathMember(JobsFilterProxy.SnowFilter).path,
+				lastPathMember(JobsFilterProxy.RoofingLoadFilter).path,
+				lastPathMember(JobsFilterProxy.CeilingLoadFilter).path,
 			]}
 			checkboxes={[
 				getPath(FilterSettingsProxy.Job.WindAreas),
@@ -61,12 +63,27 @@ const Index = (props: OwnProps & WithTranslation) => {
 					from: getPath(FilterSettingsProxy.Job.SnowFrom),
 					to: getPath(FilterSettingsProxy.Job.SnowTo),
 				},
+				{
+					from: getPath(FilterSettingsProxy.Job.RoofingLoadFrom),
+					to: getPath(FilterSettingsProxy.Job.RoofingLoadTo),
+				},
+				{
+					from: getPath(FilterSettingsProxy.Job.CeilingLoadFrom),
+					to: getPath(FilterSettingsProxy.Job.CeilingLoadTo),
+				},
 			]}
 		>
 			<EmptyFilter
 				filter={filter}
 				type="Job"
-				names={["Altitude", "Centres", "Snow", "Wind"]}
+				names={[
+					"Altitude",
+					"Centres",
+					"Snow",
+					"Wind",
+					"RoofingLoad",
+					"CeilingLoad",
+				]}
 				array={["WindAreas", "SnowAreas"]}
 			>
 				<FormSlider
@@ -134,6 +151,26 @@ const Index = (props: OwnProps & WithTranslation) => {
 					to={values?.WindFilter?.To}
 					settingsFrom={filter?.Job?.WindFrom}
 					settingsTo={filter?.Job?.WindTo}
+				/>
+				<FormSlider
+					label={t(translationPath(lang.common.roofingLoad))}
+					name={getPath(JobsFilterProxy.RoofingLoadFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					from={values?.RoofingLoadFilter?.From}
+					to={values?.RoofingLoadFilter?.To}
+					settingsFrom={filter?.Job?.RoofingLoadFrom}
+					settingsTo={filter?.Job?.RoofingLoadTo}
+				/>
+				<FormSlider
+					label={t(translationPath(lang.common.ceilingLoad))}
+					name={getPath(JobsFilterProxy.CeilingLoadFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					from={values?.CeilingLoadFilter?.From}
+					to={values?.CeilingLoadFilter?.To}
+					settingsFrom={filter?.Job?.CeilingLoadFrom}
+					settingsTo={filter?.Job?.CeilingLoadTo}
 				/>
 			</EmptyFilter>
 		</FilterSection>

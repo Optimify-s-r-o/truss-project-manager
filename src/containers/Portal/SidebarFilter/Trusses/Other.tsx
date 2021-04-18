@@ -82,7 +82,7 @@ const Index = ({
 				]}
 			>
 				<FormSlider
-					label={t(translationPath(lang.common.weight))}
+					label={t(translationPath(lang.common.trussWeight))}
 					name={getPath(TrussesFilterProxy.WeightFilter)}
 					setFieldValue={setFieldValue}
 					values={values}

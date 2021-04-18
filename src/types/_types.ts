@@ -311,6 +311,10 @@ export interface JobFilter {
 	RidgeLengthTo: number;
 	HipLengthTo: number;
 	HipLengthFrom: number;
+	CeilingLoadFrom: number;
+	CeilingLoadTo: number;
+	RoofingLoadFrom: number;
+	RoofingLoadTo: number;
 	JobTypes: string[];
 	States: string[];
 }

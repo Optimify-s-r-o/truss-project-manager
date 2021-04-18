@@ -107,6 +107,8 @@ export type JobsFilter = {
 	CeilingNameFilter?: InputFilter;
 	WindFilter: Slider;
 	SnowFilter: Slider;
+	CeilingLoadFilter: Slider;
+	RoofingLoadFilter: Slider;
 	CentresFilter: Slider;
 	RoofingNameFilter?: InputFilter;
 	HipLengthFilter: Slider;

@@ -1078,6 +1078,7 @@ const dictionary: Lang = {
 			"Das durchschnittliche Holzvolumen pro Grundrissfläche",
 		wallplateLength: "Länge des Mauerwerks",
 		weight: "Brettgewicht",
+		trussWeight: "Fachwerkgewicht",
 		weightOfBucklesPerPlanArea: "Gewicht der Bretter pro Grundrissfläche",
 		weightOfBucklesPerVolumeOfWood: "Gewicht der Bretter pro Holzvolumen",
 		width: "Aufklärung",

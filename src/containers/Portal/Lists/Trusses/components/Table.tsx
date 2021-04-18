@@ -123,7 +123,10 @@ export const TrussTable = ({
 			default:
 				if (value[item?.name] && typeof value[item?.name] == "number") {
 					return fixed(value[item?.name], 2);
-				} else if (!value[item?.name]) {
+				} else if (
+					value[item?.name] === null ||
+					value[item?.name] === undefined
+				) {
 					return "-";
 				}
 				return value[item?.name];

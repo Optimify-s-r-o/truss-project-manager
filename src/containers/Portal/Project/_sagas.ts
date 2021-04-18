@@ -1,34 +1,36 @@
 import { ApiURL } from '../../../constants/api';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { clearNotificationAction } from '../../../components/Toast/_actions';
 import { createProject, createProjectWithJson } from './_actions';
-import { createTruss, OpenTrussOption } from '../../../sagas/Truss/_actions';
+import { createTruss } from '../../../sagas/Truss/_actions';
 import { Error, fetchSaga, FetchSagaReponseType } from '../../../sagas/_sagas';
 import { getFiltersSettings } from '../../../sagas/Fetch/actions';
 import { getType } from 'typesafe-actions';
 import { lang, t } from '../../../translation/i18n';
 import { makeFormData } from '../../../utils/makeFormData';
-import { notificationAction } from '../../../components/Toast/_actions';
-import { projectTree } from '../TreeView/_actions';
 import { push } from 'connected-react-router';
 import { Routes } from '../../../constants/routes';
-import { select } from 'redux-saga/effects';
 import { settingsFilter } from '../_actions';
 import { Status } from '../../../components/Toast/_types';
 import { translationPath } from '../../../utils/getPath';
-import { TreeType, TrussExe } from '../../../types/_types';
+import { TrussExe } from '../../../types/_types';
+import {
+	clearNotificationAction,
+	notificationAction,
+} from "../../../components/Toast/_actions";
 
 function* projectSaveSaga(
 	action: ReturnType<typeof createProject.request>
 ): Generator {
 	try {
+		const project = action.payload;
+		delete project.callback;
 		// @ts-ignore
 		const { errorResponseData, response, success, statusText } = yield call(
 			fetchSaga,
 			ApiURL.PROJECTS,
 			"POST",
 			{
-				bodyFormData: makeFormData(action.payload),
+				bodyFormData: makeFormData(project),
 			}
 		);
 		if (!success) {

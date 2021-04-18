@@ -209,6 +209,18 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				show={values?.Jobs?.PricePerSquareMeterFilter?.Active}
 				type={TreeType.JOB}
 			/>
+			<SliderRange
+				title={t(translationPath(lang.common.altitude).path)}
+				value={values?.Jobs?.AltitudeFilter}
+				show={values?.Jobs?.AltitudeFilter?.Active}
+				type={TreeType.JOB}
+			/>
+			<SliderRange
+				title={t(translationPath(lang.common.centres).path)}
+				value={values?.Jobs?.CentresFilter}
+				show={values?.Jobs?.CentresFilter?.Active}
+				type={TreeType.JOB}
+			/>
 			<MultipleSelect
 				title={t(translationPath(lang.common.snowArea).path)}
 				value={values?.Jobs?.SnowAreaFilter?.SnowAreas.map((s) =>
@@ -243,6 +255,18 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				title={t(translationPath(lang.common.windLoad).path)}
 				value={values?.Jobs?.WindFilter}
 				show={values?.Jobs?.WindFilter?.Active}
+				type={TreeType.JOB}
+			/>
+			<SliderRange
+				title={t(translationPath(lang.common.roofingLoad).path)}
+				value={values?.Jobs?.RoofingLoadFilter}
+				show={values?.Jobs?.RoofingLoadFilter?.Active}
+				type={TreeType.JOB}
+			/>
+			<SliderRange
+				title={t(translationPath(lang.common.ceilingLoad).path)}
+				value={values?.Jobs?.CeilingLoadFilter}
+				show={values?.Jobs?.CeilingLoadFilter?.Active}
 				type={TreeType.JOB}
 			/>
 			<Row

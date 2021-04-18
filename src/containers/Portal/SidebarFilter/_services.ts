@@ -243,6 +243,14 @@ export const getJobsFilters = (
 				get(filter, getPath(FilterSettingsProxy.Job.PricePerSquareMeterTo))
 			)
 		),
+		RoofingLoadFilter: getFilter(
+			activeFilterContent?.Jobs?.RoofingLoadFilter,
+			getObject(filter?.Job?.RoofingLoadFrom, filter?.Job?.RoofingLoadTo)
+		),
+		CeilingLoadFilter: getFilter(
+			activeFilterContent?.Jobs?.CeilingLoadFilter,
+			getObject(filter?.Job?.CeilingLoadFrom, filter?.Job?.CeilingLoadTo)
+		),
 		SnowAreaFilter: getFilter(activeFilterContent?.Jobs?.SnowAreaFilter, {
 			...activation,
 			SnowAreas: [],
@@ -291,7 +299,7 @@ export const getJobsFilters = (
 			activeFilterContent?.Jobs?.RidgeLengthFilter,
 			getObject(
 				get(filter, getPath(FilterSettingsProxy.Job.RidgeLengthFrom)),
-				get(filter, getPath(FilterSettingsProxy.Job.PriceTo))
+				get(filter, getPath(FilterSettingsProxy.Job.RidgeLengthTo))
 			)
 		),
 		DateOfCreationFilter: getFilter(

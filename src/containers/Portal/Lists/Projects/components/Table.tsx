@@ -1,23 +1,18 @@
-import ExternalTable from '../../../../../components/Table/ExternalTable';
-import Moment from 'react-moment';
-import React from 'react';
-import { CardMiddleTableWrapper } from '../../../../../constants/globalStyles';
-import { Checkbox } from '../../Jobs/Component';
-import { formatCurrency } from 'src/utils/currencyFormat';
-import { getAddress } from '../../../../../utils/formating';
-import { getFilterActiveContent } from '../../_services';
-import {
-	JobType,
-	Page,
-	Project,
-	TreeType
-	} from '../../../../../types/_types';
-import { lang } from '../../../../../translation/i18n';
-import { Routes } from '../../../../../constants/routes';
-import { StyledDiv } from '../../../Sidebar/_styles';
-import { translationPath } from '../../../../../utils/getPath';
-import { useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { useTranslation } from "react-i18next";
+import Moment from "react-moment";
+import { useHistory } from "react-router-dom";
+import { formatCurrency } from "src/utils/currencyFormat";
+import ExternalTable from "../../../../../components/Table/ExternalTable";
+import { CardMiddleTableWrapper } from "../../../../../constants/globalStyles";
+import { Routes } from "../../../../../constants/routes";
+import { lang } from "../../../../../translation/i18n";
+import { JobType, Page, Project, TreeType } from "../../../../../types/_types";
+import { getAddress } from "../../../../../utils/formating";
+import { translationPath } from "../../../../../utils/getPath";
+import { StyledDiv } from "../../../Sidebar/_styles";
+import { Checkbox } from "../../Jobs/Component";
+import { getFilterActiveContent } from "../../_services";
 
 interface Table {
 	activeFilter: boolean;
@@ -108,7 +103,7 @@ export const ProjectTable = ({
 					</span>
 				);
 			default:
-				if (!value[item?.name]) {
+				if (value[item?.name] === null || value[item?.name] === undefined) {
 					return "-";
 				}
 				return value[item?.name];

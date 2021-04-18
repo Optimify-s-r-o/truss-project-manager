@@ -1035,6 +1035,7 @@ export type Lang = Readonly<{
 		averagePlatesOnArea: string;
 		wallplateLength: string;
 		weight: string;
+		trussWeight: string;
 		weightOfBucklesPerPlanArea: string;
 		weightOfBucklesPerVolumeOfWood: string;
 		width: string;

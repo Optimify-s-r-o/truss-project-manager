@@ -140,6 +140,13 @@ export const JobColumnSelector = ({
 			filterType: FilterContentType.RANGE,
 		},
 		{
+			name: "Altitude",
+			title: t(translationPath(lang.common.altitude).path),
+			section: "Load",
+			filter: getPath(FilterProxy.Jobs.AltitudeFilter),
+			filterType: FilterContentType.RANGE,
+		},
+		{
 			name: "Centres",
 			title: t(translationPath(lang.common.centres).path),
 			section: "Load",
@@ -175,6 +182,20 @@ export const JobColumnSelector = ({
 			filterType: FilterContentType.RANGE,
 		},
 		{
+			name: "RoofingLoad",
+			title: t(translationPath(lang.common.roofingLoad).path),
+			section: "Load",
+			filter: getPath(FilterProxy.Jobs.RoofingLoadFilter),
+			filterType: FilterContentType.RANGE,
+		},
+		{
+			name: "CeilingLoad",
+			title: t(translationPath(lang.common.ceilingLoad).path),
+			section: "Load",
+			filter: getPath(FilterProxy.Jobs.CeilingLoadFilter),
+			filterType: FilterContentType.RANGE,
+		},
+		{
 			name: "HipLength",
 			title: t(translationPath(lang.common.hipLength).path),
 			section: "TechnicalParameters",
@@ -186,6 +207,13 @@ export const JobColumnSelector = ({
 			title: t(translationPath(lang.common.roofArea).path),
 			section: "TechnicalParameters",
 			filter: getPath(FilterProxy.Jobs.CoveredAreaFilter),
+			filterType: FilterContentType.RANGE,
+		},
+		{
+			name: "RidgeLength",
+			title: t(translationPath(lang.common.ridgeLength).path),
+			section: "TechnicalParameters",
+			filter: getPath(FilterProxy.Jobs.RidgeLengthFilter),
 			filterType: FilterContentType.RANGE,
 		},
 		{

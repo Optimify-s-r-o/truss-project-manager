@@ -1,14 +1,14 @@
-import { InputNumber, Slider } from "antd";
-import * as React from "react";
-import { fixed } from "src/utils/formating";
-import styled from "styled-components";
+import * as React from 'react';
+import FormikBox from './Optimify/Form/FormikCheckbox';
+import styled from 'styled-components';
+import { fixed } from 'src/utils/formating';
+import { getStep } from '../containers/Portal/Lists/_services';
+import { InputNumber, Slider } from 'antd';
+import { WithTranslation, withTranslation } from '../translation/i18n';
 import {
 	FilterContentSection,
 	SpaceBetweenFullWidth,
 } from "../containers/Portal/Lists/components/_styles";
-import { getStep } from "../containers/Portal/Lists/_services";
-import { WithTranslation, withTranslation } from "../translation/i18n";
-import FormikBox from "./Optimify/Form/FormikCheckbox";
 
 export interface OwnProps {
 	values: any;
@@ -37,6 +37,8 @@ const Index = (props: OwnProps & WithTranslation) => {
 		step,
 		to,
 		round,
+		min,
+		max,
 	} = props;
 
 	const rangeChange = (name: any) => (value: [number, number]) => {
@@ -66,7 +68,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 
 	return (
 		<>
-			{settingsFrom !== settingsTo ? (
+			{settingsFrom !== null && settingsTo !== null ? (
 				<FilterContentSection>
 					<>
 						<FormikBox
@@ -83,8 +85,8 @@ const Index = (props: OwnProps & WithTranslation) => {
 							defaultValue={[settingsFrom, settingsTo]}
 							value={[from, to]}
 							onChange={rangeChange(name)}
-							min={settingsFrom}
-							max={settingsTo}
+							min={min ? min : settingsFrom}
+							max={max ? max : settingsTo}
 							step={step ? step : getStep(settingsFrom, settingsTo)}
 						/>
 

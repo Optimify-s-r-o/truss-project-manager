@@ -5,6 +5,7 @@ import { CreateCustomer } from '../Customer/_types';
 import { createCustomerAction } from '../Customer/_actions';
 import { createfromJson, ProjectRequest } from './_types';
 import { createProject, createProjectWithJson } from './_actions';
+import { setSelectedKeys } from '../TreeView/_actions';
 import { withRouter } from 'react-router-dom';
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -13,6 +14,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 		dispatch(createProjectWithJson.request(data)),
 	createCustomerAction: (data: CreateCustomer) =>
 		dispatch(createCustomerAction.request(data)),
+	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({

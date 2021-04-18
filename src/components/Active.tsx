@@ -45,7 +45,7 @@ export const slidersCount = (
 	let count = 0;
 	if (setting && filter) {
 		for (let i of setting) {
-			if (get(filter, i.from) != get(filter, i.to)) {
+			if (get(filter, i.from) !== null && get(filter, i.to) !== null) {
 				count++;
 			}
 		}

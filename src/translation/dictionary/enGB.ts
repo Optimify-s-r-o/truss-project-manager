@@ -1052,6 +1052,7 @@ const dictionary: Lang = {
 		averagePlatesOnArea: "Average volume of wood per floor plan area",
 		wallplateLength: "The length of the masonry",
 		weight: "Plates weight",
+		trussWeight: "Truss weight", 
 		weightOfBucklesPerPlanArea: "Weight of plates per floor plan area",
 		weightOfBucklesPerVolumeOfWood: "Weight of plates per volume of wood",
 		width: "Width",
