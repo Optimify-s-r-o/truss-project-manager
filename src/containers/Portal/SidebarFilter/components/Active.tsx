@@ -401,7 +401,7 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				type={TreeType.TRUSS}
 			/>
 			<SliderRange
-				title={t(translationPath(lang.common.weight).path)}
+				title={t(translationPath(lang.common.trussWeight).path)}
 				value={values?.Trusses?.WeightFilter}
 				show={values?.Trusses?.WeightFilter?.Active}
 				type={TreeType.TRUSS}
