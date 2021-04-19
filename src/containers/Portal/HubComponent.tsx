@@ -116,7 +116,7 @@ export const HubComponent = ({
 						json && json && setProject(json);
 					}
 				});
-				connect.on(Hub.ProjectChanged, () => {
+				connect?.on(Hub.ProjectChanged, () => {
 					connect.invoke(Hub.RequestProject);
 				});
 			} catch (err) {
@@ -139,15 +139,17 @@ export const HubComponent = ({
 
 			try {
 				await connect.start();
-				connect.on(Hub.JobChanged, () => {
-					connect.invoke(Hub.RequestJob);
+				connect?.on(Hub.UpdateFilters, () => {
 					filterSettingsCall({
 						action: settingsFilter,
 						method: Method.GET,
 						url: ApiURL.SETTINGS_FILTER,
 					});
 				});
-				connect.on(Hub.JobIdChanged, (id) => {
+				connect?.on(Hub.JobChanged, () => {
+					connect.invoke(Hub.RequestJob);
+				});
+				connect?.on(Hub.JobIdChanged, (id) => {
 					if (id) {
 						connect?.invoke(Hub.OpenJob, id);
 					}
@@ -188,7 +190,7 @@ export const HubComponent = ({
 						setTruss(json);
 					}
 				});
-				connect.on(Hub.TrussChanged, () => {
+				connect?.on(Hub.TrussChanged, () => {
 					connect.invoke(Hub.RequestTruss);
 				});
 			} catch (err) {
@@ -241,7 +243,7 @@ export const HubComponent = ({
 		const invoke = async () => {
 			if (connect) {
 				try {
-					connect.on(Hub.ReceivedTree, (message) => {
+					connect?.on(Hub.ReceivedTree, (message) => {
 						if (message) {
 							const json = message && JSON.parse(message);
 							if (json) {
@@ -251,11 +253,11 @@ export const HubComponent = ({
 						}
 					});
 
-					connect.on(Hub.FiltersChanged, (message) => {
+					connect?.on(Hub.FiltersChanged, (message) => {
 						connect.invoke(Hub.RequestFilters);
 					});
 
-					connect.on(Hub.ReceivedFilters, (message) => {
+					connect?.on(Hub.ReceivedFilters, (message) => {
 						if (!!message) {
 							const json = message && JSON.parse(message);
 							if (json) {

@@ -29,6 +29,7 @@ enum Hub {
 	CloseTruss = "CloseTruss",
 	OpenTruss = "OpenTruss",
 	WriteSettings = "WriteSettings",
+	UpdateFilters = "UpdateFilters",
 }
 
 enum HubApi {
