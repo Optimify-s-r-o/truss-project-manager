@@ -8,6 +8,12 @@ import { notificationAction } from '../../../components/Toast/_actions';
 import { Status } from '../../../components/Toast/_types';
 import { translationPath } from '../../../utils/getPath';
 import {
+	getCustomers,
+	getJobs,
+	getProjects,
+	getTrusses,
+} from "../SidebarFilter/_actions";
+import {
 	getHeaderSettings,
 	putHeaderSettings,
 	resetHeaderSettings,
@@ -111,6 +117,15 @@ function* resetHeadersSettingsActionSaga(
 			return;
 		}
 		yield put(resetHeaderSettings.success(response));
+		if (action.payload === "job") {
+			yield put(getJobs.request({ Paginate: true }));
+		} else if (action.payload === "project") {
+			yield put(getProjects.request({ Paginate: true }));
+		} else if (action.payload === "truss") {
+			yield put(getTrusses.request({ Paginate: true }));
+		} else if (action.payload === "customer") {
+			yield put(getCustomers.request({ Paginate: true }));
+		}
 	} catch (err) {
 		yield put(
 			notificationAction({

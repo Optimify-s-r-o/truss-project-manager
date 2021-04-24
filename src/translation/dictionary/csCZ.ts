@@ -907,7 +907,7 @@ const dictionary: Lang = {
 		platesWeight: "Hmotnost styčníkových desek",
 		totalPlatesWeight: "Celková hmotnost desek",
 		averagePlatesWeight: "Průměrná hmotnost desek",
-		ply: "Vrstva",
+		ply: "Násobnost",
 		plyCount: "Počet vrstev",
 		postcode: "PSČ",
 		price: "Cena",

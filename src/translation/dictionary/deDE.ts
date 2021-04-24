@@ -938,7 +938,7 @@ const dictionary: Lang = {
 		platesWeight: "Brettgewicht",
 		totalPlatesWeight: "Gesamtgewicht der Bretter",
 		averagePlatesWeight: "Durchschnittsgewicht der Bretter",
-		ply: "Schicht",
+		ply: "Vielzahl",
 		plyCount: "Anzahl der Schichten",
 		postcode: "Postleitzahl",
 		price: "Preis",
