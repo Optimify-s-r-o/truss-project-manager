@@ -14,7 +14,6 @@ import { LineOutlined } from '@ant-design/icons';
 import { translationPath } from '../../../utils/getPath';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
 interface DateInputProps {
 	value: Date;
 	onChange?: (
