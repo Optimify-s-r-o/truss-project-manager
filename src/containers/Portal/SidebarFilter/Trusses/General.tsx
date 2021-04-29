@@ -60,7 +60,7 @@ const Index = ({
 				name={getPath(TrussesFilterProxy.StatusFilter.Statuses)}
 				pathName={lastPathMember(TrussesFilterProxy.StatusFilter.Statuses).path}
 				path={getPath(TrussesFilterProxy.StatusFilter)}
-				title={t(translationPath(lang.common.status))}
+				title={t(translationPath(lang.common.assessment))}
 				value={values?.StatusFilter?.Statuses}
 			/>
 			<FormikCheckbox

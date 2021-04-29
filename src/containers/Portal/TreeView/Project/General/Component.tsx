@@ -148,7 +148,7 @@ const Index = ({
 	folders,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const [alertDialog, setAlertDialog] = React.useState(false);
-	console.log(project);
+
 	const formik = useFormik({
 		initialValues: project,
 		enableReinitialize: true,

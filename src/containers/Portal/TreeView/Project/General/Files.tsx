@@ -1,6 +1,6 @@
-import * as React from 'react';
 import File, { FileEnum } from './File';
 import Moment from 'react-moment';
+import React, { useCallback } from 'react';
 import { Delete, Download, Open } from '../../../../../components/Button';
 import { fixed } from '../../../../../utils/formating';
 import { Folder, Project, ProjectProxy } from '../../../../../types/_types';
@@ -27,7 +27,7 @@ import {
 } from "../../../../../sagas/DownloadFile/_actions";
 import {
 	removeFileAction,
-	uploadProjectFileAction,
+	uploadProjectFileCall,
 } from "../../../../../sagas/Fetch/actions";
 import {
 	FileContent,
@@ -58,6 +58,7 @@ export const Files = ({
 	const [myFiles, setMyFiles] = React.useState([]);
 
 	const dropzoneRef = React.createRef();
+
 	const openDialog = () => {
 		// Note that the ref is set async,
 		// so it might be null at some point
@@ -66,14 +67,13 @@ export const Files = ({
 		}
 	};
 
-	const onDrop = React.useCallback((acceptedFiles) => {
+	const onDrop = useCallback((acceptedFiles) => {
 		setMyFiles([...myFiles, ...acceptedFiles]);
 		readFile(acceptedFiles);
-	}, null);
+	}, []);
 
-	const { getRootProps, getInputProps } = useDropzone({
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({
 		noClick: true,
-		accept: "*",
 		onDrop,
 	});
 
@@ -82,7 +82,7 @@ export const Files = ({
 	};
 
 	const uploadFileProject = (content: any) => {
-		uploadProjectFile(uploadProjectFileAction(content, project?.Id));
+		uploadProjectFile(uploadProjectFileCall(content, project?.Id));
 	};
 
 	const handleFileChosen = (files: File[]) => {
@@ -126,6 +126,7 @@ export const Files = ({
 				<ContentCard fullSize>
 					<ContentSpaceBetween>
 						<Title>{t(translationPath(lang.common.files))}</Title>
+
 						<ContentRow>
 							<File
 								Id={get(project, getPath(ProjectProxy.Id))}

@@ -346,15 +346,9 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				type={TreeType.TRUSS}
 			/>
 			<SliderRange
-				title={t(translationPath(lang.common.windLoad).path)}
-				value={values?.Trusses?.WindLoadFilter}
-				show={values?.Trusses?.WindLoadFilter?.Active}
-				type={TreeType.TRUSS}
-			/>
-			<SliderRange
-				title={t(translationPath(lang.common.snowLoad).path)}
-				value={values?.Trusses?.SnowLoadFilter}
-				show={values?.Trusses?.SnowLoadFilter?.Active}
+				title={t(translationPath(lang.common.roofingLoad).path)}
+				value={values?.Trusses?.RoofingLoadFilter}
+				show={values?.Trusses?.RoofingLoadFilter?.Active}
 				type={TreeType.TRUSS}
 			/>
 			<SliderRange
@@ -364,21 +358,35 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				type={TreeType.TRUSS}
 			/>
 			<SliderRange
-				title={t(translationPath(lang.common.roofingLoad).path)}
-				value={values?.Trusses?.RoofingLoadFilter}
-				show={values?.Trusses?.RoofingLoadFilter?.Active}
+				title={t(translationPath(lang.common.snowLoad).path)}
+				value={values?.Trusses?.SnowLoadFilter}
+				show={values?.Trusses?.SnowLoadFilter?.Active}
 				type={TreeType.TRUSS}
 			/>
 			<SliderRange
-				title={t(translationPath(lang.common.height).path)}
-				value={values?.Trusses?.HeightFilter}
-				show={values?.Trusses?.HeightFilter?.Active}
+				title={t(translationPath(lang.common.windLoad).path)}
+				value={values?.Trusses?.WindLoadFilter}
+				show={values?.Trusses?.WindLoadFilter?.Active}
 				type={TreeType.TRUSS}
 			/>
 			<SliderRange
-				title={t(translationPath(lang.common.length).path)}
-				value={values?.Trusses?.LengthFilter}
-				show={values?.Trusses?.LengthFilter?.Active}
+				title={t(translationPath(lang.common.ply).path)}
+				value={values?.Trusses?.PliesFilter}
+				show={values?.Trusses?.PliesFilter?.Active}
+				round
+				type={TreeType.TRUSS}
+			/>
+			<SliderRange
+				title={t(translationPath(lang.common.thickness).path)}
+				value={values?.Trusses?.ThicknessFilter}
+				show={values?.Trusses?.ThicknessFilter?.Active}
+				type={TreeType.TRUSS}
+			/>
+			<SliderRange
+				title={t(translationPath(lang.common.numberOfSupports).path)}
+				value={values?.Trusses?.SupportsQuantityFilter}
+				show={values?.Trusses?.SupportsQuantityFilter?.Active}
+				round
 				type={TreeType.TRUSS}
 			/>
 			<SliderRange
@@ -388,18 +396,31 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				type={TreeType.TRUSS}
 			/>
 			<SliderRange
-				title={t(translationPath(lang.common.thickness).path)}
-				value={values?.Trusses?.ThicknessFilter}
-				show={values?.Trusses?.ThicknessFilter?.Active}
+				title={t(translationPath(lang.common.length).path)}
+				value={values?.Trusses?.LengthFilter}
+				show={values?.Trusses?.LengthFilter?.Active}
 				type={TreeType.TRUSS}
 			/>
-
+			<SliderRange
+				title={t(translationPath(lang.common.height).path)}
+				value={values?.Trusses?.HeightFilter}
+				show={values?.Trusses?.HeightFilter?.Active}
+				type={TreeType.TRUSS}
+			/>
+			<SliderRange
+				title={t(translationPath(lang.common.membersCount).path)}
+				value={values?.Trusses?.MembersCountFilter}
+				show={values?.Trusses?.MembersCountFilter?.Active}
+				round
+				type={TreeType.TRUSS}
+			/>
 			<SliderRange
 				title={t(translationPath(lang.common.centres).path)}
 				value={values?.Trusses?.CentresFilter}
 				show={values?.Trusses?.CentresFilter?.Active}
 				type={TreeType.TRUSS}
 			/>
+
 			<SliderRange
 				title={t(translationPath(lang.common.trussWeight).path)}
 				value={values?.Trusses?.WeightFilter}
@@ -412,20 +433,7 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				show={values?.Trusses?.TransportWeightFilter?.Active}
 				type={TreeType.TRUSS}
 			/>
-			<SliderRange
-				title={t(translationPath(lang.common.numberOfSupports).path)}
-				value={values?.Trusses?.SupportsQuantityFilter}
-				show={values?.Trusses?.SupportsQuantityFilter?.Active}
-				round
-				type={TreeType.TRUSS}
-			/>
-			<SliderRange
-				title={t(translationPath(lang.common.membersCount).path)}
-				value={values?.Trusses?.MembersCountFilter}
-				show={values?.Trusses?.MembersCountFilter?.Active}
-				round
-				type={TreeType.TRUSS}
-			/>
+
 			<SliderRange
 				title={t(translationPath(lang.common.platesCount).path)}
 				value={values?.Trusses?.PlatesCountFilter}
@@ -437,13 +445,6 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				title={t(translationPath(lang.common.modelCount).path)}
 				value={values?.Trusses?.ModelCountFilter}
 				show={values?.Trusses?.ModelCountFilter?.Active}
-				round
-				type={TreeType.TRUSS}
-			/>
-			<SliderRange
-				title={t(translationPath(lang.common.ply).path)}
-				value={values?.Trusses?.PliesFilter}
-				show={values?.Trusses?.PliesFilter?.Active}
 				round
 				type={TreeType.TRUSS}
 			/>

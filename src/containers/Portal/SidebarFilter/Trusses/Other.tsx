@@ -30,11 +30,8 @@ const Index = ({
 			filters={[
 				getPath(TrussesFilterProxy.WeightFilter),
 				getPath(TrussesFilterProxy.TransportWeightFilter),
-				getPath(TrussesFilterProxy.SupportsQuantityFilter),
 				getPath(TrussesFilterProxy.ModelCountFilter),
-				getPath(TrussesFilterProxy.MembersCountFilter),
 				getPath(TrussesFilterProxy.PlatesCountFilter),
-				getPath(TrussesFilterProxy.PliesFilter),
 			]}
 			filter={filter}
 			setting={[
@@ -47,14 +44,6 @@ const Index = ({
 					to: getPath(FilterSettingsProxy.Truss.TransportWeightTo),
 				},
 				{
-					from: getPath(FilterSettingsProxy.Truss.SupportsCountFrom),
-					to: getPath(FilterSettingsProxy.Truss.SupportsCountTo),
-				},
-				{
-					from: getPath(FilterSettingsProxy.Truss.MembersCountFrom),
-					to: getPath(FilterSettingsProxy.Truss.MembersCountTo),
-				},
-				{
 					from: getPath(FilterSettingsProxy.Truss.PlatesCountFrom),
 					to: getPath(FilterSettingsProxy.Truss.PlatesCountTo),
 				},
@@ -62,24 +51,12 @@ const Index = ({
 					from: getPath(FilterSettingsProxy.Truss.ModelCountFrom),
 					to: getPath(FilterSettingsProxy.Truss.ModelCountTo),
 				},
-				{
-					from: getPath(FilterSettingsProxy.Truss.PliesFrom),
-					to: getPath(FilterSettingsProxy.Truss.PliesTo),
-				},
 			]}
 		>
 			<EmptyFilter
 				filter={filter}
 				type="Truss"
-				names={[
-					"Weight",
-					"TransportWeight",
-					"SupportsQuantity",
-					"MembersCount",
-					"PlatesCount",
-					"ModelCount",
-					"Plies",
-				]}
+				names={["Weight", "TransportWeight", "PlatesCount", "ModelCount"]}
 			>
 				<FormSlider
 					label={t(translationPath(lang.common.trussWeight))}
@@ -102,30 +79,6 @@ const Index = ({
 					settingsTo={filter?.Truss?.TransportWeightTo}
 				/>
 				<FormSlider
-					label={t(translationPath(lang.common.numberOfSupports))}
-					name={getPath(TrussesFilterProxy.SupportsQuantityFilter)}
-					setFieldValue={setFieldValue}
-					values={values}
-					from={values?.SupportsQuantityFilter?.From}
-					to={values?.SupportsQuantityFilter?.To}
-					settingsFrom={filter?.Truss?.SupportsCountFrom}
-					settingsTo={filter?.Truss?.SupportsCountTo}
-					step={1}
-					round={0}
-				/>
-				<FormSlider
-					label={t(translationPath(lang.common.membersCount))}
-					name={getPath(TrussesFilterProxy.MembersCountFilter)}
-					setFieldValue={setFieldValue}
-					values={values}
-					from={values?.MembersCountFilter?.From}
-					to={values?.MembersCountFilter?.To}
-					settingsFrom={filter?.Truss?.MembersCountFrom}
-					settingsTo={filter?.Truss?.MembersCountTo}
-					step={1}
-					round={0}
-				/>
-				<FormSlider
 					label={t(translationPath(lang.common.platesCount))}
 					name={getPath(TrussesFilterProxy.PlatesCountFilter)}
 					setFieldValue={setFieldValue}
@@ -146,18 +99,6 @@ const Index = ({
 					to={values?.ModelCountFilter?.To}
 					settingsFrom={filter?.Truss?.ModelCountFrom}
 					settingsTo={filter?.Truss?.ModelCountTo}
-					step={1}
-					round={0}
-				/>
-				<FormSlider
-					label={t(translationPath(lang.common.ply))}
-					name={getPath(TrussesFilterProxy.PliesFilter)}
-					setFieldValue={setFieldValue}
-					values={values}
-					from={values?.PliesFilter?.From}
-					to={values?.PliesFilter?.To}
-					settingsFrom={filter?.Truss?.PliesFrom}
-					settingsTo={filter?.Truss?.PliesTo}
 					step={1}
 					round={0}
 				/>

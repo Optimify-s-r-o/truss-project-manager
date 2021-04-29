@@ -58,24 +58,14 @@ const Index = ({
 				names={["WindLoad", "SnowLoad", "CeilingLoad", "RoofingLoad"]}
 			>
 				<FormSlider
-					label={t(translationPath(lang.common.windLoad))}
-					name={getPath(TrussesFilterProxy.WindLoadFilter)}
+					label={t(translationPath(lang.common.roofingLoad))}
+					name={getPath(TrussesFilterProxy.RoofingLoadFilter)}
 					setFieldValue={setFieldValue}
 					values={values}
-					from={values?.WindLoadFilter?.From}
-					to={values?.WindLoadFilter?.To}
-					settingsFrom={filter?.Truss?.WindLoadFrom}
-					settingsTo={filter?.Truss?.WindLoadTo}
-				/>
-				<FormSlider
-					label={t(translationPath(lang.common.snowLoad))}
-					name={getPath(TrussesFilterProxy.SnowLoadFilter)}
-					setFieldValue={setFieldValue}
-					values={values}
-					from={values?.SnowLoadFilter?.From}
-					to={values?.SnowLoadFilter?.To}
-					settingsFrom={filter?.Truss?.SnowLoadFrom}
-					settingsTo={filter?.Truss?.SnowLoadTo}
+					from={values?.RoofingLoadFilter?.From}
+					to={values?.RoofingLoadFilter?.To}
+					settingsFrom={filter?.Truss?.RoofingLoadFrom}
+					settingsTo={filter?.Truss?.RoofingLoadTo}
 				/>
 				<FormSlider
 					label={t(translationPath(lang.common.ceilingLoad))}
@@ -88,14 +78,24 @@ const Index = ({
 					settingsTo={filter?.Truss?.CeilingLoadTo}
 				/>
 				<FormSlider
-					label={t(translationPath(lang.common.roofingLoad))}
-					name={getPath(TrussesFilterProxy.RoofingLoadFilter)}
+					label={t(translationPath(lang.common.snowLoad))}
+					name={getPath(TrussesFilterProxy.SnowLoadFilter)}
 					setFieldValue={setFieldValue}
 					values={values}
-					from={values?.RoofingLoadFilter?.From}
-					to={values?.RoofingLoadFilter?.To}
-					settingsFrom={filter?.Truss?.RoofingLoadFrom}
-					settingsTo={filter?.Truss?.RoofingLoadTo}
+					from={values?.SnowLoadFilter?.From}
+					to={values?.SnowLoadFilter?.To}
+					settingsFrom={filter?.Truss?.SnowLoadFrom}
+					settingsTo={filter?.Truss?.SnowLoadTo}
+				/>
+				<FormSlider
+					label={t(translationPath(lang.common.windLoad))}
+					name={getPath(TrussesFilterProxy.WindLoadFilter)}
+					setFieldValue={setFieldValue}
+					values={values}
+					from={values?.WindLoadFilter?.From}
+					to={values?.WindLoadFilter?.To}
+					settingsFrom={filter?.Truss?.WindLoadFrom}
+					settingsTo={filter?.Truss?.WindLoadTo}
 				/>
 			</EmptyFilter>
 		</FilterSection>

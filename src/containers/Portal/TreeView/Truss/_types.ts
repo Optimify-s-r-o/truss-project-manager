@@ -63,6 +63,7 @@ export interface Truss {
 	ModelsCount: number;
 	PlateWeight: number;
 	Volume: number;
+
 	TransportWeight: number;
 	Price: number;
 	PriceSum: number;
@@ -75,6 +76,7 @@ export interface Truss {
 
 	Span: number;
 	Height: number;
+	Length: number;
 	Pitch: number;
 	MembersCount: number;
 	JointsCount: number;

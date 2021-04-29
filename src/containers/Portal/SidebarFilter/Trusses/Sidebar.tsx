@@ -1,9 +1,9 @@
 import * as React from 'react';
 import General from './General';
+import Geometry from './Geometry';
 import Load from './Load';
 import Other from './Other';
 import Price from './Price';
-import Size from './Size';
 import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
 import { getTrussesFilters } from '../_services';
@@ -64,7 +64,11 @@ const Index = ({
 				/>
 				<Price values={values} setFieldValue={setFieldValue} filter={filter} />
 				<Load values={values} setFieldValue={setFieldValue} filter={filter} />
-				<Size values={values} setFieldValue={setFieldValue} filter={filter} />
+				<Geometry
+					values={values}
+					setFieldValue={setFieldValue}
+					filter={filter}
+				/>
 				<Other values={values} setFieldValue={setFieldValue} filter={filter} />
 			</Grow>
 			<Reset

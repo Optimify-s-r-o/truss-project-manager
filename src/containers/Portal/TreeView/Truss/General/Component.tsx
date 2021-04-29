@@ -66,6 +66,11 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 									unit={UnitType.EMPTY}
 								/>
 								<Data
+									title={t(translationPath(lang.common.numberOfModels))}
+									data={get(props.truss, getPath(TrussProxy.ModelsCount))}
+									unit={UnitType.EMPTY}
+								/>
+								<Data
 									title={t(translationPath(lang.common.thickness))}
 									data={fixed(
 										get(props.truss, getPath(TrussProxy.Thickness)),
@@ -79,15 +84,6 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 									unit={UnitType.MM}
 								/>
 								<Data
-									title={t(translationPath(lang.common.typeOfTruss))}
-									data={t(
-										translationPath(
-											lang.common[get(props.truss, getPath(TrussProxy.Kind))]
-										)
-									)}
-									unit={UnitType.EMPTY}
-								/>
-								<Data
 									title={t(translationPath(lang.common.trussType))}
 									data={t(
 										translationPath(
@@ -97,8 +93,12 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 									unit={UnitType.EMPTY}
 								/>
 								<Data
-									title={t(translationPath(lang.common.numberOfModels))}
-									data={get(props.truss, getPath(TrussProxy.ModelsCount))}
+									title={t(translationPath(lang.common.typeOfTruss))}
+									data={t(
+										translationPath(
+											lang.common[get(props.truss, getPath(TrussProxy.Kind))]
+										)
+									)}
 									unit={UnitType.EMPTY}
 								/>
 								<Data
@@ -203,8 +203,18 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 							<ContentCard topMargin>
 								<Header2>{t(translationPath(lang.common.geometry))}</Header2>
 								<Data
+									title={t(translationPath(lang.common.numberOfSupports))}
+									data={get(props.truss, getPath(TrussProxy.SupportsQuantity))}
+									unit={UnitType.EMPTY}
+								/>
+								<Data
 									title={t(translationPath(lang.common.span))}
 									data={fixed(get(props.truss, getPath(TrussProxy.Span)), 0)}
+									unit={UnitType.MM}
+								/>
+								<Data
+									title={t(translationPath(lang.common.length))}
+									data={fixed(get(props.truss, getPath(TrussProxy.Length)), 0)}
 									unit={UnitType.MM}
 								/>
 								<Data
@@ -225,11 +235,6 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 											{get(props.truss, getPath(TrussProxy.JointsCount))}
 										</>
 									}
-									unit={UnitType.EMPTY}
-								/>
-								<Data
-									title={t(translationPath(lang.common.numberOfSupports))}
-									data={get(props.truss, getPath(TrussProxy.SupportsQuantity))}
 									unit={UnitType.EMPTY}
 								/>
 
