@@ -47,6 +47,7 @@ const Index = ({
 		if (treeHub) {
 			treeHub.on(Hub.TreeResetFinished, (message) => {
 				const initialValues: any = getProjectsFilters(filter);
+				console.log(initialValues);
 				setValues(initialValues);
 			});
 		}

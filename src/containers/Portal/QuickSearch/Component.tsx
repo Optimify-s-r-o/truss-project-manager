@@ -1,4 +1,5 @@
 import * as React from 'react';
+import styled from 'styled-components';
 import { Customer, CustomerProxy } from '../Customer/_types';
 import { get } from 'lodash';
 import { getPath, translationPath } from '../../../utils/getPath';
@@ -26,7 +27,6 @@ import {
 	WithTranslation,
 	withTranslation,
 } from "../../../translation/i18n";
-
 export interface StateProps {
 	routerState: any;
 	pending: boolean;
@@ -78,7 +78,6 @@ const Component = ({
 						<CardEndTableWrapper>
 							<ScrollableTable
 								style={TABLE_STYLE_CONDENSED}
-								height={320}
 								headers={[
 									t(translationPath(lang.common.name)),
 									t(translationPath(lang.common.description)),
@@ -114,7 +113,6 @@ const Component = ({
 						<CardEndTableWrapper>
 							<ScrollableTable
 								style={TABLE_STYLE_CONDENSED}
-								height={320}
 								headers={[
 									t(translationPath(lang.common.jobName)),
 									t(translationPath(lang.common.projectName)),
@@ -150,7 +148,6 @@ const Component = ({
 						<CardEndTableWrapper>
 							<ScrollableTable
 								style={TABLE_STYLE_CONDENSED}
-								height={320}
 								headers={[t(translationPath(lang.common.name))]}
 								data={
 									searched &&
@@ -183,3 +180,5 @@ const Component = ({
 };
 
 export default withTranslation()(Component);
+
+const Table = styled(ScrollableTable);

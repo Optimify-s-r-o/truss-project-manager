@@ -33,6 +33,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 				lastPathMember(JobsFilterProxy.HipLengthFilter).path,
 				lastPathMember(JobsFilterProxy.CoveredAreaFilter).path,
 				lastPathMember(JobsFilterProxy.RidgeLengthFilter).path,
+				lastPathMember(JobsFilterProxy.AltitudeFilter).path,
 			]}
 			filter={filter}
 			setting={[
@@ -48,12 +49,16 @@ const Index = (props: OwnProps & WithTranslation) => {
 					from: getPath(FilterSettingsProxy.Job.RidgeLengthFrom),
 					to: getPath(FilterSettingsProxy.Job.RidgeLengthTo),
 				},
+				{
+					from: getPath(FilterSettingsProxy.Job.AltitudeFrom),
+					to: getPath(FilterSettingsProxy.Job.AltitudeTo),
+				},
 			]}
 		>
 			<EmptyFilter
 				filter={filter}
 				type="Job"
-				names={["HipLength", "CoveredArea", "RidgeLength"]}
+				names={["HipLength", "CoveredArea", "RidgeLength", "Altitude"]}
 			>
 				<FormSlider
 					label={t(translationPath(lang.common.hipLength))}
@@ -84,6 +89,16 @@ const Index = (props: OwnProps & WithTranslation) => {
 					to={values?.RidgeLengthFilter?.To}
 					settingsFrom={filter?.Job?.RidgeLengthFrom}
 					settingsTo={filter?.Job?.RidgeLengthTo}
+				/>
+				<FormSlider
+					label={t(translationPath(lang.common.altitude))}
+					name={getPath(JobsFilterProxy.AltitudeFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					from={values?.AltitudeFilter?.From}
+					to={values?.AltitudeFilter?.To}
+					settingsFrom={filter?.Job?.AltitudeFrom}
+					settingsTo={filter?.Job?.AltitudeTo}
 				/>
 			</EmptyFilter>
 		</FilterSection>

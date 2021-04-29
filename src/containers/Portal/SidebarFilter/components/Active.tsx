@@ -210,15 +210,27 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				type={TreeType.JOB}
 			/>
 			<SliderRange
-				title={t(translationPath(lang.common.altitude).path)}
-				value={values?.Jobs?.AltitudeFilter}
-				show={values?.Jobs?.AltitudeFilter?.Active}
+				title={t(translationPath(lang.common.roofingLoad).path)}
+				value={values?.Jobs?.RoofingLoadFilter}
+				show={values?.Jobs?.RoofingLoadFilter?.Active}
 				type={TreeType.JOB}
 			/>
 			<SliderRange
-				title={t(translationPath(lang.common.centres).path)}
-				value={values?.Jobs?.CentresFilter}
-				show={values?.Jobs?.CentresFilter?.Active}
+				title={t(translationPath(lang.common.ceilingLoad).path)}
+				value={values?.Jobs?.CeilingLoadFilter}
+				show={values?.Jobs?.CeilingLoadFilter?.Active}
+				type={TreeType.JOB}
+			/>
+			<SliderRange
+				title={t(translationPath(lang.common.snowLoad).path)}
+				value={values?.Jobs?.SnowFilter}
+				show={values?.Jobs?.SnowFilter?.Active}
+				type={TreeType.JOB}
+			/>
+			<SliderRange
+				title={t(translationPath(lang.common.windLoad).path)}
+				value={values?.Jobs?.WindFilter}
+				show={values?.Jobs?.WindFilter?.Active}
 				type={TreeType.JOB}
 			/>
 			<MultipleSelect
@@ -245,30 +257,14 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				includeNotSet={values?.Jobs?.WindAreaFilter?.IncludeNotSet}
 				type={TreeType.JOB}
 			/>
+
 			<SliderRange
-				title={t(translationPath(lang.common.snowLoad).path)}
-				value={values?.Jobs?.SnowFilter}
-				show={values?.Jobs?.SnowFilter?.Active}
+				title={t(translationPath(lang.common.centres).path)}
+				value={values?.Jobs?.CentresFilter}
+				show={values?.Jobs?.CentresFilter?.Active}
 				type={TreeType.JOB}
 			/>
-			<SliderRange
-				title={t(translationPath(lang.common.windLoad).path)}
-				value={values?.Jobs?.WindFilter}
-				show={values?.Jobs?.WindFilter?.Active}
-				type={TreeType.JOB}
-			/>
-			<SliderRange
-				title={t(translationPath(lang.common.roofingLoad).path)}
-				value={values?.Jobs?.RoofingLoadFilter}
-				show={values?.Jobs?.RoofingLoadFilter?.Active}
-				type={TreeType.JOB}
-			/>
-			<SliderRange
-				title={t(translationPath(lang.common.ceilingLoad).path)}
-				value={values?.Jobs?.CeilingLoadFilter}
-				show={values?.Jobs?.CeilingLoadFilter?.Active}
-				type={TreeType.JOB}
-			/>
+
 			<Row
 				title={t(translationPath(lang.common.ceilingName).path)}
 				value={values?.Jobs?.CeilingNameFilter?.Name}
@@ -293,11 +289,16 @@ export const Active = ({ active, values, activeFilterContent }: IActive) => {
 				show={values?.Jobs?.CoveredAreaFilter?.Active}
 				type={TreeType.JOB}
 			/>
-
 			<SliderRange
 				title={t(translationPath(lang.common.ridgeLength).path)}
 				value={values?.Jobs?.RidgeLengthFilter}
 				show={values?.Jobs?.RidgeLengthFilter?.Active}
+				type={TreeType.JOB}
+			/>
+			<SliderRange
+				title={t(translationPath(lang.common.altitude).path)}
+				value={values?.Jobs?.AltitudeFilter}
+				show={values?.Jobs?.AltitudeFilter?.Active}
 				type={TreeType.JOB}
 			/>
 			<DateRange

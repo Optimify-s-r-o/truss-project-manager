@@ -1116,6 +1116,18 @@ const dictionary: Lang = {
 		programName: "Der Name des Programms",
 		system: "System",
 	},
+	updates: {
+		title: "Update",
+		checkingForUpdates: "Nach Updates suchen ...",
+		newVersionFound: "Neue Version gefunden:",
+		downloaded: "Update erfolgreich heruntergeladen.",
+		updating: "Aktualisierung ...",
+		notification:
+			"Dies kann eine Weile dauern. Wenn ein neues Update heruntergeladen wird, wird TRUSS Project Manager automatisch neu gestartet.",
+		upToDate: "Ihre App ist auf dem neuesten Stand.",
+		error: "Error",
+		download: "Jetzt herunterladen und installieren",
+	},
 };
 
 export default dictionary;

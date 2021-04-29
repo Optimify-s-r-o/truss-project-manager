@@ -33,7 +33,9 @@ export const Submit = (props: OwnProps) => {
 		formData,
 	} = props;
 	const { t } = useTranslation();
-
+	console.log(filter);
+	console.log(activeFilterContent);
+	console.log(formData);
 	return (
 		<ActiveFilter>
 			<ActiveCommon

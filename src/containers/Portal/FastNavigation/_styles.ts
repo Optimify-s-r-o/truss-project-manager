@@ -54,7 +54,7 @@ export const InputElement = styled.input`
 	border: none;
 	font-weight: 400;
 	background-color: transparent;
-	color: #ccc;
+	color: ${(props) => props.theme.colors.primaryText.default};
 	padding: 7px 11px;
 
 	::placeholder {

@@ -356,7 +356,7 @@ const dictionary: Lang = {
 		joints: "Joints",
 		desks: "Desks",
 		dragAndDrop: "Drag a variable to the equation input.",
-		quantity: "Quoantity",
+		quantity: "Quantity",
 		unit: "Unit",
 		expression: "Expression",
 		description: "Description",
@@ -1089,6 +1089,18 @@ const dictionary: Lang = {
 		programVersion: "Program version",
 		programName: "Program name",
 		system: "System",
+	},
+	updates: {
+		title: "Update",
+		checkingForUpdates: "Checking for updates...",
+		newVersionFound: "New version found:",
+		downloaded: "Update successfully downloaded.",
+		updating: "Updating...",
+		notification:
+			"This may take a while. When a new update is downloaded TRUSS Project Manager will automatically restart.",
+		upToDate: "Your app is up to date.",
+		error: "Error",
+		download: "Download & Install now",
 	},
 };
 

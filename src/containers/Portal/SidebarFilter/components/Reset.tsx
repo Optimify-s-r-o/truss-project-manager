@@ -1,5 +1,5 @@
-import * as React from 'react';
 import _ from 'lodash';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
@@ -10,7 +10,6 @@ import { translationPath } from '../../../../utils/getPath';
 import { useTranslation } from 'react-i18next';
 import {
 	getCustomersFilters,
-	getInitialValues,
 	getJobsFilters,
 	getProjectsFilters,
 	getTrussesFilters,
@@ -27,7 +26,20 @@ export interface OwnProps {
 
 export const Reset = (props: OwnProps) => {
 	const { filter, values, setValues, resetTree, activeFilter } = props;
+	const [initValues, setInitValues] = useState<any>([]);
 	const { t } = useTranslation();
+
+	useEffect(() => {
+		setInitValues(
+			activeFilter === FilterType.Customer
+				? getCustomersFilters(filter)
+				: activeFilter === FilterType.Project
+				? getProjectsFilters(filter)
+				: activeFilter === FilterType.Job
+				? getJobsFilters(filter)
+				: getTrussesFilters(filter)
+		);
+	}, [activeFilter]);
 
 	const handleReset = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 		const initialValues: any =
@@ -40,10 +52,11 @@ export const Reset = (props: OwnProps) => {
 				: getTrussesFilters(filter);
 		setValues(initialValues);
 	};
+
 	return (
 		<Fixed>
 			<ButtonsRow>
-				{!_.isEqual(getInitialValues(filter), values) && (
+				{(!!!initValues || !_.isEqual(initValues, values)) && (
 					<OutlinedButton type="button" level={3} onClick={handleReset}>
 						{t(
 							translationPath(

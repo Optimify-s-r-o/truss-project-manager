@@ -152,7 +152,7 @@ const Index = ({
 			setAlertDialog(false);
 		}
 	};
-
+	console.log(job);
 	return (
 		<Enter formik={formik}>
 			<Header
@@ -425,7 +425,7 @@ const Index = ({
 											<ActionSection>
 												<File
 													uploadModelPostAction={uploadModelPostAction}
-													id={job?.id}
+													id={job?.Id}
 												/>
 											</ActionSection>
 										)}

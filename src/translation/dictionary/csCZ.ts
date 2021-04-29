@@ -921,8 +921,7 @@ const dictionary: Lang = {
 		averagePricePerPiece: "Průměrná cena ks",
 		process: "Průběh",
 		production: "Cena výroby",
-		productionsPerQuotationsFilter:
-			"Poměr realizovaných a nerealizovaných projektů",
+		productionsPerQuotationsFilter: "Poměr realizovaných ku všem projektům",
 		products: "Produkty Fine",
 		profile: "Profil",
 		projectList: "Seznam projektů",
@@ -1081,6 +1080,18 @@ const dictionary: Lang = {
 		programVersion: "Verze programu",
 		programName: "Název programu",
 		system: "Systém",
+	},
+	updates: {
+		title: "Aktualizace",
+		checkingForUpdates: "Probíhá kontrola aktualizí...",
+		newVersionFound: "Nalezena nová verze:",
+		downloaded: "Aktualizace úspěšně stažena.",
+		updating: "Aktualizuji...",
+		notification:
+			"Tato akce může chvíli trvat. Po stažení nové aktualizace se TRUSS Project Manager automaticky restartuje.",
+		upToDate: "Vaše aplikace je aktuální.",
+		error: "Nastala chyba",
+		download: "Stáhnout a nainstalovat nyní",
 	},
 };
 

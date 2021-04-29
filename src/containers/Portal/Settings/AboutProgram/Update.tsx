@@ -3,7 +3,9 @@ import logo from '../../../../img/icon.png';
 import styled from 'styled-components';
 import { Box } from '../../../../components/Box';
 import { Button, Space, Spin } from 'antd';
+import { lang } from '../../../../translation/i18n';
 import { State } from './Component';
+import { translationPath } from '../../../../utils/getPath';
 import { useTranslation } from 'react-i18next';
 import {
 	CheckCircleOutlined,
@@ -35,34 +37,38 @@ export const Update = ({
 	return (
 		<GridRow columns={1}>
 			<GridItem fill>
-				<Box title="Aktualizace">
+				<Box title={t(translationPath(lang.updates.title).path)}>
 					<AlertBox>
 						<Logo src={logo} />
 						{updatingState === State.PENDING ? (
-							<Message>Checking for updates...</Message>
+							<Message></Message>
 						) : updatingState === State.NEW_VERSION_TO_DOWNLOAD ? (
 							<>
-								<Info>New version found: {versionToDownload}</Info>
+								<Info>
+									{t(translationPath(lang.updates.checkingForUpdates).path)} + +{" "}
+									{versionToDownload}
+								</Info>
 							</>
 						) : updatingState === State.DOWNLOADED ? (
-							<Message>Update successfully downloaded.</Message>
+							<Message>
+								{t(translationPath(lang.updates.downloaded).path)}
+							</Message>
 						) : updatingState === State.UPDATING ? (
 							<>
-								<Info>Updating...</Info>
+								<Info>{t(translationPath(lang.updates.updating).path)}</Info>
 								<Description>
-									This may take a while. When a new update is downloaded TRUSS
-									Project Manager will automatically restart.
+									{t(translationPath(lang.updates.notification).path)}
 								</Description>
 							</>
 						) : updatingState === State.IS_UPDATED ? (
 							<Message>
-								Your app is up to date.{" "}
+								{t(translationPath(lang.updates.upToDate).path)}{" "}
 								<CheckCircleOutlined
 									style={{ marginLeft: 2, color: "#52c41a" }}
 								/>
 							</Message>
 						) : updatingState === State.FAILURE ? (
-							<Message>Error</Message>
+							<Message> {t(translationPath(lang.updates.error).path)}</Message>
 						) : (
 							""
 						)}
@@ -80,7 +86,7 @@ export const Update = ({
 									icon={<WindowsOutlined />}
 									onClick={() => updateApp()}
 								>
-									Download & Install now
+									{t(translationPath(lang.updates.download).path)}
 								</SButton>
 							</Space>
 						)}

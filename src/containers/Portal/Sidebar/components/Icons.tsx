@@ -41,9 +41,6 @@ export enum Status {
 	JobConstructionInProgress,
 	JobConstructionAborted,
 
-	JobTRUSS_3D,
-	JobTRUSS_2D,
-
 	// Project
 	ProjectArchivedAndRealized,
 	ProjectArchivedAndAborted,
@@ -86,12 +83,6 @@ export const getStatusIcons = (nodeStatus: Status): React.ReactNode => {
 		case Status.JobConstructionInProgress:
 		case Status.JobConstructionAborted:
 			icons.push(faCog);
-			break;
-		case Status.JobTRUSS_3D:
-			icons.push(faArchive);
-			break;
-		case Status.JobTRUSS_2D:
-			icons.push(faArchive);
 			break;
 		case Status.ProjectArchivedAndRealized:
 			icons.push(faArchive);

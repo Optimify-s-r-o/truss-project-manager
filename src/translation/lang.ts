@@ -1071,6 +1071,17 @@ export type Lang = Readonly<{
 		programName: string;
 		system: string;
 	};
+	updates: {
+		title: string;
+		checkingForUpdates: string;
+		newVersionFound: string;
+		downloaded: string;
+		updating: string;
+		notification: string;
+		upToDate: string;
+		error: string;
+		download: string;
+	};
 }>;
 
 export default createProxy<Lang>();

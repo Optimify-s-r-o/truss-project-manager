@@ -34,7 +34,6 @@ const Index = (props: OwnProps & WithTranslation) => {
 			]}
 			filter={filter}
 			filters={[
-				lastPathMember(JobsFilterProxy.AltitudeFilter).path,
 				lastPathMember(JobsFilterProxy.CentresFilter).path,
 				lastPathMember(JobsFilterProxy.WindFilter).path,
 				lastPathMember(JobsFilterProxy.SnowFilter).path,
@@ -47,10 +46,6 @@ const Index = (props: OwnProps & WithTranslation) => {
 			]}
 			title={t(translationPath(lang.common.load))}
 			setting={[
-				{
-					from: getPath(FilterSettingsProxy.Job.AltitudeFrom),
-					to: getPath(FilterSettingsProxy.Job.AltitudeTo),
-				},
 				{
 					from: getPath(FilterSettingsProxy.Truss.CentresFrom),
 					to: getPath(FilterSettingsProxy.Truss.CentresTo),
@@ -76,36 +71,50 @@ const Index = (props: OwnProps & WithTranslation) => {
 			<EmptyFilter
 				filter={filter}
 				type="Job"
-				names={[
-					"Altitude",
-					"Centres",
-					"Snow",
-					"Wind",
-					"RoofingLoad",
-					"CeilingLoad",
-				]}
+				names={["RoofingLoad", "CeilingLoad", "Centres", "Snow", "Wind"]}
 				array={["WindAreas", "SnowAreas"]}
 			>
 				<FormSlider
-					label={t(translationPath(lang.common.altitude))}
-					name={getPath(JobsFilterProxy.AltitudeFilter)}
+					label={t(translationPath(lang.common.roofingLoad))}
+					name={getPath(JobsFilterProxy.RoofingLoadFilter)}
 					values={values}
 					setFieldValue={setFieldValue}
-					from={values?.AltitudeFilter?.From}
-					to={values?.AltitudeFilter?.To}
-					settingsFrom={filter?.Job?.AltitudeFrom}
-					settingsTo={filter?.Job?.AltitudeTo}
+					from={values?.RoofingLoadFilter?.From}
+					to={values?.RoofingLoadFilter?.To}
+					settingsFrom={filter?.Job?.RoofingLoadFrom}
+					settingsTo={filter?.Job?.RoofingLoadTo}
 				/>
 				<FormSlider
-					label={t(translationPath(lang.common.centres))}
-					name={getPath(JobsFilterProxy.CentresFilter)}
+					label={t(translationPath(lang.common.ceilingLoad))}
+					name={getPath(JobsFilterProxy.CeilingLoadFilter)}
 					values={values}
 					setFieldValue={setFieldValue}
-					from={values?.CentresFilter?.From}
-					to={values?.CentresFilter?.To}
-					settingsFrom={filter?.Truss?.CentresFrom}
-					settingsTo={filter?.Truss?.CentresTo}
+					from={values?.CeilingLoadFilter?.From}
+					to={values?.CeilingLoadFilter?.To}
+					settingsFrom={filter?.Job?.CeilingLoadFrom}
+					settingsTo={filter?.Job?.CeilingLoadTo}
 				/>
+				<FormSlider
+					label={t(translationPath(lang.common.snowLoad))}
+					name={getPath(JobsFilterProxy.SnowFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					from={values?.SnowFilter?.From}
+					to={values?.SnowFilter?.To}
+					settingsFrom={filter?.Job?.SnowFrom}
+					settingsTo={filter?.Job?.SnowTo}
+				/>
+				<FormSlider
+					label={t(translationPath(lang.common.windLoad))}
+					name={getPath(JobsFilterProxy.WindFilter)}
+					values={values}
+					setFieldValue={setFieldValue}
+					from={values?.WindFilter?.From}
+					to={values?.WindFilter?.To}
+					settingsFrom={filter?.Job?.WindFrom}
+					settingsTo={filter?.Job?.WindTo}
+				/>
+
 				<FormikCheckbox
 					values={values}
 					setFieldValue={setFieldValue}
@@ -133,44 +142,14 @@ const Index = (props: OwnProps & WithTranslation) => {
 					value={values?.WindAreaFilter?.WindAreas}
 				/>
 				<FormSlider
-					label={t(translationPath(lang.common.snowLoad))}
-					name={getPath(JobsFilterProxy.SnowFilter)}
+					label={t(translationPath(lang.common.centres))}
+					name={getPath(JobsFilterProxy.CentresFilter)}
 					values={values}
 					setFieldValue={setFieldValue}
-					from={values?.SnowFilter?.From}
-					to={values?.SnowFilter?.To}
-					settingsFrom={filter?.Job?.SnowFrom}
-					settingsTo={filter?.Job?.SnowTo}
-				/>
-				<FormSlider
-					label={t(translationPath(lang.common.windLoad))}
-					name={getPath(JobsFilterProxy.WindFilter)}
-					values={values}
-					setFieldValue={setFieldValue}
-					from={values?.WindFilter?.From}
-					to={values?.WindFilter?.To}
-					settingsFrom={filter?.Job?.WindFrom}
-					settingsTo={filter?.Job?.WindTo}
-				/>
-				<FormSlider
-					label={t(translationPath(lang.common.roofingLoad))}
-					name={getPath(JobsFilterProxy.RoofingLoadFilter)}
-					values={values}
-					setFieldValue={setFieldValue}
-					from={values?.RoofingLoadFilter?.From}
-					to={values?.RoofingLoadFilter?.To}
-					settingsFrom={filter?.Job?.RoofingLoadFrom}
-					settingsTo={filter?.Job?.RoofingLoadTo}
-				/>
-				<FormSlider
-					label={t(translationPath(lang.common.ceilingLoad))}
-					name={getPath(JobsFilterProxy.CeilingLoadFilter)}
-					values={values}
-					setFieldValue={setFieldValue}
-					from={values?.CeilingLoadFilter?.From}
-					to={values?.CeilingLoadFilter?.To}
-					settingsFrom={filter?.Job?.CeilingLoadFrom}
-					settingsTo={filter?.Job?.CeilingLoadTo}
+					from={values?.CentresFilter?.From}
+					to={values?.CentresFilter?.To}
+					settingsFrom={filter?.Truss?.CentresFrom}
+					settingsTo={filter?.Truss?.CentresTo}
 				/>
 			</EmptyFilter>
 		</FilterSection>
