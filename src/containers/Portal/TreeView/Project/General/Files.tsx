@@ -1,6 +1,7 @@
+import Dropzone from 'react-dropzone';
 import File, { FileEnum } from './File';
 import Moment from 'react-moment';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Delete, Download, Open } from '../../../../../components/Button';
 import { fixed } from '../../../../../utils/formating';
 import { Folder, Project, ProjectProxy } from '../../../../../types/_types';
@@ -8,7 +9,6 @@ import { get } from 'lodash';
 import { getPath, translationPath } from '../../../../../utils/getPath';
 import { lang, t } from '../../../../../translation/i18n';
 import { Span } from './File/index';
-import { useDropzone } from 'react-dropzone';
 import {
 	ActionsColumn,
 	ScrollableTable,
@@ -67,15 +67,12 @@ export const Files = ({
 		}
 	};
 
-	const onDrop = useCallback((acceptedFiles) => {
+	const onDrop = (acceptedFiles) => {
 		setMyFiles([...myFiles, ...acceptedFiles]);
 		readFile(acceptedFiles);
-	}, []);
+	};
 
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({
-		noClick: true,
-		onDrop,
-	});
+	console.log(project);
 
 	const readFile = (files: File[]) => {
 		handleFileChosen(files);
@@ -90,7 +87,7 @@ export const Files = ({
 	};
 
 	const removeFileCall = (id: string) => {
-		removeFile(removeFileAction(encodeURIComponent(id), project.Id));
+		removeFile(removeFileAction(encodeURIComponent(id), project?.Id));
 	};
 
 	const download = (fileId: string, name: string, extension: string) => {
@@ -121,88 +118,92 @@ export const Files = ({
 
 	return (
 		<GridItem fill>
-			<Span {...getRootProps()}>
-				<input {...getInputProps()} hidden />
-				<ContentCard fullSize>
-					<ContentSpaceBetween>
-						<Title>{t(translationPath(lang.common.files))}</Title>
+			<Dropzone onDrop={(acceptedFiles) => onDrop(acceptedFiles)}>
+				{({ getRootProps, getInputProps }) => (
+					<Span {...getRootProps()}>
+						<input {...getInputProps()} hidden />
+						<ContentCard fullSize>
+							<ContentSpaceBetween>
+								<Title>{t(translationPath(lang.common.files))}</Title>
 
-						<ContentRow>
-							<File
-								Id={get(project, getPath(ProjectProxy.Id))}
-								uploadProjectFile={uploadProjectFile}
-								type={FileEnum.UPLOAD_PROJECT}
-								filesUploading={filesUploading}
-							/>
-						</ContentRow>
-					</ContentSpaceBetween>
-					<CardEndTableWrapper>
-						<ScrollableTable
-							height={250}
-							headers={[
-								t(translationPath(lang.common.name)),
-								t(translationPath(lang.common.extension)),
-								t(translationPath(lang.common.dateOfCreation)),
-								t(translationPath(lang.common.size)),
-								t(translationPath(lang.common.actions)),
-							]}
-							data={
-								files &&
-								files.Files &&
-								files.Files.length > 0 &&
-								files.Files?.map((value: FileContent, index: number) => {
-									return [
-										value.Name,
-										value.Extension,
-										value.LastEdit,
-										value.Size,
-										value,
-										value,
-									];
-								})
-							}
-							renderers={[
-								(value: any, key: number, parent: FileContent) => {
-									return value;
-								},
-								(value: any, key: number, parent: FileContent) => {
-									return value;
-								},
-								(value: any, key: number, parent: FileContent) => {
-									return <Moment format="DD/MM/YYYY">{value}</Moment>;
-								},
-								(value: any, key: number, parent: FileContent) => {
-									return fixed(value / 1024, 3) + " KB";
-								},
-								(value: any, key: number, parent: FileContent) => {
-									return (
-										<ActionsColumn>
-											<Open open={() => open(parent && parent.Path)} />
-											&nbsp;
-											<Download
-												download={() =>
-													download(
-														parent && parent.Path,
-														parent.Name,
-														parent.Extension
-													)
-												}
-											/>
-											&nbsp;
-											<Delete
-												remove={() => removeFileCall(parent && parent.Path)}
-												title={t(translationPath(lang.remove.file), {
-													name: parent?.Name,
-												})}
-											/>
-										</ActionsColumn>
-									);
-								},
-							]}
-						/>
-					</CardEndTableWrapper>
-				</ContentCard>
-			</Span>
+								<ContentRow>
+									<File
+										Id={get(project, getPath(ProjectProxy.Id))}
+										uploadProjectFile={uploadProjectFile}
+										type={FileEnum.UPLOAD_PROJECT}
+										filesUploading={filesUploading}
+									/>
+								</ContentRow>
+							</ContentSpaceBetween>
+							<CardEndTableWrapper>
+								<ScrollableTable
+									height={250}
+									headers={[
+										t(translationPath(lang.common.name)),
+										t(translationPath(lang.common.extension)),
+										t(translationPath(lang.common.dateOfCreation)),
+										t(translationPath(lang.common.size)),
+										t(translationPath(lang.common.actions)),
+									]}
+									data={
+										files &&
+										files.Files &&
+										files.Files.length > 0 &&
+										files.Files?.map((value: FileContent, index: number) => {
+											return [
+												value.Name,
+												value.Extension,
+												value.LastEdit,
+												value.Size,
+												value,
+												value,
+											];
+										})
+									}
+									renderers={[
+										(value: any, key: number, parent: FileContent) => {
+											return value;
+										},
+										(value: any, key: number, parent: FileContent) => {
+											return value;
+										},
+										(value: any, key: number, parent: FileContent) => {
+											return <Moment format="DD/MM/YYYY">{value}</Moment>;
+										},
+										(value: any, key: number, parent: FileContent) => {
+											return fixed(value / 1024, 3) + " KB";
+										},
+										(value: any, key: number, parent: FileContent) => {
+											return (
+												<ActionsColumn>
+													<Open open={() => open(parent && parent.Path)} />
+													&nbsp;
+													<Download
+														download={() =>
+															download(
+																parent && parent.Path,
+																parent.Name,
+																parent.Extension
+															)
+														}
+													/>
+													&nbsp;
+													<Delete
+														remove={() => removeFileCall(parent && parent.Path)}
+														title={t(translationPath(lang.remove.file), {
+															name: parent?.Name,
+														})}
+													/>
+												</ActionsColumn>
+											);
+										},
+									]}
+								/>
+							</CardEndTableWrapper>
+						</ContentCard>
+					</Span>
+				)}
+			</Dropzone>
 		</GridItem>
 	);
 };
