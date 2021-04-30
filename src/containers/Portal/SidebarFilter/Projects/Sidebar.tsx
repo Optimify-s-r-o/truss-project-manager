@@ -9,7 +9,6 @@ import { Grow } from '../../Lists/components/_styles';
 import { Hub } from '../../../../constants/hub';
 import { Reset } from '../components/Reset';
 import { SelectType } from '../components/Select';
-import { useFormikContext } from 'formik';
 import { UserData } from '../../Accounts/_types';
 import { WithTranslation, withTranslation } from '../../../../translation/i18n';
 
@@ -24,6 +23,9 @@ export interface OwnProps {
 	projectPending: boolean;
 	handleForm: (newData: any) => void;
 	treeHub: any;
+	values: any;
+	setValues: any;
+	setFieldValue: any;
 }
 
 const Index = ({
@@ -36,9 +38,10 @@ const Index = ({
 	projectPending,
 	handleForm,
 	treeHub,
+	values,
+	setValues,
+	setFieldValue,
 }: OwnProps & WithTranslation) => {
-	const { values, setValues, setFieldValue } = useFormikContext() ?? {};
-
 	useEffect(() => {
 		handleForm({ Projects: values });
 	}, [values]);

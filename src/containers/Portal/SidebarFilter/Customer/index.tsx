@@ -52,21 +52,26 @@ export const Customer = ({
 				validationSchema={Yup.object({})}
 				onSubmit={(values: any) => {}}
 			>
-				<Form>
-					<Sidebar
-						treeHub={treeHub}
-						handleForm={handleForm}
-						getCustomers={getCustomers}
-						filter={filter}
-						activeTree={activeTree}
-						active={active}
-						resetTree={resetTree}
-						activeFilterContent={activeFilterContent}
-						handleChange={handleChange}
-						activeFilter={activeFilter}
-						customerPending={customerPending}
-					/>
-				</Form>
+				{(props) => (
+					<Form>
+						<Sidebar
+							values={props.values}
+							setValues={props.setValues}
+							setFieldValue={props.setFieldValue}
+							treeHub={treeHub}
+							handleForm={handleForm}
+							getCustomers={getCustomers}
+							filter={filter}
+							activeTree={activeTree}
+							active={active}
+							resetTree={resetTree}
+							activeFilterContent={activeFilterContent}
+							handleChange={handleChange}
+							activeFilter={activeFilter}
+							customerPending={customerPending}
+						/>
+					</Form>
+				)}
 			</Formik>
 		</Show>
 	);

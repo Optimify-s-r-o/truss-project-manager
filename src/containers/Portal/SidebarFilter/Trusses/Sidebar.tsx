@@ -12,7 +12,6 @@ import { Hub } from 'src/constants/hub';
 import { Reset } from '../components/Reset';
 import { SelectType } from '../components/Select';
 import { useEffect } from 'react';
-import { useFormikContext } from 'formik';
 import { WithTranslation, withTranslation } from '../../../../translation/i18n';
 
 export interface OwnProps {
@@ -26,6 +25,9 @@ export interface OwnProps {
 	trussPending: boolean;
 	handleForm: (newData: any) => void;
 	treeHub: any;
+	values: any;
+	setValues: any;
+	setFieldValue: any;
 }
 
 const Index = ({
@@ -37,9 +39,10 @@ const Index = ({
 	activeFilter,
 	handleChange,
 	trussPending,
+	values,
+	setValues,
+	setFieldValue,
 }: OwnProps & WithTranslation) => {
-	const { values, setValues, setFieldValue } = useFormikContext() ?? {};
-
 	useEffect(() => {
 		handleForm({ Trusses: values });
 	}, [values]);

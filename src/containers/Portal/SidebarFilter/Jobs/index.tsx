@@ -41,6 +41,9 @@ export const Job = ({
 	show,
 	treeHub,
 }: IJob) => {
+	console.log(filter);
+	console.log(activeFilterContent);
+	console.log(getJobsFilters(filter, activeFilterContent));
 	return (
 		<Show show={show}>
 			<Formik
@@ -49,21 +52,26 @@ export const Job = ({
 				validationSchema={Yup.object({})}
 				onSubmit={(values: any) => {}}
 			>
-				<Form>
-					<Sidebar
-						treeHub={treeHub}
-						filter={filter}
-						activeTree={activeTree}
-						users={users}
-						active={active}
-						resetTree={resetTree}
-						activeFilterContent={activeFilterContent}
-						handleChange={handleChange}
-						activeFilter={activeFilter}
-						jobPending={jobPending}
-						handleForm={handleForm}
-					/>
-				</Form>
+				{(props) => (
+					<Form>
+						<Sidebar
+							values={props.values}
+							setValues={props.setValues}
+							setFieldValue={props.setFieldValue}
+							treeHub={treeHub}
+							filter={filter}
+							activeTree={activeTree}
+							users={users}
+							active={active}
+							resetTree={resetTree}
+							activeFilterContent={activeFilterContent}
+							handleChange={handleChange}
+							activeFilter={activeFilter}
+							jobPending={jobPending}
+							handleForm={handleForm}
+						/>
+					</Form>
+				)}
 			</Formik>
 		</Show>
 	);

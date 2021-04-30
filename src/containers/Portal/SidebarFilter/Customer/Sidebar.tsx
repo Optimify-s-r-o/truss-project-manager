@@ -4,12 +4,11 @@ import React, { useEffect } from 'react';
 import Statistics from './Statistics';
 import { FilterSettings, Page, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
-import { getCustomersFilters, getTrussesFilters } from '../_services';
+import { getCustomersFilters } from '../_services';
 import { Grow } from '../../Lists/components/_styles';
 import { Hub } from '../../../../constants/hub';
 import { Reset } from '../components/Reset';
 import { SelectType } from '../components/Select';
-import { useFormikContext } from 'formik';
 import { WithTranslation, withTranslation } from '../../../../translation/i18n';
 
 export interface OwnProps {
@@ -24,6 +23,9 @@ export interface OwnProps {
 	getCustomers: (data: Page) => void;
 	handleForm: (newData: any) => void;
 	treeHub: any;
+	values: any;
+	setValues: any;
+	setFieldValue: any;
 }
 
 const Index = ({
@@ -35,9 +37,10 @@ const Index = ({
 	activeFilter,
 	handleChange,
 	customerPending,
+	values,
+	setValues,
+	setFieldValue,
 }: OwnProps & WithTranslation) => {
-	const { values, setValues, setFieldValue } = useFormikContext() ?? {};
-
 	useEffect(() => {
 		handleForm({ Customers: values });
 	}, [values]);

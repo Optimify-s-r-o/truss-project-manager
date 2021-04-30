@@ -12,7 +12,6 @@ import { Hub } from 'src/constants/hub';
 import { Reset } from '../components/Reset';
 import { SelectType } from '../components/Select';
 import { useEffect } from 'react';
-import { useFormikContext } from 'formik';
 import { UserData } from '../../Accounts/_types';
 import { WithTranslation, withTranslation } from '../../../../translation/i18n';
 export interface OwnProps {
@@ -27,6 +26,9 @@ export interface OwnProps {
 	jobPending: boolean;
 	handleForm: (newData: any) => void;
 	treeHub: any;
+	values: any;
+	setValues: any;
+	setFieldValue: any;
 }
 
 const Index = ({
@@ -39,9 +41,10 @@ const Index = ({
 	activeFilter,
 	handleChange,
 	jobPending,
+	values,
+	setValues,
+	setFieldValue,
 }: OwnProps & WithTranslation) => {
-	const { values, setValues, setFieldValue } = useFormikContext() ?? {};
-
 	useEffect(() => {
 		handleForm({ Jobs: values });
 	}, [values]);
@@ -50,11 +53,12 @@ const Index = ({
 		if (treeHub) {
 			treeHub.on(Hub.TreeResetFinished, (message) => {
 				const initialValues: any = getJobsFilters(filter);
+				console.log(initialValues);
 				setValues(initialValues);
 			});
 		}
 	}, [treeHub]);
-
+	console.log(values);
 	return (
 		<>
 			<SelectType activeFilter={activeFilter} handleChange={handleChange} />
