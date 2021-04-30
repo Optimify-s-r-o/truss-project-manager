@@ -1083,7 +1083,7 @@ const dictionary: Lang = {
 	},
 	updates: {
 		title: "Aktualizace",
-		checkingForUpdates: "Probíhá kontrola aktualizí...",
+		checkingForUpdates: "Probíhá kontrola aktualizací...",
 		newVersionFound: "Nalezena nová verze:",
 		downloaded: "Aktualizace úspěšně stažena.",
 		updating: "Aktualizuji...",

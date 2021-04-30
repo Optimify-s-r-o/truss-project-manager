@@ -47,7 +47,7 @@ export const Update = ({
 						) : updatingState === State.NEW_VERSION_TO_DOWNLOAD ? (
 							<>
 								<Info>
-									{t(translationPath(lang.updates.newVersionFound).path)}{" "}
+									{t(translationPath(lang.updates.newVersionFound).path)} v
 									{versionToDownload}
 								</Info>
 							</>
