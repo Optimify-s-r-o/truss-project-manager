@@ -1,11 +1,14 @@
 import * as React from 'react';
+import localeCSCZ from 'antd/lib/locale/cs_CZ';
 import localeCZ from './localesDateInput/cs-CZ.json';
 import localeDE from './localesDateInput/de-DE.json';
+import localeDEDE from 'antd/lib/locale/de_DE';
 import localeEN from './localesDateInput/en-GB.json';
+import localeENGB from 'antd/lib/locale/en_GB';
 import moment from 'moment';
 import styled from 'styled-components';
+import { ConfigProvider, DatePicker } from 'antd';
 import { ContentRow } from 'src/constants/globalStyles';
-import { DatePicker } from 'antd';
 import { faCalendar, faTimes } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getLanguage, lang } from '../../../translation/i18n';
@@ -14,6 +17,10 @@ import { LineOutlined } from '@ant-design/icons';
 import { translationPath } from '../../../utils/getPath';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import 'moment/locale/cs';
+import 'moment/locale/de';
+import 'moment/locale/en-gb';
+moment.locale("cs");
 interface DateInputProps {
 	value: Date;
 	onChange?: (
@@ -34,6 +41,17 @@ const DateInput = ({ name, formik, disabled }: DateInputProps) => {
 	const datepicker = useRef(null);
 	const [language, setLanguage] = React.useState(getLanguage());
 
+	useEffect(() => {
+		setLanguage(getLanguage());
+
+		if (getLanguage() == "cz-CZ") {
+			moment.locale("cs");
+		} else if (getLanguage() == "de-DE") {
+			moment.locale("de");
+		} else {
+			moment.locale("en");
+		}
+	}, [getLanguage()]);
 	useEffect(() => {
 		function handleClickOutside(event) {
 			if (
@@ -75,38 +93,48 @@ const DateInput = ({ name, formik, disabled }: DateInputProps) => {
 	return (
 		<Wrapper>
 			<Row>
-				<DatePicker
-					allowClear={false}
-					ref={datepicker}
-					name={name}
-					onChange={onChange}
-					open={focused}
-					placeholder={t(translationPath(lang.placeholder.dateInput).path)}
-					value={
-						formik.values && formik.values[name]
-							? moment(formik.values[name])
-							: null
-					}
-					format={"DD. MM. YYYY"}
+				<ConfigProvider
 					locale={
 						language === "cs-CZ"
-							? localeCZ
+							? localeCSCZ
 							: language === "de-DE"
-							? localeDE
-							: localeEN
+							? localeDEDE
+							: localeENGB
 					}
-					disabled={disabled}
-					onBlur={handleBlur}
-					onFocus={handleFocus}
-					suffixIcon={<></>}
-				/>
-				{!disabled && (
-					<>
-						<Delete icon={faTimes as IconProp} onClick={handleRemove} />
-						<Line />
-						<Toggle icon={faCalendar as IconProp} onClick={handleToggle} />
-					</>
-				)}
+				>
+					<DatePicker
+						allowClear={false}
+						ref={datepicker}
+						name={name}
+						onChange={onChange}
+						open={focused}
+						placeholder={t(translationPath(lang.placeholder.dateInput).path)}
+						value={
+							formik.values && formik.values[name]
+								? moment(formik.values[name])
+								: null
+						}
+						format={"DD. MM. YYYY"}
+						locale={
+							language === "cs-CZ"
+								? localeCZ
+								: language === "de-DE"
+								? localeDE
+								: localeEN
+						}
+						disabled={disabled}
+						onBlur={handleBlur}
+						onFocus={handleFocus}
+						suffixIcon={<></>}
+					/>
+					{!disabled && (
+						<>
+							<Delete icon={faTimes as IconProp} onClick={handleRemove} />
+							<Line />
+							<Toggle icon={faCalendar as IconProp} onClick={handleToggle} />
+						</>
+					)}
+				</ConfigProvider>
 			</Row>
 		</Wrapper>
 	);

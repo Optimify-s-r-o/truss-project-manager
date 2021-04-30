@@ -28,7 +28,7 @@
     "nextDecade": "Next decade",
     "previousCentury": "Last century",
     "nextCentury": "Next century",
-    "shortMonth": ["Leden", "Únor" , "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"],
+    "shortMonths": ["Leden", "Únor" , "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"],
     "shortWeekDays": ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"]
   },
   "timePickerLocale": {

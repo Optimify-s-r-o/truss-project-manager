@@ -14,7 +14,6 @@ export interface OwnProps {
 
 export const Phase = ({ phase }: OwnProps) => {
 	const { t } = useTranslation();
-	console.log(phase);
 	return (
 		<StatusWrapper>
 			{phase?.map((i, key) => (
