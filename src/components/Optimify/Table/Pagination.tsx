@@ -60,6 +60,7 @@ const Pagination = (props: OwnProps) => {
 								PageSize: pageSize,
 								Page: 0,
 								...(sort && { Sort: sort }),
+								Paginate: true,
 							});
 						}}
 					>
@@ -78,6 +79,7 @@ const Pagination = (props: OwnProps) => {
 								PageSize: pageSize,
 								Page: currentPage - 2,
 								...(sort && { Sort: sort }),
+								Paginate: true,
 							});
 						}}
 					>
@@ -96,6 +98,7 @@ const Pagination = (props: OwnProps) => {
 								PageSize: pageSize,
 								Page: currentPage,
 								...(sort && { Sort: sort }),
+								Paginate: true,
 							});
 						}}
 					>
@@ -118,6 +121,7 @@ const Pagination = (props: OwnProps) => {
 								PageSize: pageSize,
 								Page: totalPages - 1,
 								...(sort && { Sort: sort }),
+								Paginate: true,
 							});
 						}}
 					>
