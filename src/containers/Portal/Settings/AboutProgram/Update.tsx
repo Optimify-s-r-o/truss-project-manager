@@ -41,11 +41,13 @@ export const Update = ({
 					<AlertBox>
 						<Logo src={logo} />
 						{updatingState === State.PENDING ? (
-							<Message></Message>
+							<Message>
+								{t(translationPath(lang.updates.checkingForUpdates).path)}
+							</Message>
 						) : updatingState === State.NEW_VERSION_TO_DOWNLOAD ? (
 							<>
 								<Info>
-									{t(translationPath(lang.updates.checkingForUpdates).path)} + +{" "}
+									{t(translationPath(lang.updates.newVersionFound).path)}{" "}
 									{versionToDownload}
 								</Info>
 							</>
