@@ -118,7 +118,10 @@ export const Files = ({
 
 	return (
 		<GridItem fill>
-			<Dropzone onDrop={(acceptedFiles) => onDrop(acceptedFiles)}>
+			<Dropzone
+				noClick={true}
+				onDrop={(acceptedFiles) => onDrop(acceptedFiles)}
+			>
 				{({ getRootProps, getInputProps }) => (
 					<Span {...getRootProps()}>
 						<input {...getInputProps()} hidden />
