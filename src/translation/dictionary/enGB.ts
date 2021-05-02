@@ -779,6 +779,7 @@ const dictionary: Lang = {
 		fasciaLength: "Fascial length",
 		files: "Files",
 		filesText: "Drag files here or click on a bookmark",
+		filterEqual: "Filter is current",
 		filterApply: "Apply filter",
 		filter: "Filter",
 		activeFiltr: "Active filter",

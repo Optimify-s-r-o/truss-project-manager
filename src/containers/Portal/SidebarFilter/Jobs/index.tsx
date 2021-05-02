@@ -41,9 +41,6 @@ export const Job = ({
 	show,
 	treeHub,
 }: IJob) => {
-	console.log(filter);
-	console.log(activeFilterContent);
-	console.log(getJobsFilters(filter, activeFilterContent));
 	return (
 		<Show show={show}>
 			<Formik

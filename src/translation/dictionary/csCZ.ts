@@ -772,6 +772,7 @@ const dictionary: Lang = {
 		files: "Přílohy",
 		filesText: "Sem přetáhněte soubory nebo klikněte na záložku",
 		filterApply: "Filtrovat",
+		filterEqual: "Filtr je aktuální",
 		filter: "Filtr",
 		activeFiltr: "Aktivní filtr",
 		filterDate: "Časové intervaly",

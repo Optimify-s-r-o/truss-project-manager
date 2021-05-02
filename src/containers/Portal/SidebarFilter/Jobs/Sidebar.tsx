@@ -53,12 +53,11 @@ const Index = ({
 		if (treeHub) {
 			treeHub.on(Hub.TreeResetFinished, (message) => {
 				const initialValues: any = getJobsFilters(filter);
-				console.log(initialValues);
 				setValues(initialValues);
 			});
 		}
 	}, [treeHub]);
-	console.log(values);
+
 	return (
 		<>
 			<SelectType activeFilter={activeFilter} handleChange={handleChange} />

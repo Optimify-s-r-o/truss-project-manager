@@ -590,3 +590,31 @@ export const mapEntities = (values: any) => {
 		Trusses: mapTrusses(values?.Trusses),
 	};
 };
+
+export const mapActiveFilterContent = (values: any) => {
+	return {
+		Customers: mapActiveFilters(values?.Customers),
+		Projects: mapActiveFilters(values?.Projects),
+		Jobs: mapActiveFilters(values?.Jobs),
+		Trusses: mapActiveFilters(values?.Trusses),
+	};
+};
+
+export const mapActiveFilters = (values: any) => {
+	if (!values) return null;
+	let newObj = {};
+	Object.entries(values).map(([key, value]: any) => {
+		if (
+			key === "FilterType" ||
+			key === "PersistTree" ||
+			key === "SaveFilter" ||
+			key === "FilterType" ||
+			key === "SavedFilterName" ||
+			!value?.Active
+		) {
+			return;
+		}
+		newObj[key] = value;
+	});
+	return newObj;
+};

@@ -72,8 +72,6 @@ export const Files = ({
 		readFile(acceptedFiles);
 	};
 
-	console.log(project);
-
 	const readFile = (files: File[]) => {
 		handleFileChosen(files);
 	};

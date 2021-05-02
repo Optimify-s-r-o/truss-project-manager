@@ -768,6 +768,7 @@ export type Lang = Readonly<{
 		files: string;
 		filesText: string;
 		filterApply: string;
+		filterEqual: string;
 		filter: string;
 		activeFiltr: string;
 		filterDate: string;

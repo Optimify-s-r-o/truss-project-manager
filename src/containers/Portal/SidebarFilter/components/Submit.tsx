@@ -6,7 +6,7 @@ import { Button } from '../../../../components/Optimify/Button';
 import { ContentColumn } from 'src/constants/globalStyles';
 import { ContentRowEnd } from '../../../../constants/globalStyles';
 import { FilterSettings, TreeType } from '../../../../types/_types';
-import { getInitialValues } from '../_services';
+import { getInitialValues, mapActiveFilterContent } from '../_services';
 import { lang } from '../../../../translation/i18n';
 import { translationPath } from '../../../../utils/getPath';
 import { useTranslation } from 'react-i18next';
@@ -33,9 +33,7 @@ export const Submit = (props: OwnProps) => {
 		formData,
 	} = props;
 	const { t } = useTranslation();
-	console.log(filter);
-	console.log(activeFilterContent);
-	console.log(formData);
+
 	return (
 		<ActiveFilter>
 			<ActiveCommon
@@ -50,11 +48,23 @@ export const Submit = (props: OwnProps) => {
 				<Button
 					level={3}
 					loading={pending}
-					disabled={_.isEqual(getInitialValues(filter), formData)}
+					disabled={
+						_.isEqual(getInitialValues(filter), formData) ||
+						(_.isEqual(
+							mapActiveFilterContent(activeFilterContent),
+							mapActiveFilterContent(formData)
+						) &&
+							activeFilter)
+					}
 					type="button"
 					onClick={handleSubmit}
 				>
-					{t(translationPath(lang.common.filterApply).path)}
+					{_.isEqual(
+						mapActiveFilterContent(activeFilterContent),
+						mapActiveFilterContent(formData)
+					) && activeFilter
+						? t(translationPath(lang.common.filterEqual).path)
+						: t(translationPath(lang.common.filterApply).path)}
 				</Button>
 			</FilterButton>
 		</ActiveFilter>

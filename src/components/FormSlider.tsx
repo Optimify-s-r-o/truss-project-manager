@@ -40,8 +40,7 @@ const Index = (props: OwnProps & WithTranslation) => {
 		min,
 		max,
 	} = props;
-	console.log(from);
-	console.log(to);
+
 	const rangeChange = (name: any) => (value: [number, number]) => {
 		setFieldValue(name, {
 			From: value && value[0],

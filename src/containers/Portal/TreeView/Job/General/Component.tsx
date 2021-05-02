@@ -152,7 +152,7 @@ const Index = ({
 			setAlertDialog(false);
 		}
 	};
-	console.log(job);
+
 	return (
 		<Enter formik={formik}>
 			<Header

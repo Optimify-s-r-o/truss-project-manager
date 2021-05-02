@@ -797,6 +797,7 @@ const dictionary: Lang = {
 		filesText:
 			"Ziehen Sie Dateien hierher oder klicken Sie auf ein Lesezeichen",
 		filterApply: "Filter",
+		filterEqual: "Filter ist aktuell",
 		filter: "Filter",
 		activeFiltr: "aktiver Filter",
 		filterDate: "Zeitintervalle",

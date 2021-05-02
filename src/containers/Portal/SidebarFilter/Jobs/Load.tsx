@@ -24,7 +24,7 @@ export interface OwnProps {
 
 const Index = (props: OwnProps & WithTranslation) => {
 	const { values, filter, setFieldValue } = props;
-	console.log(values);
+
 	return (
 		<FilterSection
 			values={values}
