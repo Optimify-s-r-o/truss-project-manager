@@ -1,32 +1,10 @@
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import Routing from '../../components/Routes';
 import { ApiURL } from '../../constants/api';
-import {
-	ContentHeight,
-	ContentRow,
-	FullHeightExceptHeader,
-	WindowWrapper
-	} from './_styles';
-import {
-	CopyJob,
-	DeleteJob,
-	JobRootObject,
-	Unlock
-	} from './TreeView/Job/_types';
 import { CustomersTreeType } from './TreeView/_types';
 import { darkTheme, GlobalStyles, lightTheme } from '../../constants/theme';
-import {
-	Data,
-	Fetch,
-	FilterSettings,
-	Page,
-	Project,
-	Tree,
-	TreeType
-	} from '../../types/_types';
 import { DeleteProject } from './Project/_types';
 import { EditTruss, OpenTruss } from '../../sagas/Truss/_actions';
-import { ELECTRON_STORE_GET, ELECTRON_STORE_SET } from 'src/constants/ipcConstants';
 import { Filter } from './SidebarFilter';
 import { FilterProjectRequest } from './SidebarFilter/Projects/_types';
 import { getProjectFilesAction } from '../../sagas/Fetch/actions';
@@ -50,6 +28,31 @@ import { useLocation } from 'react-router-dom';
 import { UserData } from './Accounts/_types';
 import { useToasts } from 'react-toast-notifications';
 import { WithTranslation, withTranslation } from '../../translation/i18n';
+import {
+	ELECTRON_STORE_GET,
+	ELECTRON_STORE_SET,
+} from "src/constants/ipcConstants";
+import {
+	Data,
+	Fetch,
+	FilterSettings,
+	Page,
+	Project,
+	Tree,
+	TreeType,
+} from "../../types/_types";
+import {
+	CopyJob,
+	DeleteJob,
+	JobRootObject,
+	Unlock,
+} from "./TreeView/Job/_types";
+import {
+	ContentHeight,
+	ContentRow,
+	FullHeightExceptHeader,
+	WindowWrapper,
+} from "./_styles";
 
 export interface StateProps {
 	activeTree: TreeType;
@@ -375,6 +378,7 @@ const Index = ({
 								copiedJob={copiedJob}
 								setCopiedJob={setCopiedJob}
 								copyJob={copyJob}
+								setActiveFilterContent={setActiveFilterContent}
 							/>
 							<ContentRow>
 								<Routing connect={connect} />

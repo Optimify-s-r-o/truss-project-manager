@@ -49,6 +49,7 @@ interface Sidebar {
 	setCopiedJob: (data: string) => void;
 	copiedJob: string;
 	copyJob: (data: CopyJob) => void;
+	setActiveFilterContent: (data: any) => void;
 }
 
 export const Sidebar = ({
@@ -56,7 +57,7 @@ export const Sidebar = ({
 	getTrusses,
 	getProjects,
 	getJobs,
-	currentPage,
+	setActiveFilterContent,
 	copiedJob,
 	setCopiedJob,
 	connect,
@@ -212,6 +213,7 @@ export const Sidebar = ({
 				getJobs={getJobs}
 				connect={connect}
 				resetSelectionAction={resetSelectionAction}
+				setActiveFilterContent={setActiveFilterContent}
 			/>
 			<Tree
 				setSelectedKeys={setSelectedKeys}

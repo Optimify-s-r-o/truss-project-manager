@@ -40,6 +40,7 @@ export const Project = ({
 	show,
 	treeHub,
 }: IProject) => {
+	console.log(getProjectsFilters(filter, activeFilterContent));
 	return (
 		<Show show={show}>
 			<Formik
@@ -48,25 +49,28 @@ export const Project = ({
 				validationSchema={Yup.object({})}
 				onSubmit={(values: any) => {}}
 			>
-				{(props) => (
-					<Form>
-						<Sidebar
-							values={props.values}
-							setValues={props.setValues}
-							setFieldValue={props.setFieldValue}
-							treeHub={treeHub}
-							handleForm={handleForm}
-							filter={filter}
-							activeTree={activeTree}
-							users={users}
-							resetTree={resetTree}
-							activeFilterContent={activeFilterContent}
-							handleChange={handleChange}
-							activeFilter={activeFilter}
-							projectPending={projectPending}
-						/>
-					</Form>
-				)}
+				{(props) => {
+					console.log(props);
+					return (
+						<Form>
+							<Sidebar
+								values={props.values}
+								setValues={props.setValues}
+								setFieldValue={props.setFieldValue}
+								treeHub={treeHub}
+								handleForm={handleForm}
+								filter={filter}
+								activeTree={activeTree}
+								users={users}
+								resetTree={resetTree}
+								activeFilterContent={activeFilterContent}
+								handleChange={handleChange}
+								activeFilter={activeFilter}
+								projectPending={projectPending}
+							/>
+						</Form>
+					);
+				}}
 			</Formik>
 		</Show>
 	);

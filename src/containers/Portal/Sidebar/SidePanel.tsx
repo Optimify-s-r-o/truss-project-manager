@@ -51,6 +51,7 @@ interface ISidePanel {
 	setCopiedJob: (data: string) => void;
 	copiedJob: string;
 	copyJob: (data: CopyJob) => void;
+	setActiveFilterContent: (data: any) => void;
 }
 
 export const SidePanel = ({
@@ -85,6 +86,7 @@ export const SidePanel = ({
 	copiedJob,
 	setCopiedJob,
 	copyJob,
+	setActiveFilterContent,
 }: ISidePanel) => {
 	const { t } = useTranslation();
 	const [tree, setTree] = React.useState(null);
@@ -225,6 +227,7 @@ export const SidePanel = ({
 					copiedJob={copiedJob}
 					setCopiedJob={setCopiedJob}
 					copyJob={copyJob}
+					setActiveFilterContent={setActiveFilterContent}
 				/>
 			</SideMenu>
 		</SectionsPanel>

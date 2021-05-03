@@ -32,6 +32,7 @@ interface IActiveActions {
 	getJobs: (data: Page) => void;
 	connect: HubConnection;
 	resetSelectionAction: (data: void) => void;
+	setActiveFilterContent: (data: any) => void;
 }
 export const ActiveActions = ({
 	data,
@@ -42,6 +43,7 @@ export const ActiveActions = ({
 	getJobs,
 	connect,
 	resetSelectionAction,
+	setActiveFilterContent,
 }: IActiveActions) => {
 	const { t } = useTranslation();
 
@@ -49,6 +51,7 @@ export const ActiveActions = ({
 		if (connect) {
 			connect.on(Hub.TreeResetFinished, (message) => {
 				resetLists();
+				setActiveFilterContent({});
 			});
 		}
 	}, []);
