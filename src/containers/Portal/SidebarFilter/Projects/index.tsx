@@ -5,7 +5,7 @@ import { FilterType } from '../index';
 import { Form } from '../../../../constants/globalStyles';
 import { Formik } from 'formik';
 import { getProjectsFilters } from '../_services';
-import { Show } from '../_styles';
+import { Show } from '../components/Show';
 import { UserData } from '../../Accounts/_types';
 
 export interface IProject {
@@ -39,12 +39,10 @@ export const Project = ({
 	show,
 	treeHub,
 }: IProject) => {
-	console.log(getProjectsFilters(filter, activeFilterContent));
 	return (
 		<Show show={show}>
 			<Formik
 				initialValues={getProjectsFilters(filter, activeFilterContent)}
-				enableReinitialize={true}
 				onSubmit={(values: any) => {}}
 			>
 				{(props) => {

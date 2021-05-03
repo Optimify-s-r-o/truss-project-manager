@@ -1,12 +1,11 @@
 import * as React from 'react';
-import * as Yup from 'yup';
 import Sidebar from './Sidebar';
 import { FilterSettings, Page, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
 import { Form } from '../../../../constants/globalStyles';
 import { Formik } from 'formik';
 import { getCustomersFilters } from '../_services';
-import { Show } from '../_styles';
+import { Show } from '../components/Show';
 import { useEffect } from 'react';
 
 export interface ICustomer {
@@ -48,8 +47,6 @@ export const Customer = ({
 		<Show show={show}>
 			<Formik
 				initialValues={getCustomersFilters(filter, activeFilterContent)}
-				enableReinitialize={true}
-				validationSchema={Yup.object({})}
 				onSubmit={(values: any) => {}}
 			>
 				{(props) => (

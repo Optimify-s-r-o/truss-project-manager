@@ -42,6 +42,7 @@ const Index = ({
 	values,
 	setValues,
 	setFieldValue,
+	activeFilterContent,
 }: OwnProps & WithTranslation) => {
 	useEffect(() => {
 		handleForm({ Trusses: values });
@@ -55,6 +56,12 @@ const Index = ({
 			});
 		}
 	}, [treeHub]);
+
+	useEffect(() => {
+		console.log(filter);
+		console.log(activeFilterContent);
+		setValues(getTrussesFilters(filter, activeFilterContent));
+	}, [filter, activeFilterContent]);
 
 	return (
 		<>

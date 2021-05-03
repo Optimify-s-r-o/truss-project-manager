@@ -41,6 +41,7 @@ const Index = ({
 	values,
 	setValues,
 	setFieldValue,
+	activeFilterContent,
 }: OwnProps & WithTranslation) => {
 	useEffect(() => {
 		handleForm({ Projects: values });
@@ -54,6 +55,12 @@ const Index = ({
 			});
 		}
 	}, [treeHub]);
+
+	useEffect(() => {
+		console.log(filter);
+		console.log(activeFilterContent);
+		setValues(getProjectsFilters(filter, activeFilterContent));
+	}, [filter, activeFilterContent]);
 
 	return (
 		<>

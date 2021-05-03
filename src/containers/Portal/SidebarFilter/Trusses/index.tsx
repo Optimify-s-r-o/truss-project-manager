@@ -5,7 +5,7 @@ import { FilterType } from '../index';
 import { Form } from '../../../../constants/globalStyles';
 import { Formik } from 'formik';
 import { getTrussesFilters } from '../_services';
-import { Show } from '../_styles';
+import { Show } from '../components/Show';
 
 export interface ITruss {
 	filter: FilterSettings;
@@ -36,14 +36,10 @@ export const Truss = ({
 	treeHub,
 	show,
 }: ITruss) => {
-	console.log(filter);
-	console.log(activeFilterContent);
-	console.log(getTrussesFilters(filter, activeFilterContent));
 	return (
 		<Show show={show}>
 			<Formik
 				initialValues={getTrussesFilters(filter, activeFilterContent)}
-				enableReinitialize={true}
 				onSubmit={(values: any) => {}}
 			>
 				{(props) => {

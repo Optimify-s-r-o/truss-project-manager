@@ -5,7 +5,7 @@ import { FilterType } from '../index';
 import { Form } from '../../../../constants/globalStyles';
 import { Formik } from 'formik';
 import { getJobsFilters } from '../_services';
-import { Show } from '../_styles';
+import { Show } from '../components/Show';
 import { UserData } from '../../Accounts/_types';
 
 export interface IJob {
@@ -40,12 +40,10 @@ export const Job = ({
 	show,
 	treeHub,
 }: IJob) => {
-	console.log(getJobsFilters(filter, activeFilterContent));
 	return (
 		<Show show={show}>
 			<Formik
 				initialValues={getJobsFilters(filter, activeFilterContent)}
-				enableReinitialize={true}
 				onSubmit={(values: any) => {}}
 			>
 				{(props) => {

@@ -40,6 +40,7 @@ const Index = ({
 	values,
 	setValues,
 	setFieldValue,
+	activeFilterContent,
 }: OwnProps & WithTranslation) => {
 	useEffect(() => {
 		handleForm({ Customers: values });
@@ -53,6 +54,13 @@ const Index = ({
 			});
 		}
 	}, [treeHub]);
+
+	useEffect(() => {
+		console.log(filter);
+		console.log(activeFilterContent);
+		setValues(getCustomersFilters(filter, activeFilterContent));
+	}, [filter, activeFilterContent]);
+
 	return (
 		<>
 			<SelectType activeFilter={activeFilter} handleChange={handleChange} />
