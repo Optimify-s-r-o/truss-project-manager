@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import { ApiURL } from '../../constants/api';
 import { Fetch, Project, TreeType } from '../../types/_types';
 import { Hub, HubApi } from '../../constants/hub';
 import { JobRootObject } from './TreeView/Job/_types';
-import { Method } from '../../constants/enum';
 import { RootStateType } from '../../reducers/index';
-import { settingsFilter } from './_actions';
 import { Truss } from './TreeView/Truss/_types';
 import { useSelector } from 'react-redux';
 import {
@@ -248,12 +245,6 @@ export const HubComponent = ({
 					});
 
 					connect?.on(Hub.FiltersChanged, (message) => {
-						console.log("CHANGED");
-						filterSettingsCall({
-							action: settingsFilter,
-							method: Method.GET,
-							url: ApiURL.SETTINGS_FILTER,
-						});
 						connect.invoke(Hub.RequestFilters);
 					});
 
