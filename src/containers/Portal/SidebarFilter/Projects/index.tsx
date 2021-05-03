@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as Yup from 'yup';
 import Sidebar from './Sidebar';
 import { FilterSettings, TreeType } from '../../../../types/_types';
 import { FilterType } from '../index';
@@ -46,7 +45,6 @@ export const Project = ({
 			<Formik
 				initialValues={getProjectsFilters(filter, activeFilterContent)}
 				enableReinitialize={true}
-				validationSchema={Yup.object({})}
 				onSubmit={(values: any) => {}}
 			>
 				{(props) => {

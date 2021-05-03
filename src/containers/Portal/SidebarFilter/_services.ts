@@ -1,4 +1,4 @@
-import { FilterSettings, FilterSettingsProxy } from '../../../types/_types';
+import { FilterSettings } from '../../../types/_types';
 import { get } from 'lodash';
 import { getObject } from '../../../utils/helpers';
 import { getPath, lastPathMember } from '../../../utils/getPath';
@@ -84,52 +84,37 @@ export const getCustomersFilters = (
 		AveragePricePerProjectFilter: getFilter(
 			activeFilterContent?.Customers?.AveragePricePerProjectFilter,
 			getObject(
-				get(
-					filter,
-					getPath(FilterSettingsProxy.Customer.AveragePricePerProjectFrom)
-				),
-				get(
-					filter,
-					getPath(FilterSettingsProxy.Customer.AveragePricePerProjectTo)
-				)
+				filter?.Customer?.AveragePricePerProjectFrom,
+				filter?.Customer?.AveragePricePerProjectTo
 			)
 		),
 		SumOfProjectPricesFilter: getFilter(
 			activeFilterContent?.Customers?.SumOfProjectPricesFilter,
 			getObject(
-				get(
-					filter,
-					getPath(FilterSettingsProxy.Customer.SumOfProjectPricesFrom)
-				),
-				get(filter, getPath(FilterSettingsProxy.Customer.SumOfProjectPricesTo))
+				filter?.Customer?.SumOfProjectPricesFrom,
+				filter?.Customer?.SumOfProjectPricesTo
 			)
 		),
 
 		NumberOfProjectsFilter: getFilter(
 			activeFilterContent?.Customers?.NumberOfProjectsFilter,
 			getObject(
-				get(filter, getPath(FilterSettingsProxy.Customer.NumberOfProjectsFrom)),
-				get(filter, getPath(FilterSettingsProxy.Customer.NumberOfProjectsTo))
+				filter?.Customer?.NumberOfProjectsFrom,
+				filter?.Customer?.NumberOfProjectsTo
 			)
 		),
 		NumberOfQuotationsFilter: getFilter(
 			activeFilterContent?.Customers?.NumberOfQuotationsFilter,
 			getObject(
-				get(
-					filter,
-					getPath(FilterSettingsProxy.Customer.NumberOfQuotationsFrom)
-				),
-				get(filter, getPath(FilterSettingsProxy.Customer.NumberOfQuotationsTo))
+				filter?.Customer?.NumberOfQuotationsFrom,
+				filter?.Customer?.NumberOfQuotationsTo
 			)
 		),
 		NumberOfProductionsFilter: getFilter(
 			activeFilterContent?.Customers?.NumberOfProductionsFilter,
 			getObject(
-				get(
-					filter,
-					getPath(FilterSettingsProxy.Customer.NumberOfProductionsFrom)
-				),
-				get(filter, getPath(FilterSettingsProxy.Customer.NumberOfProductionsTo))
+				filter?.Customer?.NumberOfProductionsFrom,
+				filter?.Customer?.NumberOfProductionsTo
 			)
 		),
 		ProductionsPerQuotationsFilter: {
@@ -173,15 +158,15 @@ export const getProjectsFilters = (
 		ProductionPriceFilter: getFilter(
 			activeFilterContent?.Projects?.ProductionPriceFilter,
 			getObject(
-				get(filter, getPath(FilterSettingsProxy.Project.ProductionPriceFrom)),
-				get(filter, getPath(FilterSettingsProxy.Project.ProductionPriceTo))
+				filter?.Project?.ProductionPriceFrom,
+				filter?.Project?.ProductionPriceTo
 			)
 		),
 		QuotationPriceFilter: getFilter(
 			activeFilterContent?.Projects?.QuotationPriceFilter,
 			getObject(
-				get(filter, getPath(FilterSettingsProxy.Project.QuotationPriceFrom)),
-				get(filter, getPath(FilterSettingsProxy.Project.QuotationPriceTo))
+				filter?.Project?.QuotationPriceFrom,
+				filter?.Project?.QuotationPriceTo
 			)
 		),
 		ConstructionDateFilter: getFilter(
@@ -231,16 +216,13 @@ export const getJobsFilters = (
 		}),
 		PriceFilter: getFilter(
 			activeFilterContent?.Jobs?.PriceFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Job.PriceFrom)),
-				get(filter, getPath(FilterSettingsProxy.Job.PriceTo))
-			)
+			getObject(filter?.Job?.PriceFrom, filter?.Job?.PriceTo)
 		),
 		PricePerSquareMeterFilter: getFilter(
 			activeFilterContent?.Jobs?.PricePerSquareMeterFilter,
 			getObject(
-				get(filter, getPath(FilterSettingsProxy.Job.PricePerSquareMeterFrom)),
-				get(filter, getPath(FilterSettingsProxy.Job.PricePerSquareMeterTo))
+				filter?.Job?.PricePerSquareMeterFrom,
+				filter?.Job?.PricePerSquareMeterTo
 			)
 		),
 		RoofingLoadFilter: getFilter(
@@ -269,38 +251,23 @@ export const getJobsFilters = (
 		),
 		AltitudeFilter: getFilter(
 			activeFilterContent?.Jobs?.AltitudeFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Job.AltitudeTo)),
-				get(filter, getPath(FilterSettingsProxy.Job.AltitudeTo))
-			)
+			getObject(filter?.Job?.AltitudeTo, filter?.Job?.AltitudeTo)
 		),
 		CoveredAreaFilter: getFilter(
 			activeFilterContent?.Jobs?.CoveredAreaFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Job.CoveredAreaFrom)),
-				get(filter, getPath(FilterSettingsProxy.Job.CoveredAreaTo))
-			)
+			getObject(filter?.Job?.CoveredAreaFrom, filter?.Job?.CoveredAreaTo)
 		),
 		CentresFilter: getFilter(
 			activeFilterContent?.Jobs?.CentresFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.CentresFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.CentresTo))
-			)
+			getObject(filter?.Truss?.CentresFrom, filter?.Truss?.CentresTo)
 		),
 		HipLengthFilter: getFilter(
 			activeFilterContent?.Jobs?.HipLengthFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Job.HipLengthFrom)),
-				get(filter, getPath(FilterSettingsProxy.Job.HipLengthTo))
-			)
+			getObject(filter?.Job?.HipLengthFrom, filter?.Job?.HipLengthTo)
 		),
 		RidgeLengthFilter: getFilter(
 			activeFilterContent?.Jobs?.RidgeLengthFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Job.RidgeLengthFrom)),
-				get(filter, getPath(FilterSettingsProxy.Job.RidgeLengthTo))
-			)
+			getObject(filter?.Job?.RidgeLengthFrom, filter?.Job?.RidgeLengthTo)
 		),
 		DateOfCreationFilter: getFilter(
 			activeFilterContent?.Jobs?.DateOfCreationFilter,
@@ -345,94 +312,61 @@ export const getTrussesFilters = (
 		}),
 		PriceFilter: getFilter(
 			activeFilterContent?.Trusses?.PriceFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.PriceFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.PriceTo))
-			)
+			getObject(filter?.Truss?.PriceFrom, filter?.Truss?.PriceTo)
 		),
 		WindLoadFilter: getFilter(
 			activeFilterContent?.Trusses?.WindLoadFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.WindLoadFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.WindLoadTo))
-			)
+			getObject(filter?.Truss?.WindLoadFrom, filter?.Truss?.WindLoadTo)
 		),
 		SnowLoadFilter: getFilter(
 			activeFilterContent?.Trusses?.SnowLoadFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.SnowLoadFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.SnowLoadTo))
-			)
+			getObject(filter?.Truss?.SnowLoadFrom, filter?.Truss?.SnowLoadTo)
 		),
 		CeilingLoadFilter: getFilter(
 			activeFilterContent?.Trusses?.CeilingLoadFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.CeilingLoadFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.CeilingLoadTo))
-			)
+			getObject(filter?.Truss?.CeilingLoadFrom, filter?.Truss?.CeilingLoadTo)
 		),
 		RoofingLoadFilter: getFilter(
 			activeFilterContent?.Trusses?.RoofingLoadFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.RoofingLoadFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.RoofingLoadTo))
-			)
+			getObject(filter?.Truss?.RoofingLoadFrom, filter?.Truss?.RoofingLoadTo)
 		),
 		HeightFilter: getFilter(
 			activeFilterContent?.Trusses?.HeightFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.HeightFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.HeightTo))
-			)
+			getObject(filter?.Truss?.HeightFrom, filter?.Truss?.HeightTo)
 		),
 		LengthFilter: getFilter(
 			activeFilterContent?.Trusses?.LengthFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.LengthFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.LengthTo))
-			)
+			getObject(filter?.Truss?.LengthFrom, filter?.Truss?.LengthTo)
 		),
 		SpanFilter: getFilter(
 			activeFilterContent?.Trusses?.SpanFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.SpanFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.SpanTo))
-			)
+			getObject(filter?.Truss?.SpanFrom, filter?.Truss?.SpanTo)
 		),
 		ThicknessFilter: getFilter(
 			activeFilterContent?.Trusses?.ThicknessFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.ThicknessFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.ThicknessTo))
-			)
+			getObject(filter?.Truss?.ThicknessFrom, filter?.Truss?.ThicknessTo)
 		),
 		WeightFilter: getFilter(
 			activeFilterContent?.Trusses?.WeightFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.WeightFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.WeightTo))
-			)
+			getObject(filter?.Truss?.WeightFrom, filter?.Truss?.WeightTo)
 		),
 		TransportWeightFilter: getFilter(
 			activeFilterContent?.Trusses?.TransportWeightFilter,
 			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.TransportWeightFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.TransportWeightTo))
+				filter?.Truss?.TransportWeightFrom,
+				filter?.Truss?.TransportWeightTo
 			)
 		),
 		SupportsQuantityFilter: getFilter(
 			activeFilterContent?.Trusses?.SupportsQuantityFilter,
 			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.SupportsCountFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.SupportsCountTo))
+				filter?.Truss?.SupportsCountFrom,
+				filter?.Truss?.SupportsCountTo
 			)
 		),
 		MembersCountFilter: getFilter(
 			activeFilterContent?.Trusses?.MembersCountFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.MembersCountFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.MembersCountTo))
-			)
+			getObject(filter?.Truss?.MembersCountFrom, filter?.Truss?.MembersCountTo)
 		),
 		PlatesCountFilter: getFilter(
 			activeFilterContent?.Trusses?.PlatesCountFilter,
@@ -440,17 +374,11 @@ export const getTrussesFilters = (
 		),
 		ModelCountFilter: getFilter(
 			activeFilterContent?.Trusses?.ModelCountFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.ModelCountFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.ModelCountTo))
-			)
+			getObject(filter?.Truss?.ModelCountFrom, filter?.Truss?.ModelCountTo)
 		),
 		PliesFilter: getFilter(
 			activeFilterContent?.Trusses?.PliesFilter,
-			getObject(
-				get(filter, getPath(FilterSettingsProxy.Truss.PliesFrom)),
-				get(filter, getPath(FilterSettingsProxy.Truss.PliesTo))
-			)
+			getObject(filter?.Truss?.PliesFrom, filter?.Truss?.PliesTo)
 		),
 	};
 };

@@ -3,13 +3,11 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { createProject, createProjectWithJson } from './_actions';
 import { createTruss } from '../../../sagas/Truss/_actions';
 import { Error, fetchSaga, FetchSagaReponseType } from '../../../sagas/_sagas';
-import { getFiltersSettings } from '../../../sagas/Fetch/actions';
 import { getType } from 'typesafe-actions';
 import { lang, t } from '../../../translation/i18n';
 import { makeFormData } from '../../../utils/makeFormData';
 import { push } from 'connected-react-router';
 import { Routes } from '../../../constants/routes';
-import { settingsFilter } from '../_actions';
 import { Status } from '../../../components/Toast/_types';
 import { translationPath } from '../../../utils/getPath';
 import { TrussExe } from '../../../types/_types';
@@ -73,7 +71,6 @@ function* projectSaveSaga(
 			);
 		}
 
-		yield put(settingsFilter.request(getFiltersSettings()));
 		yield put(
 			notificationAction({
 				code: Status.SUCCESS,
@@ -130,7 +127,6 @@ function* projectFromJsonSaga(
 		}
 
 		yield put(createProjectWithJson.success(data.response as string));
-		yield put(settingsFilter.request(getFiltersSettings()));
 		yield put(
 			notificationAction({
 				code: Status.SUCCESS,
