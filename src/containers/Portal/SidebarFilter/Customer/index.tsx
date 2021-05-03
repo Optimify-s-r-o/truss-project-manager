@@ -5,7 +5,7 @@ import { FilterType } from '../index';
 import { Form } from '../../../../constants/globalStyles';
 import { Formik } from 'formik';
 import { getCustomersFilters } from '../_services';
-import { Show } from '../components/Show';
+import { Show } from '../_styles';
 import { useEffect } from 'react';
 
 export interface ICustomer {

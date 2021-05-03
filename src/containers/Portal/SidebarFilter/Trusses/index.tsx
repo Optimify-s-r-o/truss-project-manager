@@ -5,7 +5,7 @@ import { FilterType } from '../index';
 import { Form } from '../../../../constants/globalStyles';
 import { Formik } from 'formik';
 import { getTrussesFilters } from '../_services';
-import { Show } from '../components/Show';
+import { Show } from '../_styles';
 
 export interface ITruss {
 	filter: FilterSettings;

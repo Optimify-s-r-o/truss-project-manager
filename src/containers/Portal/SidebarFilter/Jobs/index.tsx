@@ -5,7 +5,7 @@ import { FilterType } from '../index';
 import { Form } from '../../../../constants/globalStyles';
 import { Formik } from 'formik';
 import { getJobsFilters } from '../_services';
-import { Show } from '../components/Show';
+import { Show } from '../_styles';
 import { UserData } from '../../Accounts/_types';
 
 export interface IJob {
