@@ -1,5 +1,10 @@
 import { ApiURL } from '../../../constants/api';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import {
+	call,
+	put,
+	select,
+	takeLatest
+	} from 'redux-saga/effects';
 import { Error, fetchSaga, WildCards } from '../../../sagas/_sagas';
 import { getType } from 'typesafe-actions';
 import { lang, t } from '../../../translation/i18n';
@@ -171,31 +176,55 @@ function* filterEntitiesActionSaga(
 
 		yield put(filterEntities.success(response));
 		if (action.payload?.location?.pathname === Routes.FILTER_PROJECT) {
+			const currentPage = yield select(
+				(state: any) => state.FilterReducer.projects?.CurrentPage
+			);
+			const pageSize = yield select(
+				(state: any) => state.FilterReducer.projects?.PageSize
+			);
 			yield put(
 				getProjects.request({
-					PageSize: 25,
-					Page: 0,
+					PageSize: pageSize,
+					Page: (currentPage as number) - 1,
 				})
 			);
 		} else if (action.payload?.location?.pathname === Routes.FILTER_JOB) {
+			const currentPage = yield select(
+				(state: any) => state.FilterReducer.jobs?.CurrentPage
+			);
+			const pageSize = yield select(
+				(state: any) => state.FilterReducer.jobs?.PageSize
+			);
 			yield put(
 				getJobs.request({
-					PageSize: 25,
-					Page: 0,
+					PageSize: pageSize,
+					Page: (currentPage as number) - 1,
 				})
 			);
 		} else if (action.payload?.location?.pathname === Routes.FILTER_TRUSS) {
+			const currentPage = yield select(
+				(state: any) => state.FilterReducer.trusses?.CurrentPage
+			);
+			const pageSize = yield select(
+				(state: any) => state.FilterReducer.trusses?.PageSize
+			);
 			yield put(
 				getTrusses.request({
-					PageSize: 25,
-					Page: 0,
+					PageSize: pageSize,
+					Page: (currentPage as number) - 1,
 				})
 			);
 		} else if (action.payload?.location?.pathname === Routes.CUSTOMER_ALL) {
+			const currentPage = yield select(
+				(state: any) => state.FilterReducer.customers?.CurrentPage
+			);
+			const pageSize = yield select(
+				(state: any) => state.FilterReducer.customers?.PageSize
+			);
 			yield put(
 				getCustomers.request({
-					PageSize: 25,
-					Page: 0,
+					PageSize: pageSize,
+					Page: (currentPage as number) - 1,
 				})
 			);
 		}
