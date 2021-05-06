@@ -86,6 +86,8 @@ export const Tree = ({
 		} else if (event?.node?.treeType === TreeType.PROJECT) {
 			if (path.includes("quotations")) {
 				history.push(Routes.TREE_LINK_PROJECT + keys + "/quotations/persist");
+			} else if (path.includes("log")) {
+				history.push(Routes.TREE_LINK_PROJECT + keys + "/log/persist");
 			} else {
 				history.push(Routes.TREE_LINK_PROJECT + keys);
 			}
@@ -94,6 +96,8 @@ export const Tree = ({
 				history.push(Routes.TREE_LINK_JOB + keys + "/material/persist");
 			} else if (path.includes("quotations")) {
 				history.push(Routes.TREE_LINK_JOB + keys + "/quotations/persist");
+			} else if (path.includes("trusses")) {
+				history.push(Routes.TREE_LINK_JOB + keys + "/trusses/persist");
 			} else {
 				history.push(Routes.TREE_LINK_JOB + keys);
 			}

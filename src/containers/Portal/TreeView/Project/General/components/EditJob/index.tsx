@@ -87,7 +87,7 @@ const Index: FC<WithTranslation & OwnProps> = ({
 	};
 
 	return (
-		<>
+		<div>
 			{contextMenu ? (
 				<ContentRow onClick={openEditTruss}>
 					<span>{title}</span>
@@ -106,7 +106,7 @@ const Index: FC<WithTranslation & OwnProps> = ({
 					/>
 				</Tooltip>
 			)}
-		</>
+		</div>
 	);
 };
 

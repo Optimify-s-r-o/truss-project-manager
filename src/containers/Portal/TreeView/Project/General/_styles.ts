@@ -1,10 +1,8 @@
-import styled from "styled-components";
-import truss2dCreate from "../../../../../img/addTruss2D.png";
-import truss2dEdit from "../../../../../img/editTruss2D.png";
-import truss3dCreate from "../../../../../img/addTruss3D.png";
-import truss3dEdit from "../../../../../img/editTruss3D.png";
-import { BoxTree } from "../../../../../constants/globalStyles";
-import { TrussAction, TrussExe } from "../../../../../types/_types";
+import styled from 'styled-components';
+import truss3dCreate from '../../../../../img/addTruss3D.png';
+import truss3dEdit from '../../../../../img/editTruss3D.png';
+import { BoxTree } from '../../../../../constants/globalStyles';
+import { TrussAction, TrussExe } from '../../../../../types/_types';
 
 export const LogElement = styled.div`
 	a {
@@ -30,12 +28,8 @@ export const Open = styled.div<{ action: TrussAction; truss: TrussExe }>`
 	background-position: center;
 	background-image: ${(props) =>
 		props.action === TrussAction.EDIT
-			? props.truss === TrussExe.TRUSS_3D
-				? `url(${truss3dEdit})`
-				: `url(${truss2dEdit})`
-			: props.truss === TrussExe.TRUSS_3D
-			? `url(${truss3dCreate})`
-			: `url(${truss2dCreate})`};
+			? `url(${truss3dEdit})`
+			: `url(${truss3dCreate})`};
 	cursor: pointer;
 	margin-right: 1px;
 	width: 33px;
