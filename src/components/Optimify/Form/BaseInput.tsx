@@ -60,6 +60,7 @@ export const BaseInlineInput = (props: BaseInlineInputProps) => {
 				onFocus={() => setFocused(true)}
 				name={props.name}
 				{...props}
+				value={props.value || ""}
 				onChange={(e) => {
 					props.onChange && props.onChange(e);
 					handleFilter(e.target.value);

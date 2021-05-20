@@ -90,7 +90,7 @@ const FormikInput = (props: FormRowProps) => {
 					filter={filter}
 					disabled={disabled}
 					formik={formik}
-					value={get(formik.values, name) ? get(formik.values, name) : ""}
+					value={(formik.values && formik.values[name]) || ""}
 				/>
 			);
 		case Input.TEXT:
