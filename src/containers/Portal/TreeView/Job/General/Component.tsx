@@ -7,6 +7,21 @@ import RouteLeavingGuard from '../../../../../components/Prompt';
 import { ActionSection } from '../../../../../components/Quotations';
 import { Alert, Button as SButton, Modal } from 'antd';
 import { Button } from '../../../../../components/Optimify/Button';
+import {
+  CenterImage,
+  MainTreeContent,
+  TreeButtonsRow,
+  TreeContent,
+  TreeScreen
+  } from '../../../_styles';
+import {
+  ContentCard,
+  Form,
+  GridItem,
+  GridRow,
+  Header2,
+  Sceleton
+  } from '../../../../../constants/globalStyles';
 import { DeleteJob, JobProxy, Unlock } from '../_types';
 import { EditTruss } from '../../../../../sagas/Truss/_actions';
 import { Enter } from 'src/components/KeyBoardEventHandler';
@@ -18,6 +33,12 @@ import { getPath, translationPath } from '../../../../../utils/getPath';
 import { Header } from '../components/Header';
 import { Input } from '../../../../../constants/enum';
 import { JobType, Settings, TreeType } from '../../../../../types/_types';
+import {
+  lang,
+  t,
+  WithTranslation,
+  withTranslation
+  } from '../../../../../translation/i18n';
 import { RightColumn } from './_styles';
 import { RouteComponentProps } from 'react-router-dom';
 import { Table } from '../Viewer/components/Table';
@@ -25,27 +46,6 @@ import { UnitType } from '../../../../../components/Data/Unit';
 import { useFormik } from 'formik';
 import { Viewer, ViewerRequest } from '../Viewer/_types';
 import { ViewerTitleSection } from '../Viewer/_styles';
-import {
-	ContentCard,
-	Form,
-	GridItem,
-	GridRow,
-	Header2,
-	Sceleton,
-} from "../../../../../constants/globalStyles";
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation,
-} from "../../../../../translation/i18n";
-import {
-	CenterImage,
-	MainTreeContent,
-	TreeButtonsRow,
-	TreeContent,
-	TreeScreen,
-} from "../../../_styles";
 
 export interface StateProps {
 	activeTree: TreeType;
@@ -433,7 +433,7 @@ const Index = ({
 									<Table
 										models={models}
 										deleteModel={deleteModel}
-										id={job?.id}
+										id={job?.Id}
 									/>
 								</ContentCard>
 							</GridItem>
