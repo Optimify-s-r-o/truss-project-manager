@@ -11,6 +11,11 @@ import {
 	watchRemoveUsersAction,
 } from "../containers/Portal/Accounts/_sagas";
 import {
+	watchDeleteEntityAction,
+	watchGetBinByParamActionSaga,
+	watchRefreshFromBinActionSaga,
+} from "../containers/Portal/Bin/_sagas";
+import {
 	watchAresGetAction,
 	watchCreateCustomerAction,
 	watchGetCustomerByIdAction,
@@ -204,6 +209,9 @@ export const rootSaga = [
 	watchGetUsersWithPaginationAction,
 	watchEditUserAction,
 	watchDuplicateAction,
+	watchDeleteEntityAction,
+	watchRefreshFromBinActionSaga,
+	watchGetBinByParamActionSaga,
 ];
 
 export type SagasType = typeof rootSaga;

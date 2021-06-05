@@ -451,6 +451,8 @@ export type Lang = Readonly<{
 		yes: string;
 		no: string;
 		changePassword: string;
+		restoreProject: string;
+		restoreJob: string;
 		oldPassword: string;
 		newPassword: string;
 		verifyPassword: string;
@@ -460,6 +462,7 @@ export type Lang = Readonly<{
 		changeTruss2DPath: string;
 		jobType: string;
 		projectState: string;
+		noData: string;
 		jobState: string;
 		editNaturalPerson: string;
 		editEvidencePerson: string;
@@ -628,6 +631,9 @@ export type Lang = Readonly<{
 		JobDelete: string;
 		accepted: string;
 		accounts: string;
+		bin: string;
+		projectBin: string;
+		jobBin: string;
 		accountsList: string;
 		actions: string;
 		add: string;

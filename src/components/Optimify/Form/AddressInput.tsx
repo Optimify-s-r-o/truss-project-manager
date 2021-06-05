@@ -16,13 +16,11 @@ export const AddressInput = ({ formik, name }: IAddressInput) => {
 	const address = useRef(null);
 	const [currentAddress, setCurrentAddress] = useState<string>(null);
 	const [location, setLocation] = useState<Location | null>(null);
-	const [
-		locationPersistence,
-		setLocationPersistence,
-	] = useState<Location | null>(null);
+	const [locationPersistence, setLocationPersistence] =
+		useState<Location | null>(null);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const { t } = useTranslation();
-	let autocomplete: google.maps.places.Autocomplete;
+	let autocomplete: any = null;
 
 	useEffect(() => {
 		if (formik.values && formik.values[name]) {

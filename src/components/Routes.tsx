@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Accounts from '../containers/Portal/Accounts/Container';
+import Bin from '../containers/Portal/Bin/Container';
 import FilterJob from '../containers/Portal/Lists/Jobs/Container';
 import FilterProject from '../containers/Portal/Lists/Projects/Container';
 import FilterTruss from '../containers/Portal/Lists/Trusses/Container';
@@ -39,6 +40,7 @@ const Index = ({ connect }: IProps) => {
 			{/*Projects*/}
 			<ProtectedRoute path={Routes.PROJECT_NEW} component={Projects} />
 			<ProtectedRoute exact={true} path={Routes.PORTAL} component={Projects} />
+			<ProtectedRoute exact={true} path={Routes.BIN} component={Bin} />
 			{/*Customers*/}
 			<ProtectedRoute path={Routes.CUSTOMER_LIST} component={ListOfCustomers} />
 			{/*Filter*/}

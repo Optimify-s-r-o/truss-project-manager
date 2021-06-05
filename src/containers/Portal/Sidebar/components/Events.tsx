@@ -1,10 +1,11 @@
 import _ from 'lodash';
-import React from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import { useHistory, useLocation } from 'react-router-dom';
+import React from 'react';
+import { BinType } from '../../Bin/_types';
+import { CustomerType } from '../../Lists/Customers/_types';
 import { Routes } from '../../../../constants/routes';
 import { TreeType } from '../../../../types/_types';
-import { CustomerType } from '../../Lists/Customers/_types';
+import { useHistory, useLocation } from 'react-router-dom';
 
 interface Events {
 	setSelectedKeys: (data: string[]) => void;
@@ -320,6 +321,14 @@ export const Events = ({
 			<KeyboardEventHandler
 				handleKeys={["ctrl+t"]}
 				onKeyEvent={(key, e) => history.push(Routes.FILTER_TRUSS)}
+			/>
+			<KeyboardEventHandler
+				handleKeys={["ctrl+i"]}
+				onKeyEvent={(key, e) => history.push(Routes.BIN_LINK + BinType.PROJECT)}
+			/>
+			<KeyboardEventHandler
+				handleKeys={["ctrl+w"]}
+				onKeyEvent={(key, e) => history.push(Routes.BIN_LINK + BinType.JOB)}
 			/>
 			<KeyboardEventHandler
 				handleKeys={["ctrl+h"]}

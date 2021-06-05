@@ -15,6 +15,7 @@ import { Lock } from './Lock';
 import { Open } from './Open';
 import { Password } from './Password';
 import { PencilEdit } from './PencilEdit';
+import { Restore } from './Restore';
 import { Save } from './Save';
 import { Sync } from './Sync';
 import { Undo } from './Undo';
@@ -46,4 +47,5 @@ export {
 	CreateAccount,
 	UploadPureEmpty,
 	DeleteCustomer,
+	Restore,
 };

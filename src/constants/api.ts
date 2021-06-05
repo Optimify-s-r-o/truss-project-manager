@@ -94,4 +94,8 @@ export enum ApiURL {
 	SELECTION_ADD = "/api/v1/selections/add",
 	SELECTION_REMOVE = "/api/v1/selections/remove",
 	SELECTION_RESET = "/api/v1/selections/reset",
+	//Bin
+	BIN = "/api/v1/bins",
+	BIN_RESTORE = "/api/v1/bins/restore",
+	API = "/api/v1/",
 }

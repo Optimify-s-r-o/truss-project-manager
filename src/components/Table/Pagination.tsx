@@ -44,14 +44,15 @@ const Pagination = (props: OwnProps) => {
 
 	return (
 		<PaginationWrapper>
-			<div>
-				{t(translationPath(lang.common.showingRecors).path)} {firstRecordOnPage}{" "}
-				{t(translationPath(lang.common.to).path)} {lastRecordOnPage}{" "}
-				{t(translationPath(lang.common.of).path)} {totalRecords}.{" "}
-				{t(translationPath(lang.common.page).path)} {currentPage}{" "}
-				{t(translationPath(lang.common.of).path)} {totalPages}.
-			</div>
-
+			{totalRecords && totalPages && (
+				<div>
+					{t(translationPath(lang.common.showingRecors).path)}{" "}
+					{firstRecordOnPage} {t(translationPath(lang.common.to).path)}{" "}
+					{lastRecordOnPage} {t(translationPath(lang.common.of).path)}{" "}
+					{totalRecords}. {t(translationPath(lang.common.page).path)}{" "}
+					{currentPage} {t(translationPath(lang.common.of).path)} {totalPages}.
+				</div>
+			)}
 			<div>
 				{currentPage > 2 ? (
 					<PlainButton

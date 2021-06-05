@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useResizeAware from 'react-resize-aware';
 import { device } from '../../constants/theme';
+import { Empty, Tooltip } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { lang } from '../../translation/i18n';
 import { RootStateType } from '../../reducers/index';
-import { Tooltip } from 'antd';
 import { translationPath } from '../../utils/getPath';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -73,34 +73,38 @@ export const Table = (props: TableProps) => {
 		}
 	}, [props.initialSort, props.initialSortOrder]);
 
-	const handleSort = (key: number, sortOption: SortOptions) => (
-		e: React.MouseEvent<HTMLElement, MouseEvent>
-	) => {
-		const newSort = [...state.sort];
-		newSort[key] = newSort[key] === sortOption ? 0 : sortOption;
-		dispatch(setSort(newSort));
-		if (props.names) {
-			dispatch(
-				setDisabledColumnSelector(
-					props.names?.filter((value: string, key: number) => {
-						if (newSort[key] == 1 || newSort[key] == 2) return value;
-					})
-				)
-			);
-		}
+	const handleSort =
+		(key: number, sortOption: SortOptions) =>
+		(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+			const newSort = [...state.sort];
+			newSort[key] = newSort[key] === sortOption ? 0 : sortOption;
+			dispatch(setSort(newSort));
+			if (props.names) {
+				dispatch(
+					setDisabledColumnSelector(
+						props.names?.filter((value: string, key: number) => {
+							if (newSort[key] == 1 || newSort[key] == 2) return value;
+						})
+					)
+				);
+			}
 
-		let newSortOrder = [...state.sortOrder];
+			let newSortOrder = [...state.sortOrder];
 
-		if (!newSortOrder.includes(key) && newSort[key] !== SortOptions.Default)
-			newSortOrder.push(key);
-		else if (newSortOrder.includes(key) && newSort[key] === SortOptions.Default)
-			newSortOrder = newSortOrder.filter((val) => val !== key);
-		dispatch(setSortOrder(newSortOrder));
-		if (props.sortType === SortType.External) {
-			props.onSort && props.onSort(newSort, newSortOrder);
-		}
-	};
+			if (!newSortOrder.includes(key) && newSort[key] !== SortOptions.Default)
+				newSortOrder.push(key);
+			else if (
+				newSortOrder.includes(key) &&
+				newSort[key] === SortOptions.Default
+			)
+				newSortOrder = newSortOrder.filter((val) => val !== key);
+			dispatch(setSortOrder(newSortOrder));
+			if (props.sortType === SortType.External) {
+				props.onSort && props.onSort(newSort, newSortOrder);
+			}
+		};
 
+	console.log(props.data);
 	return (
 		<TableElement>
 			<TableHead>
@@ -176,6 +180,7 @@ export const Table = (props: TableProps) => {
 					)}
 
 				{props.data &&
+					props.data.length > 0 &&
 					[...props.data]
 						.sort((a, b) => {
 							if (!props.sortable || props.sortType === SortType.External)
@@ -228,10 +233,17 @@ export const Table = (props: TableProps) => {
 export const ScrollableTable = (props: TableProps & ScrollableProps) => {
 	const { height, ...tableProps } = props;
 	const [resizeListener, sizes] = useResizeAware();
+	const { t } = useTranslation();
+
 	return (
 		<Scrollable height={height} currentHeight={sizes.height}>
 			{resizeListener}
 			<Table {...tableProps} />
+			{(!!!props.data || props.data.length == 0) && (
+				<NoData>
+					<Empty description={t(translationPath(lang.common.noData).path)} />
+				</NoData>
+			)}
 		</Scrollable>
 	);
 };
@@ -425,4 +437,12 @@ const TableFilterHeading = styled.td`
 		top: 0;
 		z-index: 99;
 	}
+`;
+
+const NoData = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	padding: 1em;
 `;

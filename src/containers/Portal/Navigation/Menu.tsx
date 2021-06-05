@@ -1,14 +1,15 @@
-import * as React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Hub } from "../../../constants/hub";
-import { HubConnection } from "@microsoft/signalr";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { lang } from "../../../translation/i18n";
-import { Routes } from "../../../constants/routes";
-import { translationPath } from "../../../utils/getPath";
-import { TreeType } from "../../../types/_types";
-import { useHistory } from "react-router";
-import { useTranslation } from "react-i18next";
+import * as React from 'react';
+import { BinType } from '../Bin/_types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Hub } from '../../../constants/hub';
+import { HubConnection } from '@microsoft/signalr';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { lang } from '../../../translation/i18n';
+import { Routes } from '../../../constants/routes';
+import { translationPath } from '../../../utils/getPath';
+import { TreeType } from '../../../types/_types';
+import { useHistory } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import {
 	faBookUser,
 	faBrowser,
@@ -22,6 +23,7 @@ import {
 	faLayerGroup,
 	faMountains,
 	faSuitcase,
+	faTrashAlt,
 	faUserPlus,
 	faUsers,
 } from "@fortawesome/pro-duotone-svg-icons";
@@ -97,14 +99,13 @@ export const NavigationMenu = ({
 		}
 	};
 
-	const handleSubChange = (hub: TreeType, path: Routes | string) => (
-		event: any
-	) => {
-		history.push(path);
-		if (hub) {
-			invokeTreeHub(hub);
-		}
-	};
+	const handleSubChange =
+		(hub: TreeType, path: Routes | string) => (event: any) => {
+			history.push(path);
+			if (hub) {
+				invokeTreeHub(hub);
+			}
+		};
 
 	const menuList: Menu[] = [
 		{
@@ -224,6 +225,25 @@ export const NavigationMenu = ({
 					icon: faUsers,
 					shortcut: "Ctrl + Q",
 					color: "salmon",
+				},
+			],
+		},
+		{
+			menu: t(translationPath(lang.common.bin).path),
+			submenu: [
+				{
+					path: Routes.BIN_LINK + BinType.PROJECT,
+					text: t(translationPath(lang.common.projectBin).path),
+					icon: faTrashAlt,
+					shortcut: "Ctrl + I",
+					color: "red",
+				},
+				{
+					path: Routes.BIN_LINK + BinType.JOB,
+					text: t(translationPath(lang.common.jobBin).path),
+					icon: faTrashAlt,
+					shortcut: "Ctrl + W",
+					color: "red",
 				},
 			],
 		},

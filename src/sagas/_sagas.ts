@@ -17,10 +17,15 @@ export const query = (params: WildCards) => {
 
 export const getParam = (params: WildCards) => {
 	const queryString = Object.keys(params)
+		.filter((e) => {
+			console.log(e);
+			console.log(params[e]);
+			if (params[e] !== null) return e;
+		})
 		.map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
 		.join("&");
 
-	return `?${queryString}`;
+	return !!queryString ? `?${queryString}` : "";
 };
 
 export const getParamObject = (params: object) => {

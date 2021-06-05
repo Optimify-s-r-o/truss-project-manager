@@ -13,6 +13,7 @@ import toastReducer from '../components/Toast/_reducers';
 import TrussReducer from '../containers/Portal/TreeView/Truss/_reducers';
 import UserReducer from '../containers/Portal/Accounts/_reducers';
 import { AuthReducer } from '../containers/Home/_reducers';
+import { BinReducer } from './../containers/Portal/Bin/_reducers';
 import { combineReducers } from 'redux';
 import { connectRouter, RouterActionType } from 'connected-react-router';
 import { default as FilterReducer } from '../containers/Portal/SidebarFilter/_reducers';
@@ -51,6 +52,7 @@ const createRootReducer = (history: History) =>
 		LoadingReducer,
 		QuotationReducer,
 		OrganizationReducer,
+		BinReducer,
 		ViewerReducer,
 		PriceListsReducer,
 		HubReducer,

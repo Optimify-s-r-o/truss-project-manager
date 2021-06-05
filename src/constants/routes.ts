@@ -17,6 +17,8 @@ export enum Routes {
 	PROJECTS = "/portal/projects",
 	PROJECTS_LIST = "/portal/projects-list",
 	PROJECT_NEW = "/portal/project-new",
+	BIN = "/portal/bin/:type",
+	BIN_LINK = "/portal/bin/",
 	CUSTOMER_LIST = "/portal/customer-list/:type",
 	CUSTOMER_LIST_LINK = "/portal/customer-list/",
 	CUSTOMER_LEGAL = "/portal/customer-list/legal",

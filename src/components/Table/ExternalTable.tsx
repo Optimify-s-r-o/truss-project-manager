@@ -33,8 +33,8 @@ interface OwnProps {
 	initSortOrder?: number[];
 	initSort?: number[];
 	names?: string[];
-	resetHeaderSettings: (data: string) => void;
-	type: TreeType;
+	resetHeaderSettings?: (data: string) => void;
+	type?: TreeType;
 }
 
 const ExternalTable = (props: OwnProps) => {
@@ -63,15 +63,16 @@ const ExternalTable = (props: OwnProps) => {
 	} = props;
 
 	const [selectedPageSize, setSelectedPageSize] = React.useState(25);
-	const [sortString, setSortString] = React.useState<string | null | undefined>(
-		null
-	);
+	const [sortString, setSortString] =
+		React.useState<string | null | undefined>(null);
 	const [sort, setSort] = React.useState<number[]>(initSort);
 	const [sortOrder, setSortOrder] = React.useState<number[]>(initSortOrder);
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		setSelectedPageSize(pageSize);
+		if (pageSize != null) {
+			setSelectedPageSize(pageSize);
+		}
 	}, [pageSize]);
 
 	useEffect(() => {
@@ -126,20 +127,24 @@ const ExternalTable = (props: OwnProps) => {
 	return (
 		<>
 			<HorizontalLine />
-			<LoadedWrapper isLoading={isLoading || !!!selectedPageSize}>
-				<Pagination
-					sort={sortString}
-					pageSize={selectedPageSize}
-					currentPageSize={pageSize}
-					firstRecordOnPage={firstRecordOnPage}
-					lastRecordOnPage={lastRecordOnPage}
-					currentPage={currentPage}
-					totalPages={totalPages}
-					totalRecords={totalRecords}
-					onPageRequired={onPageRequired}
-					onSizeChanged={setSelectedPageSize}
-					handleSelectedPageSize={handleSelectedPageSize}
-				/>
+			<LoadedWrapper isLoading={isLoading}>
+				{totalRecords && currentPage ? (
+					<Pagination
+						sort={sortString}
+						pageSize={selectedPageSize}
+						currentPageSize={pageSize}
+						firstRecordOnPage={firstRecordOnPage}
+						lastRecordOnPage={lastRecordOnPage}
+						currentPage={currentPage}
+						totalPages={totalPages}
+						totalRecords={totalRecords}
+						onPageRequired={onPageRequired}
+						onSizeChanged={setSelectedPageSize}
+						handleSelectedPageSize={handleSelectedPageSize}
+					/>
+				) : (
+					""
+				)}
 				{headers && headers.length > 0 ? (
 					<ScrollableTable
 						headers={headers}
@@ -169,19 +174,23 @@ const ExternalTable = (props: OwnProps) => {
 					</HeadersEmpty>
 				)}
 				<HorizontalLine />
-				<Pagination
-					sort={sortString}
-					pageSize={selectedPageSize}
-					currentPageSize={pageSize}
-					firstRecordOnPage={firstRecordOnPage}
-					lastRecordOnPage={lastRecordOnPage}
-					currentPage={currentPage}
-					totalPages={totalPages}
-					totalRecords={totalRecords}
-					onPageRequired={onPageRequired}
-					onSizeChanged={setSelectedPageSize}
-					handleSelectedPageSize={handleSelectedPageSize}
-				/>
+				{totalRecords && currentPage ? (
+					<Pagination
+						sort={sortString}
+						pageSize={selectedPageSize}
+						currentPageSize={pageSize}
+						firstRecordOnPage={firstRecordOnPage}
+						lastRecordOnPage={lastRecordOnPage}
+						currentPage={currentPage}
+						totalPages={totalPages}
+						totalRecords={totalRecords}
+						onPageRequired={onPageRequired}
+						onSizeChanged={setSelectedPageSize}
+						handleSelectedPageSize={handleSelectedPageSize}
+					/>
+				) : (
+					""
+				)}
 			</LoadedWrapper>
 			<LoadingWrapper isLoading={isLoading}>
 				<Loading
