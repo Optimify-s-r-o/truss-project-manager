@@ -327,7 +327,7 @@ export const Events = ({
 				onKeyEvent={(key, e) => history.push(Routes.BIN_LINK + BinType.PROJECT)}
 			/>
 			<KeyboardEventHandler
-				handleKeys={["ctrl+w"]}
+				handleKeys={["ctrl+y"]}
 				onKeyEvent={(key, e) => history.push(Routes.BIN_LINK + BinType.JOB)}
 			/>
 			<KeyboardEventHandler

@@ -1,6 +1,5 @@
 import { ApiURL } from '../../../constants/api';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { deleteEntity, getBinAction, refreshFromBinAction } from './_actions';
 import { Error, fetchSaga } from '../../../sagas/_sagas';
 import { getType } from 'typesafe-actions';
 import { lang, t } from '../../../translation/i18n';
@@ -8,6 +7,12 @@ import { Method } from '../../../constants/enum';
 import { notificationAction } from '../../../components/Toast/_actions';
 import { Status } from '../../../components/Toast/_types';
 import { translationPath } from '../../../utils/getPath';
+import {
+	deleteEntity,
+	emptyBin,
+	getBinAction,
+	refreshFromBinAction,
+} from "./_actions";
 
 function* getBinByParamActionSaga(
 	action: ReturnType<typeof getBinAction.request>
@@ -72,6 +77,7 @@ function* refreshFromBinActionSaga(
 			yield put(refreshFromBinAction.failure(errorResponseData));
 			return;
 		}
+		yield put(getBinAction.request({ type: action.payload.type }));
 		yield put(refreshFromBinAction.success(response));
 	} catch (err) {
 		yield put(
@@ -122,8 +128,50 @@ function* deleteEntityActionSaga(
 	}
 }
 
+function* emptyBinActionSaga(
+	action: ReturnType<typeof emptyBin.request>
+): Generator {
+	try {
+		// @ts-ignore
+		const { errorResponseData, response, success, statusText } = yield call(
+			fetchSaga,
+			ApiURL.BIN + `/${action.payload.type}/empty`,
+			Method.DELETE
+		);
+
+		if (!success) {
+			yield put(
+				notificationAction({
+					code: Status.ERROR,
+					message: t(
+						translationPath(
+							lang.common[(errorResponseData as Error).ErrorMessage]
+						)
+					),
+				})
+			);
+			yield put(emptyBin.failure(errorResponseData));
+			return;
+		}
+		yield put(getBinAction.request({ type: action.payload.type }));
+		yield put(emptyBin.success(response));
+	} catch (err) {
+		yield put(
+			notificationAction({
+				code: Status.ERROR,
+				message: t(translationPath(lang.common.errorMessage)),
+			})
+		);
+		yield put(emptyBin.failure(err));
+	}
+}
+
 export function* watchDeleteEntityAction() {
 	yield takeLatest(getType(deleteEntity.request), deleteEntityActionSaga);
+}
+
+export function* watchEmptyBinAction() {
+	yield takeLatest(getType(emptyBin.request), emptyBinActionSaga);
 }
 
 export function* watchRefreshFromBinActionSaga() {

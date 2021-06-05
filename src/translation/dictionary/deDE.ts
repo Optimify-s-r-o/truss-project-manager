@@ -222,6 +222,7 @@ const dictionary: Lang = {
 		contactPerson: "Möchten Sie {{name}} wirklich entfernen ?",
 		customerHasProject:
 			'Der Kunde "{name}" ist dem Projekt zugeordnet. Kann nicht gelöscht werden.',
+		bin: "Möchten Sie den Papierkorb wirklich leeren? Die Daten werden endgültig gelöscht.",
 	},
 	priceLists: {
 		default: "Default",
@@ -660,6 +661,8 @@ const dictionary: Lang = {
 		bin: "Behälter",
 		projectBin: "Projekt-Bin",
 		jobBin: "Auftragsbehälter",
+		emptyProjectBin: "Papierkorb leeren",
+		emptyJobBin: "Job-Papierkorb leeren",
 		accountsList: "Benutzerliste",
 		actions: "Aktion",
 		add: "Hinzufügen",

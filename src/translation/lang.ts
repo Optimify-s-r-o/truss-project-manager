@@ -220,6 +220,7 @@ export type Lang = Readonly<{
 		model: string;
 		contactPerson: string;
 		customerHasProject: string;
+		bin: string;
 	};
 
 	priceLists: {
@@ -634,6 +635,8 @@ export type Lang = Readonly<{
 		bin: string;
 		projectBin: string;
 		jobBin: string;
+		emptyProjectBin: string;
+		emptyJobBin: string;
 		accountsList: string;
 		actions: string;
 		add: string;

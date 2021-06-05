@@ -23,7 +23,6 @@ import {
 	faLayerGroup,
 	faMountains,
 	faSuitcase,
-	faTrashAlt,
 	faUserPlus,
 	faUsers,
 } from "@fortawesome/pro-duotone-svg-icons";
@@ -234,15 +233,15 @@ export const NavigationMenu = ({
 				{
 					path: Routes.BIN_LINK + BinType.PROJECT,
 					text: t(translationPath(lang.common.projectBin).path),
-					icon: faTrashAlt,
+					icon: faFolder,
 					shortcut: "Ctrl + I",
-					color: "red",
+					color: "rgb(208, 143, 26)",
 				},
 				{
 					path: Routes.BIN_LINK + BinType.JOB,
 					text: t(translationPath(lang.common.jobBin).path),
-					icon: faTrashAlt,
-					shortcut: "Ctrl + W",
+					icon: faHomeLgAlt,
+					shortcut: "Ctrl + Y",
 					color: "red",
 				},
 			],

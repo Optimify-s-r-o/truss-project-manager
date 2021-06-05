@@ -28,9 +28,16 @@ export const deleteEntity = createAsyncAction(
 	"DELETE_ENTITY_FROM_BIN_FAILURE"
 )<DeleteRequest, void, Error>();
 
+export const emptyBin = createAsyncAction(
+	"EMPTY_BIN_REQUEST",
+	"EMPTY_BIN_SUCCESS",
+	"EMPTY_BIN_FAILURE"
+)<BinRequest, void, Error>();
+
 export type binActionType = ActionType<
 	| typeof getBinAction
 	| typeof refreshFromBinAction
 	| typeof deleteEntity
 	| typeof clearBinReducer
+	| typeof emptyBin
 >;

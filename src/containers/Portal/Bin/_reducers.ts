@@ -4,6 +4,7 @@ import {
 	binActionType,
 	clearBinReducer,
 	deleteEntity,
+	emptyBin,
 	getBinAction,
 	refreshFromBinAction,
 } from "./_actions";
@@ -24,6 +25,7 @@ export const BinReducer = (
 				...initialState,
 			};
 		case getType(getBinAction.request):
+		case getType(emptyBin.request):
 			return {
 				...state,
 				error: null,
@@ -38,6 +40,7 @@ export const BinReducer = (
 			};
 		case getType(refreshFromBinAction.success):
 		case getType(deleteEntity.success):
+		case getType(emptyBin.success):
 			return {
 				...state,
 				pending: false,
@@ -51,6 +54,7 @@ export const BinReducer = (
 		case getType(getBinAction.failure):
 		case getType(refreshFromBinAction.failure):
 		case getType(deleteEntity.failure):
+		case getType(emptyBin.failure):
 			return {
 				...state,
 				error: action.payload.ErrorMessage,

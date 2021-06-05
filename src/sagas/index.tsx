@@ -12,6 +12,7 @@ import {
 } from "../containers/Portal/Accounts/_sagas";
 import {
 	watchDeleteEntityAction,
+	watchEmptyBinAction,
 	watchGetBinByParamActionSaga,
 	watchRefreshFromBinActionSaga,
 } from "../containers/Portal/Bin/_sagas";
@@ -210,6 +211,7 @@ export const rootSaga = [
 	watchEditUserAction,
 	watchDuplicateAction,
 	watchDeleteEntityAction,
+	watchEmptyBinAction,
 	watchRefreshFromBinActionSaga,
 	watchGetBinByParamActionSaga,
 ];

@@ -26,6 +26,7 @@ export interface DispatchProps {
 	getBinAction: (data: BinRequest) => void;
 	refreshFromBinAction: (data: BinRestore) => void;
 	deleteEntity: (data: DeleteRequest) => void;
+	emptyBin: (data: BinRequest) => void;
 	clearBinReducer: () => void;
 }
 
@@ -35,6 +36,7 @@ const Index = ({
 	getBinAction,
 	refreshFromBinAction,
 	deleteEntity,
+	emptyBin,
 	clearBinReducer,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const { type } = useParams<{ type: BinType }>();
@@ -49,7 +51,7 @@ const Index = ({
 			<Main>
 				<ContentFilter>
 					<ContentCard>
-						<Header type={type} />
+						<Header type={type} emptyBin={emptyBin} />
 						<BinTable
 							data={data}
 							pending={pending}

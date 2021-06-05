@@ -10,6 +10,7 @@ import { Download } from './Download';
 import { DownloadPure } from './DownloadPure';
 import { Duplicate } from './Duplicate';
 import { Edit } from './Edit';
+import { EmptyBin } from './EmptyBin';
 import { Link } from './Link';
 import { Lock } from './Lock';
 import { Open } from './Open';
@@ -48,4 +49,5 @@ export {
 	UploadPureEmpty,
 	DeleteCustomer,
 	Restore,
+	EmptyBin,
 };

@@ -222,6 +222,7 @@ const dictionary: Lang = {
 		contactPerson: "Are you sure you want to remove contact person {{name}}",
 		customerHasProject:
 			'Customer "{name}" is assigned to the project. Cannot be deleted.',
+		bin: "Are you sure you want to empty the trash? The data will be permanently deleted.",
 	},
 	priceLists: {
 		default: "Default",
@@ -646,6 +647,8 @@ const dictionary: Lang = {
 		bin: "Bin",
 		projectBin: "Project bin",
 		jobBin: "Job bin",
+		emptyProjectBin: "Empty Trash",
+		emptyJobBin: "Empty Job Trash",
 		accountsList: "Users list",
 		actions: "Action",
 		add: "Add",

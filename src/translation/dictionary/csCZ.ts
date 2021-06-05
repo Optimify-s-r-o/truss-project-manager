@@ -223,6 +223,7 @@ const dictionary: Lang = {
 		contactPerson: 'Opravdu chcete odebrat kontaktni osobu "{{name}}" ?',
 		customerHasProject:
 			'Zákazník "{{name}}" je přiřazen projektu. Nelze odstranit.',
+		bin: "Opravdu chcete vysypat koš? Data budou permanetně smazána.",
 	},
 	priceLists: {
 		default: "Defaultní",
@@ -637,8 +638,10 @@ const dictionary: Lang = {
 		accepted: "Přijat",
 		accounts: "Uživatelé",
 		bin: "Koš",
-		projectBin: "Koš projetků",
+		projectBin: "Koš projektů",
 		jobBin: "Koš úloh",
+		emptyProjectBin: "Vysypat koš projektů",
+		emptyJobBin: "Vysypat koš úloh",
 		accountsList: "Seznam uživatelů",
 		actions: "Akce",
 		add: "Přidat",

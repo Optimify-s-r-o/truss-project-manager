@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import {
 	clearBinReducer,
 	deleteEntity,
+	emptyBin,
 	getBinAction,
 	refreshFromBinAction,
 } from "./_actions";
@@ -16,6 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 		dispatch(refreshFromBinAction.request(data)),
 	deleteEntity: (data: DeleteRequest) => dispatch(deleteEntity.request(data)),
 	clearBinReducer: () => dispatch(clearBinReducer()),
+	emptyBin: (data: BinRequest) => dispatch(emptyBin.request(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({
