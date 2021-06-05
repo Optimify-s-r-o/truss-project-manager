@@ -375,6 +375,7 @@ const dictionary: Lang = {
 		passwordMatch: "The passwords you entered did not match.",
 	},
 	common: {
+		permanentRemove: "Permanently Remove",
 		asc: "Ascending",
 		desc: "Descending",
 		assessment: "Assessment",

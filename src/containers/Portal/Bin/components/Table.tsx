@@ -102,6 +102,9 @@ export const BinTable = ({
 								/>
 								&nbsp;
 								<Delete
+									deleteTooltip={t(
+										translationPath(lang.common.permanentRemove).path
+									)}
 									title={t(translationPath(lang.remove.job).path, {
 										name: parent?.Name,
 									})}

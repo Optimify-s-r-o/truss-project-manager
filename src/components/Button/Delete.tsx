@@ -10,13 +10,18 @@ import { useTranslation } from 'react-i18next';
 interface IDelete {
 	remove: any;
 	title: string;
+	deleteTooltip?: string;
 }
-export const Delete = ({ remove, title }: IDelete) => {
+export const Delete = ({ remove, title, deleteTooltip }: IDelete) => {
 	const { t } = useTranslation();
 	return (
 		<Tooltip
 			placement={"right"}
-			title={t(translationPath(lang.common.delete).path)}
+			title={
+				deleteTooltip
+					? deleteTooltip
+					: t(translationPath(lang.common.delete).path)
+			}
 		>
 			<Popconfirm
 				title={title}

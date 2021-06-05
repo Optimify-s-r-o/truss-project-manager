@@ -51,7 +51,11 @@ const Index = ({
 			<Main>
 				<ContentFilter>
 					<ContentCard>
-						<Header type={type} emptyBin={emptyBin} />
+						<Header
+							type={type}
+							emptyBin={emptyBin}
+							showEmptyBin={data?.Data?.length > 0}
+						/>
 						<BinTable
 							data={data}
 							pending={pending}

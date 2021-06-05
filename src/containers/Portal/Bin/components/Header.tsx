@@ -12,9 +12,10 @@ import {
 interface ColumnSelector {
 	type: BinType;
 	emptyBin: (data: BinRequest) => void;
+	showEmptyBin: boolean;
 }
 
-export const Header = ({ type, emptyBin }: ColumnSelector) => {
+export const Header = ({ type, emptyBin, showEmptyBin }: ColumnSelector) => {
 	const { t } = useTranslation();
 
 	return (
@@ -28,7 +29,9 @@ export const Header = ({ type, emptyBin }: ColumnSelector) => {
 					).path
 				)}
 			</Header1>
-			<EmptyBin remove={() => emptyBin({ type })} type={type} />
+			{showEmptyBin && (
+				<EmptyBin remove={() => emptyBin({ type })} type={type} />
+			)}
 		</ContentSpaceBetweenWithPadding>
 	);
 };

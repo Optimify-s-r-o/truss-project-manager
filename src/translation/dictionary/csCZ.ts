@@ -378,6 +378,7 @@ const dictionary: Lang = {
 		passwordMatch: "Zadaná hesla se neshodují",
 	},
 	common: {
+		permanentRemove: "Trvale odebrat",
 		asc: "Řadit vzestupně",
 		desc: "Řadit sestupně",
 		assessment: "Posouzení",
