@@ -1,5 +1,10 @@
 import { ApiURL } from '../../../constants/api';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import {
+	call,
+	put,
+	select,
+	takeLatest
+	} from 'redux-saga/effects';
 import { Error, fetchSaga } from '../../../sagas/_sagas';
 import { getType } from 'typesafe-actions';
 import { lang, t } from '../../../translation/i18n';
@@ -77,7 +82,19 @@ function* refreshFromBinActionSaga(
 			yield put(refreshFromBinAction.failure(errorResponseData));
 			return;
 		}
-		yield put(getBinAction.request({ type: action.payload.type }));
+		const currentData: any = yield select(
+			(state: any) => state.BinReducer.data
+		);
+		yield put(
+			getBinAction.request({
+				type: action.payload.type,
+				PageSize: currentData?.SettingsPageSize,
+				Page:
+					currentData?.Data.length == 1
+						? currentData?.CurrentPage - 2
+						: currentData?.CurrentPage - 1,
+			})
+		);
 		yield put(refreshFromBinAction.success(response));
 	} catch (err) {
 		yield put(
@@ -115,7 +132,19 @@ function* deleteEntityActionSaga(
 			yield put(deleteEntity.failure(errorResponseData));
 			return;
 		}
-		yield put(getBinAction.request({ type: action.payload.type }));
+		const currentData: any = yield select(
+			(state: any) => state.BinReducer.data
+		);
+		yield put(
+			getBinAction.request({
+				type: action.payload.type,
+				PageSize: currentData?.SettingsPageSize,
+				Page:
+					currentData?.Data.length == 1
+						? currentData?.CurrentPage - 2
+						: currentData?.CurrentPage - 1,
+			})
+		);
 		yield put(deleteEntity.success(response));
 	} catch (err) {
 		yield put(
