@@ -90,7 +90,9 @@ function* refreshFromBinActionSaga(
 				type: action.payload.type,
 				PageSize: currentData?.SettingsPageSize,
 				Page:
-					currentData?.Data.length == 1
+					currentData?.CurrentPage == 1
+						? currentData?.CurrentPage - 1
+						: currentData?.Data.length == 1
 						? currentData?.CurrentPage - 2
 						: currentData?.CurrentPage - 1,
 			})
@@ -140,7 +142,9 @@ function* deleteEntityActionSaga(
 				type: action.payload.type,
 				PageSize: currentData?.SettingsPageSize,
 				Page:
-					currentData?.Data.length == 1
+					currentData?.CurrentPage == 1
+						? currentData?.CurrentPage - 1
+						: currentData?.Data.length == 1
 						? currentData?.CurrentPage - 2
 						: currentData?.CurrentPage - 1,
 			})
