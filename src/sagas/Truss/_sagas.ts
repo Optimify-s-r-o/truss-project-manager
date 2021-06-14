@@ -195,7 +195,7 @@ function* editTrussSaga(
 									if (err) {
 										alert("An error ocurred creating the file " + err.message);
 									} else {
-										const command = `"${action.payload.trussExe}" "${trussPath}" -e "${OpenTrussOption.EDITJOB}" -url "${process.env.REACT_APP_BACKEND_API}" -job "${action.payload.jobId}" -token "${token}"`;
+										const command = `"${action.payload.trussExe}" "${trussPath.replaceAll('/', '\\')}" -e "${OpenTrussOption.EDITJOB}" -url "${process.env.REACT_APP_BACKEND_API}" -job "${action.payload.jobId}" -token "${token}"`;
 										console.log(command);
 										const exec = window.require("child_process").exec;
 										exec(command, (err, stdout, _stderr) => {

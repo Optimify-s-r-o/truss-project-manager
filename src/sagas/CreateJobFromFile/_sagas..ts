@@ -67,7 +67,7 @@ function* createJobFromTrussFileSaga(
 			})
 		);
 		yield (jobId = response as string);
-		const command = `"${action.payload.trussExe}" "${action.payload.path}" -e ${OpenTrussOption.EDITJOB} -url "${api}" -job "${jobId}" -token "${token}"`;
+		const command = `"${action.payload.trussExe}" "${action.payload.path.replaceAll('/', '\\')}" -e ${OpenTrussOption.EDITJOB} -url "${api}" -job "${jobId}" -token "${token}"`;
 		console.log(command);
 		var exec = window.require("child_process").exec;
 		exec(command, (err, stdout, _stderr) => {
