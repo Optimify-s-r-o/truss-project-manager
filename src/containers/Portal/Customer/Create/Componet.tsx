@@ -1,16 +1,12 @@
 import * as React from 'react';
 import * as Yup from 'yup';
+import _ from 'lodash';
 import FormikRow from '../../../../components/Optimify/Form/FormikRow';
 import Loading from '../../../../components/Optimify/Loading';
-import {
-	Add,
-	Delete,
-	Edit,
-	Upload
-	} from '../../../../components/Button';
 import { Button } from '../../../../components/Optimify/Button';
 import { Contact, Page } from '../../../../types/_types';
 import { CreateCustomer, Customer, CustomerProxy } from '../_types';
+import { DeleteRequest } from '../../Lists/Customers/_types';
 import { Enter } from 'src/components/KeyBoardEventHandler';
 import { faSuitcase } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,12 +16,21 @@ import { lang, WithTranslation } from '../../../../translation/i18n';
 import { lastPathMember, translationPath } from '../../../../utils/getPath';
 import { Modal } from './components/Dialog';
 import { RouteComponentProps, useParams } from 'react-router-dom';
+import { Routes } from 'src/constants/routes';
 import { ScrollableTable } from '../../../../components/Optimify/Table';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import {
+	Add,
+	Delete,
+	DeleteCustomer,
+	Edit,
+	Upload,
+} from "../../../../components/Button";
+import {
 	CardEndTableWrapper,
 	ContentCard,
+	ContentRow,
 	ContentSpaceBetween,
 	Form,
 	GridItem,
@@ -43,12 +48,13 @@ import {
 	TreeContent,
 	TreeScreen,
 } from "../../_styles";
-
 export interface StateProps {
 	customer: Customer;
 	pending: boolean;
 	ares: Customer;
 	aresPending: boolean;
+	pageSize: string | null;
+	currentPage: number | null;
 }
 
 export interface DispatchProps {
@@ -61,6 +67,7 @@ export interface DispatchProps {
 	clearAres: () => void;
 	clearCustomerAction: () => void;
 	clearToast: () => void;
+	deleteCustomer: (data: DeleteRequest) => void;
 }
 
 let guid = () => {
@@ -96,9 +103,10 @@ const Index = ({
 	updateCustomerAction,
 	deleteCustomerAction,
 	loadCompanyDataFromAres,
-	clearAres,
+	pageSize,
+	currentPage,
 	clearCustomerAction,
-	clearToast,
+	deleteCustomer,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const [isModalVisible, setIsModalVisible] = React.useState(false);
 	const [editedPerson, setEditedPerson] = React.useState(null);
@@ -175,7 +183,7 @@ const Index = ({
 		};
 	}, []);
 	React.useEffect(() => {
-		if (customer) {
+		if (customer && id) {
 			formik.setValues({
 				Id: customer?.Id,
 				Name: customer?.Name || "",
@@ -195,8 +203,36 @@ const Index = ({
 				ContactPersons: customer?.ContactPersons,
 			});
 			setContacts(customer?.ContactPersons || []);
+		} else {
+			formik.setValues({
+				Id: "",
+				Name: "",
+				Crn: "",
+				VatRegNo: "",
+				Company: "",
+				Forename: "",
+				Surname: "",
+				Email: "",
+				PhoneNumber: "",
+				DateOfCreation: new Date(),
+				ProjectCount: 0,
+				FinishedQuotationCount: 0,
+				FinishedProductionCount: 0,
+				Note: "",
+				Address: {
+					Country: "",
+					CountryId: "",
+					RegionName: "",
+					CityName: "",
+					StreetName: "",
+					Zip: "",
+					PlaceNumber: "",
+				},
+				ContactPersons: [],
+			});
+			setContacts([]);
 		}
-	}, [customer]);
+	}, [customer, id]);
 
 	React.useEffect(() => {
 		if (ares) {
@@ -267,6 +303,7 @@ const Index = ({
 
 	const removeContact = (id: string) => {
 		const filtered = contacts?.filter((e) => e.Id !== id);
+		setContacts(filtered);
 	};
 
 	React.useEffect(() => {
@@ -282,6 +319,48 @@ const Index = ({
 		});
 	}, []);
 
+	const sameValues = (val1: any, val2: any): boolean => {
+		if (!!!val1 && !!!val2) {
+			return true;
+		}
+
+		return val1 === val2;
+	};
+
+	const remove =
+		(id: string) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+			deleteCustomer({
+				route: Routes.CUSTOMER_ALL,
+				id,
+				requiredPage: {
+					PageSize: parseInt(pageSize),
+					Page: currentPage - 1,
+					Sort: "",
+				},
+			});
+		};
+
+	const equal = (var1: Customer, var2: Customer, location?: any): boolean => {
+		if (id && !customer && customer?.Id != id) return true;
+		if (
+			sameValues(var1?.Name, var2?.Name) &&
+			sameValues(var1?.Crn, var2?.Crn) &&
+			sameValues(var1?.VatRegNo, var2?.VatRegNo) &&
+			sameValues(var1?.Company, var2?.Company) &&
+			sameValues(var1?.Forename, var2?.Forename) &&
+			sameValues(var1?.Surname, var2?.Surname) &&
+			sameValues(var1?.PhoneNumber, var2?.PhoneNumber) &&
+			sameValues(var1?.Email, var2?.Email) &&
+			sameValues(var1?.Note, var2?.Note) &&
+			_.isEqual(var1?.Address, var2?.Address) &&
+			_.isEqual(contacts, var2?.ContactPersons)
+		) {
+			return true;
+		}
+
+		return false;
+	};
+
 	return (
 		<Enter formik={formik}>
 			<MainTree>
@@ -296,12 +375,21 @@ const Index = ({
 								<PageHeader>
 									<PageTitle>
 										<TitleSection>
-											<FontAwesomeIcon icon={faSuitcase as IconProp} />
-											<TitleName>
-												{formik.values && formik.values.Id
-													? t(translationPath(lang.common.editCustomer).path)
-													: t(translationPath(lang.common.newCustomer).path)}
-											</TitleName>
+											<ContentRow>
+												<FontAwesomeIcon icon={faSuitcase as IconProp} />
+												<TitleName>
+													{formik.values && formik.values.Id
+														? t(translationPath(lang.common.editCustomer).path)
+														: t(translationPath(lang.common.newCustomer).path)}
+												</TitleName>
+											</ContentRow>
+											{id && (
+												<DeleteCustomer
+													remove={remove(customer?.Id)}
+													hasProject={customer?.ProjectCount > 0}
+													name={customer?.Name}
+												/>
+											)}
 										</TitleSection>
 									</PageTitle>
 								</PageHeader>
@@ -467,11 +555,13 @@ const Index = ({
 									</GridRow>
 								</TreeContent>
 								<TreeButtonsRow>
-									<Button level={1} loading={pending}>
-										{id
-											? t(translationPath(lang.common.save).path)
-											: t(translationPath(lang.common.createCustomer).path)}
-									</Button>
+									{(!equal(formik.values, customer) || !id) && (
+										<Button level={1} loading={pending}>
+											{id
+												? t(translationPath(lang.common.save).path)
+												: t(translationPath(lang.common.createCustomer).path)}
+										</Button>
+									)}
 								</TreeButtonsRow>
 							</TreeScreen>
 						</Form>

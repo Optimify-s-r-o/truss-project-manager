@@ -29,6 +29,7 @@ import {
 import {
 	CardEndTableWrapper,
 	ContentCard,
+	ContentRow,
 	ContentSpaceBetween,
 	GridItem,
 	GridRow,
@@ -87,16 +88,22 @@ const Index = (
 				<PageHeader>
 					<PageTitle>
 						<TitleSection>
-							<FontAwesomeIcon icon={faHomeLgAlt as IconProp} color={"#fff"} />
-							<TitleName>
-								{get(props.jobs, getPath(JobsProxy.Name))?.map(
-									(value: string, key: number) =>
-										value +
-										(get(props.jobs, getPath(JobsProxy.Name))?.length == key + 1
-											? " "
-											: ", ")
-								)}
-							</TitleName>
+							<ContentRow>
+								<FontAwesomeIcon
+									icon={faHomeLgAlt as IconProp}
+									color={"#fff"}
+								/>
+								<TitleName>
+									{get(props.jobs, getPath(JobsProxy.Name))?.map(
+										(value: string, key: number) =>
+											value +
+											(get(props.jobs, getPath(JobsProxy.Name))?.length ==
+											key + 1
+												? " "
+												: ", ")
+									)}
+								</TitleName>
+							</ContentRow>
 						</TitleSection>
 					</PageTitle>
 				</PageHeader>

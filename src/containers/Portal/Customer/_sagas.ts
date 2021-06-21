@@ -225,6 +225,10 @@ function* removeCustomerActionSaga(
 
 		yield put(deleteCustomer.success(response));
 		yield put(getCustomers.request(action.payload.requiredPage));
+
+		if (action.payload.route) {
+			yield put(push(action.payload.route));
+		}
 	} catch (err) {
 		yield put(
 			notificationAction({

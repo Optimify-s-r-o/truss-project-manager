@@ -1,12 +1,12 @@
-import { Modal as AntdModal } from "antd";
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import styled from "styled-components";
-import FormikRow from "../../../../../components/Optimify/Form/FormikRow";
-import { Input } from "../../../../../constants/enum";
-import { Form } from "../../../../../constants/globalStyles";
-import { lang } from "../../../../../translation/i18n";
-import { translationPath } from "../../../../../utils/getPath";
+import * as React from 'react';
+import FormikRow from '../../../../../components/Optimify/Form/FormikRow';
+import styled from 'styled-components';
+import { Form } from '../../../../../constants/globalStyles';
+import { Input } from '../../../../../constants/enum';
+import { lang } from '../../../../../translation/i18n';
+import { Modal as AntdModal } from 'antd';
+import { translationPath } from '../../../../../utils/getPath';
+import { useTranslation } from 'react-i18next';
 
 interface IModal {
 	isModalVisible: boolean;
@@ -29,6 +29,8 @@ export const Modal = ({
 		setIsModalVisible(false);
 		contactFormik.resetForm();
 	};
+
+	console.log(contactFormik);
 
 	return (
 		<SModal

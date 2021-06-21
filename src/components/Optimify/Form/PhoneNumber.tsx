@@ -10,11 +10,21 @@ export const PhoneNumber = (props: BasicInlineInputProps) => {
 		formik.setFieldValue(name, value);
 	};
 
+	let value = "";
+
+	if (name.includes(".")) {
+		const first = formik.values[name.split(".")[0]];
+		const second = first[name.split(".")[1]];
+		value = second;
+	} else {
+		value = name && formik.values && formik.values[name];
+	}
+
 	return (
 		<SPhoneInput
 			international
 			displayInitialValueAsLocalNumber
-			value={name && formik.values && formik.values[name]}
+			value={value}
 			defaultCountry="CZ"
 			onChange={handleNumberChange}
 		/>

@@ -17,6 +17,7 @@ import { translationPath } from '../../../../utils/getPath';
 import { UnitType } from '../../../../components/Data/Unit';
 import { useTranslation } from 'react-i18next';
 import {
+	ContentRow,
 	GridItem,
 	GridRow,
 	PageHeader,
@@ -142,11 +143,13 @@ export const Component = ({
 			<PageHeader>
 				<PageTitle>
 					<TitleSection>
-						<FontAwesomeIcon icon={faCog as IconProp} />
-						<TitleName>
-							{" "}
-							{t(translationPath(lang.common.settings).path)}
-						</TitleName>
+						<ContentRow>
+							<FontAwesomeIcon icon={faCog as IconProp} />
+							<TitleName>
+								{" "}
+								{t(translationPath(lang.common.settings).path)}
+							</TitleName>
+						</ContentRow>
 					</TitleSection>
 				</PageTitle>
 			</PageHeader>

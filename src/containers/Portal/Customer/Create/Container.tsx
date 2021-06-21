@@ -3,6 +3,8 @@ import { clearNotificationAction } from '../../../../components/Toast/_actions';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { CreateCustomer, Customer } from '../_types';
+import { deleteCustomer } from '../../Lists/Customers/_actions';
+import { DeleteRequest } from '../../Lists/Customers/_types';
 import { Page } from '../../../../types/_types';
 import { withRouter } from 'react-router-dom';
 import {
@@ -32,6 +34,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	clearAres: () => dispatch(clearAres()),
 	clearCustomerAction: () => dispatch(clearCustomerAction()),
 	clearToast: () => dispatch(clearNotificationAction()),
+	deleteCustomer: (data: DeleteRequest) =>
+		dispatch(deleteCustomer.request(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({
@@ -39,6 +43,8 @@ const mapStateToProps = (state: any): StateProps => ({
 	pending: state.CustomerReducer.pending,
 	ares: state.CustomerReducer.ares,
 	aresPending: state.CustomerReducer.aresPending,
+	currentPage: state.FilterReducer.customers?.CurrentPage,
+	pageSize: state.FilterReducer.customers?.PageSize,
 });
 
 export default compose(

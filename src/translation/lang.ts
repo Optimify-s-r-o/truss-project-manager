@@ -373,6 +373,7 @@ export type Lang = Readonly<{
 	};
 
 	common: {
+		ok: string;
 		permanentRemove: string;
 		asc: string;
 		desc: string;

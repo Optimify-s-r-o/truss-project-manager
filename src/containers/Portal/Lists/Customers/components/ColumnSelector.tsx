@@ -2,16 +2,21 @@ import CheckboxSelection from '../../components/Checkbox';
 import React, { useEffect } from 'react';
 import { Checkbox } from '../../Jobs/Component';
 import { CustomerProxy } from '../../../Customer/_types';
+import { faSuitcase } from '@fortawesome/pro-duotone-svg-icons';
 import { FilterContentType, FilterProxy } from '../../../SidebarFilter/_types';
 import { FilterType, PutHeaderSettings } from '../../_types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { lang } from '../../../../../translation/i18n';
 import { Page, TreeType } from '../../../../../types/_types';
 import { RootStateType } from '../../../../../reducers/index';
+import { Routes } from 'src/constants/routes';
 import { setSort, setSortOrder } from '../../_action';
+import { StyledLink } from '../_styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
 	ContentInline,
+	ContentRow,
 	ContentSpaceBetweenWithPadding,
 	Header1,
 } from "../../../../../constants/globalStyles";
@@ -177,7 +182,17 @@ export const CustomerColumnSelector = ({
 
 	return (
 		<ContentSpaceBetweenWithPadding>
-			<Header1>{t(translationPath(lang.common.customersList).path)}</Header1>
+			<ContentRow>
+				<Header1>{t(translationPath(lang.common.customersList).path)}</Header1>
+				<StyledLink to={Routes.CREATE_CUSTOMER}>
+					<FontAwesomeIcon
+						icon={faSuitcase}
+						style={{ fontSize: 12, color: "#bb9e00" }}
+					/>
+					<span>{t(translationPath(lang.customer.newCustomer).path)}</span>
+				</StyledLink>
+			</ContentRow>
+
 			<ContentInline>
 				<CheckboxSelection
 					changeChecked={changeChecked}

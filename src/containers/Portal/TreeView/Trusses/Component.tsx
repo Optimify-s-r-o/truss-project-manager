@@ -18,6 +18,7 @@ import {
 import {
 	CardEndTableWrapper,
 	ContentCard,
+	ContentRow,
 	ContentSpaceBetween,
 	GridItem,
 	GridRow,
@@ -77,17 +78,22 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 				<PageHeader>
 					<PageTitle>
 						<TitleSection>
-							<FontAwesomeIcon icon={faMountains as IconProp} color={"#fff"} />
-							<TitleName>
-								{get(props.truss, getPath(TrussesProxy.Names))?.map(
-									(value: string, key: number) =>
-										value +
-										(get(props.truss, getPath(TrussesProxy.Names))?.length ==
-										key + 1
-											? " "
-											: ", ")
-								)}
-							</TitleName>
+							<ContentRow>
+								<FontAwesomeIcon
+									icon={faMountains as IconProp}
+									color={"#fff"}
+								/>
+								<TitleName>
+									{get(props.truss, getPath(TrussesProxy.Names))?.map(
+										(value: string, key: number) =>
+											value +
+											(get(props.truss, getPath(TrussesProxy.Names))?.length ==
+											key + 1
+												? " "
+												: ", ")
+									)}
+								</TitleName>
+							</ContentRow>
 						</TitleSection>
 					</PageTitle>
 				</PageHeader>

@@ -17,6 +17,7 @@ import { UserData } from '../_types';
 import { useTranslation } from 'react-i18next';
 import {
 	ContentCard,
+	ContentRow,
 	Form,
 	GridItem,
 	GridRow,
@@ -69,7 +70,8 @@ export const Component = ({
 		}
 	}, [username]);
 
-	const phoneRegExp = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
+	const phoneRegExp =
+		/^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
 	const formik = useFormik({
 		initialValues:
 			username && user
@@ -134,12 +136,14 @@ export const Component = ({
 							<PageHeader>
 								<PageTitle>
 									<TitleSection>
-										<FontAwesomeIcon icon={faUserPlus as IconProp} />
-										<TitleName>
-											{username
-												? t(translationPath(lang.common.editAccount).path)
-												: t(translationPath(lang.common.addAccount).path)}
-										</TitleName>
+										<ContentRow>
+											<FontAwesomeIcon icon={faUserPlus as IconProp} />
+											<TitleName>
+												{username
+													? t(translationPath(lang.common.editAccount).path)
+													: t(translationPath(lang.common.addAccount).path)}
+											</TitleName>
+										</ContentRow>
 									</TitleSection>
 								</PageTitle>
 							</PageHeader>

@@ -800,6 +800,7 @@ export const TitleSection = styled.span`
 	justify-content: space-between;
 	align-items: center;
 	flex-direction: row;
+	width: 100%;
 `;
 
 export const TitleName = styled.div`

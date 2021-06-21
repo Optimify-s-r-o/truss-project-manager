@@ -376,6 +376,7 @@ const dictionary: Lang = {
 		passwordMatch: "Die Passwörter die du eingegeben hast, passen nicht",
 	},
 	common: {
+		ok: "Ok",
 		permanentRemove: "Dauerhaft entfernen",
 		asc: "Aufsteigend",
 		desc: "Absteigend",
@@ -733,7 +734,7 @@ const dictionary: Lang = {
 		createJobInTruss2D: "Erstellen Sie eine neue Aufgabe in Truss2D",
 		createCustomer: "Kunden erstellen",
 		newCustomer: "Neuer Kunde",
-		editCustomer: "Edit Kunde",
+		editCustomer: "Kunde",
 		editLegalPerson: "Bearbeiten einer juristischen Person",
 		createNaturalPerson: "Neue Person",
 		createNewFromEvidence: "Aus Datensätzen erstellen",

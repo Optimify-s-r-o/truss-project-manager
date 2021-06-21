@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Main = styled.div`
 	position: relative;
@@ -25,4 +26,22 @@ export const Action = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+`;
+
+export const StyledLink = styled(Link)`
+	margin: 8px 12px 16px;
+	padding: 7px 10px;
+	text-decoration: none;
+	background-color: ${(props) => props.theme.colors.background.secondaryMenu};
+	border-radius: 4px;
+
+	&:hover {
+		background-color: ${(props) => props.theme.colors.background.darker};
+	}
+
+	span {
+		font-size: 12px;
+		color: ${(props) => props.theme.colors.secondaryText.hover};
+		margin-left: 9px;
+	}
 `;

@@ -1,6 +1,7 @@
 import { createProxy } from '../../../../utils/getPath';
 import { Customer } from '../../Customer/_types';
 import { Page } from './../../../../types/_types';
+import { Routes } from 'src/constants/routes';
 import {
 	Company,
 	Evidence,
@@ -23,6 +24,7 @@ export type CustomersStateType = FetchStateType &
 
 export interface DeleteRequest {
 	id: string;
+	route?: Routes;
 	requiredPage: Page;
 }
 
@@ -101,7 +103,8 @@ export interface CustomersEvidenceFilter {
 	ActiveTree: string;
 }
 
-export const CustomersEvidenceFilterProxy = createProxy<CustomersEvidenceFilter>();
+export const CustomersEvidenceFilterProxy =
+	createProxy<CustomersEvidenceFilter>();
 
 export interface CustomersEvidenceFilterRequest extends Fetch {
 	data: CustomersEvidenceFilter;

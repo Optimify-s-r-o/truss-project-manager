@@ -375,6 +375,7 @@ const dictionary: Lang = {
 		passwordMatch: "The passwords you entered did not match.",
 	},
 	common: {
+		ok: "Ok",
 		permanentRemove: "Permanently Remove",
 		asc: "Ascending",
 		desc: "Descending",
@@ -723,7 +724,7 @@ const dictionary: Lang = {
 		createNewJob: "Create",
 		createNewLegal: "Create a new legal person",
 		newCustomer: "New customer",
-		editCustomer: "Edit customer",
+		editCustomer: "Customer",
 		createNewNatural: "Create a new  natural person",
 		credit: "Credit",
 		crn: "CRN",

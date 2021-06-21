@@ -23,6 +23,7 @@ import { useFormik } from 'formik';
 import { UserData } from '../Accounts/_types';
 import {
 	ContentCard,
+	ContentRow,
 	Form,
 	GridItem,
 	GridRow,
@@ -216,13 +217,15 @@ const Index = (
 							<PageHeader>
 								<PageTitle>
 									<TitleSection>
-										<FontAwesomeIcon
-											icon={faFolderPlus as IconProp}
-											color={"#fff"}
-										/>
-										<TitleName>
-											{t(translationPath(lang.common.newProject))}
-										</TitleName>
+										<ContentRow>
+											<FontAwesomeIcon
+												icon={faFolderPlus as IconProp}
+												color={"#fff"}
+											/>
+											<TitleName>
+												{t(translationPath(lang.common.newProject))}
+											</TitleName>
+										</ContentRow>
 									</TitleSection>
 								</PageTitle>
 							</PageHeader>

@@ -21,6 +21,7 @@ import {
 	faMoneyBillWave,
 } from "@fortawesome/pro-solid-svg-icons";
 import {
+	ContentRow,
 	PageHeader,
 	PageTitle,
 	PageTitleActions,
@@ -53,11 +54,13 @@ export const Header = ({
 		<PageHeader>
 			<PageTitle>
 				<TitleSection>
-					<FontAwesomeIcon icon={faFolder as IconProp} color={"#fff"} />
-					<TitleName>{project?.Name}</TitleName>
-					{project?.Phases && (
-						<Phase phase={project?.Phases?.filter((value) => value != "")} />
-					)}
+					<ContentRow>
+						<FontAwesomeIcon icon={faFolder as IconProp} color={"#fff"} />
+						<TitleName>{project?.Name}</TitleName>
+						{project?.Phases && (
+							<Phase phase={project?.Phases?.filter((value) => value != "")} />
+						)}
+					</ContentRow>
 				</TitleSection>
 				<PageTitleActions>
 					<NewJob

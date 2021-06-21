@@ -4,44 +4,41 @@ import styled from 'styled-components';
 import { Alert } from 'antd';
 import { Box } from '../../../../components/Box';
 import { Button } from '../../../../components/Optimify/Button';
-import { Enter } from 'src/components/KeyBoardEventHandler';
-import { faCog } from '@fortawesome/pro-light-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { get } from 'lodash';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Input } from '../../../../constants/enum';
-import { lang, WithTranslation } from '../../../../translation/i18n';
-import { Organization, OrganizationProxy } from './_types';
-import { useEffect } from 'react';
-import { useFormik } from 'formik';
-import { useTranslation } from 'react-i18next';
 import {
+	ContentRow,
 	Form,
 	GridItem,
 	GridRow,
 	PageHeader,
 	PageTitle,
 	TitleName,
-	TitleSection,
-} from "../../../../constants/globalStyles";
+	TitleSection
+	} from '../../../../constants/globalStyles';
 import {
 	Countries,
 	Fetch,
 	Settings,
 	SettingsProxy,
-	UserRole,
-} from "../../../../types/_types";
-import {
-	getPath,
-	lastPathMember,
-	translationPath,
-} from "../../../../utils/getPath";
+	UserRole
+	} from '../../../../types/_types';
+import { Enter } from 'src/components/KeyBoardEventHandler';
+import { faCog } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { get } from 'lodash';
+import { getPath, lastPathMember, translationPath } from '../../../../utils/getPath';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { Input } from '../../../../constants/enum';
+import { lang, WithTranslation } from '../../../../translation/i18n';
 import {
 	MainTree,
 	MainTreeContent,
 	TreeContent,
-	TreeScreen,
-} from "../../_styles";
+	TreeScreen
+	} from '../../_styles';
+import { Organization, OrganizationProxy } from './_types';
+import { useEffect } from 'react';
+import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 
 export interface StateProps {
 	routerState: any;
@@ -100,11 +97,13 @@ export const Component = ({
 					<PageHeader>
 						<PageTitle>
 							<TitleSection>
+								<ContentRow>
 								<FontAwesomeIcon icon={faCog as IconProp} />
 								<TitleName>
 									{" "}
 									{t(translationPath(lang.common.settings).path)}
 								</TitleName>
+								</ContentRow>
 							</TitleSection>
 						</PageTitle>
 					</PageHeader>

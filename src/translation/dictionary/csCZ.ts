@@ -378,6 +378,7 @@ const dictionary: Lang = {
 		passwordMatch: "Zadaná hesla se neshodují",
 	},
 	common: {
+		ok: "Ok",
 		permanentRemove: "Trvale odebrat",
 		asc: "Řadit vzestupně",
 		desc: "Řadit sestupně",
@@ -869,7 +870,7 @@ const dictionary: Lang = {
 		name: "Název",
 		naturalPerson: "Fyzická osoba",
 		newAccount: "Přidat účet",
-		editCustomer: "Editace zákazníka",
+		editCustomer: "Zákazník",
 		newProject: "Nový projekt",
 		next: "Další",
 		notCounted: "Neposouzeno",

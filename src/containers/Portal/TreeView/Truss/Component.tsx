@@ -26,6 +26,7 @@ import {
 	useParams,
 } from "react-router-dom";
 import {
+	ContentRow,
 	PageHeader,
 	PageTitle,
 	TitleName,
@@ -91,12 +92,14 @@ const Component = ({
 					<PageHeader>
 						<PageTitle>
 							<TitleSection>
-								<FontAwesomeIcon
-									icon={faMountains as IconProp}
-									color={"#fff"}
-								/>
-								<TitleName>{truss?.TrussName}</TitleName>
-								{truss?.Status && <Phase phase={[truss?.Status]} />}
+								<ContentRow>
+									<FontAwesomeIcon
+										icon={faMountains as IconProp}
+										color={"#fff"}
+									/>
+									<TitleName>{truss?.TrussName}</TitleName>
+									{truss?.Status && <Phase phase={[truss?.Status]} />}
+								</ContentRow>
 							</TitleSection>
 						</PageTitle>
 						<Navigation

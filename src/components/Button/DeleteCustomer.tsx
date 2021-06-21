@@ -28,7 +28,7 @@ export const DeleteCustomer = ({ remove, hasProject, name }: IDelete) => {
 						name: name,
 					})}
 					onConfirm={null}
-					okText={t(translationPath(lang.common.yes).path)}
+					okText={t(translationPath(lang.common.ok).path)}
 					cancelButtonProps={{ style: { display: "none" } }}
 					cancelText={null}
 					icon={<ExclamationCircleFilled style={{ color: "red" }} />}
