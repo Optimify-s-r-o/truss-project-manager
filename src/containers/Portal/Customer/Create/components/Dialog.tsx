@@ -30,8 +30,6 @@ export const Modal = ({
 		contactFormik.resetForm();
 	};
 
-	console.log(contactFormik);
-
 	return (
 		<SModal
 			title={t(translationPath(lang.common.contactPerson).path)}

@@ -39,7 +39,7 @@ export const BinTable = ({
 }: Table) => {
 	const { t } = useTranslation();
 	const history = useHistory();
-	console.log(data);
+
 	const remove =
 		(id: string) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 			deleteEntity({

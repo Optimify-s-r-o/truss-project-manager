@@ -56,8 +56,6 @@ const Index = ({
 	}, [treeHub]);
 
 	useEffect(() => {
-		console.log(filter);
-		console.log(activeFilterContent);
 		setValues(getCustomersFilters(filter, activeFilterContent));
 	}, [filter, activeFilterContent]);
 

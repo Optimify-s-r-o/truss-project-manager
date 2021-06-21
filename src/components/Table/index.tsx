@@ -1,24 +1,24 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import useResizeAware from 'react-resize-aware';
-import { device } from '../../constants/theme';
-import { Empty, Tooltip } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { lang } from '../../translation/i18n';
-import { RootStateType } from '../../reducers/index';
-import { translationPath } from '../../utils/getPath';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
 	faSortAmountDown,
 	faSortAmountUpAlt,
 } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Empty, Tooltip } from "antd";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import useResizeAware from "react-resize-aware";
+import styled from "styled-components";
+import { device } from "../../constants/theme";
 import {
 	setDisabledColumnSelector,
 	setSort,
 	setSortOrder,
 } from "../../containers/Portal/Lists/_action";
+import { RootStateType } from "../../reducers/index";
+import { lang } from "../../translation/i18n";
+import { translationPath } from "../../utils/getPath";
 
 export enum SortOptions {
 	Default,
@@ -104,7 +104,6 @@ export const Table = (props: TableProps) => {
 			}
 		};
 
-	console.log(props.data);
 	return (
 		<TableElement>
 			<TableHead>

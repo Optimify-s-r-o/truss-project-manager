@@ -46,7 +46,6 @@ export const Project = ({
 				onSubmit={(values: any) => {}}
 			>
 				{(props) => {
-					console.log(props);
 					return (
 						<Form>
 							<Sidebar

@@ -58,8 +58,6 @@ const Index = ({
 	}, [treeHub]);
 
 	useEffect(() => {
-		console.log(filter);
-		console.log(activeFilterContent);
 		setValues(getTrussesFilters(filter, activeFilterContent));
 	}, [filter, activeFilterContent]);
 

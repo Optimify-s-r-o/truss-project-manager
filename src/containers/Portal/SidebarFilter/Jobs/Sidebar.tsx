@@ -60,8 +60,6 @@ const Index = ({
 	}, [treeHub]);
 
 	useEffect(() => {
-		console.log(filter);
-		console.log(activeFilterContent);
 		setValues(getJobsFilters(filter, activeFilterContent));
 	}, [filter, activeFilterContent]);
 

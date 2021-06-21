@@ -47,7 +47,6 @@ export const Job = ({
 				onSubmit={(values: any) => {}}
 			>
 				{(props) => {
-					console.log(props);
 					return (
 						<Form>
 							<Sidebar

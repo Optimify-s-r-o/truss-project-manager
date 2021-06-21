@@ -58,7 +58,7 @@ export const Header = ({
 	const unlock = () => {
 		leavingGuard(() => unlockJob(unlockJobAction(job.Project, job.JobName)));
 	};
-	console.log(job?.TrussType);
+
 	return (
 		<PageHeader>
 			<PageTitle>

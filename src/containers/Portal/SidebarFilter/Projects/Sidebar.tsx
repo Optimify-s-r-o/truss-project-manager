@@ -1,16 +1,16 @@
-import DateRange from './DateRange';
-import General from './General';
-import Price from './Price';
-import React, { useEffect } from 'react';
-import { FilterSettings, TreeType } from '../../../../types/_types';
-import { FilterType } from '../index';
-import { getProjectsFilters } from '../_services';
-import { Grow } from '../../Lists/components/_styles';
-import { Hub } from '../../../../constants/hub';
-import { Reset } from '../components/Reset';
-import { SelectType } from '../components/Select';
-import { UserData } from '../../Accounts/_types';
-import { WithTranslation, withTranslation } from '../../../../translation/i18n';
+import React, { useEffect } from "react";
+import { Hub } from "../../../../constants/hub";
+import { WithTranslation, withTranslation } from "../../../../translation/i18n";
+import { FilterSettings, TreeType } from "../../../../types/_types";
+import { UserData } from "../../Accounts/_types";
+import { Grow } from "../../Lists/components/_styles";
+import { Reset } from "../components/Reset";
+import { SelectType } from "../components/Select";
+import { FilterType } from "../index";
+import { getProjectsFilters } from "../_services";
+import DateRange from "./DateRange";
+import General from "./General";
+import Price from "./Price";
 
 export interface OwnProps {
 	filter: FilterSettings;
@@ -57,8 +57,6 @@ const Index = ({
 	}, [treeHub]);
 
 	useEffect(() => {
-		console.log(filter);
-		console.log(activeFilterContent);
 		setValues(getProjectsFilters(filter, activeFilterContent));
 	}, [filter, activeFilterContent]);
 
