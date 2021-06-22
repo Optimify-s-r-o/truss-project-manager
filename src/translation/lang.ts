@@ -690,6 +690,8 @@ export type Lang = Readonly<{
 		copyTo: string;
 		count: string;
 		countSum: string;
+		trussPlacementCount: string;
+		trussCountForProduction: string;
 		countPerTruss: string;
 		totalCount: string;
 		counted: string;

@@ -56,13 +56,18 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 						<GridItem fill>
 							<ContentCard fullSize>
 								<Data
-									title={t(translationPath(lang.common.count))}
-									data={get(props.truss, getPath(TrussProxy.Quantity))}
+									title={t(translationPath(lang.common.trussPlacementCount))}
+									data={get(props.truss, getPath(TrussProxy.TrussCount))}
 									unit={UnitType.EMPTY}
 								/>
 								<Data
 									title={t(translationPath(lang.common.multiplicity))}
 									data={get(props.truss, getPath(TrussProxy.PliesCount))}
+									unit={UnitType.EMPTY}
+								/>
+								<Data
+									title={t(translationPath(lang.common.trussCountForProduction))}
+									data={get(props.truss, getPath(TrussProxy.Quantity))}
 									unit={UnitType.EMPTY}
 								/>
 								<Data
@@ -115,14 +120,6 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 									unit={UnitType.M3}
 								/>
 								<Data
-									title={t(translationPath(lang.common.transportWeight))}
-									data={fixed(
-										get(props.truss, getPath(TrussProxy.TransportWeight)),
-										2
-									)}
-									unit={UnitType.KG}
-								/>
-								<Data
 									title={t(translationPath(lang.common.pricePerPiece))}
 									data={formatCurrency(props.truss?.Price)}
 									unit={UnitType.EMPTY}
@@ -131,6 +128,14 @@ const Index = (props: WithTranslation & StateProps & RouteComponentProps) => {
 									title={t(translationPath(lang.common.totalPrice))}
 									data={formatCurrency(props.truss?.PriceSum)}
 									unit={UnitType.EMPTY}
+								/>
+								<Data
+									title={t(translationPath(lang.common.transportWeight))}
+									data={fixed(
+										get(props.truss, getPath(TrussProxy.TransportWeight)),
+										2
+									)}
+									unit={UnitType.KG}
 								/>
 
 								<Header2>{t(translationPath(lang.common.controlData))}</Header2>

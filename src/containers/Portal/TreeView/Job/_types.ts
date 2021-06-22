@@ -28,6 +28,8 @@ export interface Load {
 	CeilingLoad: number;
 	SnowRegion: string;
 	SnowLoad: number;
+	AtticLoad: number;
+	AtticFloorLoad: number;
 	WindRegion: string;
 	WindLoad: number;
 	RoofingName: string;

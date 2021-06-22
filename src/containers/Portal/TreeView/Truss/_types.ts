@@ -55,6 +55,7 @@ export interface Truss {
 	TrussName: string;
 	Status: string;
 	Quantity: string;
+	TrussCount: string;
 	PliesCount: string;
 	Thickness: number;
 	Centres: number;
