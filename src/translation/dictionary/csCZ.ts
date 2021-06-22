@@ -793,7 +793,7 @@ const dictionary: Lang = {
 		filterTree: "Filtrovat strom",
 		find: "Hledat",
 		finished: "Hotov",
-		floorArea: "Podlaha podkrovi",
+		floorArea: "Podlaha podkroví",
 		forename: "Jméno",
 		fullName: "Celé jméno",
 		general: "Shrnutí",

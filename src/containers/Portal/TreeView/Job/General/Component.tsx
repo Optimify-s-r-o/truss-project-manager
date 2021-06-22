@@ -401,14 +401,20 @@ const Index = ({
 
 													<Data
 														title={t(translationPath(lang.common.floorArea))}
-														data={null}
+														data={fixed(
+															get(job, getPath(JobProxy.Load.AtticFloorLoad)),
+															2
+														)}
 														unit={UnitType.KNM2}
 													/>
 													<Data
 														title={t(
 															translationPath(lang.common.usefulInTheAttic)
 														)}
-														data={null}
+														data={fixed(
+															get(job, getPath(JobProxy.Load.AtticLoad)),
+															2
+														)}
 														unit={UnitType.KNM2}
 													/>
 												</GridItem>
