@@ -167,9 +167,11 @@ function* editTrussSaga(
 		);
 
 		const token = yield select((state: any) => state.AuthReducer.token);
-		const trussPath = `${documents}\\Truss Project Manager\\${action.payload.projectName}\\${action.payload.jobName}.tr3`;
+		const trussPath = `${documents}\\Truss Project Manager\\${action.payload.projectName}\\${action.payload.jobName}\\${action.payload.jobName}.tr3`;
 
+		console.log(response);
 		const trussResponse: any = yield call(fetch, response.Url);
+		console.log(trussResponse);
 
 		if (trussResponse.ok) {
 			const blob: any = yield call([trussResponse, trussResponse.blob]);
@@ -184,7 +186,7 @@ function* editTrussSaga(
 				const reader = new FileReader();
 				reader.onloadend = () => {
 					fs.mkdir(
-						`${documents}\\Truss Project Manager\\${action.payload.projectName}\\`,
+						`${documents}\\Truss Project Manager\\${action.payload.projectName}\\${action.payload.jobName}\\`,
 						{ recursive: true },
 						(err) => {
 							if (err) throw err;
