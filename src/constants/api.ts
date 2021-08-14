@@ -1,6 +1,7 @@
 export enum ApiURL {
 	//Viewer
 	VIEWER = "/api/v1/models/job",
+	PUBLISH_MODEL = "/api/v1/jobs/publish-model",
 	FILTER = "/api/v1/filter",
 	//Clients
 	CLIENTS_PUT = "/api/v1/clients/client-admin",

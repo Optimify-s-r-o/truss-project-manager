@@ -254,6 +254,7 @@ const dictionary: Lang = {
 	viewer: {
 		title: "3D Model Viewer",
 		upload: "Nahrát 3D model",
+		publish: "Zveřejnit 3D model",
 		dateOfCreation: "Datum nahrání",
 		uploadedBy: "Nahráno",
 		url: "URL 3D modelu",

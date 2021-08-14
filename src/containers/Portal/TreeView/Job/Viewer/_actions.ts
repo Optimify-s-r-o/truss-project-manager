@@ -2,11 +2,11 @@ import { ActionType, createAction, createAsyncAction } from 'typesafe-actions';
 import { Error } from '../../../../../sagas/_sagas';
 import { Viewer, ViewerRequest } from './_types';
 
-export const uploadModelPostAction = createAsyncAction(
+export const publishModelPostAction = createAsyncAction(
 	"UPLOAD_MODEL_POST_REQUEST",
 	"UPLOAD_MODEL_POST_SUCCESS",
 	"UPLOAD_MODEL_POST_FAILURE"
-)<ViewerRequest, void, Error>();
+)<string, void, Error>();
 
 export const editModelPutAction = createAsyncAction(
 	"EDIT_MODEL_PUT_REQUEST",
@@ -33,5 +33,5 @@ export type selectedJobType = ActionType<
 	| typeof deleteModel
 	| typeof modelsGetAction
 	| typeof editModelPutAction
-	| typeof uploadModelPostAction
+	| typeof publishModelPostAction
 >;

@@ -1,11 +1,11 @@
 import lang from '../../../../../translation/lang';
 import Loading from '../../../../../components/Optimify/Loading';
 import React, { useEffect } from 'react';
+import { ActionButton } from '../General/_styles';
 import { ActionSection } from '../../../../../components/Quotations';
 import { DeleteJob, Unlock } from '../_types';
 import { EditTruss } from '../../../../../sagas/Truss/_actions';
 import { Empty } from 'antd';
-import { File } from './components/File';
 import { Header } from '../components/Header';
 import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
 import { Table } from './components/Table';
@@ -27,7 +27,7 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-	uploadModelPostAction: (data: ViewerRequest) => void;
+	publishModelPostAction: (data: string) => void;
 	editModelPutAction: (data: ViewerRequest) => void;
 	modelsGetAction: (data: string) => void;
 	deleteModel: (data: string) => void;
@@ -40,7 +40,7 @@ export interface DispatchProps {
 export default ({
 	models,
 	pending,
-	uploadModelPostAction,
+	publishModelPostAction,
 	removeJob,
 	modelsGetAction,
 	deleteModel,
@@ -90,17 +90,20 @@ export default ({
 								)}
 								{models?.Exists ? (
 									<ContentCard fullSize>
-										<Table models={models} deleteModel={deleteModel} id={id} />
+										<Table
+											models={models}
+											deleteModel={deleteModel}
+											job={job}
+										/>
 									</ContentCard>
 								) : (
 									<ViewerColumn>
 										<Empty description={""} />
 										<br />
 										<ActionSection>
-											<File
-												uploadModelPostAction={uploadModelPostAction}
-												id={id}
-											/>
+											<ActionButton onClick={() => publishModelPostAction(id)}>
+												{t(translationPath(lang.viewer.publish).path)}
+											</ActionButton>
 										</ActionSection>
 									</ViewerColumn>
 								)}

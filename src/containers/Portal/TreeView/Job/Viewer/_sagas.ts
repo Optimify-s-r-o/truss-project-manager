@@ -12,7 +12,7 @@ import {
 	deleteModel,
 	editModelPutAction,
 	modelsGetAction,
-	uploadModelPostAction,
+	publishModelPostAction,
 } from "./_actions";
 
 function* viewerGetActionSaga(
@@ -46,17 +46,17 @@ function* viewerGetActionSaga(
 	}
 }
 
-function* uploadModelPostActionSaga(
-	action: ReturnType<typeof uploadModelPostAction.request>
+function* publishModelPostActionSaga(
+	action: ReturnType<typeof publishModelPostAction.request>
 ): Generator {
 	try {
 		// @ts-ignore
 		const { errorResponseData, response, success } = yield call(
 			fetchSaga,
-			ApiURL.VIEWER,
+			ApiURL.PUBLISH_MODEL,
 			Method.POST,
 			{
-				bodyFormData: makeFormData(action.payload),
+				bodyJSON: { Id: action.payload },
 			}
 		);
 
@@ -71,11 +71,11 @@ function* uploadModelPostActionSaga(
 					),
 				})
 			);
-			yield put(uploadModelPostAction.failure(errorResponseData));
+			yield put(publishModelPostAction.failure(errorResponseData));
 			return;
 		}
-		yield put(modelsGetAction.request(action.payload.Id));
-		yield put(uploadModelPostAction.success(response));
+		yield put(modelsGetAction.request(action.payload));
+		yield put(publishModelPostAction.success(response));
 	} catch (err) {
 		yield put(
 			notificationAction({
@@ -83,7 +83,7 @@ function* uploadModelPostActionSaga(
 				message: t(translationPath(lang.common.errorMessage)),
 			})
 		);
-		yield put(uploadModelPostAction.failure(err));
+		yield put(publishModelPostAction.failure(err));
 	}
 }
 
@@ -174,10 +174,10 @@ export function* watchViewerGetAction() {
 	yield takeLatest(getType(modelsGetAction.request), viewerGetActionSaga);
 }
 
-export function* watchUploadModelPostAction() {
+export function* watchPublishModelPostAction() {
 	yield takeLatest(
-		getType(uploadModelPostAction.request),
-		uploadModelPostActionSaga
+		getType(publishModelPostAction.request),
+		publishModelPostActionSaga
 	);
 }
 

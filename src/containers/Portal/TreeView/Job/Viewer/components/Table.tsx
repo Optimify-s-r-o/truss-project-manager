@@ -17,22 +17,23 @@ import {
 interface ITable {
 	models: Viewer;
 	deleteModel: (data: string) => void;
-	id: string;
+	job: any;
 }
-export const Table = ({ models, deleteModel, id }: ITable) => {
-	const openFineUrl = (link?: string) => (
-		event: React.MouseEvent<HTMLDivElement, MouseEvent>
-	) => {
-		const { shell } = window.require("electron");
-		shell.openExternal(link);
-	};
+export const Table = ({ models, deleteModel, job }: ITable) => {
+	const openFineUrl =
+		(link?: string) =>
+		(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+			const { shell } = window.require("electron");
+			shell.openExternal(link);
+		};
 
-	const handleCopy = (value: string) => (
-		_event: React.MouseEvent<HTMLElement, MouseEvent>
-	) => {
-		const { clipboard } = window.require("electron");
-		clipboard.writeText(value, "selection");
-	};
+	const handleCopy =
+		(value: string) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+			const { clipboard } = window.require("electron");
+			clipboard.writeText(value, "selection");
+		};
+
+	const url = `https://modelviewer.fine.cz/?id=${job?.Id}`;
 
 	return (
 		<ScrollableTable
@@ -43,7 +44,7 @@ export const Table = ({ models, deleteModel, id }: ITable) => {
 				t(translationPath(lang.common.actions)),
 			]}
 			data={
-				!models?.Exists
+				!job?.ModelPublished
 					? []
 					: [models]?.map((value: Viewer, index: number) => {
 							return [value.Uploaded, value.UploadedBy, value, value];
@@ -63,22 +64,18 @@ export const Table = ({ models, deleteModel, id }: ITable) => {
 								title={t(translationPath(lang.common.clipboard))}
 								placement={"bottom"}
 							>
-								<IconButton
-									type="button"
-									iconOnly
-									onClick={handleCopy(parent.Url)}
-								>
+								<IconButton type="button" iconOnly onClick={handleCopy(url)}>
 									<FontAwesomeIcon icon={faCopy as IconProp} color={"black"} />
 								</IconButton>
 							</Tooltip>
 							&nbsp;
 							<Link
-								link={openFineUrl(parent.Url)}
+								link={openFineUrl(url)}
 								title={t(translationPath(lang.common.open))}
 							/>
 							&nbsp;
 							<Delete
-								remove={() => deleteModel(id)}
+								remove={() => deleteModel(job?.Id)}
 								title={t(translationPath(lang.remove.model))}
 							/>
 						</ActionsColumn>

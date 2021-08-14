@@ -251,6 +251,7 @@ export type Lang = Readonly<{
 	};
 	viewer: {
 		title: string;
+		publish: string;
 		upload: string;
 		dateOfCreation: string;
 		uploadedBy: string;

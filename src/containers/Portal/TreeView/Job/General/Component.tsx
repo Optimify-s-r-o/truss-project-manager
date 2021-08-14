@@ -4,28 +4,13 @@ import Data from '../../../../../components/Data/Data';
 import FormikRow from '../../../../../components/Optimify/Form/FormikRow';
 import Moment from 'react-moment';
 import RouteLeavingGuard from '../../../../../components/Prompt';
+import { ActionButton, RightColumn } from './_styles';
 import { ActionSection } from '../../../../../components/Quotations';
 import { Alert, Button as SButton, Modal } from 'antd';
 import { Button } from '../../../../../components/Optimify/Button';
-import {
-  CenterImage,
-  MainTreeContent,
-  TreeButtonsRow,
-  TreeContent,
-  TreeScreen
-  } from '../../../_styles';
-import {
-  ContentCard,
-  Form,
-  GridItem,
-  GridRow,
-  Header2,
-  Sceleton
-  } from '../../../../../constants/globalStyles';
 import { DeleteJob, JobProxy, Unlock } from '../_types';
 import { EditTruss } from '../../../../../sagas/Truss/_actions';
 import { Enter } from 'src/components/KeyBoardEventHandler';
-import { File } from '../Viewer/components/File';
 import { fixed } from '../../../../../utils/formating';
 import { formatCurrency } from 'src/utils/currencyFormat';
 import { get } from 'lodash';
@@ -33,19 +18,33 @@ import { getPath, translationPath } from '../../../../../utils/getPath';
 import { Header } from '../components/Header';
 import { Input } from '../../../../../constants/enum';
 import { JobType, Settings, TreeType } from '../../../../../types/_types';
-import {
-  lang,
-  t,
-  WithTranslation,
-  withTranslation
-  } from '../../../../../translation/i18n';
-import { RightColumn } from './_styles';
 import { RouteComponentProps } from 'react-router-dom';
 import { Table } from '../Viewer/components/Table';
 import { UnitType } from '../../../../../components/Data/Unit';
 import { useFormik } from 'formik';
 import { Viewer, ViewerRequest } from '../Viewer/_types';
 import { ViewerTitleSection } from '../Viewer/_styles';
+import {
+	ContentCard,
+	Form,
+	GridItem,
+	GridRow,
+	Header2,
+	Sceleton,
+} from "../../../../../constants/globalStyles";
+import {
+	lang,
+	t,
+	WithTranslation,
+	withTranslation,
+} from "../../../../../translation/i18n";
+import {
+	CenterImage,
+	MainTreeContent,
+	TreeButtonsRow,
+	TreeContent,
+	TreeScreen,
+} from "../../../_styles";
 
 export interface StateProps {
 	activeTree: TreeType;
@@ -65,7 +64,7 @@ export interface DisptachProps {
 	removeJob: (data: DeleteJob) => void;
 	unlockJob: (data: Unlock) => void;
 	editTruss: (data: EditTruss) => void;
-	uploadModelPostAction: (data: ViewerRequest) => void;
+	publishModelPostAction: (data: string) => void;
 	editModelPutAction: (data: ViewerRequest) => void;
 	deleteModel: (data: string) => void;
 	clearModels: (data: void) => void;
@@ -83,7 +82,7 @@ const Index = ({
 	pending,
 	setSelectedKeys,
 	models,
-	uploadModelPostAction,
+	publishModelPostAction,
 	deleteModel,
 }: WithTranslation & StateProps & DisptachProps & RouteComponentProps) => {
 	const [alertDialog, setAlertDialog] = React.useState(false);
@@ -427,20 +426,17 @@ const Index = ({
 								<ContentCard fullSize>
 									<ViewerTitleSection>
 										<Header2>{t(translationPath(lang.viewer.title))}</Header2>
-										{!models?.Exists && (
+										{!job?.modelPublished && (
 											<ActionSection>
-												<File
-													uploadModelPostAction={uploadModelPostAction}
-													id={job?.Id}
-												/>
+												<ActionButton
+													onClick={() => publishModelPostAction(job?.Id)}
+												>
+													{t(translationPath(lang.viewer.publish))}
+												</ActionButton>
 											</ActionSection>
 										)}
 									</ViewerTitleSection>
-									<Table
-										models={models}
-										deleteModel={deleteModel}
-										id={job?.Id}
-									/>
+									<Table models={models} deleteModel={deleteModel} job={job} />
 								</ContentCard>
 							</GridItem>
 						</TreeContent>

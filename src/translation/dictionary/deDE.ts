@@ -253,6 +253,7 @@ const dictionary: Lang = {
 	viewer: {
 		title: "3D Model Viewer",
 		upload: "Laden Sie ein 3D-Modell hoch",
+		publish: "Veröffentlichen Sie ein 3D-Modell",
 		dateOfCreation: "Hochladedatum",
 		uploadedBy: "Hochgeladen",
 		url: "URL des 3D-Modells",

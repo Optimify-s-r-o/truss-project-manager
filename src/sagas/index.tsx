@@ -90,7 +90,7 @@ import {
 import {
 	watchDeleteModelAction,
 	watchEditModelPutAction,
-	watchUploadModelPostAction,
+	watchPublishModelPostAction,
 	watchViewerGetAction,
 } from "../containers/Portal/TreeView/Job/Viewer/_sagas";
 import {
@@ -156,7 +156,7 @@ export const rootSaga = [
 	watchUpdateOrganization,
 	watchGetOrganization,
 	watchViewerGetAction,
-	watchUploadModelPostAction,
+	watchPublishModelPostAction,
 	watchEditModelPutAction,
 	watchDeleteModelAction,
 	watchGetJobTrussesAction,

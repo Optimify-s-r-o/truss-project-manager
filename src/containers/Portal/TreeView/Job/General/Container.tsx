@@ -11,8 +11,7 @@ import { withRouter } from 'react-router-dom';
 import {
 	deleteModel,
 	editModelPutAction,
-	modelsGetAction,
-	uploadModelPostAction,
+	publishModelPostAction,
 } from "../Viewer/_actions";
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -21,8 +20,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	removeJob: (data: DeleteJob) => dispatch(deleteJob.request(data)),
 	editTruss: (data: EditTruss) => dispatch(editTruss.request(data)),
 	unlockJob: (data: Unlock) => dispatch(unlockJob.request(data)),
-	uploadModelPostAction: (data: ViewerRequest) =>
-		dispatch(uploadModelPostAction.request(data)),
+	publishModelPostAction: (data: string) =>
+		dispatch(publishModelPostAction.request(data)),
 	editModelPutAction: (data: ViewerRequest) =>
 		dispatch(editModelPutAction.request(data)),
 	deleteModel: (data: string) => dispatch(deleteModel.request(data)),

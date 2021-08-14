@@ -11,12 +11,12 @@ import {
 	deleteModel,
 	editModelPutAction,
 	modelsGetAction,
-	uploadModelPostAction,
+	publishModelPostAction,
 } from "./_actions";
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	uploadModelPostAction: (data: ViewerRequest) =>
-		dispatch(uploadModelPostAction.request(data)),
+	publishModelPostAction: (data: string) =>
+		dispatch(publishModelPostAction.request(data)),
 	editModelPutAction: (data: ViewerRequest) =>
 		dispatch(editModelPutAction.request(data)),
 	modelsGetAction: (data: string) => dispatch(modelsGetAction.request(data)),

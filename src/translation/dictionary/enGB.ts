@@ -252,6 +252,7 @@ const dictionary: Lang = {
 	},
 	viewer: {
 		title: "3D Model Viewer",
+		publish: "Publish 3D model",
 		upload: "Upload 3D model",
 		dateOfCreation: "Date of creation",
 		uploadedBy: "Uploaded by",
