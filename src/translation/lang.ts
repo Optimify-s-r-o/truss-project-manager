@@ -464,6 +464,7 @@ export type Lang = Readonly<{
 		changeRootPath: string;
 		changeTruss3DPath: string;
 		changeTruss2DPath: string;
+		changeTrussFilePath: string;
 		jobType: string;
 		projectState: string;
 		noData: string;

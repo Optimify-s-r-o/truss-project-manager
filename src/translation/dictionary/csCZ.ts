@@ -479,6 +479,7 @@ const dictionary: Lang = {
 		changeRootPath: "Změnit uložiště souborů",
 		changeTruss3DPath: "Změnit cestu k Truss3D",
 		changeTruss2DPath: "Změnit cestu k Truss2D",
+		changeTrussFilePath: "Změnit adresář pro ukládaní Truss souborů",
 		jobType: "Typ úlohy",
 		projectState: "Stav projektu",
 		noData: "Tabulka neobsahuje žádná data.",

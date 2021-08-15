@@ -138,10 +138,11 @@ export type SettingsType = Readonly<{
 	filter: FilterSettings;
 	activeTree: TreeType;
 	folders: Folder;
+	trussFilesPath: string;
 }>;
 
 export type Folder = {
-	downloads: string;
+	downloads?: string;
 	documents: string;
 };
 export interface Countries {

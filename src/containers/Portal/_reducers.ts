@@ -5,6 +5,7 @@ import {
 	SettingActionnType,
 	settings,
 	settingsFilter,
+	setTrussFilesPath,
 	treeType,
 } from "./_actions";
 
@@ -13,6 +14,7 @@ const initialState: SettingsType = {
 	filter: null,
 	activeTree: TreeType.PROJECT,
 	folders: null,
+	trussFilesPath: null,
 };
 
 export default (
@@ -53,6 +55,11 @@ export default (
 			return {
 				...state,
 				folders: action.payload,
+			};
+		case getType(setTrussFilesPath):
+			return {
+				...state,
+				trussFilesPath: action.payload,
 			};
 		default:
 			return state;

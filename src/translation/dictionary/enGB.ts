@@ -481,6 +481,7 @@ const dictionary: Lang = {
 		changeRootPath: "Change the file path",
 		changeTruss3DPath: "Change the path to Truss3D",
 		changeTruss2DPath: "Change the path to Truss2D",
+		changeTrussFilePath: "Change directory for saving Truss files",
 		jobType: "Job type",
 		projectState: "Project status",
 		noData: "The table does not contain any data.",

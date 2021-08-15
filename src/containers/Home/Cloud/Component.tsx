@@ -39,6 +39,7 @@ export interface StateProps {
 export interface DispatchProps {
 	login: (data: Credentials) => void;
 	setFolders: (data: Folder) => void;
+	setTrussFilesPath: (data: string) => void;
 }
 
 const Component = (
@@ -48,7 +49,7 @@ const Component = (
 		WithTranslation &
 		RouteComponentProps
 ) => {
-	const { login, pending, setFolders } = props;
+	const { login, pending, setFolders, setTrussFilesPath } = props;
 
 	const initialValues: Credentials = {
 		username: "",
@@ -90,6 +91,7 @@ const Component = (
 	React.useEffect(() => {
 		if (isElectron()) {
 			const electron = window.require("electron");
+			electron.ipcRenderer.send("trussFilesPath");
 			electron.ipcRenderer.send(ELECTRON_STORE_GET, "credentials");
 			electron.ipcRenderer.on(ELECTRON_STORE_GET, (event, text) => {
 				formik.setValues({
@@ -101,6 +103,10 @@ const Component = (
 			electron.ipcRenderer.send(ELECTRON_APP_GET_PATH);
 			electron.ipcRenderer.on(ELECTRON_APP_GET_PATH, (event, text) => {
 				setFolders(text);
+			});
+			electron.ipcRenderer.on("trussFilesPath", (event, text) => {
+				console.log("trussFilesPath - 109");
+				setTrussFilesPath(text);
 			});
 
 			electron.ipcRenderer.send(ELECTRON_APP_GET_SETTINGS);

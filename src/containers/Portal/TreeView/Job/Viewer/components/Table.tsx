@@ -33,8 +33,6 @@ export const Table = ({ models, deleteModel, job }: ITable) => {
 			clipboard.writeText(value, "selection");
 		};
 
-	const url = `https://modelviewer.fine.cz/?id=${job?.Id}`;
-
 	return (
 		<ScrollableTable
 			height={250}
@@ -64,13 +62,17 @@ export const Table = ({ models, deleteModel, job }: ITable) => {
 								title={t(translationPath(lang.common.clipboard))}
 								placement={"bottom"}
 							>
-								<IconButton type="button" iconOnly onClick={handleCopy(url)}>
+								<IconButton
+									type="button"
+									iconOnly
+									onClick={handleCopy(parent?.Url)}
+								>
 									<FontAwesomeIcon icon={faCopy as IconProp} color={"black"} />
 								</IconButton>
 							</Tooltip>
 							&nbsp;
 							<Link
-								link={openFineUrl(url)}
+								link={openFineUrl(parent?.Url)}
 								title={t(translationPath(lang.common.open))}
 							/>
 							&nbsp;

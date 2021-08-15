@@ -22,7 +22,12 @@ export const settingsFilter = createAsyncAction(
 
 export const treeType = createAction("TREE_TYPE")<TreeType>();
 export const setFolders = createAction("SET_FOLDERS")<Folder>();
+export const setTrussFilesPath = createAction("SET_TRUSS_FILES_PATH")<string>();
 
 export type SettingActionnType = ActionType<
-	typeof settings | typeof settingsFilter | typeof treeType | typeof setFolders
+	| typeof settings
+	| typeof settingsFilter
+	| typeof treeType
+	| typeof setFolders
+	| typeof setTrussFilesPath
 >;

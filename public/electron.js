@@ -55,7 +55,13 @@ const createWindow =()=> {
     installExtension = devTools.default;
     REACT_DEVELOPER_TOOLS = devTools.REACT_DEVELOPER_TOOLS;
   } 
-
+  const documents = app.getPath("documents");
+  if (documents) {
+    console.log(store.get('trussFilesPath'))
+    if (!store.get('trussFilesPath')) {
+      store.set('trussFilesPath', documents);
+    }
+  }
 
   const truss3DExe ='C:\\Program Files (x86)\\Fine\\TRUSS4\\v1\\Truss3D_4_CS.exe'
   if (fs.existsSync(truss3DExe)) {
@@ -111,7 +117,7 @@ const createWindow =()=> {
       .catch((error) => {
         logInfo("DOWNLOAD_UPDATE_FAILURE:");
         logInfo(error);
-        sender.send("DOWNLOAD_UPDATE_SUCCESS");//should be failure
+        sender.send("DOWNLOAD_UPDATE_SUCCESS");
       });
   });
   
@@ -156,22 +162,22 @@ const createWindow =()=> {
     logInfo("truss3DExePath");
     const path = store.get("truss3DExePath");
     logInfo(path);
-    if(path){
-      return event.sender.send("truss3DExePath", path);  
-    }else{
-      return truss3DExe;
-    }
+      return event.sender.send("truss3DExePath", path ? path : truss3DExe);  
   });
 
   ipcMain.on("truss2DExePath", (event, arg) => {
     logInfo("truss2DExePath");
     const path = store.get("truss2DExePath");
     logInfo(path);
-    if(path){
-      return event.sender.send("truss2DExePath", path);  
-    }else{
-      return truss3DExe;
-    }
+      return event.sender.send("truss2DExePath", path ? path :  truss3DExe);  
+  });
+
+  
+  ipcMain.on("trussFilesPath", (event, arg) => {
+    logInfo("trussFilesPath");
+    const path = store.get("trussFilesPath");
+    logInfo(path);
+      return event.sender.send("trussFilesPath", path ? path : documents);  
   });
 }
 

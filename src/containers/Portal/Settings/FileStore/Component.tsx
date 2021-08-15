@@ -43,6 +43,7 @@ export interface StateProps {
 export interface DispatchProps {
 	fileChangeRootPath: (data: string) => void;
 	settingsCall: (data: Fetch) => void;
+	trussFilesPath: (data: string) => void;
 }
 
 export const Component = ({
@@ -51,12 +52,13 @@ export const Component = ({
 	settingsCall,
 	settingsEntity,
 	role,
+	trussFilesPath,
 }: StateProps & DispatchProps) => {
 	const admin = role == UserRole.OrganizationAdmin ? true : false;
 	const { t } = useTranslation();
 	const [truss3DExe, setTruss3DExe] = React.useState("");
 	const [truss2DExe, setTruss2DExe] = React.useState("");
-	const [store, setStore] = React.useState(null);
+	const [trussPath, setTrussPath] = React.useState("");
 
 	React.useEffect(() => {
 		settingsCall({
@@ -71,12 +73,16 @@ export const Component = ({
 			const electron = window.require("electron");
 			electron.ipcRenderer.send("truss3DExePath");
 			electron.ipcRenderer.send("truss2DExePath");
+			electron.ipcRenderer.send("trussFilesPath");
 			const fs = electron.remote.require("fs");
 			electron.ipcRenderer.on("truss3DExePath", (event, text) => {
 				setTruss3DExe(text);
 			});
 			electron.ipcRenderer.on("truss2DExePath", (event, text) => {
 				setTruss2DExe(text);
+			});
+			electron.ipcRenderer.on("trussFilesPath", (event, text) => {
+				setTrussPath(text);
 			});
 		}
 	}, []);
@@ -101,7 +107,10 @@ export const Component = ({
 	const handleTruss3D = () => {
 		const { remote } = window.require("electron");
 		remote.dialog
-			.showOpenDialog({ properties: ["openFile"] })
+			.showOpenDialog({
+				defaultPath: truss3DExe,
+				properties: ["openFile"],
+			})
 			.then((result) => {
 				if (result && result.filePaths && result.filePaths[0]) {
 					if (isElectron() && result.filePaths[0]) {
@@ -121,7 +130,7 @@ export const Component = ({
 		if (isElectron()) {
 			const { remote } = window.require("electron");
 			remote.dialog
-				.showOpenDialog({ properties: ["openFile"] })
+				.showOpenDialog({ defaultPath: truss2DExe, properties: ["openFile"] })
 				.then((result) => {
 					if (result && result.filePaths && result.filePaths[0]) {
 						if (isElectron() && result.filePaths[0]) {
@@ -132,6 +141,32 @@ export const Component = ({
 								value: result.filePaths[0],
 							});
 							setTruss2DExe(result.filePaths[0]);
+						}
+					}
+				});
+		}
+	};
+
+	const handleTrussFilesPath = () => {
+		if (isElectron()) {
+			const { remote } = window.require("electron");
+			remote.dialog
+				.showOpenDialog({
+					defaultPath: trussPath,
+					properties: ["openDirectory"],
+				})
+				.then((result) => {
+					if (result && result.filePaths && result.filePaths[0]) {
+						if (isElectron() && result.filePaths[0]) {
+							const electron = window.require("electron");
+							const fs = electron.remote.require("fs");
+							const filePath = result.filePaths[0];
+							electron.ipcRenderer.send(ELECTRON_STORE_SET, {
+								name: "trussFilesPath",
+								value: filePath,
+							});
+							setTrussPath(filePath);
+							trussFilesPath(filePath);
 						}
 					}
 				});
@@ -203,6 +238,21 @@ export const Component = ({
 												onClick={handleTruss2D}
 											>
 												{truss2DExe}
+											</Setting>
+										}
+									/>
+									<Data
+										title={t(
+											translationPath(lang.common.changeTrussFilePath).path
+										)}
+										unit={UnitType.EMPTY}
+										data={
+											<Setting
+												level={1}
+												loading={false}
+												onClick={handleTrussFilesPath}
+											>
+												{trussPath}
 											</Setting>
 										}
 									/>

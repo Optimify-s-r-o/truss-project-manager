@@ -486,6 +486,7 @@ const dictionary: Lang = {
 		changeRootPath: "Ändern Sie den Dateispeicher",
 		changeTruss3DPath: "Ändern Sie den Pfad zu Truss3D",
 		changeTruss2DPath: "Ändern Sie den Pfad zu Truss2D",
+		changeTrussFilePath: "Verzeichnis zum Speichern von Truss-Dateien ändern",
 		jobType: "Aufgabentyp",
 		projectState: "Projekt-Status",
 		noData: "Die Tabelle enthält keine Daten.",
