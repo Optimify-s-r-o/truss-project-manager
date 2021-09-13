@@ -42,7 +42,7 @@ export const Table = ({ models, deleteModel, job }: ITable) => {
 				t(translationPath(lang.common.actions)),
 			]}
 			data={
-				!job?.ModelPublished
+				!job?.ModelPublished || !models
 					? []
 					: [models]?.map((value: Viewer, index: number) => {
 							return [value.Uploaded, value.UploadedBy, value, value];
