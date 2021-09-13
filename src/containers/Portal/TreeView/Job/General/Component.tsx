@@ -426,7 +426,7 @@ const Index = ({
 								<ContentCard fullSize>
 									<ViewerTitleSection>
 										<Header2>{t(translationPath(lang.viewer.title))}</Header2>
-										{!job?.Url && (
+										{!models?.Exists && (
 											<ActionSection>
 												<ActionButton
 													onClick={() => publishModelPostAction(job?.Id)}

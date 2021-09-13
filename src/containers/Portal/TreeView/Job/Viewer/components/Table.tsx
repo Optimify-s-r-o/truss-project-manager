@@ -1,5 +1,5 @@
 import Moment from 'react-moment';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Tooltip from '../../../../../../components/Optimify/Tooltip';
 import { Delete, Link } from '../../../../../../components/Button';
 import { faCopy } from '@fortawesome/pro-duotone-svg-icons';
@@ -42,7 +42,7 @@ export const Table = ({ models, deleteModel, job }: ITable) => {
 				t(translationPath(lang.common.actions)),
 			]}
 			data={
-				!job?.ModelPublished || !models
+				!job?.ModelPublished || !models || !models.Exists
 					? []
 					: [models]?.map((value: Viewer, index: number) => {
 							return [value.Uploaded, value.UploadedBy, value, value];
