@@ -173,7 +173,11 @@ function* updateCustomerActionSaga(
 			yield put(
 				notificationAction({
 					code: Status.ERROR,
-					message: t(translationPath(lang.common[statusText])),
+					message: t(
+						translationPath(
+							lang.common[(errorResponseData as Error).ErrorMessage]
+						)
+					),
 				})
 			);
 			yield put(updateCustomerAction.failure(errorResponseData));
@@ -181,8 +185,6 @@ function* updateCustomerActionSaga(
 		}
 
 		yield put(updateCustomerAction.success(response));
-		yield put(getCustomers.request({ Page: 0, PageSize: 25, Sort: "" }));
-		yield put(push(Routes.CUSTOMER_ALL));
 	} catch (err) {
 		yield put(
 			notificationAction({
