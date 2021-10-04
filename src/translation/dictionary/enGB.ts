@@ -491,6 +491,7 @@ const dictionary: Lang = {
 		unavailable: "Not available",
 		JobUpdateFromTruss: "Updated job from Truss3D",
 		UploadModelJob: "3D Model was added",
+		DeleteModelJob: "3D Model was deleted",
 		itemsToShow: "Items to show",
 		showingRecors: " Showing records",
 		page: "Page",

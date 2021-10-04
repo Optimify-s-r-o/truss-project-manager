@@ -333,6 +333,10 @@ const Index = (props: WithTranslation & OwnProps) => {
 		return <>{`${t(translationPath(lang.common.projectLocationChange))}`}</>;
 	};
 
+	const writeModelDelete = (value: ProjectLog) => {
+		return <>{`${t(translationPath(lang.common.DeleteModelJob))}`}</>;
+	};
+
 	const getLogActionTranslation = (action: string, value: ProjectLog) => {
 		switch (action) {
 			case "UploadModelJob":
@@ -359,6 +363,8 @@ const Index = (props: WithTranslation & OwnProps) => {
 				return <>{writeJobDuplicate(value)}</>;
 			case "FileDelete":
 				return <>{writeFileDelete(value)}</>;
+			case "DeleteModelJob":
+				return <>{writeModelDelete(value)}</>;
 			case "JobUpdateFromTruss":
 				return <>{writeJobUpdateFromTruss(value)}</>;
 		}

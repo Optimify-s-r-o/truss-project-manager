@@ -474,6 +474,7 @@ export type Lang = Readonly<{
 		unavailable: string;
 		JobUpdateFromTruss: string;
 		UploadModelJob: string;
+		DeleteModelJob: string;
 		itemsToShow: string;
 		showingRecors: string;
 		page: string;

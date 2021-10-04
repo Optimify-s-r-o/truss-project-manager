@@ -488,6 +488,7 @@ const dictionary: Lang = {
 		editEvidencePerson: "Editace evidence",
 		unavailable: "Nedostupné",
 		JobUpdateFromTruss: "Aktualizoval úlohu z Truss3D",
+		DeleteModelJob: "Odstranil 3d model",
 		UploadModelJob: "Přidal 3d model",
 		itemsToShow: "Položek k zobrazení",
 		showingRecors: " Zobrazuji záznamy",
