@@ -91,7 +91,7 @@ export const BinTable = ({
 						return value;
 					},
 					(value: string, key: number, parent: Bin) => {
-						return <Moment format="DD/MM/YYYY HH:MM">{value}</Moment>;
+						return <Moment format="DD/MM/YYYY HH:mm">{value}</Moment>;
 					},
 					(value: any, key: number, parent: Bin) => {
 						return (

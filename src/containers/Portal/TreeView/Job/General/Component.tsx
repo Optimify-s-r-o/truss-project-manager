@@ -222,7 +222,7 @@ const Index = ({
 										<Data
 											title={t(translationPath(lang.common.jobDateOfCreation))}
 											data={
-												<Moment format="DD/MM/YYYY HH:MM">
+												<Moment format="DD/MM/YYYY HH:mm">
 													{get(job, getPath(JobProxy.DateOfCreation))}
 												</Moment>
 											}
@@ -233,7 +233,7 @@ const Index = ({
 												translationPath(lang.common.jobDateOfLastUpdate)
 											)}
 											data={
-												<Moment format="DD/MM/YYYY HH:MM">
+												<Moment format="DD/MM/YYYY HH:mm">
 													{get(job, getPath(JobProxy.LastChange))}
 												</Moment>
 											}

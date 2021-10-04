@@ -83,13 +83,13 @@ const Index = ({
 		}
 	}, [id]);
 
-	const routeTruss = (trussId: string) => (
-		_event: React.MouseEvent<HTMLElement, MouseEvent>
-	) => {
-		setExpandedKeys([trusses.ProjectId, id]);
-		setSelectedKeys([trussId]);
-		history.push(Routes.TREE_LINK_TRUSS + trussId);
-	};
+	const routeTruss =
+		(trussId: string) =>
+		(_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+			setExpandedKeys([trusses.ProjectId, id]);
+			setSelectedKeys([trussId]);
+			history.push(Routes.TREE_LINK_TRUSS + trussId);
+		};
 
 	const handleTemplateChange = (value: string) => {
 		getTrusses({ jobId: id, templateId: value });
@@ -276,7 +276,7 @@ const Index = ({
 											<Data
 												title={t(translationPath(lang.common.lastChange))}
 												data={
-													<Moment format="DD/MM/YYYY HH:MM">
+													<Moment format="DD/MM/YYYY HH:mm">
 														{trusses?.LastEdit}
 													</Moment>
 												}
