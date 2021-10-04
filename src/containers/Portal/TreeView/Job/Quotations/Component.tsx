@@ -108,7 +108,7 @@ export default ({
 				setSelected(defaultId);
 				quotationSelectionGetAction({
 					type: QuotationType.JOB,
-					entityId: quotationsInfo?.Id,
+					entityId: job?.Id,
 					templateId: defaultId,
 				});
 			}
