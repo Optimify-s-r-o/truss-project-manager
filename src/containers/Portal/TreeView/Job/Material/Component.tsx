@@ -142,7 +142,7 @@ const Index = ({
 													t(translationPath(lang.priceLists.width)),
 													t(translationPath(lang.common.length)),
 													t(translationPath(lang.common.thickness)),
-													t(translationPath(lang.common.countPerTruss)),
+													t(translationPath(lang.common.countSum)),
 												]}
 												sortable={[true, true, true, true, true, true]}
 												data={materials?.NailPlates?.map(
