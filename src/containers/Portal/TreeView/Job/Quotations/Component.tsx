@@ -135,7 +135,7 @@ export default ({
 		event: React.MouseEvent<HTMLElement, MouseEvent>
 	) => {
 		calculateJob({
-			entityId: quotationsInfo.Id,
+			entityId: id,
 			recursiveRecreate: false,
 			templateId: selected,
 			type: QuotationType.JOB,
@@ -146,7 +146,7 @@ export default ({
 		event: React.MouseEvent<HTMLElement, MouseEvent>
 	) => {
 		calculateJob({
-			entityId: quotationsInfo.Id,
+			entityId: id,
 			recursiveRecreate: true,
 			templateId: selected,
 			type: QuotationType.JOB,
