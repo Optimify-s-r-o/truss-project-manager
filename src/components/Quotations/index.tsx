@@ -50,6 +50,7 @@ export interface SelectionQuotation {
 	quotationType: QuotationType;
 	calculate: (data: QuotationCalculate) => void;
 	id: string;
+	entityId: string;
 	pendingCalculation: boolean;
 	quotationSelectionVariableDeleteAction: (data: QuotationParam) => void;
 	quotationSelectionSectionDeleteAction: (data: QuotationParam) => void;
@@ -61,7 +62,7 @@ export interface SelectionQuotation {
 export const SelectionQuotation = ({
 	quotationPutAction,
 	quotations,
-	quotationSummaryPutAction,
+	entityId,
 	type,
 	calculate,
 	id,
@@ -86,7 +87,7 @@ export const SelectionQuotation = ({
 		event: React.MouseEvent<HTMLElement, MouseEvent>
 	) => {
 		calculate({
-			entityId: id,
+			entityId: entityId,
 			recursiveRecreate: false,
 			templateId: selected,
 			type: QuotationType.TRUSS,
@@ -97,7 +98,7 @@ export const SelectionQuotation = ({
 		event?: React.MouseEvent<HTMLElement, MouseEvent>
 	) => {
 		calculate({
-			entityId: id,
+			entityId: entityId,
 			recursiveRecreate: true,
 			templateId: selected,
 			type: QuotationType.TRUSS,

@@ -186,6 +186,7 @@ export default ({
 								<SelectionQuotation
 									quotations={quotations}
 									id={project?.Id}
+									entityId={project?.Id}
 									quotationPutAction={quotationPutAction}
 									quotationSummaryPutAction={quotationSummaryPutAction}
 									type={QuotationSelection.PROJECT}

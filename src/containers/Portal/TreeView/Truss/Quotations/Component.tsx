@@ -170,6 +170,7 @@ export default ({
 							<SelectionQuotation
 								quotations={quotations}
 								id={truss?.Id}
+								entityId={truss?.Id}
 								quotationPutAction={quotationPutAction}
 								quotationSummaryPutAction={quotationSummaryPutAction}
 								type={QuotationSelection.TRUSS}
