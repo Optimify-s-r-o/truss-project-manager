@@ -185,6 +185,7 @@ function* updateCustomerActionSaga(
 		}
 
 		yield put(updateCustomerAction.success(response));
+		yield put(getCustomerByIdAction.success(response));
 	} catch (err) {
 		yield put(
 			notificationAction({
