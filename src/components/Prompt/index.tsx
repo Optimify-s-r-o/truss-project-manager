@@ -2,12 +2,12 @@ import lang from '../../translation/lang';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Modal } from 'antd';
+import { Customer } from 'src/containers/Portal/Customer/_types';
 import { JobType, Project, TreeType } from 'src/types/_types';
 import { Location } from 'history';
 import { Prompt, useHistory } from 'react-router-dom';
 import { translationPath } from '../../utils/getPath';
 import { useTranslation } from 'react-i18next';
-import { Customer } from 'src/containers/Portal/Customer/_types';
 interface Props {
 	when?: boolean | undefined;
 	shouldBlockNavigation: (location: Location) => boolean;
@@ -24,7 +24,7 @@ const RouteLeavingGuard = ({
 	setSelectedKeys,
 	update,
 	type,
-	customerContantPersons
+	customerContantPersons,
 }: Props) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [id, setId] = useState<string | null>(null);
@@ -51,14 +51,16 @@ const RouteLeavingGuard = ({
 		}
 		return true;
 	};
-	const leave = () => {
-		setModalVisible(false);
-		setConfirmedNavigation(true);
+	const leave = async () => {
+		await setModalVisible(false);
+		await setConfirmedNavigation(true);
 	};
 
-	const saveAndLeave = () => {
+	const saveAndLeave = async () => {
+		await setModalVisible(false);
+		await setConfirmedNavigation(true);
 		type === TreeType.PROJECT
-			? update({
+			? await update({
 					...formik.values,
 					ConstructionDate: moment(formik.values.ConstructionDate).isValid()
 						? moment(formik.values.ConstructionDate).format()
@@ -67,16 +69,12 @@ const RouteLeavingGuard = ({
 						? moment(formik.values.QuotationDate).format()
 						: null,
 			  })
-			: 
-			type === TreeType.CUSTOMER
-			? update({
-				...formik.values,
-				ContactPersons: customerContantPersons
-		  })
-		  :
-			update(formik.values);
-		setModalVisible(false);
-		setConfirmedNavigation(true);
+			: type === TreeType.CUSTOMER
+			? await update({
+					...formik.values,
+					ContactPersons: customerContantPersons,
+			  })
+			: await update(formik.values);
 	};
 
 	useEffect(() => {

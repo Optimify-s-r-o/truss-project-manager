@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import _ from 'lodash';
 import FormikRow from '../../../../components/Optimify/Form/FormikRow';
 import Loading from '../../../../components/Optimify/Loading';
+import RouteLeavingGuard from 'src/components/Prompt';
 import { Button } from '../../../../components/Optimify/Button';
 import { Contact, Page, TreeType } from '../../../../types/_types';
 import { CreateCustomer, Customer, CustomerProxy } from '../_types';
@@ -48,7 +49,6 @@ import {
 	TreeContent,
 	TreeScreen,
 } from "../../_styles";
-import RouteLeavingGuard from 'src/components/Prompt';
 export interface StateProps {
 	customer: Customer;
 	pending: boolean;
@@ -363,7 +363,7 @@ const Index = ({
 
 		return false;
 	};
-
+	console.log("rerendering", id);
 	return (
 		<Enter formik={formik}>
 			<MainTree>
@@ -374,20 +374,22 @@ const Index = ({
 				>
 					<MainTreeContent>
 						<Form onSubmit={formik.handleSubmit}>
-							{id != "" && <RouteLeavingGuard
-								when={!equal(formik.values, customer)}
-								shouldBlockNavigation={(location) => {
-									if (!equal(formik.values, customer, location)) {
-										return true;
-									}
-									return false;
-								}}
-								formik={formik}
-								update={updateCustomerAction}
-								setSelectedKeys={setSelectedKeys}
-								type={TreeType.CUSTOMER}
-								customerContantPersons={contacts}
-							/>}
+							{id != "" && (
+								<RouteLeavingGuard
+									when={!equal(formik.values, customer)}
+									shouldBlockNavigation={(location) => {
+										if (!equal(formik.values, customer, location)) {
+											return true;
+										}
+										return false;
+									}}
+									formik={formik}
+									update={updateCustomerAction}
+									setSelectedKeys={setSelectedKeys}
+									type={TreeType.CUSTOMER}
+									customerContantPersons={contacts}
+								/>
+							)}
 							<TreeScreen>
 								<PageHeader>
 									<PageTitle>
@@ -396,7 +398,9 @@ const Index = ({
 												<FontAwesomeIcon icon={faSuitcase as IconProp} />
 												<TitleName>
 													{formik.values && formik.values.Id && customer
-														? (customer.Company != '' ? customer.Company : `${customer.Surname} ${customer.Forename}`)
+														? customer.Company != ""
+															? customer.Company
+															: `${customer.Surname} ${customer.Forename}`
 														: t(translationPath(lang.common.newCustomer).path)}
 												</TitleName>
 											</ContentRow>

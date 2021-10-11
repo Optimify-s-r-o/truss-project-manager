@@ -6,6 +6,7 @@ import { CreateCustomer, Customer } from '../_types';
 import { deleteCustomer } from '../../Lists/Customers/_actions';
 import { DeleteRequest } from '../../Lists/Customers/_types';
 import { Page } from '../../../../types/_types';
+import { setSelectedKeys } from '../../TreeView/_actions';
 import { withRouter } from 'react-router-dom';
 import {
 	clearAres,
@@ -36,6 +37,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	clearToast: () => dispatch(clearNotificationAction()),
 	deleteCustomer: (data: DeleteRequest) =>
 		dispatch(deleteCustomer.request(data)),
+	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({

@@ -106,6 +106,7 @@ export interface DispatchProps {
 	createCustomerAction: (data: CreateCustomer) => void;
 	removeProject: (data: DeleteProject) => void;
 	downloadJob: (data: RequestDownloadLink) => void;
+	getCustomers: (data: Page) => void;
 }
 let globalCallback = null;
 export interface JobName {
@@ -131,7 +132,7 @@ const Index = ({
 	updateProject,
 	project,
 	users,
-	all,
+	getCustomers,
 	customers,
 	pending,
 	setSelectedKeys,
@@ -148,6 +149,11 @@ const Index = ({
 	folders,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const [alertDialog, setAlertDialog] = React.useState(false);
+
+	React.useEffect(() => {
+		getCustomers({ Paginate: false });
+		return () => {};
+	}, []);
 
 	const formik = useFormik({
 		initialValues: project,

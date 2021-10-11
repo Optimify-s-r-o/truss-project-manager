@@ -58,6 +58,7 @@ export const Tree = ({
 
 	const onSelect = (keys, event) => {
 		const path = location.pathname;
+		console.log(keys);
 		setSelectedKeys([...keys]);
 		if (keys?.length > 1 && event?.node?.treeType === TreeType.JOB) {
 			history.push(Routes.TREE_LINK_JOB_MULTIPLE + keys);

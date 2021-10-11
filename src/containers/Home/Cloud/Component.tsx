@@ -105,7 +105,6 @@ const Component = (
 				setFolders(text);
 			});
 			electron.ipcRenderer.on("trussFilesPath", (event, text) => {
-				console.log("trussFilesPath - 109");
 				setTrussFilesPath(text);
 			});
 

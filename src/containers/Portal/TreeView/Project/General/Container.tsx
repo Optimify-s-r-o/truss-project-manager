@@ -3,7 +3,6 @@ import { addJsonToProject } from './File/_actions';
 import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { CreateCustomer } from '../../../Customer/_types';
-import { createCustomerAction } from '../../../Customer/_actions';
 import { createJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_actions';
 import { CreateJobFromTrussFile } from '../../../../../sagas/CreateJobFromFile/_types';
 import { deleteFile, duplicateJob, projectUpdate } from './_actions';
@@ -27,6 +26,10 @@ import {
 	editTruss,
 	OpenTruss,
 } from "../../../../../sagas/Truss/_actions";
+import {
+	createCustomerAction,
+	getAllCustomersSimplifiedAction,
+} from "../../../Customer/_actions";
 import {
 	getProjectFiles,
 	getProjectLogs,
@@ -67,6 +70,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	removeProject: (data: DeleteProject) => dispatch(deleteProject.request(data)),
 	downloadJob: (data: RequestDownloadLink) =>
 		dispatch(downloadJob.request(data)),
+	getCustomers: (data: Page) =>
+		dispatch(getAllCustomersSimplifiedAction.request(data)),
 });
 
 const mapStateToProps = (state: any) => ({
@@ -80,7 +85,7 @@ const mapStateToProps = (state: any) => ({
 	routerState: state.router.location.state,
 	users: state.UserReducer.users,
 	settings: state.SettingsReducer.settings,
-	customers: state.FilterReducer.customers?.Data,
+	customers: state.CustomerReducer.customersSimplified?.Customers,
 	pending: state.LoadingReducer.pending,
 	files: state.ProjectViewReducer.files,
 	selectedKeys: state.TreeReducer.selectedKeys,
