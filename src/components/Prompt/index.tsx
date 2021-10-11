@@ -15,6 +15,7 @@ interface Props {
 	setSelectedKeys: (data: string[]) => void;
 	update: (data: Project | JobType | Customer) => void;
 	type: TreeType;
+	customerContantPersons?: any;
 }
 const RouteLeavingGuard = ({
 	when,
@@ -23,6 +24,7 @@ const RouteLeavingGuard = ({
 	setSelectedKeys,
 	update,
 	type,
+	customerContantPersons
 }: Props) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [id, setId] = useState<string | null>(null);
@@ -65,7 +67,14 @@ const RouteLeavingGuard = ({
 						? moment(formik.values.QuotationDate).format()
 						: null,
 			  })
-			: update(formik.values);
+			: 
+			type === TreeType.CUSTOMER
+			? update({
+				...formik.values,
+				ContactPersons: customerContantPersons
+		  })
+		  :
+			update(formik.values);
 		setModalVisible(false);
 		setConfirmedNavigation(true);
 	};

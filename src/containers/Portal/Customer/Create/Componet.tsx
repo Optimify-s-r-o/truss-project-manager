@@ -374,7 +374,7 @@ const Index = ({
 				>
 					<MainTreeContent>
 						<Form onSubmit={formik.handleSubmit}>
-							<RouteLeavingGuard
+							{id != "" && <RouteLeavingGuard
 								when={!equal(formik.values, customer)}
 								shouldBlockNavigation={(location) => {
 									if (!equal(formik.values, customer, location)) {
@@ -383,10 +383,11 @@ const Index = ({
 									return false;
 								}}
 								formik={formik}
-								update={id != "" ? updateCustomerAction : createCustomerAction}
+								update={updateCustomerAction}
 								setSelectedKeys={setSelectedKeys}
 								type={TreeType.CUSTOMER}
-							/>
+								customerContantPersons={contacts}
+							/>}
 							<TreeScreen>
 								<PageHeader>
 									<PageTitle>
@@ -394,8 +395,8 @@ const Index = ({
 											<ContentRow>
 												<FontAwesomeIcon icon={faSuitcase as IconProp} />
 												<TitleName>
-													{formik.values && formik.values.Id
-														? t(translationPath(lang.common.editCustomer).path)
+													{formik.values && formik.values.Id && customer
+														? (customer.Company != '' ? customer.Company : `${customer.Surname} ${customer.Forename}`)
 														: t(translationPath(lang.common.newCustomer).path)}
 												</TitleName>
 											</ContentRow>
