@@ -4,7 +4,7 @@ import _ from 'lodash';
 import FormikRow from '../../../../components/Optimify/Form/FormikRow';
 import Loading from '../../../../components/Optimify/Loading';
 import { Button } from '../../../../components/Optimify/Button';
-import { Contact, Page } from '../../../../types/_types';
+import { Contact, Page, TreeType } from '../../../../types/_types';
 import { CreateCustomer, Customer, CustomerProxy } from '../_types';
 import { DeleteRequest } from '../../Lists/Customers/_types';
 import { Enter } from 'src/components/KeyBoardEventHandler';
@@ -48,6 +48,7 @@ import {
 	TreeContent,
 	TreeScreen,
 } from "../../_styles";
+import RouteLeavingGuard from 'src/components/Prompt';
 export interface StateProps {
 	customer: Customer;
 	pending: boolean;
@@ -64,6 +65,7 @@ export interface DispatchProps {
 	updateCustomerAction: (data: Customer) => void;
 	deleteCustomerAction: (data: string) => void;
 	loadCompanyDataFromAres: (data: string) => void;
+	setSelectedKeys: (data: string[]) => void;
 	clearAres: () => void;
 	clearCustomerAction: () => void;
 	clearToast: () => void;
@@ -103,6 +105,7 @@ const Index = ({
 	updateCustomerAction,
 	deleteCustomerAction,
 	loadCompanyDataFromAres,
+	setSelectedKeys,
 	pageSize,
 	currentPage,
 	clearCustomerAction,
@@ -371,6 +374,19 @@ const Index = ({
 				>
 					<MainTreeContent>
 						<Form onSubmit={formik.handleSubmit}>
+							<RouteLeavingGuard
+								when={!equal(formik.values, customer)}
+								shouldBlockNavigation={(location) => {
+									if (!equal(formik.values, customer, location)) {
+										return true;
+									}
+									return false;
+								}}
+								formik={formik}
+								update={id != "" ? updateCustomerAction : createCustomerAction}
+								setSelectedKeys={setSelectedKeys}
+								type={TreeType.CUSTOMER}
+							/>
 							<TreeScreen>
 								<PageHeader>
 									<PageTitle>

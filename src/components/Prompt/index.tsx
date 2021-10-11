@@ -7,12 +7,13 @@ import { Location } from 'history';
 import { Prompt, useHistory } from 'react-router-dom';
 import { translationPath } from '../../utils/getPath';
 import { useTranslation } from 'react-i18next';
+import { Customer } from 'src/containers/Portal/Customer/_types';
 interface Props {
 	when?: boolean | undefined;
 	shouldBlockNavigation: (location: Location) => boolean;
 	formik: any;
 	setSelectedKeys: (data: string[]) => void;
-	update: (data: Project | JobType) => void;
+	update: (data: Project | JobType | Customer) => void;
 	type: TreeType;
 }
 const RouteLeavingGuard = ({
