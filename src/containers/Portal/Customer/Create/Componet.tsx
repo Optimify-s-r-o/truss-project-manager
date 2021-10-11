@@ -397,10 +397,8 @@ const Index = ({
 											<ContentRow>
 												<FontAwesomeIcon icon={faSuitcase as IconProp} />
 												<TitleName>
-													{formik.values && formik.values.Id && customer
-														? customer.Company != ""
-															? customer.Company
-															: `${customer.Surname} ${customer.Forename}`
+													{formik.values?.Id
+														? customer?.Name
 														: t(translationPath(lang.common.newCustomer).path)}
 												</TitleName>
 											</ContentRow>

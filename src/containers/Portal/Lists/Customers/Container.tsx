@@ -6,6 +6,7 @@ import { deleteCustomer } from './_actions';
 import { filterEntities, getCustomers } from '../../SidebarFilter/_actions';
 import { Page } from '../../../../types/_types';
 import { PutHeaderSettings } from '../_types';
+import { setSelectedKeys } from '../../TreeView/_actions';
 import { withRouter } from 'react-router-dom';
 import {
 	getHeaderSettings,
@@ -29,6 +30,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 		dispatch(resetHeaderSettings.request(data)),
 	setSort: (data: number[]) => dispatch(setSort(data)),
 	setSortOrder: (data: number[]) => dispatch(setSortOrder(data)),
+	setSelectedKeys: (data: string[]) => dispatch(setSelectedKeys(data)),
 });
 
 const mapStateToProps = (state: any): StateProps => ({

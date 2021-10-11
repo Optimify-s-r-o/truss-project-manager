@@ -52,6 +52,7 @@ export interface DispatchProps {
 	resetHeaderSettings: (data: string) => void;
 	setSort: (data: number[]) => void;
 	setSortOrder: (data: number[]) => void;
+	setSelectedKeys: (data: string[]) => void;
 }
 
 const Index = ({
@@ -60,7 +61,7 @@ const Index = ({
 	initHeaders,
 	deleteCustomer,
 	putHeaderSettings,
-	filter,
+	setSelectedKeys,
 	settingsPageSize,
 	customers,
 	getCustomers,
@@ -135,6 +136,7 @@ const Index = ({
 							activeFilter={activeFilter}
 							resetHeaderSettings={resetHeaderSettings}
 							settingsPageSize={settingsPageSize}
+							setSelectedKeys={setSelectedKeys}
 						/>
 					</ContentCard>
 				</ContentFilter>

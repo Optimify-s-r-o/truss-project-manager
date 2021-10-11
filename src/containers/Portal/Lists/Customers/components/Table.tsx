@@ -33,6 +33,7 @@ interface Table {
 	deleteCustomer: (data: DeleteRequest) => void;
 	resetHeaderSettings: (data: string) => void;
 	settingsPageSize: number | null;
+	setSelectedKeys: (data: string[]) => void;
 }
 
 export const CustomerTable = ({
@@ -54,24 +55,25 @@ export const CustomerTable = ({
 	pageSize,
 	resetHeaderSettings,
 	settingsPageSize,
+	setSelectedKeys,
 }: Table) => {
 	const { t } = useTranslation();
 	const history = useHistory();
 
-	const remove = (id: string) => (
-		_event: React.MouseEvent<HTMLElement, MouseEvent>
-	) => {
-		deleteCustomer({
-			id,
-			requiredPage: {
-				PageSize: parseInt(pageSize),
-				Page: currentPage - 1,
-				Sort: "",
-			},
-		});
-	};
+	const remove =
+		(id: string) => (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+			deleteCustomer({
+				id,
+				requiredPage: {
+					PageSize: parseInt(pageSize),
+					Page: currentPage - 1,
+					Sort: "",
+				},
+			});
+		};
 
 	const navigate = (customer: Customer) => {
+		setSelectedKeys([customer?.Id]);
 		history.push(Routes.EDIT_CUSTOMER_LINK + customer.Id);
 	};
 
@@ -114,13 +116,10 @@ export const CustomerTable = ({
 						: []
 				}
 				renderers={checked?.map(
-					(item: Checkbox, index: number) => (
-						value: any,
-						key: number,
-						parent: JobType
-					) => {
-						return value;
-					}
+					(item: Checkbox, index: number) =>
+						(value: any, key: number, parent: JobType) => {
+							return value;
+						}
 				)}
 				sortable={checked?.map((value: Checkbox, index: number) =>
 					value?.name === "Open" ? false : true
