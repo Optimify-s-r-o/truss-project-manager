@@ -1,4 +1,5 @@
 import { createAsyncAction } from 'typesafe-actions';
+
 import { TrussExe } from '../../types/_types';
 
 export const createTruss = createAsyncAction(
@@ -31,7 +32,9 @@ export interface EditTruss {
 	fileType?: TrussExe;
 }
 
+
 export enum OpenTrussOption {
 	NEWJOB = "newJob",
 	EDITJOB = "editJob",
+	IMPORTJOB = "importJob"
 }

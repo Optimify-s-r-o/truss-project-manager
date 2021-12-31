@@ -1,39 +1,35 @@
-import lang from '../../translation/lang';
-import { ApiURL } from '../../constants/api';
-import {
-	call,
-	put,
-	select,
-	takeLatest
-	} from 'redux-saga/effects';
-import { createJobFromTrussFile } from './_actions';
-import { fetchSaga } from '../_sagas';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
+
 import { notificationAction } from '../../components/Toast/_actions';
-import { OpenTrussOption } from '../Truss/_actions';
 import { Status } from '../../components/Toast/_types';
+import { ApiURL } from '../../constants/api';
 import { t } from '../../translation/i18n';
-import { translationPath } from '../../utils/getPath';
+import lang from '../../translation/lang';
 import { TrussExe } from '../../types/_types';
+import { translationPath } from '../../utils/getPath';
+import { fetchSaga } from '../_sagas';
+import { OpenTrussOption } from '../Truss/_actions';
+import { createJobFromTrussFile } from './_actions';
 
 function* createJobFromTrussFileSaga(
 	action: ReturnType<typeof createJobFromTrussFile.request>
 ): Generator {
 	try {
-		if (action.payload.fileType === TrussExe.NONE) {
+		if ( action.payload.fileType === TrussExe.NONE ) {
 			yield put(
-				notificationAction({
+				notificationAction( {
 					code: Status.ERROR,
-					message: t(translationPath(lang.truss.openFailed)),
-				})
+					message: t( translationPath( lang.truss.openFailed ) ),
+				} )
 			);
 			return;
 		}
-		const local = yield select((state: any) => state.AuthReducer.local);
+		const local = yield select( ( state: any ) => state.AuthReducer.local );
 		const api = local
 			? process.env.REACT_APP_API_URL_LOCAL
 			: process.env.REACT_APP_BACKEND_API;
-		const token = yield select((state: any) => state.AuthReducer.token);
+		const token = yield select( ( state: any ) => state.AuthReducer.token );
 
 		let jobId: string = null;
 
@@ -50,56 +46,63 @@ function* createJobFromTrussFileSaga(
 				},
 			}
 		);
-		if (!success) {
+		if ( !success ) {
 			yield put(
-				notificationAction({
+				notificationAction( {
 					code: Status.ERROR,
-					message: t(translationPath(lang.truss.openFailed)),
-				})
+					message: t( translationPath( lang.truss.openFailed ) ),
+				} )
 			);
 			return;
 		}
 
 		yield put(
-			notificationAction({
+			notificationAction( {
 				code: Status.INFO,
-				message: t(translationPath(lang.truss.opening)),
-			})
+				message: t( translationPath( lang.truss.opening ) ),
+			} )
 		);
-		yield (jobId = response as string);
-		const command = `"${action.payload.trussExe}" "${action.payload.path}" -e ${OpenTrussOption.EDITJOB} -url "${api}" -job "${jobId}" -token "${token}"`;
-		console.log(command);
-		var exec = window.require("child_process").exec;
-		exec(command, (err, stdout, _stderr) => {
-			if (err) {
+		yield ( jobId = response as string );
+
+		const structurePath = yield select(
+			( state: any ) => state.SettingsReducer.trussFilesPath
+		);
+
+		const newPath = `${ structurePath }\\Truss Project Manager\\${ action.payload.projectName }\\${ action.payload.jobName }`;
+
+		const command = `"${ action.payload.trussExe }" "${ action.payload.path }" -e ${ OpenTrussOption.IMPORTJOB } -newPath "${ newPath }" -url "${ api }" -job "${ jobId }" -token "${ token } "`;
+		console.log( command );
+		var exec = window.require( "child_process" ).exec;
+		exec( command, ( err, stdout, _stderr ) => {
+			if ( err ) {
 				put(
-					notificationAction({
+					notificationAction( {
 						code: Status.ERROR,
-						message: t(translationPath(lang.truss.openFailed)),
-					})
+						message: t( translationPath( lang.truss.openFailed ) ),
+					} )
 				);
 				return;
 			}
 
-			console.log(stdout);
-		});
+			console.log( stdout );
+		} );
 
-		yield put(createJobFromTrussFile.success());
-	} catch (error) {
-		console.log(error);
+		yield put( createJobFromTrussFile.success() );
+	} catch ( error ) {
+		console.log( error );
 		yield put(
-			notificationAction({
+			notificationAction( {
 				code: Status.ERROR,
-				message: t(translationPath(lang.truss.openFailed)),
-			})
+				message: t( translationPath( lang.truss.openFailed ) ),
+			} )
 		);
-		yield put(createJobFromTrussFile.failure(error));
+		yield put( createJobFromTrussFile.failure( error ) );
 	}
 }
 
 export function* watchCreateJobFromTrussFileSaga() {
 	yield takeLatest(
-		getType(createJobFromTrussFile.request),
+		getType( createJobFromTrussFile.request ),
 		createJobFromTrussFileSaga
 	);
 }
