@@ -223,7 +223,8 @@ const dictionary: Lang = {
 		contactPerson: 'Opravdu chcete odebrat kontaktni osobu "{{name}}" ?',
 		customerHasProject:
 			'Zákazník "{{name}}" je přiřazen projektu. Nelze odstranit.',
-		bin: "Opravdu chcete vysypat koš? Data budou permanetně smazána.",
+		bin: "Opravdu chcete vysypat koš? Data budou permanetně smazána."
+			+ "\r\nUPOZORNĚNÍ: V závislosti na velikosti koše může tato operace trvat i několik minut. Prosím, s programem v průběhu této operace nijak nepracujte, ani ho neukončujte a neodpojujte od internetu.",
 	},
 	priceLists: {
 		default: "Defaultní",

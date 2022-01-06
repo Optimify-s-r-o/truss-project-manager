@@ -16,7 +16,7 @@ export const editTruss = createAsyncAction(
 
 export interface OpenTruss {
 	jobId?: string;
-	jobName?: string;
+	jobName: string;
 	projectId?: string;
 	projectName?: string;
 	trussExe?: string;
