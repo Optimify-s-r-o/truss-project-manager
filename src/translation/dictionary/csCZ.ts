@@ -383,6 +383,7 @@ const dictionary: Lang = {
 		trussCountForProduction: "Počet pro výrobu",
 		trussPlacementCount: "Počet umístění",
 		ok: "Ok",
+		storageUsed: "Využité místo (včetně koše) (GB)",
 		permanentRemove: "Trvale odebrat",
 		asc: "Řadit vzestupně",
 		desc: "Řadit sestupně",

@@ -380,6 +380,7 @@ const dictionary: Lang = {
 		trussPlacementCount: "Truss count",
 		ok: "Ok",
 		permanentRemove: "Permanently Remove",
+		storageUsed: "Storage used (bin included) (GB)",
 		asc: "Ascending",
 		desc: "Descending",
 		assessment: "Assessment",

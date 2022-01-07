@@ -472,6 +472,7 @@ export type Lang = Readonly<{
 		editNaturalPerson: string;
 		editEvidencePerson: string;
 		unavailable: string;
+		storageUsed: string;
 		JobUpdateFromTruss: string;
 		UploadModelJob: string;
 		DeleteModelJob: string;

@@ -384,6 +384,7 @@ const dictionary: Lang = {
 		asc: "Aufsteigend",
 		desc: "Absteigend",
 		assessment: "Bewertung",
+		storageUsed: "Datenspecher benutzen (GB)",
 		downloadingJob: "Der Job wird heruntergeladen.",
 		jobDownloaded: "Der Job wurde erfolgreich heruntergeladen.",
 		duplicating: "Der Job wird dupliziert.",

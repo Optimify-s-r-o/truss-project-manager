@@ -1,5 +1,5 @@
-import { createProxy } from '../../../../utils/getPath';
 import { FetchStateType } from '../../../../types/_types';
+import { createProxy } from '../../../../utils/getPath';
 
 export interface Organization {
   Id: string;
@@ -12,6 +12,7 @@ export interface Organization {
   StreetName: string;
   Zip: string;
   PlaceNumber: string;
+  StorageUsed: number;
 }
 
 export interface OrganizationState extends FetchStateType {
