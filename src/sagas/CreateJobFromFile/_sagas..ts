@@ -62,7 +62,10 @@ function* createJobFromTrussFileSaga(
 				message: t( translationPath( lang.truss.opening ) ),
 			} )
 		);
-		yield ( jobId = response.Id );
+
+		console.log( `Response ---- ${ JSON.stringify( response ) }` );
+
+		yield ( jobId = response.JobId );
 
 		const structurePath = yield select(
 			( state: any ) => state.SettingsReducer.trussFilesPath
@@ -70,7 +73,7 @@ function* createJobFromTrussFileSaga(
 
 		const newPath = `${ structurePath }\\Truss Project Manager\\${ action.payload.projectName }\\${ action.payload.jobName }\\${ action.payload.jobName }.tr3`;
 
-		const command = `"${ action.payload.trussExe }" "${ action.payload.path }" -e ${ OpenTrussOption.IMPORTJOB } -newPath ${ newPath } -url "${ api }" -job "${ jobId }" -token "${ token }"`;
+		const command = `"${ action.payload.trussExe }" "${ action.payload.path }" -e ${ OpenTrussOption.IMPORTJOB } -newPath ${ newPath } -url "${ api }" -job "${ response.JobId }" -token "${ token }"`;
 		console.log( command );
 		var exec = window.require( "child_process" ).exec;
 		exec( command, ( err, stdout, _stderr ) => {
