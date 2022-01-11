@@ -58,7 +58,7 @@ export const CreateJobFromFile = ( {
 	const readFile = ( files: any[] ) => {
 		createJobFromTrussFile( {
 			path: files[0]?.path,
-			jobName: files[0]?.name,
+			jobName: files[0]?.name.substring( 0, files[0]?.name.length - 4 ),
 			projectId: projectId,
 			projectName: projectName,
 			trussExe: files[0]?.path?.includes( "tr3" ) ? truss3DExe : truss2DExe,
