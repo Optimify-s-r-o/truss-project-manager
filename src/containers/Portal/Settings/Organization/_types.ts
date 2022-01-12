@@ -13,6 +13,7 @@ export interface Organization {
   Zip: string;
   PlaceNumber: string;
   StorageUsed: number;
+  StorageUsedInGB: number;
 }
 
 export interface OrganizationState extends FetchStateType {

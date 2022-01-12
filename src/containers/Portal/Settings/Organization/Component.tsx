@@ -208,7 +208,7 @@ export const Component = ( {
 												<br />
 												<FormikRow
 													formik={formik}
-													name={lastPathMember( OrganizationProxy.StorageUsed ).path}
+													name={lastPathMember( OrganizationProxy.StorageUsedInGB ).path}
 													title={t( translationPath( lang.common.storageUsed ).path )}
 													type={Input.NUMERIC}
 													disabled={true}
