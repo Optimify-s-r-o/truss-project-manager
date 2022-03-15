@@ -99,7 +99,7 @@ const downloadProjectFilesAsync = async (directory: string, id: string, token: s
     if (!response?.ok || !data?.Files) return;
 
     for (const file of data?.Files) {
-        await downloadProjectFileAsync(`${directory}\\${file?.Name}.${file?.Extension}`, file?.Path, token);
+        await downloadProjectFileAsync(`${directory}\\${file?.Name}`, file?.Path, token);
     }
 
 }

@@ -1123,7 +1123,7 @@ const dictionary: Lang = {
 	},
 	backup: {
 		description: "Back up all your files from Truss Project Manager. The files will be downloaded to the {{directory}} folder",
-		alert: "WARNING: If an old backup exists, it will be overwritten by this action. Do not turn off or leave this page during the backup.",
+		alert: "NOTE: If an old backup exists, it will be overwritten by this action. Do not turn off the program or leave this page during the backup. Depending on the amount of data, the operation may take longer.",
 		downloading: "Files are currently being downloaded...",
 		downloaded: "All files have been successfully downloaded.",
 		download: "Back up files",

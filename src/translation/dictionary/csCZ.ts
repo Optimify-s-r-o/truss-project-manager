@@ -1115,7 +1115,7 @@ const dictionary: Lang = {
 	},
 	backup: {
 		description: "Zálohujte si všechny soubory z Truss Project Manageru.  Soubory budou staženy do složky: {{directory}}",
-		alert: "UPOZORNĚNÍ: Pokud existuje stará záloha, bude touto akcí přepsána. Během zálohy nevypínejte ani neopouštějte tuto stránku.",
+		alert: "UPOZORNĚNÍ: Pokud existuje stará záloha, bude touto akcí přepsána. Během zálohy nevypínejte program ani neopouštějte tuto stránku. V závislosti na množství dat může operace trvat delší dobu.",
 		downloading: "Soubory se právě ukládají...",
 		downloaded: "Všechny soubory byly úspěšně staženy.",
 		download: "Zálohovat soubory",
