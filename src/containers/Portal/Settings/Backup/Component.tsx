@@ -9,6 +9,7 @@ import {useTranslation} from 'react-i18next';
 import {ContentRow, PageHeader, PageTitle, TitleName, TitleSection,} from "../../../../constants/globalStyles";
 import {MainTree, MainTreeContent, TreeContent, TreeScreen,} from "../../_styles";
 import {BackupRequest} from "./_types";
+import {Alert} from "antd";
 
 export interface StateProps {
     status: number;
@@ -40,6 +41,15 @@ export const Component = ({downloadingText, createBackup, pending, status}: Stat
             <MainTreeContent>
                 <TreeScreen>
                     <TreeContent>
+                        <Alert
+                            message={t(
+                                translationPath( lang.backup.alert ).path
+                            )}
+                            style={{marginTop: 10}}
+                            type="warning"
+                            showIcon
+                            closable
+                        />
                         <Backup createBackup={createBackup} status={status} pending={pending}
                                 downloadingText={downloadingText}/>
                     </TreeContent>

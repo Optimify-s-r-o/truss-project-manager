@@ -1122,12 +1122,15 @@ const dictionary: Lang = {
 		download: "Download & Install now",
 	},
 	backup: {
-		description: "Download all Truss files and project files to your computer",
-		downloading: "Files are currently being uploaded...",
+		description: "Back up all your files from Truss Project Manager. The files will be downloaded to the {{directory}} folder",
+		alert: "WARNING: If an old backup exists, it will be overwritten by this action. Do not turn off or leave this page during the backup.",
+		downloading: "Files are currently being downloaded...",
 		downloaded: "All files have been successfully downloaded.",
 		download: "Back up files",
 		error: "Backup failed",
 		title: "Complete file backup",
+		successMessage: "The backup was successfully downloaded.",
+		errorMessage: "Backup could not be created.",
 	}
 };
 

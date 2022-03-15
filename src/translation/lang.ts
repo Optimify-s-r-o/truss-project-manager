@@ -1102,12 +1102,15 @@ export type Lang = Readonly<{
 		download: string;
 	};
 	backup: {
+		alert: string;
 		description: string;
 		downloading: string;
 		downloaded: string;
 		download: string;
 		error: string;
 		title: string;
+		successMessage: string;
+		errorMessage: string;
 	}
 }>;
 

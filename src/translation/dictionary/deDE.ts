@@ -1149,11 +1149,14 @@ const dictionary: Lang = {
 	},
 	backup: {
 		description: "Laden Sie alle Truss-Dateien und Projektdateien auf Ihren Computer herunter",
+		alert: "WARNUNG: Wenn eine alte Sicherung existiert, wird sie durch diese Aktion überschrieben. Schalten Sie diese Seite während des Backups nicht aus und verlassen Sie sie nicht",
 		downloading: "Die Dateien werden gerade hochgeladen...",
 		downloaded: "Alle Dateien wurden erfolgreich heruntergeladen.",
 		download: "Dateien sichern",
 		error: "Sicherung fehlgeschlagen",
 		title: "Vollständige Dateisicherung",
+		successMessage: "Die Sicherung wurde erfolgreich heruntergeladen.",
+		errorMessage: "Die Sicherung konnte nicht erstellt werden.",
 	}
 };
 

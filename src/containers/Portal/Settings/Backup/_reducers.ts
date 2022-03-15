@@ -30,7 +30,7 @@ export default (
     case getType(createBackup.failure):
       return {
         ...initialState,
-        error: action.payload.ErrorMessage,
+        error: action.payload?.ErrorMessage,
         pending: false
       };
       case getType(setBackupDownloadingText):
