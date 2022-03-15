@@ -5,7 +5,7 @@ import { ProjectRequestStateType } from './_types';
 const initialState: ProjectRequestStateType = {
   error: null,
   pending: false,
-  project: null
+  project: null,
 };
 
 export default (

@@ -1096,6 +1096,7 @@ const dictionary: Lang = {
 	},
 	settings: {
 		aboutProgram: "O programu",
+		backup: "Záloha",
 		programVersion: "Verze programu",
 		programName: "Název programu",
 		system: "Systém",
@@ -1112,6 +1113,14 @@ const dictionary: Lang = {
 		error: "Nastala chyba",
 		download: "Stáhnout a nainstalovat nyní",
 	},
+	backup: {
+		description: "Zálohujte si všechny soubory v Truss Project Manageru. Soubory budou staženy do složky: {{directory}}",
+		downloading: "Soubory se právě ukládají...",
+		downloaded: "Všechny soubory byly úspěšně staženy.",
+		download: "Zálohovat soubory",
+		error: "Záloha selhala",
+		title: "Kompletní záloha souborů",
+	}
 };
 
 export default dictionary;

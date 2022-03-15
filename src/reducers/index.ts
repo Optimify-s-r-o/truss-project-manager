@@ -12,6 +12,7 @@ import SettingsReducer from '../containers/Portal/_reducers';
 import toastReducer from '../components/Toast/_reducers';
 import TrussReducer from '../containers/Portal/TreeView/Truss/_reducers';
 import UserReducer from '../containers/Portal/Accounts/_reducers';
+import BackupReducer from '../containers/Portal/Settings/Backup/_reducers';
 import { AuthReducer } from '../containers/Home/_reducers';
 import { BinReducer } from './../containers/Portal/Bin/_reducers';
 import { combineReducers } from 'redux';
@@ -57,6 +58,7 @@ const createRootReducer = (history: History) =>
 		PriceListsReducer,
 		HubReducer,
 		HeaderSettingsReducer,
+		BackupReducer
 	});
 
 export default createRootReducer;

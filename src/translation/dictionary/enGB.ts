@@ -1104,6 +1104,7 @@ const dictionary: Lang = {
 	},
 	settings: {
 		aboutProgram: "About program",
+		backup: "Backup",
 		programVersion: "Program version",
 		programName: "Program name",
 		system: "System",
@@ -1120,6 +1121,14 @@ const dictionary: Lang = {
 		error: "Error",
 		download: "Download & Install now",
 	},
+	backup: {
+		description: "Download all Truss files and project files to your computer",
+		downloading: "Files are currently being uploaded...",
+		downloaded: "All files have been successfully downloaded.",
+		download: "Back up files",
+		error: "Backup failed",
+		title: "Complete file backup",
+	}
 };
 
 export default dictionary;

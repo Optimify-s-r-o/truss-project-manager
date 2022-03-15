@@ -23,6 +23,7 @@ export enum ApiURL {
 	QUOTATIONS_SUMMARY_PUT = "/api/v1/quotations/calculated/summary",
 	QUOTATIONS_VARIABLE_PUT = "/api/v1/quotations/calculated/variables",
 	PROJECT_QUOTATIONS_CALCULATE = "/api/v1/projects/quotations/calculate",
+	PROJECTS_SIMPLIFIED = "/api/v1/projects/simplified",
 	JOB_QUOTATIONS_CALCULATE = "/api/v1/jobs/quotations/calculate",
 	JOB_TRUSSES = "/api/v1/jobs/trusses",
 	TRUSS_QUOTATIONS_CALCULATE = "/api/v1/trusses/quotations/calculate",

@@ -22,6 +22,7 @@ import Templates from '../containers/Portal/Quotations/Container';
 import Truss from '../containers/Portal/TreeView/Truss/Container';
 import TrussMultiple from '../containers/Portal/TreeView/Trusses/Container';
 import User from '../containers/Portal/Accounts/User/Container';
+import Backup from '../containers/Portal/Settings/Backup/Container';
 import { HubConnection } from '@microsoft/signalr';
 import { Routes } from '../constants/routes';
 import { Switch } from 'react-router';
@@ -88,6 +89,10 @@ const Index = ({ connect }: IProps) => {
 			<ProtectedRoute
 				path={Routes.SETTINGS_ABOUT_PROGRAM}
 				component={SettingsAboutProgram}
+			/>
+			<ProtectedRoute
+				path={Routes.BACKUP}
+				component={Backup}
 			/>
 			<ProtectedRoute
 				path={Routes.SETTINGS_ORGANIZATION}

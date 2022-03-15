@@ -81,6 +81,7 @@ export enum Routes {
 	TREE_LINK_TRUSS_MULTIPLE = "/portal/tree/truss-multiple/",
 	SEARCHED = "/portal/searched",
 	SETTINGS_ABOUT_PROGRAM = "/portal/about-program",
+	BACKUP = "/portal/backup",
 	SETTINGS_ORGANIZATION = "/portal/organization",
 	SETTINGS_TRUSS = "/portal/truss-settings",
 	TEMPLATES = "/portal/templates/:type/:configuration?",

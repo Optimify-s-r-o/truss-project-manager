@@ -25,6 +25,7 @@ import {
 	faSuitcase,
 	faUserPlus,
 	faUsers,
+	faDatabase
 } from "@fortawesome/pro-duotone-svg-icons";
 import {
 	IconWrap,
@@ -267,8 +268,15 @@ export const NavigationMenu = ({
 					path: Routes.SETTINGS_ABOUT_PROGRAM,
 					text: t(translationPath(lang.settings.aboutProgram).path),
 					icon: faBrowser,
-					shortcut: "Ctrl + B",
+					shortcut: "Ctrl + W",
 					color: "teal",
+				},
+				{
+					path: Routes.BACKUP,
+					text: t(translationPath(lang.settings.backup).path),
+					icon: faDatabase,
+					shortcut: "Ctrl + B",
+					color: "blue",
 				},
 			],
 		},

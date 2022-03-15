@@ -1130,6 +1130,7 @@ const dictionary: Lang = {
 	},
 	settings: {
 		aboutProgram: "Über Programm",
+		backup: "Datensicherung",
 		programVersion: "Programmversion",
 		programName: "Der Name des Programms",
 		system: "System",
@@ -1146,6 +1147,14 @@ const dictionary: Lang = {
 		error: "Error",
 		download: "Jetzt herunterladen und installieren",
 	},
+	backup: {
+		description: "Laden Sie alle Truss-Dateien und Projektdateien auf Ihren Computer herunter",
+		downloading: "Die Dateien werden gerade hochgeladen...",
+		downloaded: "Alle Dateien wurden erfolgreich heruntergeladen.",
+		download: "Dateien sichern",
+		error: "Sicherung fehlgeschlagen",
+		title: "Vollständige Dateisicherung",
+	}
 };
 
 export default dictionary;

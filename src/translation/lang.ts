@@ -1085,6 +1085,7 @@ export type Lang = Readonly<{
 	};
 	settings: {
 		aboutProgram: string;
+		backup: string;
 		programVersion: string;
 		programName: string;
 		system: string;
@@ -1100,6 +1101,14 @@ export type Lang = Readonly<{
 		error: string;
 		download: string;
 	};
+	backup: {
+		description: string;
+		downloading: string;
+		downloaded: string;
+		download: string;
+		error: string;
+		title: string;
+	}
 }>;
 
 export default createProxy<Lang>();

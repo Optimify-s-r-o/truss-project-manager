@@ -360,8 +360,12 @@ export const Events = ({
 				onKeyEvent={(key, e) => history.push(Routes.SETTINGS_ORGANIZATION)}
 			/>
 			<KeyboardEventHandler
-				handleKeys={["ctrl+b"]}
+				handleKeys={["ctrl+w"]}
 				onKeyEvent={(key, e) => history.push(Routes.SETTINGS_ABOUT_PROGRAM)}
+			/>
+			<KeyboardEventHandler
+				handleKeys={["ctrl+b"]}
+				onKeyEvent={(key, e) => history.push(Routes.BACKUP)}
 			/>
 		</span>
 	);

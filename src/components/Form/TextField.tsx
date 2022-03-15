@@ -98,6 +98,7 @@ const TextInput = styled.input`
 	background-color: transparent;
 	color: ${(props) => props.theme.colors.contentText};
 	border: 0;
+	outline: 0;
 	border-bottom: 1px solid ${(props) => props.theme.colors.forms.border};
 	font-size: 16px;
 

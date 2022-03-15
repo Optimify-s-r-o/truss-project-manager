@@ -120,6 +120,7 @@ import {
 	watchDownloadFile,
 	watchFileChangeRootPath,
 } from "./DownloadFile/_sagas";
+import {watchBackupAction} from "../containers/Portal/Settings/Backup/_sagas";
 
 export const rootSaga = [
 	watchCreateTruss,
@@ -214,6 +215,7 @@ export const rootSaga = [
 	watchEmptyBinAction,
 	watchRefreshFromBinActionSaga,
 	watchGetBinByParamActionSaga,
+	watchBackupAction
 ];
 
 export type SagasType = typeof rootSaga;
