@@ -1114,7 +1114,7 @@ const dictionary: Lang = {
 		download: "Stáhnout a nainstalovat nyní",
 	},
 	backup: {
-		description: "Zálohujte si všechny soubory v Truss Project Manageru. Soubory budou staženy do složky: {{directory}}",
+		description: "Zálohujte si všechny soubory z Truss Project Manageru. Během zálohy nevypínejte ani neopouštějte tuto stránku. Soubory budou staženy do složky: {{directory}}",
 		downloading: "Soubory se právě ukládají...",
 		downloaded: "Všechny soubory byly úspěšně staženy.",
 		download: "Zálohovat soubory",

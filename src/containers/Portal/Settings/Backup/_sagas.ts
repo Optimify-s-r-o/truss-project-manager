@@ -59,21 +59,41 @@ const createBackupFS = async (projects: BackupProject[], directory: string, toke
         for (const job of project.Jobs) {
             const jobDir = `${projectDir}\\${job?.Name}`;
             await createDirectoryAsync(jobDir);
-            await downloadJobTrussFileAsync(jobDir, job?.Id, token);
+            await downloadJobTrussFileAsync(`${jobDir}\\${job?.Name}.tr3`, job?.Id, token);
         }
     }
 }
 
-const downloadJobTrussFileAsync = async (directory: string, id: string, token: string) =>{
-    const url = `${process.env.REACT_APP_BACKEND_API}/api/v1/jobs/${id}/download-link`;
-    const response = await fetch(url, {
+const downloadJobTrussFileAsync = async (path: string, id: string, token: string) =>{
+    const apiUrl = `${process.env.REACT_APP_BACKEND_API}/api/v1/jobs/${id}/download-link`;
+
+    const response = await fetch(apiUrl, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     })
-    //TODO KARLOS VEMOLA
-    console.log(response.json());
+
+    const data: any = await response.json();
+
+    if(!response?.ok || !data?.Url) return;
+    console.log(data?.Url)
+    const trussFileResponse = await fetch(data?.Url);
+
+    if(!trussFileResponse?.ok) return;
+
+    const blob = await trussFileResponse.blob();
+
+    await saveBlobToFile(blob, path)
 }
+
+const saveBlobToFile = async (blob: Blob, path:string) =>{
+    const fs = window.require("fs");
+
+    const fileData = new Int8Array(await blob.arrayBuffer());
+
+    await fs.writeFileSync(path, fileData);
+}
+
 
 const createDirectoryAsync = async (directory: string) => {
     if (!directory) return;

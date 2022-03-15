@@ -10,6 +10,7 @@ import {CloudDownloadOutlined, LoadingOutlined,} from "@ant-design/icons";
 import {ContentRow, GridItem, GridRow,} from "../../../../constants/globalStyles";
 import isElectron from "is-electron";
 import {BackupRequest} from "./_types";
+import {Column} from "../../../../styles/global";
 
 const antIcon = <LoadingOutlined style={{fontSize: 24}} spin/>;
 
@@ -41,24 +42,22 @@ export const Backup = ({createBackup, pending, status, downloadingText}: {
                         {true && (
                             <>
 
-                                {status===100 && <Info>{t(translationPath(lang.backup.downloaded).path)}</Info>}
+                                {status === 100 && <Info>{t(translationPath(lang.backup.downloaded).path)}</Info>}
 
                                 <Message>
                                     {t(translationPath(lang.backup.description).path)}
-                                    {trussPath}
+                                    {trussPath}.
                                 </Message>
                             </>
                         )}
-                        {pending && <Message>
+                        {pending && <Downloading>
+                            <DownloadingText>
                             {t(translationPath(lang.backup.downloading).path)}
-                        </Message>
+                            </DownloadingText>
+                            <Spin indicator={antIcon}/>
+                        </Downloading>
                         }
-                        {pending && (
-                            <Space direction="vertical" size="large">
-                                <Spin indicator={antIcon}/>
-                            </Space>
-                        )}
-                        {trussPath && <Space direction="vertical" size="large">
+                        {!pending && trussPath && <Space direction="vertical" size="large">
                             <SButton
                                 size="middle"
                                 type="primary"
@@ -80,9 +79,15 @@ const Logo = styled.img`
   width: 120px;
 `;
 
-const Description = styled.span`
+const Downloading = styled(Column)`
+  justify-content: center;
+  align-items: center;
   color: ${(props) => props.theme.colors.secondaryText.default};
   margin: 0.3em 0 1.3em 0;
+`;
+
+const DownloadingText = styled.span`
+  margin-bottom: 15px;
 `;
 
 const Info = styled.span`
