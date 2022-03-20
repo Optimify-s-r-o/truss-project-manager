@@ -1,4 +1,4 @@
-import {FetchStateType} from "../../../../types/_types";
+import { FetchStateType } from '../../../../types/_types';
 
 export interface BackupRequest {
 	directory: string;
@@ -13,7 +13,8 @@ export interface BackupResponse {
 export interface BackupProject {
 	Name: string;
 	Id: string;
-	Jobs: BackupJob[]
+	CreatedAt: string;
+	Jobs: BackupJob[];
 }
 
 export interface BackupJob {
