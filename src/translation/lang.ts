@@ -1007,6 +1007,13 @@ export type Lang = Readonly<{
 		system: string;
 		terms: string;
 		termsText: string;
+		disclaimerTitle: string;
+		dislaimerParagraph1: string;
+		dislaimerParagraph2: string;
+		dislaimerParagraph3: string;
+		disclaimerList1: string;
+		disclaimerList2: string;
+		disclaimerList3: string;
 		theme: string;
 		thickness: string;
 		averageThickness: string;
@@ -1111,7 +1118,7 @@ export type Lang = Readonly<{
 		title: string;
 		successMessage: string;
 		errorMessage: string;
-	}
+	};
 }>;
 
 export default createProxy<Lang>();
