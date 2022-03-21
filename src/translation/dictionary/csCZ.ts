@@ -292,10 +292,10 @@ const dictionary: Lang = {
 		title1: "Model Viewer",
 		text1:
 			"Zobrazení .3ds a .dxf ve webovém prohlížeči. Kótování, výběry, pokročilá práce s kamerou a mnohé další.",
-		title3: "Software Truss 4",
+		title3: "Software Truss4",
 		text3:
 			"Styčníkové desky s prolisovanými trny a široký sortiment spojovacích a kotevních prvků pro dřevěné tesařské konstrukce.",
-		title4: "Novinky v TRUSS4 verze 16",
+		title4: "Novinky v Truss4 verze 16",
 		text4:
 			"Aktivní pracovní plocha s místními nabídkami. Nové grafické výběry. Trasování objektů při zadávání.",
 		link3: "https://www.fine.cz/stresni-konstrukce/",

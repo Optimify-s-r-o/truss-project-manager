@@ -1,56 +1,32 @@
 import * as React from 'react';
-import carousel1 from '../../../../img/carousel/carousel1.jpg';
-import carousel2 from '../../../../img/carousel/carousel2.jpg';
-import styled from 'styled-components';
-import viewer from '../../../../img/carousel/viewer.png';
-import viewerDxf from '../../../../img/carousel/viewerDxf.png';
-import { Button } from '../../../../components/Optimify/Button';
 import { Carousel } from 'react-responsive-carousel';
+import styled from 'styled-components';
+
+import { Button } from '../../../../components/Optimify/Button';
 import { device } from '../../../../constants/theme';
+import carousel1 from '../../../../img/carousel/carousel1.jpg';
+import { lang, t, WithTranslation, withTranslation } from '../../../../translation/i18n';
 import { translationPath } from '../../../../utils/getPath';
 import { useWindowSize } from '../../../../utils/windowSize';
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation,
-} from "../../../../translation/i18n";
 
-const Index = (_props: WithTranslation) => {
+const Index = ( _props: WithTranslation ) => {
 	const size = useWindowSize();
 
-	const openFineUrl = (link?: string) => (
+	const openFineUrl = ( link?: string ) => (
 		_event: React.MouseEvent<HTMLDivElement, MouseEvent>
 	) => {
-		const { shell } = window.require("electron");
-		shell.openExternal(link);
+		const { shell } = window.require( "electron" );
+		shell.openExternal( link );
 	};
 
 	const carousels = [
 		{
-			path: viewer,
-			title: `${t(translationPath(lang.carousel.title1))}`,
-			text: `${t(translationPath(lang.carousel.text1))}`,
-		},
-		{
-			path: viewerDxf,
-			title: `${t(translationPath(lang.carousel.title2))}`,
-			text: `${t(translationPath(lang.carousel.text2))}`,
-		},
-		{
 			path: carousel1,
-			title: `${t(translationPath(lang.carousel.title3))}`,
-			text: `${t(translationPath(lang.carousel.text3))}`,
-			link: `${t(translationPath(lang.carousel.link3))}`,
-			linkText: `${t(translationPath(lang.carousel.linkText3))}`,
-		},
-		{
-			path: carousel2,
-			title: `${t(translationPath(lang.carousel.title4))}`,
-			text: `${t(translationPath(lang.carousel.text4))}`,
-			link: `${t(translationPath(lang.carousel.link4))}`,
-			linkText: `${t(translationPath(lang.carousel.linkText4))}`,
-		},
+			title: `${ t( translationPath( lang.carousel.title3 ) ) }`,
+			text: `${ t( translationPath( lang.carousel.text3 ) ) }`,
+			link: `${ t( translationPath( lang.carousel.link3 ) ) }`,
+			linkText: `${ t( translationPath( lang.carousel.linkText3 ) ) }`,
+		}
 	];
 
 	return (
@@ -67,12 +43,12 @@ const Index = (_props: WithTranslation) => {
 			autoPlay={true}
 			infiniteLoop={true}
 		>
-			{carousels.map((value, index) => (
+			{carousels.map( ( value, index ) => (
 				<div
 					className="my-slide primary"
 					style={{
 						height: size.height + 1,
-						backgroundImage: `linear-gradient(to bottom, rgba(118, 172, 239, 0.52), rgba(64, 141, 232, 0.73)),url(${value.path}) `,
+						backgroundImage: `linear-gradient(to bottom, rgba(118, 172, 239, 0.52), rgba(64, 141, 232, 0.73)),url(${ value.path }) `,
 						backgroundSize: "cover",
 					}}
 					key={index}
@@ -85,7 +61,7 @@ const Index = (_props: WithTranslation) => {
 								<Button
 									level={1}
 									type={"submit"}
-									onClick={openFineUrl(value.link)}
+									onClick={openFineUrl( value.link )}
 								>
 									{value.linkText}
 								</Button>
@@ -93,12 +69,12 @@ const Index = (_props: WithTranslation) => {
 						</CarouselLink>
 					</CarouselContent>
 				</div>
-			))}
+			) )}
 		</Carousel>
 	);
 };
 
-export default withTranslation()(Index);
+export default withTranslation()( Index );
 
 export const CarouselContent = styled.div`
 	height: 100%;
@@ -110,7 +86,7 @@ export const CarouselContent = styled.div`
 	color: white;
 	text-align: left;
 
-	@media ${device.medium} {
+	@media ${ device.medium } {
 		display: none;
 	}
 `;

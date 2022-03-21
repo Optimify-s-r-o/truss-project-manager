@@ -290,7 +290,7 @@ const dictionary: Lang = {
 		title1: "Model Viewer",
 		text1:
 			"View .3ds and .dxf in a web browser. Dimensioning, selections, advanced camera work and much more.",
-		title3: "Software Truss 4",
+		title3: "Software Truss4",
 		text3:
 			"Joint plates with pressed-in mandrels and a wide range of connecting and anchoring elements for wooden carpentry structures.",
 		title4: "What's new in TRUSS4 version 16",

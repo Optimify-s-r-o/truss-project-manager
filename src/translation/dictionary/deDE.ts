@@ -292,7 +292,7 @@ const dictionary: Lang = {
 			"Zeigen Sie .3ds und .dxf in einem Webbrowser an. Bemaßung, Auswahl, erweiterte Kameraführung und vieles mehr.",
 		link3: "https://www.fine.cz/stresni-konstrukce/",
 		linkText3: "Verknüpfung",
-		title3: "Software Truss 4",
+		title3: "Software Truss4",
 		text3:
 			"Fugenplatten mit eingepressten Dornen und einer Vielzahl von Verbindungs- und Verankerungselementen für Holzschreinereien",
 		title4: "Was ist neu in TRUSS4 Version 16",
