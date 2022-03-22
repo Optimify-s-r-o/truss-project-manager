@@ -292,10 +292,10 @@ const dictionary: Lang = {
 		title1: "Model Viewer",
 		text1:
 			"Zobrazení .3ds a .dxf ve webovém prohlížeči. Kótování, výběry, pokročilá práce s kamerou a mnohé další.",
-		title3: "Software Truss 4",
+		title3: "Software Truss4",
 		text3:
 			"Styčníkové desky s prolisovanými trny a široký sortiment spojovacích a kotevních prvků pro dřevěné tesařské konstrukce.",
-		title4: "Novinky v TRUSS4 verze 16",
+		title4: "Novinky v Truss4 verze 16",
 		text4:
 			"Aktivní pracovní plocha s místními nabídkami. Nové grafické výběry. Trasování objektů při zadávání.",
 		link3: "https://www.fine.cz/stresni-konstrukce/",
@@ -1016,6 +1016,13 @@ const dictionary: Lang = {
 		system: "Systém",
 		terms: " Smluvní podmínky",
 		termsText: "text smluvních podmínek",
+		disclaimerTitle: "Disclaimer",
+		dislaimerParagraph1: "Truss Project Manager je cloudová aplikace, která data ukládá ve Fine cloudu hostovaném na Amazon Web Services na území Evropské unie.",
+		dislaimerParagraph2: "Amazon Web Services zajišťuje:",
+		dislaimerParagraph3: "Přes veškerou snahu a péči firma FINE nemůže nést a nenese odpovědnost za ztrátu, zcizení nebo nedostupnost dat – přestože takovou událost považuje za velmi nepravděpodobnou. Nejsme schopni zamezit zásahům vyšší moci, válečným konfliktům, hackerským útokům a dalším nečekaným událostem mimo naši kontrolu. Z toho důvodu doporučujeme provádět pravidelné zálohy pomocí k tomu určeného nástroje dostupného v aplikaci Truss Project Manager.",
+		disclaimerList1: "- vysokou dostupnost služby, abyste nebyli omezováni při práci s aplikací",
+		disclaimerList2: "- řízený přístup k datům, aby se k datům aplikace nedostala žádná neoprávněná osoba",
+		disclaimerList3: "- okamžitou automatickou replikaci dat do více lokalit, aby se zamezilo jejich ztrátě či poškození",
 		theme: "Změna barvy",
 		thickness: "Tloušťka",
 		averageThickness: "Průměrná tloušťka",

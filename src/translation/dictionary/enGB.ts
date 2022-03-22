@@ -290,7 +290,7 @@ const dictionary: Lang = {
 		title1: "Model Viewer",
 		text1:
 			"View .3ds and .dxf in a web browser. Dimensioning, selections, advanced camera work and much more.",
-		title3: "Software Truss 4",
+		title3: "Software Truss4",
 		text3:
 			"Joint plates with pressed-in mandrels and a wide range of connecting and anchoring elements for wooden carpentry structures.",
 		title4: "What's new in TRUSS4 version 16",
@@ -1024,6 +1024,13 @@ const dictionary: Lang = {
 		system: "System",
 		terms: " Terms and conditions",
 		termsText: "|The text of the terms and conditions",
+		disclaimerTitle: "Disclaimer",
+		dislaimerParagraph1: "Truss Project Manager is a cloud-based application, which saves data in the Fine Cloud hosted on Amazon Web Services servers within European Union.",
+		dislaimerParagraph2: "Amazon Web Services provides:",
+		dislaimerParagraph3: "Despite all efforts and care, FINE cannot be made liable for any data loss, theft or unavailability of the data - although we see any of these events as highly improbable. We are unable to control military conflicts, hacker attacks or other events outside of our control. For this reason, we recommend you backup the data within the Truss Project Manager regularly.",
+		disclaimerList1: "- high reliability with very limited disruptions",
+		disclaimerList2: "- controlled access to data, so that no unauthorized person can access the data",
+		disclaimerList3: "- immediate automatic data backup to various locations to prevent data loss or damage",
 		theme: "Color change",
 		thickness: "Thickness",
 		averageThickness: "Average thickness",
