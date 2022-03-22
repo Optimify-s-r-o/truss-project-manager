@@ -149,7 +149,7 @@ const Index = (
 							<Data
 								title={t(translationPath(lang.common.priceTotal))}
 								data={fixed(get(props.jobs, getPath(JobsProxy.Price)), 2)}
-								unit={UnitType.KC}
+								unit={UnitType.CURRENCY}
 							/>
 							<Data
 								title={t(translationPath(lang.common.averagePrice))}
@@ -157,7 +157,7 @@ const Index = (
 									get(props.jobs, getPath(JobsProxy.AveragePrice)),
 									2
 								)}
-								unit={UnitType.KC}
+								unit={UnitType.CURRENCY}
 							/>
 						</ContentCard>
 					</GridItem>

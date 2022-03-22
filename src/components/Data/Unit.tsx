@@ -1,4 +1,5 @@
 import React from 'react';
+import {Currency} from "./Currency";
 
 export enum UnitType {
   KG = 'KG',
@@ -10,7 +11,7 @@ export enum UnitType {
   KGM2 = 'KGM2',
   M3 = 'M3',
   M2 = 'M2',
-  KC = 'KC',
+  CURRENCY = 'CURRENCY',
   DEGREE = 'DEGREE',
   EMPTY = 'EMPTY'
 }
@@ -36,13 +37,13 @@ export const Unit = (props: IOwnProps) => {
     case UnitType.KCM2:
       return (
         <>
-          Kč / m<sup>2</sup>
+          <Currency/> / m<sup>2</sup>
         </>
       );
     case UnitType.KCM3:
       return (
         <>
-          Kč / m<sup>3</sup>
+          <Currency/> / m<sup>3</sup>
         </>
       );
     case UnitType.M3M2:
@@ -69,8 +70,8 @@ export const Unit = (props: IOwnProps) => {
           m<sup>2</sup>
         </>
       );
-    case UnitType.KC:
-      return <>Kč</>;
+    case UnitType.CURRENCY:
+      return <Currency/>
     case UnitType.DEGREE:
       return <>°</>;
     case UnitType.EMPTY:

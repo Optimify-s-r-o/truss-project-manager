@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { fixed } from './formating';
 import { Unit } from '../components/Data/Unit';
 import { UnitType } from 'src/components/Data/Unit';
+import {Currency} from "../components/Data/Currency";
 
 export const formatCurrency = (value: any, unit?: UnitType) => {
 	if (value === null) return "-";
@@ -13,7 +14,7 @@ export const formatCurrency = (value: any, unit?: UnitType) => {
 	return (
 		<>
 			{amount}
-			<Span>{unit ? <Unit unit={unit} /> : "Kč"}</Span>
+			<Span>{unit ? <Unit unit={unit} /> : <Currency/>}</Span>
 		</>
 	);
 };

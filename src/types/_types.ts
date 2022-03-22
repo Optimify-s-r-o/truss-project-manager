@@ -157,6 +157,7 @@ export interface Countries {
 export interface Settings {
 	Countries: Countries[];
 	FolderPath: string;
+	ClientCurrency: string;
 }
 
 export interface TrussFilter {

@@ -171,7 +171,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 							<Data
 								title={t(translationPath(lang.common.averagePricePerPiece))}
 								data={fixed(get(props.truss, getPath(TrussesProxy.Price)), 2)}
-								unit={UnitType.KC}
+								unit={UnitType.CURRENCY}
 							/>
 							<Data
 								title={t(translationPath(lang.common.priceTotal))}
@@ -179,7 +179,7 @@ const Component = (props: WithTranslation & StateProps & DispatchProps) => {
 									get(props.truss, getPath(TrussesProxy.PriceSum)),
 									2
 								)}
-								unit={UnitType.KC}
+								unit={UnitType.CURRENCY}
 							/>
 						</ContentCard>
 					</GridItem>
