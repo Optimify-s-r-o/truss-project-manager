@@ -1,18 +1,13 @@
-import Component, { DispatchProps, StateProps } from './Component';
-import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { compose, Dispatch } from 'redux';
+
+import { EditTruss, editTruss } from '../../../../../sagas/Truss/_actions';
 import { deleteJob, unlockJob } from '../_actions';
 import { DeleteJob, Unlock } from '../_types';
-import { EditTruss, editTruss } from '../../../../../sagas/Truss/_actions';
+import { clearModels, deleteModel, editModelPutAction, modelsGetAction, publishModelPostAction } from './_actions';
 import { ViewerRequest } from './_types';
-import { withRouter } from 'react-router-dom';
-import {
-	clearModels,
-	deleteModel,
-	editModelPutAction,
-	modelsGetAction,
-	publishModelPostAction,
-} from "./_actions";
+import Component, { DispatchProps, StateProps } from './Component';
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 	publishModelPostAction: (data: string) =>
@@ -31,6 +26,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	models: state.ViewerReducer.models,
 	pending: state.ViewerReducer.pending,
 	job: state.JobReducer.jobs,
+	token: state.AuthReducer.token,
 });
 
 export default compose(

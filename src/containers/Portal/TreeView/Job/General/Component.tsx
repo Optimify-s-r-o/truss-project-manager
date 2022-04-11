@@ -1,50 +1,33 @@
-import * as React from 'react';
-import * as Yup from 'yup';
-import Data from '../../../../../components/Data/Data';
-import FormikRow from '../../../../../components/Optimify/Form/FormikRow';
-import Moment from 'react-moment';
-import RouteLeavingGuard from '../../../../../components/Prompt';
-import { ActionButton, RightColumn } from './_styles';
-import { ActionSection } from '../../../../../components/Quotations';
 import { Alert, Button as SButton, Modal } from 'antd';
-import { Button } from '../../../../../components/Optimify/Button';
-import { DeleteJob, JobProxy, Unlock } from '../_types';
-import { EditTruss } from '../../../../../sagas/Truss/_actions';
-import { Enter } from 'src/components/KeyBoardEventHandler';
-import { fixed } from '../../../../../utils/formating';
-import { formatCurrency } from 'src/utils/currencyFormat';
-import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../../utils/getPath';
-import { Header } from '../components/Header';
-import { Input } from '../../../../../constants/enum';
-import { JobType, Settings, TreeType } from '../../../../../types/_types';
-import { RouteComponentProps } from 'react-router-dom';
-import { Table } from '../Viewer/components/Table';
-import { UnitType } from '../../../../../components/Data/Unit';
 import { useFormik } from 'formik';
-import { Viewer, ViewerRequest } from '../Viewer/_types';
+import { get } from 'lodash';
+import * as React from 'react';
+import Moment from 'react-moment';
+import { RouteComponentProps } from 'react-router-dom';
+import { Enter } from 'src/components/KeyBoardEventHandler';
+import { formatCurrency } from 'src/utils/currencyFormat';
+import * as Yup from 'yup';
+
+import Data from '../../../../../components/Data/Data';
+import { UnitType } from '../../../../../components/Data/Unit';
+import { Button } from '../../../../../components/Optimify/Button';
+import FormikRow from '../../../../../components/Optimify/Form/FormikRow';
+import RouteLeavingGuard from '../../../../../components/Prompt';
+import { ActionSection } from '../../../../../components/Quotations';
+import { Input } from '../../../../../constants/enum';
+import { ContentCard, Form, GridItem, GridRow, Header2, Sceleton } from '../../../../../constants/globalStyles';
+import { EditTruss } from '../../../../../sagas/Truss/_actions';
+import { lang, t, WithTranslation, withTranslation } from '../../../../../translation/i18n';
+import { JobType, Settings, TreeType } from '../../../../../types/_types';
+import { fixed } from '../../../../../utils/formating';
+import { getPath, translationPath } from '../../../../../utils/getPath';
+import { CenterImage, MainTreeContent, TreeButtonsRow, TreeContent, TreeScreen } from '../../../_styles';
+import { DeleteJob, JobProxy, Unlock } from '../_types';
+import { Header } from '../components/Header';
 import { ViewerTitleSection } from '../Viewer/_styles';
-import {
-	ContentCard,
-	Form,
-	GridItem,
-	GridRow,
-	Header2,
-	Sceleton,
-} from "../../../../../constants/globalStyles";
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation,
-} from "../../../../../translation/i18n";
-import {
-	CenterImage,
-	MainTreeContent,
-	TreeButtonsRow,
-	TreeContent,
-	TreeScreen,
-} from "../../../_styles";
+import { Viewer, ViewerRequest } from '../Viewer/_types';
+import { Table } from '../Viewer/components/Table';
+import { ActionButton, RightColumn } from './_styles';
 
 export interface StateProps {
 	activeTree: TreeType;
@@ -56,6 +39,7 @@ export interface StateProps {
 	history: any;
 	models: Viewer;
 	viewerPending: boolean;
+	token: string;
 }
 
 export interface DisptachProps {
@@ -84,6 +68,7 @@ const Index = ({
 	models,
 	publishModelPostAction,
 	deleteModel,
+	token
 }: WithTranslation & StateProps & DisptachProps & RouteComponentProps) => {
 	const [alertDialog, setAlertDialog] = React.useState(false);
 
@@ -160,6 +145,7 @@ const Index = ({
 				leavingGuard={leavingGuard}
 				editTruss={editTruss}
 				job={job}
+				token={token}
 			/>
 			<MainTreeContent>
 				<Form onSubmit={formik.handleSubmit}>

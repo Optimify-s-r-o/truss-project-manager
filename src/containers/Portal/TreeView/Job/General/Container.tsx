@@ -1,18 +1,15 @@
-import Component from './Component';
-import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { compose, Dispatch } from 'redux';
+import { JobType } from 'src/types/_types';
+
+import { EditTruss, editTruss } from '../../../../../sagas/Truss/_actions';
+import { setSelectedKeys } from '../../_actions';
 import { deleteJob, unlockJob, updateSelectedJob } from '../_actions';
 import { DeleteJob, Unlock } from '../_types';
-import { EditTruss, editTruss } from '../../../../../sagas/Truss/_actions';
-import { JobType } from 'src/types/_types';
-import { setSelectedKeys } from '../../_actions';
+import { deleteModel, editModelPutAction, publishModelPostAction } from '../Viewer/_actions';
 import { ViewerRequest } from '../Viewer/_types';
-import { withRouter } from 'react-router-dom';
-import {
-	deleteModel,
-	editModelPutAction,
-	publishModelPostAction,
-} from "../Viewer/_actions";
+import Component from './Component';
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	jobUpdate: (data: JobType) => dispatch(updateSelectedJob.request(data)),
@@ -35,6 +32,7 @@ const mapStateToProps = (state: any) => ({
 	image: state.JobReducer.image,
 	settings: state.SettingsReducer.settings,
 	models: state.ViewerReducer.models,
+	token: state.AuthReducer.token,
 	viewerPending: state.ViewerReducer.pending,
 });
 

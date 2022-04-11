@@ -1,34 +1,20 @@
-import General from './General/Container';
-import Loading from '../../../../components/Optimify/Loading';
-import Material from './Material/Container';
-import ProtectedRoute from '../../../../components/ProtectedRoute';
-import Quotations from './Quotations/Container';
 import React from 'react';
-import Trusses from './Trusses/Container';
-import { HubComponent } from './HubComponent';
-import { JobType, TreeType } from '../../../../types/_types';
-import { MainTree } from '../../_styles';
+import { RouteComponentProps, Switch, useLocation, useParams } from 'react-router-dom';
+
+import Loading from '../../../../components/Optimify/Loading';
+import ProtectedRoute from '../../../../components/ProtectedRoute';
 import { Routes } from '../../../../constants/routes';
+import { lang, t, WithTranslation, withTranslation } from '../../../../translation/i18n';
+import { JobType, TreeType } from '../../../../types/_types';
 import { translationPath } from '../../../../utils/getPath';
-import {
-	RouteComponentProps,
-	Switch,
-	useLocation,
-	useParams,
-} from "react-router-dom";
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation,
-} from "../../../../translation/i18n";
-import {
-	DeleteJob,
-	JobRootObject,
-	JobsSelectedRequest,
-	ProjectNameJobName,
-	Unlock,
-} from "./_types";
+import { MainTree } from '../../_styles';
+import { DeleteJob, JobRootObject, JobsSelectedRequest, ProjectNameJobName, Unlock } from './_types';
+import General from './General/Container';
+import { HubComponent } from './HubComponent';
+import Material from './Material/Container';
+import Quotations from './Quotations/Container';
+import Trusses from './Trusses/Container';
+
 const signalRMsgPack = require("@microsoft/signalr-protocol-msgpack");
 export interface StateProps {
 	activeTree: TreeType;

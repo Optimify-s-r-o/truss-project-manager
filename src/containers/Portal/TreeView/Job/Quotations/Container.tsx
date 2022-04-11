@@ -1,32 +1,23 @@
-import Component, { DispatchProps, StateProps } from './Component';
-import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { DeleteJob, JobsSelectedRequest, Unlock } from '../_types';
-import { EditTruss, editTruss } from '../../../../../sagas/Truss/_actions';
-import { QuotationCalculate } from '../../Project/_types';
 import { withRouter } from 'react-router-dom';
+import { compose, Dispatch } from 'redux';
+
+import { EditTruss, editTruss } from '../../../../../sagas/Truss/_actions';
 import {
-	clearQuotation,
-	quotationDownloadQuotationAction,
-	quotationListGetAction,
-	quotationSelectionGetAction,
-	quotationSelectionPutAction,
-	quotationSelectionSectionDeleteAction,
-	quotationSelectionSummaryPutAction,
-	quotationSelectionVariableDeleteAction,
-} from "../../../Quotations/_actions";
-import {
-	QuotationParam,
-	QuotationRequest,
-	SectionVariableRequest,
-} from "../../../Quotations/_types";
-import {
-	calculateJob,
-	deleteJob,
-	getJobQuotations,
-	selectedJob,
-	unlockJob,
-} from "../_actions";
+    clearQuotation,
+    quotationDownloadQuotationAction,
+    quotationListGetAction,
+    quotationSelectionGetAction,
+    quotationSelectionPutAction,
+    quotationSelectionSectionDeleteAction,
+    quotationSelectionSummaryPutAction,
+    quotationSelectionVariableDeleteAction,
+} from '../../../Quotations/_actions';
+import { QuotationParam, QuotationRequest, SectionVariableRequest } from '../../../Quotations/_types';
+import { QuotationCalculate } from '../../Project/_types';
+import { calculateJob, deleteJob, getJobQuotations, selectedJob, unlockJob } from '../_actions';
+import { DeleteJob, JobsSelectedRequest, Unlock } from '../_types';
+import Component, { DispatchProps, StateProps } from './Component';
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
 	quotationSelectionGetAction: (data: QuotationCalculate) =>
@@ -62,6 +53,7 @@ const mapStateToProps = (state: any): StateProps => ({
 	priceLists: state.PriceListsReducer.priceLists,
 	pending: state.QuotationReducer.pending,
 	job: state.JobReducer.jobs,
+	token: state.AuthReducer.token,
 });
 
 export default compose(

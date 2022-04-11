@@ -1,43 +1,40 @@
-import EditJob from '../../Project/General/components/EditJob';
-import Navigation from '../../../../../components/NavigationLink';
-import { Delete, Lock } from '../../../../../components/Button';
-import { DeleteJob, JobProxy, Unlock } from '../_types';
-import { EditTruss } from '../../../../../sagas/Truss/_actions';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faHomeLgAlt, faMountains } from '@fortawesome/pro-light-svg-icons';
+import { faInfo, faInventory, faMoneyBillWave } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { get } from 'lodash';
-import { getPath, translationPath } from '../../../../../utils/getPath';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { JobType } from '../../../../../types/_types';
-import { lang } from '../../../../../translation/i18n';
-import { Phase } from '../../../../../components/Phase';
-import { Routes } from '../../../../../constants/routes';
-import { useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useParams } from 'react-router-dom';
+
+import { Delete, Lock } from '../../../../../components/Button';
+import Navigation from '../../../../../components/NavigationLink';
+import { Phase } from '../../../../../components/Phase';
 import {
-	faInfo,
-	faInventory,
-	faMoneyBillWave,
-} from "@fortawesome/pro-solid-svg-icons";
-import {
-	ContentRow,
-	PageHeader,
-	PageTitle,
-	PageTitleActions,
-	TitleName,
-	TitleSection,
-} from "../../../../../constants/globalStyles";
-import {
-	deleteJobRoute,
-	unlockJobAction,
-} from "../../../../../sagas/Fetch/actions";
+    ContentRow,
+    PageHeader,
+    PageTitle,
+    PageTitleActions,
+    TitleName,
+    TitleSection,
+} from '../../../../../constants/globalStyles';
+import { Routes } from '../../../../../constants/routes';
+import { deleteJobRoute, unlockJobAction } from '../../../../../sagas/Fetch/actions';
+import { EditTruss } from '../../../../../sagas/Truss/_actions';
+import { lang } from '../../../../../translation/i18n';
+import { JobType } from '../../../../../types/_types';
+import { getPath, translationPath } from '../../../../../utils/getPath';
+import CopyJobFileLink from '../../Project/General/components/CopyJobFileLink';
+import EditJob from '../../Project/General/components/EditJob';
+import { DeleteJob, JobProxy, RequestDownloadLink, Unlock } from '../_types';
 
 export interface JobHeader {
 	job: JobType;
 	removeJob: (data: DeleteJob) => void;
 	unlockJob: (data: Unlock) => void;
 	leavingGuard?: (callback) => void;
-	editTruss: (data: EditTruss) => void;
+	editTruss: ( data: EditTruss ) => void;
+	downloadJob?: (data: RequestDownloadLink) => void;
+	token: string;
 }
 
 export const Header = ({
@@ -46,6 +43,8 @@ export const Header = ({
 	unlockJob,
 	leavingGuard,
 	editTruss,
+	downloadJob,
+	token
 }: JobHeader) => {
 	const { id } = useParams<{ id: string; type?: string }>();
 	const { t } = useTranslation();
@@ -70,6 +69,14 @@ export const Header = ({
 					</ContentRow>
 				</TitleSection>
 				<PageTitleActions>
+					<CopyJobFileLink
+						downloadJob={downloadJob}
+						id={job?.Id}
+						jobName={job?.JobName}
+						projectName={job?.Project}
+						leavingGuard={leavingGuard}
+						token={token}
+					/>
 					<EditJob
 						openTruss={editTruss}
 						id={job?.Id}

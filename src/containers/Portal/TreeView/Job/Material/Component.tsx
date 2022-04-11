@@ -1,61 +1,41 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faRectanglePortrait, faRectangleWide, faTriangle } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
+import { RouteComponentProps, useParams } from 'react-router-dom';
+import { JobType } from 'src/types/_types';
+
 import Export from '../../../../../components/Export';
 import Loading from '../../../../../components/Optimify/Loading';
+import { ScrollableTable, TABLE_STYLE_CONDENSED } from '../../../../../components/Optimify/Table';
+import {
+    ContentCard,
+    FullCardEndTableWrapper,
+    GridItemHalfHeight,
+    GridRowFillContent,
+    Header2,
+    MaterialTitleSection,
+} from '../../../../../constants/globalStyles';
 import { EditTruss } from '../../../../../sagas/Truss/_actions';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Header } from '../components/Header';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { IconTableCell } from './_styles';
-import { JobType } from 'src/types/_types';
+import { lang, t, WithTranslation, withTranslation } from '../../../../../translation/i18n';
 import { lastPathMember, translationPath } from '../../../../../utils/getPath';
 import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
 import { Plate, PlateProxy } from '../../Truss/_types';
-import { RouteComponentProps, useParams } from 'react-router-dom';
-import {
-	faRectanglePortrait,
-	faRectangleWide,
-	faTriangle,
-} from "@fortawesome/pro-light-svg-icons";
-import {
-	ScrollableTable,
-	TABLE_STYLE_CONDENSED,
-} from "../../../../../components/Optimify/Table";
-import {
-	ContentCard,
-	FullCardEndTableWrapper,
-	GridItemHalfHeight,
-	GridRowFillContent,
-	Header2,
-	MaterialTitleSection,
-} from "../../../../../constants/globalStyles";
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation,
-} from "../../../../../translation/i18n";
-import {
-	DeleteJob,
-	Materials,
-	Member,
-	MemberProxy,
-	Model,
-	ModelProxy,
-	NailPlate,
-	NailPlateProxy,
-	Unlock,
-} from "../_types";
+import { DeleteJob, Materials, Member, MemberProxy, Model, ModelProxy, NailPlate, NailPlateProxy, Unlock } from '../_types';
+import { Header } from '../components/Header';
+import { IconTableCell } from './_styles';
 
 export interface StateProps {
 	materials: Materials;
 	job: JobType;
+	token: string;
 }
 
 export interface DispatchProps {
 	getJobMaterials: (data: string) => void;
 	removeJob: (data: DeleteJob) => void;
 	unlockJob: (data: Unlock) => void;
-	editTruss: (data: EditTruss) => void;
+	editTruss: ( data: EditTruss ) => void;
 }
 
 const Index = ({
@@ -65,6 +45,7 @@ const Index = ({
 	unlockJob,
 	editTruss,
 	job,
+	token
 }: WithTranslation & StateProps & RouteComponentProps & DispatchProps) => {
 	const { id } = useParams<{ id: string }>();
 
@@ -81,6 +62,7 @@ const Index = ({
 				unlockJob={unlockJob}
 				editTruss={editTruss}
 				job={job}
+				token={token}
 			/>
 			<MainTreeContent>
 				<Loading

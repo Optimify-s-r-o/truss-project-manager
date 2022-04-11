@@ -1,40 +1,32 @@
-import lang from '../../../../../translation/lang';
-import Loading from '../../../../../components/Optimify/Loading';
-import Navigation from '../../../../../components/NavigationCalculated';
-import React, { useEffect, useState } from 'react';
-import { EditTruss } from '../../../../../sagas/Truss/_actions';
-import { Empty, Popconfirm } from 'antd';
 import { faServer, faSync } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Header } from '../components/Header';
+import { Empty, Popconfirm } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router';
 import { JobType } from 'src/types/_types';
+
+import Navigation from '../../../../../components/NavigationCalculated';
+import Loading from '../../../../../components/Optimify/Loading';
+import { ActionButton, ActionSection, SelectionQuotation } from '../../../../../components/Quotations';
+import { QuotationColumn } from '../../../../../constants/globalStyles';
+import { EditTruss } from '../../../../../sagas/Truss/_actions';
+import lang from '../../../../../translation/lang';
+import { translationPath } from '../../../../../utils/getPath';
 import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
 import { PriceList } from '../../../PriceLists/_types';
+import {
+    QuotationList,
+    QuotationParam,
+    QuotationRequest,
+    Quotations,
+    QuotationSelection,
+    QuotationType,
+    SectionVariableRequest,
+} from '../../../Quotations/_types';
 import { QuotationCalculate } from '../../Project/_types';
-import { QuotationColumn } from '../../../../../constants/globalStyles';
-import { translationPath } from '../../../../../utils/getPath';
-import { useParams } from 'react-router';
-import { useTranslation } from 'react-i18next';
-import {
-	ActionButton,
-	ActionSection,
-	SelectionQuotation,
-} from "../../../../../components/Quotations";
-import {
-	QuotationList,
-	QuotationParam,
-	QuotationRequest,
-	Quotations,
-	QuotationSelection,
-	QuotationType,
-	SectionVariableRequest,
-} from "../../../Quotations/_types";
-import {
-	DeleteJob,
-	JobsSelectedRequest,
-	QuotationsInfo,
-	Unlock,
-} from "../_types";
+import { DeleteJob, JobsSelectedRequest, QuotationsInfo, Unlock } from '../_types';
+import { Header } from '../components/Header';
 
 export interface StateProps {
 	quotations: Quotations;
@@ -44,6 +36,7 @@ export interface StateProps {
 	priceLists: PriceList[];
 	pending: boolean;
 	job: JobType;
+	token: string;
 }
 
 export interface DispatchProps {
@@ -84,6 +77,7 @@ export default ({
 	editTruss,
 	removeJob,
 	job,
+	token,
 }: StateProps & DispatchProps) => {
 	const { t } = useTranslation();
 	const [selected, setSelected] = useState(null);
@@ -175,6 +169,7 @@ export default ({
 				unlockJob={unlockJob}
 				editTruss={editTruss}
 				job={job}
+				token={token}
 			/>
 			<MainTreeContent>
 				<Navigation

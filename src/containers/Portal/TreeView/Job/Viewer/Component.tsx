@@ -1,29 +1,27 @@
-import lang from '../../../../../translation/lang';
-import Loading from '../../../../../components/Optimify/Loading';
-import React, { useEffect } from 'react';
-import { ActionButton } from '../General/_styles';
-import { ActionSection } from '../../../../../components/Quotations';
-import { DeleteJob, Unlock } from '../_types';
-import { EditTruss } from '../../../../../sagas/Truss/_actions';
 import { Empty } from 'antd';
-import { Header } from '../components/Header';
-import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
-import { Table } from './components/Table';
-import { translationPath } from '../../../../../utils/getPath';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Viewer, ViewerRequest } from './_types';
+import { useParams } from 'react-router-dom';
+
+import Loading from '../../../../../components/Optimify/Loading';
+import { ActionSection } from '../../../../../components/Quotations';
+import { ContentCard, GridItem, Header2 } from '../../../../../constants/globalStyles';
+import { EditTruss } from '../../../../../sagas/Truss/_actions';
+import lang from '../../../../../translation/lang';
+import { translationPath } from '../../../../../utils/getPath';
+import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
+import { DeleteJob, Unlock } from '../_types';
+import { Header } from '../components/Header';
+import { ActionButton } from '../General/_styles';
 import { ViewerColumn, ViewerTitleSection } from './_styles';
-import {
-	ContentCard,
-	GridItem,
-	Header2,
-} from "../../../../../constants/globalStyles";
+import { Viewer, ViewerRequest } from './_types';
+import { Table } from './components/Table';
 
 export interface StateProps {
 	models: Viewer;
 	pending: boolean;
 	job: any;
+	token: string;
 }
 
 export interface DispatchProps {
@@ -48,6 +46,7 @@ export default ({
 	unlockJob,
 	editTruss,
 	job,
+	token,
 }: StateProps & DispatchProps) => {
 	const { t } = useTranslation();
 	const { id } = useParams<{ id: string }>();
@@ -71,6 +70,7 @@ export default ({
 				unlockJob={unlockJob}
 				editTruss={editTruss}
 				job={job}
+				token={token}
 			/>
 			<MainTreeContent>
 				<TreeScreen>

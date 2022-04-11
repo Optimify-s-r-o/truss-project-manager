@@ -1,56 +1,45 @@
-import Data from '../../../../../components/Data/Data';
-import FormRow from '../../../../../components/Optimify/Form/FormRow';
-import Loading from '../../../../../components/Optimify/Loading';
-import Moment from 'react-moment';
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import {
-	DeleteJob,
-	GetTrusses,
-	JobTruss,
-	JobTrusses,
-	Unlock
-	} from '../_types';
-import { EditTruss } from '../../../../../sagas/Truss/_actions';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faMountains } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { formatCurrency } from 'src/utils/currencyFormat';
-import { Header } from '../components/Header';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { IconTableCell } from './_styles';
-import { JobType, QuotationsSelection } from '../../../../../types/_types';
-import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
-import { RouteComponentProps, useHistory, useParams } from 'react-router-dom';
-import { Routes } from '../../../../../constants/routes';
 import { Select } from 'antd';
-import { StyledDiv } from '../../../Sidebar/_styles';
-import { translationPath } from '../../../../../utils/getPath';
+import React, { useState } from 'react';
+import Moment from 'react-moment';
+import { RouteComponentProps, useHistory, useParams } from 'react-router-dom';
+import { formatCurrency } from 'src/utils/currencyFormat';
+import styled from 'styled-components';
+
+import Data from '../../../../../components/Data/Data';
 import { UnitType } from '../../../../../components/Data/Unit';
+import FormRow from '../../../../../components/Optimify/Form/FormRow';
+import Loading from '../../../../../components/Optimify/Loading';
+import { ScrollableTable, TABLE_STYLE_CONDENSED } from '../../../../../components/Optimify/Table';
 import {
-	ScrollableTable,
-	TABLE_STYLE_CONDENSED,
-} from "../../../../../components/Optimify/Table";
-import {
-	ContentCard,
-	FullCardEndTableWrapper,
-	GridColumn,
-	GridItem,
-	GridRow,
-	Header2,
-	MaterialTitleSection,
-} from "../../../../../constants/globalStyles";
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation,
-} from "../../../../../translation/i18n";
+    ContentCard,
+    FullCardEndTableWrapper,
+    GridColumn,
+    GridItem,
+    GridRow,
+    Header2,
+    MaterialTitleSection,
+} from '../../../../../constants/globalStyles';
+import { Routes } from '../../../../../constants/routes';
+import { EditTruss } from '../../../../../sagas/Truss/_actions';
+import { lang, t, WithTranslation, withTranslation } from '../../../../../translation/i18n';
+import { JobType, QuotationsSelection } from '../../../../../types/_types';
+import { translationPath } from '../../../../../utils/getPath';
+import { MainTreeContent, TreeContent, TreeScreen } from '../../../_styles';
+import { StyledDiv } from '../../../Sidebar/_styles';
+import { DeleteJob, GetTrusses, JobTruss, JobTrusses, Unlock } from '../_types';
+import { Header } from '../components/Header';
+import { IconTableCell } from './_styles';
+
 const { Option } = Select;
 
 export interface StateProps {
 	history: any;
 	trusses: JobTrusses;
 	job: JobType;
+	token: string;
 }
 
 export interface DispatchProps {
@@ -71,6 +60,7 @@ const Index = ({
 	unlockJob,
 	editTruss,
 	job,
+	token,
 }: WithTranslation & StateProps & DispatchProps & RouteComponentProps) => {
 	const { id } = useParams<{ id: string }>();
 	const [selectedTemplate, setSelectedTemplate] = useState(
@@ -102,6 +92,7 @@ const Index = ({
 				unlockJob={unlockJob}
 				editTruss={editTruss}
 				job={job}
+				token={token}
 			/>
 			<MainTreeContent>
 				<Loading
