@@ -2,6 +2,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faCopy } from '@fortawesome/pro-duotone-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { FC } from 'react';
+import { useToasts } from 'react-toast-notifications';
 import { Icon } from 'src/components/Icon';
 import { IconButton } from 'src/components/Optimify/Button';
 import { ContentRow } from 'src/constants/globalStyles';
@@ -40,7 +41,8 @@ const Index: FC<WithTranslation & OwnProps> = ({
 	token
 }) => {
 	
-	
+	const { addToast } = useToasts();
+
     const handleCopy = async () => {
 		const apiUrl = `${ process.env.REACT_APP_BACKEND_API }/api/v1/jobs/${ id }/download-link`;
 
@@ -53,7 +55,7 @@ const Index: FC<WithTranslation & OwnProps> = ({
 		const data: any = await response.json();
 	
 		if ( !response?.ok || !data?.Url ) return;
-
+			addToast(  "message"  )
 			const { clipboard } = window.require("electron");
 			clipboard.writeText(data?.Url, "selection");
 		

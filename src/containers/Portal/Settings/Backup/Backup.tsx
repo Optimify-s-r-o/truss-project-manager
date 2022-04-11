@@ -56,6 +56,7 @@ export const Backup = ( { createBackup, pending, status, downloadingText }: {
                 {t( translationPath( lang.backup.downloading ).path )}
               </DownloadingText>
               <Spin indicator={antIcon} />
+              {downloadingText}
             </Downloading>
             }
             {!pending && trussPath && <Space direction="vertical" size="large">

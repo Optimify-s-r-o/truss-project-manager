@@ -8,8 +8,7 @@ import { Method } from '../../../../constants/enum';
 import { fetchSaga } from '../../../../sagas/_sagas';
 import { lang, t } from '../../../../translation/i18n';
 import { translationPath } from '../../../../utils/getPath';
-import { createBackup } from './_actions';
-import { BackupProject } from './_types';
+import { createBackup, setBackupDownloadingText } from './_actions';
 
 function* createBackupActionSaga(
     action: ReturnType<typeof createBackup.request>
@@ -54,30 +53,34 @@ function* createBackupActionSaga(
 
     const token = yield select( ( state: any ) => state.AuthReducer.token );
 
-    yield createBackupFS( response?.Projects, action.payload.directory, token as string );
+
+    const directory = action.payload.directory;
+
+    if ( !directory ) return;
+
+    yield removeOldBackupAsync( directory );
+
+    const backup = "\\Backup\\";
+
+    for ( const [index, project] of  response?.Projects.entries() ) {
+        
+        yield put( setBackupDownloadingText(`${index}/${response.Projects?.length}    ${project.Name}`) );
+
+        const projectDir = `${ directory }${ backup }${ project?.CreatedAt?.substring( 0, 4 ) }\\${ project?.Name }`;
+        yield createDirectoryAsync( projectDir );
+        yield downloadProjectFilesAsync( `${ projectDir }\\Files`, project?.Id, token as string );
+
+
+        for ( const job of project.Jobs ) {
+            const jobDir = `${ projectDir }\\${ job?.Name }`;
+            yield createDirectoryAsync( jobDir );
+            yield downloadJobTrussFileAsync( `${ jobDir }\\${ job?.Name }.tr3`, job?.Id, token as string );
+        }
+    }
 
     yield put( createBackup.success( response ) );
 
 }
-
-const createBackupFS = async ( projects: BackupProject[], directory: string, token: string ) => {
-    if ( !directory ) return;
-
-    await removeOldBackupAsync( directory );
-    const backup = "\\Backup\\";
-
-    for ( const project of projects ) {
-        const projectDir = `${ directory }${ backup }${ project?.CreatedAt?.substring( 0, 4 ) }\\${ project?.Name }`;
-        await createDirectoryAsync( projectDir );
-        await downloadProjectFilesAsync( `${ projectDir }\\Files`, project?.Id, token );
-
-        for ( const job of project.Jobs ) {
-            const jobDir = `${ projectDir }\\${ job?.Name }`;
-            await createDirectoryAsync( jobDir );
-            await downloadJobTrussFileAsync( `${ jobDir }\\${ job?.Name }.tr3`, job?.Id, token );
-        }
-    }
-};
 
 const downloadProjectFilesAsync = async ( directory: string, id: string, token: string ) => {
     if ( !directory ) return;
