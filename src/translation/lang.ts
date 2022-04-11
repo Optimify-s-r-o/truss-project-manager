@@ -691,6 +691,8 @@ export type Lang = Readonly<{
 		controlInformation: string;
 		copy: string;
 		clipboard: string;
+		jobClipboardSuccess: string;
+		jobClipboard: string;
 		copyTo: string;
 		count: string;
 		countSum: string;

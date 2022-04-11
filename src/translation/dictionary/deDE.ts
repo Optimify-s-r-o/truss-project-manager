@@ -381,6 +381,8 @@ const dictionary: Lang = {
 		trussPlacementCount: "Tragen Zahl",
 		ok: "Ok",
 		permanentRemove: "Dauerhaft entfernen",
+		jobClipboardSuccess: 'Link zum Herunterladen der Datei kopiert. Der Link ist eine Woche lang gültig.',
+		jobClipboard: 'Truss Link zum Teilen kopieren',
 		asc: "Aufsteigend",
 		desc: "Absteigend",
 		assessment: "Bewertung",

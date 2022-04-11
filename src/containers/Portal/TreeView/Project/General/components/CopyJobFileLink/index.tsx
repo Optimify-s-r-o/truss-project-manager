@@ -2,6 +2,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faCopy } from '@fortawesome/pro-duotone-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { Icon } from 'src/components/Icon';
 import { IconButton } from 'src/components/Optimify/Button';
@@ -40,7 +41,7 @@ const Index: FC<WithTranslation & OwnProps> = ({
 	downloadJob,
 	token
 }) => {
-	
+	const { t } = useTranslation();
 	const { addToast } = useToasts();
 
     const handleCopy = async () => {
@@ -55,7 +56,7 @@ const Index: FC<WithTranslation & OwnProps> = ({
 		const data: any = await response.json();
 	
 		if ( !response?.ok || !data?.Url ) return;
-			addToast(  "message"  )
+			addToast(  t(translationPath(lang.common.jobClipboardSuccess).path)  )
 			const { clipboard } = window.require("electron");
 			clipboard.writeText(data?.Url, "selection");
 		
@@ -70,7 +71,7 @@ const Index: FC<WithTranslation & OwnProps> = ({
 				</ContentRow>
 			) : (
 				<Tooltip
-								title={t(translationPath(lang.common.clipboard))}
+								title={t(translationPath(lang.common.jobClipboard).path)}
 								placement={"bottom"}
 							>
 								<IconButton

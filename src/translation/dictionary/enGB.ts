@@ -386,6 +386,8 @@ const dictionary: Lang = {
 		assessment: "Assessment",
 		downloadingJob: "The job is being downloaded.",
 		jobDownloaded: "The job was successfully downloaded.",
+		jobClipboardSuccess: 'Truss file download link copied to clipboard. Link is valid for one week period.',
+		jobClipboard: 'Copy Truss file download link',
 		duplicating: "The job is being duplicated.",
 		copyingJob: "The job is being copied.",
 		jobCopied: "The job was sccessfully copied.",

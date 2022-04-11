@@ -383,6 +383,8 @@ const dictionary: Lang = {
 		trussCountForProduction: "Počet pro výrobu",
 		trussPlacementCount: "Počet umístění",
 		ok: "Ok",
+		jobClipboardSuccess: 'Odkaz pro stažení souboru zkopírován. Odkaz bude platný po dobu jednoho týdne.',
+		jobClipboard: 'Kopírovat odkaz Truss souboru pro sdílení',
 		storageUsed: "Využité místo (včetně koše) (GB)",
 		permanentRemove: "Trvale odebrat",
 		asc: "Řadit vzestupně",

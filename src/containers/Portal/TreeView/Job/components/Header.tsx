@@ -77,6 +77,7 @@ export const Header = ({
 						leavingGuard={leavingGuard}
 						token={token}
 					/>
+					&nbsp;
 					<EditJob
 						openTruss={editTruss}
 						id={job?.Id}
