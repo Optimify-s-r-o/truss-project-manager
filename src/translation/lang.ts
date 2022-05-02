@@ -545,6 +545,8 @@ export type Lang = Readonly<{
     BadCustomerType: string;
     CrnAlreadyExists: string;
     MissingSurname: string;
+    jobClipboardSuccess: string;
+    jobClipboard: string;
     CrnNotFound: string;
     LocalOnlyOperation: string;
     EmptyOrWhitespaceQuery: string;

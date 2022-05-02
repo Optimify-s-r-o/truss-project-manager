@@ -380,6 +380,8 @@ const dictionary: Lang = {
     trussCountForProduction: 'Tragen Produktion Zahl',
     trussPlacementCount: 'Tragen Zahl',
     ok: 'Ok',
+    jobClipboardSuccess: "Link in die Zwischenablage kopiert. Der Link ist 7 Tage lang gültig.",
+    jobClipboard: "Holen Sie sich den Link zum Herunterladen der Datei",
     permanentRemove: 'Dauerhaft entfernen',
     asc: 'Aufsteigend',
     desc: 'Absteigend',

@@ -379,6 +379,8 @@ const dictionary: Lang = {
     trussCountForProduction: 'Truss count for production',
     trussPlacementCount: 'Truss count',
     ok: 'Ok',
+    jobClipboardSuccess: "Link copied to clipboard. The link is valid for 7 days.",
+    jobClipboard: "Get the link to download Truss file",
     permanentRemove: 'Permanently Remove',
     storageUsed: 'Storage used (bin included) (GB)',
     asc: 'Ascending',
