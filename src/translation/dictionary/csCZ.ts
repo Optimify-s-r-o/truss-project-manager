@@ -384,7 +384,7 @@ const dictionary: Lang = {
     trussCountForProduction: 'Počet pro výrobu',
     trussPlacementCount: 'Počet umístění',
     ok: 'Ok',
-    jobClipboardSuccess: "Odkaz zkopírován do schránky. Platnost odkazu 7 dní.",
+    jobClipboardSuccess: "Odkaz zkopírován do schránky. Platnost odkazu je 7 dní.",
     jobClipboard: "Získat odkaz pro stažení souboru",
     storageUsed: 'Využité místo (včetně koše) (GB)',
     permanentRemove: 'Trvale odebrat',
