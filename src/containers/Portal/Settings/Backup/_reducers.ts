@@ -1,6 +1,7 @@
-import {backupType, createBackup, setBackupDownloadingText} from './_actions';
 import { getType } from 'typesafe-actions';
-import {BackupRequestStateType} from "./_types";
+
+import { backupType, createBackup, setBackupDownloadingText } from './_actions';
+import { BackupRequestStateType } from './_types';
 
 const initialState: BackupRequestStateType = {
   error: null,
@@ -25,13 +26,15 @@ export default (
       return {
         ...initialState,
         list: action.payload,
-        pending: false
+        pending: false,
+        status: 1
       };
     case getType(createBackup.failure):
       return {
         ...initialState,
         error: action.payload?.ErrorMessage,
-        pending: false
+        pending: false,
+        status: 2
       };
       case getType(setBackupDownloadingText):
       return {

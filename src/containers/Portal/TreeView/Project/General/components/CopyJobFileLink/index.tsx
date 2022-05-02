@@ -56,7 +56,9 @@ const Index: FC<WithTranslation & OwnProps> = ({
 		const data: any = await response.json();
 	
 		if ( !response?.ok || !data?.Url ) return;
-			addToast(  t(translationPath(lang.common.jobClipboardSuccess).path)  )
+		addToast( t( translationPath( lang.common.jobClipboardSuccess ).path ), {
+				autoDismiss: true
+			}  )
 			const { clipboard } = window.require("electron");
 			clipboard.writeText(data?.Url, "selection");
 		

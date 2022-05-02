@@ -1175,6 +1175,9 @@ const dictionary: Lang = {
     title: 'Vollständige Dateisicherung',
     successMessage: 'Die Sicherung wurde erfolgreich heruntergeladen.',
     errorMessage: 'Die Sicherung konnte nicht erstellt werden.',
+    newDownload: "Sicherung wiederholen",
+    backupSuccess: "Sicherung war erfolgreich",
+    backupFailed: "Vorherige Sicherung fehlgeschlagen. Bitte stellen Sie die Verbindung zum Internet wieder her und wiederholen Sie den Vorgang in einem Moment."
   },
 };
 

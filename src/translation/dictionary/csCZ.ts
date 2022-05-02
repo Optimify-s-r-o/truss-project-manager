@@ -1141,6 +1141,9 @@ const dictionary: Lang = {
     title: 'Kompletní záloha souborů',
     successMessage: 'Záloha byla uspěšně stažena.',
     errorMessage: 'Zálohu nebylo možné vytvořit.',
+    newDownload: "Opakovat zálohování",
+    backupSuccess: "Předchozí záloha proběhla úspěšně",
+    backupFailed: "Předchozí záloha selhala. Zkontrolujte připojení k internetu a operaci opakujte za chvíli."
   },
 };
 

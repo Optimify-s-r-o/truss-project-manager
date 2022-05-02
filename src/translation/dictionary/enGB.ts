@@ -1147,6 +1147,9 @@ const dictionary: Lang = {
     title: 'Complete file backup',
     successMessage: 'The backup was successfully downloaded.',
     errorMessage: 'Backup could not be created.',
+    newDownload: "Repeat backup",
+    backupSuccess: "Backup was successful",
+    backupFailed: "Previous backup failed. Check your internet connection and repeat the operation in a moment."
   },
 };
 

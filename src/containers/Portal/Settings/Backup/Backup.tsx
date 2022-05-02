@@ -3,14 +3,11 @@ import { Button, Space, Spin } from 'antd';
 import isElectron from 'is-electron';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useToasts } from 'react-toast-notifications';
 import styled from 'styled-components';
 
 import { Box } from '../../../../components/Box';
-import {
-  ContentRow,
-  GridItem,
-  GridRow,
-} from '../../../../constants/globalStyles';
+import { ContentRow, GridItem, GridRow } from '../../../../constants/globalStyles';
 import logo from '../../../../img/icon.png';
 import { Column } from '../../../../styles/global';
 import { lang } from '../../../../translation/i18n';
@@ -31,7 +28,8 @@ export const Backup = ({
   downloadingText: string;
 }) => {
   const { t } = useTranslation();
-  const [trussPath, setTrussPath] = React.useState(null);
+  const [trussPath, setTrussPath] = React.useState( null );
+  const { addToast } = useToasts();
 
   React.useEffect(() => {
     if (isElectron()) {
@@ -44,6 +42,18 @@ export const Backup = ({
     }
   }, []);
 
+  React.useEffect( () => {
+    if ( status === 1 ) {
+      addToast( t( translationPath( lang.backup.successMessage ).path ), {
+        appearance: 'success'
+      });
+    } else if ( status === 2 ) {
+      addToast(t(translationPath(lang.backup.backupFailed).path), {
+        appearance: 'error'
+      });
+    }
+  }, [status])
+
   return (
     <GridRow columns={1}>
       <GridItem fill>
@@ -51,12 +61,7 @@ export const Backup = ({
           <AlertBox>
             <Logo src={logo} />
             {true && (
-              <>
-                {status === 100 && (
-                  <Info>{t(translationPath(lang.backup.downloaded).path)}</Info>
-                )}
-
-                <Message>
+              <><Message>
                   {t(translationPath(lang.backup.description).path)}
                   {trussPath + '\\Backup'}.
                 </Message>
@@ -79,10 +84,24 @@ export const Backup = ({
                   icon={<CloudDownloadOutlined />}
                   onClick={() => createBackup({ directory: trussPath })}
                 >
-                  {t(translationPath(lang.backup.download).path)}
+                  {status == 0 ? t(translationPath(lang.backup.download).path) : t(translationPath(lang.backup.newDownload).path)}
                 </SButton>
               </Space>
             )}
+            {
+              status === 1 && (
+                <><Message>
+                    {t(translationPath(lang.backup.backupSuccess).path)}
+                  </Message>
+                </>
+              )}
+            {
+              status === 2 && (
+                <><Message>
+                    {t(translationPath(lang.backup.backupFailed).path)}
+                  </Message>
+                </>
+              )}
           </AlertBox>
         </Box>
       </GridItem>
