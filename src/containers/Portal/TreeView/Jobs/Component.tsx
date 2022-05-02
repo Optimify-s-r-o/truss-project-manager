@@ -1,56 +1,40 @@
-import * as React from 'react';
-import Data from '../../../../components/Data/Data';
-import Export from '../../../../components/Export';
-import Loading from '../../../../components/Optimify/Loading';
-import { ApiURL } from '../../../../constants/api';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faHomeLgAlt } from '@fortawesome/pro-light-svg-icons';
-import { fixed } from '../../../../utils/formating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { get } from 'lodash';
-import { getSelectedJobs } from './_actions';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { JobRootObject, JobsProxy } from '../../../../types/_types';
-import { JobsSelectedRequest } from '../Job/_types';
+import * as React from 'react';
+import { useEffect } from 'react';
+import { RouteComponentProps, useParams } from 'react-router-dom';
+
+import Data from '../../../../components/Data/Data';
+import { UnitType } from '../../../../components/Data/Unit';
+import Export from '../../../../components/Export';
+import Loading from '../../../../components/Optimify/Loading';
+import { ScrollableTable, TABLE_STYLE_CONDENSED } from '../../../../components/Optimify/Table';
+import { ApiURL } from '../../../../constants/api';
 import { Method } from '../../../../constants/enum';
 import {
-	Plank,
-	PlankProxy,
-	Plate,
-	PlateProxy
-	} from '../Truss/_types';
-import { RouteComponentProps, useParams } from 'react-router-dom';
+    CardEndTableWrapper,
+    ContentCard,
+    ContentRow,
+    ContentSpaceBetween,
+    GridItem,
+    GridRow,
+    Header2,
+    Main,
+    PageHeader,
+    PageTitle,
+    TitleName,
+    TitleSection,
+} from '../../../../constants/globalStyles';
+import { lang, t, WithTranslation, withTranslation } from '../../../../translation/i18n';
+import { JobRootObject, JobsProxy } from '../../../../types/_types';
+import { fixed } from '../../../../utils/formating';
+import { getPath, lastPathMember, translationPath } from '../../../../utils/getPath';
 import { TableTitle } from '../../_styles';
-import { UnitType } from '../../../../components/Data/Unit';
-import { useEffect } from 'react';
-import {
-	ScrollableTable,
-	TABLE_STYLE_CONDENSED,
-} from "../../../../components/Optimify/Table";
-import {
-	CardEndTableWrapper,
-	ContentCard,
-	ContentRow,
-	ContentSpaceBetween,
-	GridItem,
-	GridRow,
-	Header2,
-	Main,
-	PageHeader,
-	PageTitle,
-	TitleName,
-	TitleSection,
-} from "../../../../constants/globalStyles";
-import {
-	lang,
-	t,
-	WithTranslation,
-	withTranslation,
-} from "../../../../translation/i18n";
-import {
-	getPath,
-	lastPathMember,
-	translationPath,
-} from "../../../../utils/getPath";
+import { JobsSelectedRequest } from '../Job/_types';
+import { Plank, PlankProxy, Plate, PlateProxy } from '../Truss/_types';
+import { getSelectedJobs } from './_actions';
 
 export interface StateProps {
 	routerState: any;
@@ -325,7 +309,7 @@ const Index = (
 										},
 										{
 											label: t(translationPath(lang.common.count)),
-											valueName: lastPathMember(PlateProxy.CountSum).path,
+											valueName: lastPathMember(PlateProxy.Count).path,
 										},
 									]}
 								/>
