@@ -1,4 +1,4 @@
-name: Stagin CI
+name: Staging CI
 on:
   push:
     branches: [ staging ]
