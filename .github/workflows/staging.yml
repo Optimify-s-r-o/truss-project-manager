@@ -1,0 +1,50 @@
+name: Staging CI
+on:
+  push:
+    branches: [ staging ]
+  pull_request:
+    branches: [ staging ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Update package.json productName
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: package.json
+          field: productName
+          value: Truss Project Manager Dev
+
+      - name: Update package.json description
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: package.json
+          field: description
+          value: Truss Project Manager Dev
+
+      - name: Update package.json appId
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: package.json
+          field: build.appId
+          value: org.common.tpmdev
+
+      - name: Build Electron release
+        run: npm run release:dev
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          CSC_LINK: ${{ secrets.CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
